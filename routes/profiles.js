@@ -151,3 +151,15 @@ function buildProfileUrl(req, username) {
 }
 
 module.exports = router;
+router.get("/test-create", async (req, res) => {
+  const id = "test123";
+
+  await saveToDB("profiles", id, {
+    id,
+    name: "Test User",
+    phone: "9999999999",
+    mode: "normal"
+  });
+
+  res.json({ message: "Test profile created", id });
+});
