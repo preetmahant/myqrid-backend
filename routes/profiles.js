@@ -1,37 +1,68 @@
 const express = require("express");
 const router = express.Router();
 
+const { customAlphabet } = require("nanoid");
 const { saveToDB, getFromDB } = require("../lib/db");
 
-// ✅ TEST CREATE
-router.get("/test-create", async (req, res) => {
-  const id = "test123";
+const PROFILES = "profiles";
 
-  await saveToDB("profiles", id, {
-    id,
-    username: "test",
-    display_name: "Test User",
-    phone: "9999999999"
-  });
+// 🔥 generators
+const idGen = customAlphabet("ABCDEFGHJKLMNPQRSTUVWXYZ23456789", 8);
+const claimGen = customAlphabet("0123456789", 6);
 
-  await saveToDB("profiles_by_username", "test", {
-    unique_slug: id
-  });
+// 🔥 CREATE TEST (FIRST)
+router.get("/create-test", async (req, res) => {
+  try {
+    const username = "preetmahant";
 
-  res.json({ message: "Test created" });
+    const unique_code = idGen();
+    const claim_code = claimGen();
+
+    const profile = {
+      username,
+      unique_code,
+      claim_code,
+      display_name: "Preet Mahant",
+      phone: "9911684150",
+      created_at: new Date().toISOString()
+    };
+
+    await saveToDB(PROFILES, unique_code, profile);
+
+    await saveToDB("profiles_by_username", username, {
+      unique_code
+    });
+
+    res.json({
+      message: "Profile created",
+      username,
+      unique_code,
+      claim_code
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-// ✅ GET PROFILE
+// 🔥 GET PROFILE (ALWAYS LAST)
 router.get("/:username", async (req, res) => {
-  const username = req.params.username;
+  try {
+    const username = req.params.username;
 
-  const mapping = await getFromDB("profiles_by_username", username);
-  if (!mapping) return res.json({ error: "Profile not found" });
+    const mapping = await getFromDB("profiles_by_username", username);
+    if (!mapping) return res.json({ error: "Profile not found" });
 
-  const profile = await getFromDB("profiles", mapping.unique_slug);
-  if (!profile) return res.json({ error: "Profile not found" });
+    const profile = await getFromDB(PROFILES, mapping.unique_code);
+    if (!profile) return res.json({ error: "Profile not found" });
 
-  res.json(profile);
+    const { claim_code, ...publicData } = profile;
+
+    res.json(publicData);
+
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 module.exports = router;
