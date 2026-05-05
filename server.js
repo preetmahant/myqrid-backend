@@ -29,7 +29,44 @@ const users = {
 };
 
 /* -------------------------------
-   CREATE USER (AUTO USERNAME)
+   CHECK USERNAME + SUGGESTIONS
+-------------------------------- */
+app.get("/check-username", (req, res) => {
+  const username = req.query.username;
+
+  if (!username) {
+    return res.json({ error: "Username required" });
+  }
+
+  const clean = username.toLowerCase();
+
+  // ✅ available
+  if (!users[clean]) {
+    return res.json({
+      available: true,
+      suggestions: []
+    });
+  }
+
+  // ❌ taken → suggestions
+  let suggestions = [
+    "the" + clean,
+    "my" + clean,
+    clean + "official",
+    clean + "live",
+    clean + Math.floor(Math.random() * 1000)
+  ];
+
+  suggestions = suggestions.filter(s => !users[s]);
+
+  res.json({
+    available: false,
+    suggestions: suggestions.slice(0, 5)
+  });
+});
+
+/* -------------------------------
+   CREATE USER (STRICT - NO AUTO)
 -------------------------------- */
 app.get("/create-user", (req, res) => {
   const username = req.query.username;
@@ -41,21 +78,16 @@ app.get("/create-user", (req, res) => {
 
   const cleanUsername = username.toLowerCase();
 
-  let finalUsername = cleanUsername;
-
-  // 🔥 AUTO GENERATE USERNAME
-  if (users[finalUsername]) {
-    let count = 1;
-
-    while (users[finalUsername]) {
-      finalUsername = cleanUsername + count;
-      count++;
-    }
+  // ❌ अगर already है
+  if (users[cleanUsername]) {
+    return res.json({
+      error: "Username already taken"
+    });
   }
 
-  // ✅ create new user
-  users[finalUsername] = {
-    username: finalUsername,
+  // ✅ create
+  users[cleanUsername] = {
+    username: cleanUsername,
     display_name: display_name || "New User",
     phone: "",
     bio: "New profile"
@@ -63,12 +95,12 @@ app.get("/create-user", (req, res) => {
 
   res.json({
     success: true,
-    user: users[finalUsername]
+    user: users[cleanUsername]
   });
 });
 
 /* -------------------------------
-   DYNAMIC USER ROUTE (IMPORTANT: LAST)
+   DYNAMIC USER ROUTE (LAST)
 -------------------------------- */
 app.get("/:username", (req, res) => {
   const username = req.params.username.toLowerCase();
