@@ -1,28 +1,22 @@
-app.get("/:username", async (req, res) => {
+router.get("/:username", (req, res) => {
   try {
-    const username = req.params.username.toLowerCase();
+    const username = req.params.username;
 
-    const mapping = await getFromDB("profiles_by_username", username);
-
-    if (!mapping) {
-      return res.json({ error: "Profile not found" });
+    // 🔥 TEMP STATIC DATA (for testing)
+    if (username === "preetmahant") {
+      return res.json({
+        username: "preetmahant",
+        display_name: "Preet Mahant",
+        phone: "9911684150",
+        bio: "Digital Identity | myQRID",
+        avatar: "",
+        links: [],
+        items: [],
+        products: []
+      });
     }
 
-    const profile = await getFromDB("profiles", mapping.unique_code);
-
-    if (!profile) {
-      return res.json({ error: "Profile not found" });
-    }
-
-    // 🔥 analytics (view count)
-    if (!profile.views) profile.views = 0;
-    profile.views += 1;
-
-    await saveToDB("profiles", mapping.unique_code, profile);
-
-    const { claim_code, ...publicData } = profile;
-
-    res.json(publicData);
+    return res.json({ error: "Profile not found" });
 
   } catch (err) {
     res.status(500).json({ error: "Server error" });
