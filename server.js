@@ -29,7 +29,7 @@ const users = {
 };
 
 /* -------------------------------
-   CREATE USER (GET for easy testing)
+   CREATE USER (AUTO USERNAME)
 -------------------------------- */
 app.get("/create-user", (req, res) => {
   const username = req.query.username;
@@ -41,14 +41,21 @@ app.get("/create-user", (req, res) => {
 
   const cleanUsername = username.toLowerCase();
 
-  // 🔒 check unique
-  if (users[cleanUsername]) {
-    return res.json({ error: "Username already exists" });
+  let finalUsername = cleanUsername;
+
+  // 🔥 AUTO GENERATE USERNAME
+  if (users[finalUsername]) {
+    let count = 1;
+
+    while (users[finalUsername]) {
+      finalUsername = cleanUsername + count;
+      count++;
+    }
   }
 
   // ✅ create new user
-  users[cleanUsername] = {
-    username: cleanUsername,
+  users[finalUsername] = {
+    username: finalUsername,
     display_name: display_name || "New User",
     phone: "",
     bio: "New profile"
@@ -56,7 +63,7 @@ app.get("/create-user", (req, res) => {
 
   res.json({
     success: true,
-    user: users[cleanUsername]
+    user: users[finalUsername]
   });
 });
 
