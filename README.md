@@ -1,8 +1,8 @@
 diff --git a/README.md b/README.md
-index afcd5f42a3520abcd0dbc7449515f313e1bf04fd..cc76e07d1e5f6b36b9f468fdbb6d59436dde1d62 100644
+index afcd5f42a3520abcd0dbc7449515f313e1bf04fd..4d8512e06958690033389dc064e81ad7d99f8aed 100644
 --- a/README.md
 +++ b/README.md
-@@ -1,2 +1,44 @@
+@@ -1,2 +1,85 @@
  # myqrid-backend
 -myQRID backend - QR based identity, lead capture &amp; lost &amp; found system (Node.js + Express + Firebase)
 +
@@ -48,3 +48,44 @@ index afcd5f42a3520abcd0dbc7449515f313e1bf04fd..cc76e07d1e5f6b36b9f468fdbb6d5943
 +```
 +
 +5. Commit and push again. Render should redeploy from the clean JavaScript file.
++
++## Render `package.json` JSON parse failure
++
++If Render logs show this error:
++
++```txt
++npm error JSON.parse Invalid package.json
++Unexpected token "d" ... "diff --git" ... is not valid JSON
++```
++
++then a GitHub diff/patch was pasted into `package.json`. Unlike JavaScript files, `package.json` must be pure JSON only. It cannot contain comments, `diff --git`, `@@`, `---`, `+++`, or any pasted PR diff text.
++
++Use this clean `package.json`:
++
++```json
++{
++  "name": "myqrid-backend",
++  "version": "1.0.0",
++  "description": "myQRID backend - QR based identity, lead capture & lost & found system",
++  "main": "server.js",
++  "scripts": {
++    "start": "node server.js",
++    "dev": "node --watch server.js",
++    "check": "node --check server.js && node --check public/app.js"
++  },
++  "dependencies": {
++    "cors": "^2.8.5",
++    "express": "^4.19.2",
++    "qrcode": "^1.5.3",
++    "nanoid": "^3.3.7",
++    "firebase-admin": "^11.10.1"
++  }
++}
++```
++
++After replacing `package.json`, run this locally before pushing:
++
++```bash
++node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package ok')"
++npm run check
++```
