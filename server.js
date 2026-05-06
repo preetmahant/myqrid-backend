@@ -8,6 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 /* -------------------------------
+   FRONTEND PUBLIC FOLDER
+-------------------------------- */
+app.use(express.static("public"));
+
+/* -------------------------------
    FIREBASE INIT
 -------------------------------- */
 admin.initializeApp({
@@ -16,8 +21,7 @@ admin.initializeApp({
 
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
 
-    // 🔥 PRIVATE KEY WILL COME FROM RENDER ENV
-    // Render → Environment → FIREBASE_PRIVATE_KEY
+    // 🔥 PRIVATE KEY FROM RENDER ENV
     privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
   })
 });
@@ -35,6 +39,7 @@ app.get("/", (req, res) => {
    CHECK USERNAME + SUGGESTIONS
 -------------------------------- */
 app.get("/check-username", async (req, res) => {
+
   try {
 
     const username = req.query.username;
@@ -51,10 +56,12 @@ app.get("/check-username", async (req, res) => {
 
     // ✅ available
     if (!doc.exists) {
+
       return res.json({
         available: true,
         suggestions: []
       });
+
     }
 
     // ❌ taken
@@ -80,6 +87,7 @@ app.get("/check-username", async (req, res) => {
     });
 
   }
+
 });
 
 /* -------------------------------
@@ -93,9 +101,11 @@ app.get("/create-user", async (req, res) => {
     const display_name = req.query.display_name;
 
     if (!username) {
+
       return res.json({
         error: "Username required"
       });
+
     }
 
     const cleanUsername = username.toLowerCase();
@@ -126,10 +136,10 @@ app.get("/create-user", async (req, res) => {
       username: cleanUsername,
       display_name: display_name || "New User",
 
-      // permanent internal identity
+      // permanent identity
       unique_slug: unique_slug,
 
-      // editable
+      // editable fields
       phone: "",
       bio: "New profile",
 
@@ -152,7 +162,8 @@ app.get("/create-user", async (req, res) => {
         total_clicks: 0,
         last_seen: null,
         is_online: false,
-        profile_opens: []
+        profile_opens: [],
+        link_clicks: {}
       },
 
       // timestamps
@@ -178,7 +189,7 @@ app.get("/create-user", async (req, res) => {
 });
 
 /* -------------------------------
-   CHANGE USERNAME (30 DAYS RULE)
+   CHANGE USERNAME
 -------------------------------- */
 app.get("/change-username", async (req, res) => {
 
@@ -218,7 +229,7 @@ app.get("/change-username", async (req, res) => {
     const diffDays =
       (now - lastChanged) / (1000 * 60 * 60 * 24);
 
-    // 🔒 30 day rule
+    // 🔒 30 days rule
     if (lastChanged !== 0 && diffDays < 30) {
 
       return res.json({
@@ -243,18 +254,18 @@ app.get("/change-username", async (req, res) => {
 
     }
 
-    // save history
+    // save old username
     oldUser.old_usernames.push(oldUser.username);
 
-    // update username
+    // update
     oldUser.username = cleanNew;
 
     oldUser.username_last_changed = now;
 
-    // save new
+    // create new doc
     await newRef.set(oldUser);
 
-    // delete old
+    // delete old doc
     await oldRef.delete();
 
     return res.json({
@@ -273,7 +284,7 @@ app.get("/change-username", async (req, res) => {
 });
 
 /* -------------------------------
-   TRACK LINK CLICK
+   TRACK BUTTON CLICK
 -------------------------------- */
 app.get("/track-click", async (req, res) => {
 
@@ -305,7 +316,7 @@ app.get("/track-click", async (req, res) => {
 
     const user = doc.data();
 
-    // analytics init
+    // init
     if (!user.analytics.link_clicks) {
       user.analytics.link_clicks = {};
     }
@@ -361,7 +372,7 @@ app.get("/:username", async (req, res) => {
 
     const user = doc.data();
 
-    // 🔥 analytics
+    // analytics update
     user.analytics.total_views += 1;
 
     user.analytics.last_seen =
