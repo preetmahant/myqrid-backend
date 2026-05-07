@@ -1,8 +1,8 @@
 diff --git a/README.md b/README.md
-index afcd5f42a3520abcd0dbc7449515f313e1bf04fd..4d8512e06958690033389dc064e81ad7d99f8aed 100644
+index afcd5f42a3520abcd0dbc7449515f313e1bf04fd..108b14501d90c9a38aba30ed7f9e59876734495f 100644
 --- a/README.md
 +++ b/README.md
-@@ -1,2 +1,85 @@
+@@ -1,2 +1,104 @@
  # myqrid-backend
 -myQRID backend - QR based identity, lead capture &amp; lost &amp; found system (Node.js + Express + Firebase)
 +
@@ -89,3 +89,22 @@ index afcd5f42a3520abcd0dbc7449515f313e1bf04fd..4d8512e06958690033389dc064e81ad7
 +node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package ok')"
 +npm run check
 +```
++
++## Render deploy starts then exits early
++
++If Render shows build success and then:
++
++```txt
++Running 'node server.js'
++Application exited early
++```
++
++check `/health` after the next deploy. The server now stays alive even when Firebase Admin cannot initialize and reports the Firebase error in `/health` as `firebase_error`. Most commonly this means `FIREBASE_PRIVATE_KEY` was pasted in the wrong format on Render.
++
++For Render, keep the private key as one environment value with escaped newlines:
++
++```txt
++-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n
++```
++
++Do not paste Git diffs into any source file, and do not wrap the private key in extra quotes unless Render added them automatically.
