@@ -17,10 +17,27 @@ function getUsername() {
   return cleanPath.split("/")[0];
 }
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function safeIconClass(icon) {
+  const cleanIcon = String(icon || "fas fa-link").trim();
+  return /^[a-z0-9 _-]+$/i.test(cleanIcon) ? cleanIcon : "fas fa-link";
+}
+
 function safeUrl(url) {
-  if (!url) return "#";
-  if (url.startsWith("http") || url.startsWith("mailto:") || url.startsWith("tel:")) return url;
-  return `https://${url}`;
+  const cleanUrl = String(url || "").trim();
+  if (!cleanUrl) return "#";
+  if (cleanUrl.startsWith("/")) return cleanUrl;
+  if (/^(https?:|mailto:|tel:)/i.test(cleanUrl)) return cleanUrl;
+  if (/^(javascript:|data:|vbscript:)/i.test(cleanUrl)) return "#";
+  return `https://${cleanUrl}`;
 }
 
 function normalizePhone(phone) {
@@ -56,7 +73,12 @@ function renderProfile(data) {
   document.getElementById("name").textContent = displayName;
   document.getElementById("bio").textContent = bio;
   document.getElementById("avatar").src = avatar;
-  document.getElementById("topProfile").innerHTML = `<img src="${avatar}" alt="${displayName}">`;
+  const topProfile = document.getElementById("topProfile");
+  topProfile.textContent = "";
+  const topProfileImage = document.createElement("img");
+  topProfileImage.src = avatar;
+  topProfileImage.alt = displayName;
+  topProfile.appendChild(topProfileImage);
   document.getElementById("usernamePill").textContent = `@${username}`;
   document.getElementById("slugPill").textContent = slug;
   document.getElementById("identityBadge").textContent = getCategoryLabel(slug);
@@ -135,13 +157,18 @@ function renderLinks(data, phone) {
     );
   }
 
-  document.getElementById("links").innerHTML = links.map(link => `
-    <a class="smart-link ${link.cls || ""}" href="${link.url}" target="${link.url.startsWith("/") || link.url.startsWith("tel:") || link.url.startsWith("mailto:") ? "_self" : "_blank"}" rel="noreferrer" data-track="${link.track}">
-      <i class="${link.icon}"></i>
-      <span><strong>${link.title}</strong><small>${link.subtitle || "Open"}</small></span>
-      <span class="arrow"><i class="fas fa-chevron-right"></i></span>
-    </a>
-  `).join("");
+  document.getElementById("links").innerHTML = links.map(link => {
+    const url = safeUrl(link.url);
+    const sameWindow = url.startsWith("/") || url.startsWith("tel:") || url.startsWith("mailto:");
+
+    return `
+      <a class="smart-link ${escapeHtml(link.cls || "")}" href="${escapeHtml(url)}" target="${sameWindow ? "_self" : "_blank"}" rel="noreferrer" data-track="${escapeHtml(link.track)}">
+        <i class="${safeIconClass(link.icon)}"></i>
+        <span><strong>${escapeHtml(link.title)}</strong><small>${escapeHtml(link.subtitle || "Open")}</small></span>
+        <span class="arrow"><i class="fas fa-chevron-right"></i></span>
+      </a>
+    `;
+  }).join("");
 
   document.querySelectorAll("[data-track]").forEach(el => {
     el.addEventListener("click", () => trackClick(el.dataset.track));
@@ -149,17 +176,22 @@ function renderLinks(data, phone) {
 }
 
 function renderProducts(products) {
-  const normalized = products.length ? products : fallbackProducts;
-  document.getElementById("products").innerHTML = normalized.slice(0, 6).map((product, index) => `
-    <article class="product-card">
-      <div class="product-art">${product.emoji || ["🏷️", "💼", "🛡️", "🐾"][index % 4]}</div>
-      <div>
-        <h3>${product.title || product.name || "Premium myQRID product"}</h3>
-        <p>${product.text || product.description || "Add product details from your creator dashboard."}</p>
-        <a href="${safeUrl(product.url || product.link || "/manage")}" target="${product.url && !String(product.url).startsWith("/") ? "_blank" : "_self"}" rel="noreferrer">View offer →</a>
-      </div>
-    </article>
-  `).join("");
+  const normalized = Array.isArray(products) && products.length ? products : fallbackProducts;
+  document.getElementById("products").innerHTML = normalized.slice(0, 6).map((product, index) => {
+    const productUrl = safeUrl(product.url || product.link || "/manage");
+    const productTarget = productUrl.startsWith("/") ? "_self" : "_blank";
+
+    return `
+      <article class="product-card">
+        <div class="product-art">${escapeHtml(product.emoji || ["🏷️", "💼", "🛡️", "🐾"][index % 4])}</div>
+        <div>
+          <h3>${escapeHtml(product.title || product.name || "Premium myQRID product")}</h3>
+          <p>${escapeHtml(product.text || product.description || "Add product details from your creator dashboard.")}</p>
+          <a href="${escapeHtml(productUrl)}" target="${productTarget}" rel="noreferrer">View offer →</a>
+        </div>
+      </article>
+    `;
+  }).join("");
 }
 
 function renderInsights(analytics) {
@@ -168,7 +200,7 @@ function renderInsights(analytics) {
   document.getElementById("onlineStatus").textContent = analytics.is_online === false ? "Idle" : "Live";
   const opens = Array.isArray(analytics.profile_opens) ? analytics.profile_opens.length : Number(analytics.total_views || 0);
   const bars = [28, 46, 35, 64, 50, 82, Math.max(24, Math.min(100, opens * 12 || 74))];
-  document.getElementById("chartBars").innerHTML = bars.map(height => `<span style="height:${height}%"></span>`).join("");
+  document.getElementById("chartBars").innerHTML = bars.map(height => `<span style="height:${Number(height)}%"></span>`).join("");
 }
 
 function renderQR() {
