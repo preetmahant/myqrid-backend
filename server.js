@@ -1,15 +1,17 @@
+```javascript
 const express = require("express");
 const path = require("path");
 const admin = require("firebase-admin");
 const cors = require("cors");
+const QRCode = require("qrcode");
 
 require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json({ limit: "1mb" }));
+app.use(express.static(path.join(__dirname, "public"), { index: false }));
 
 /* -------------------------------
    FIREBASE INIT
@@ -30,9 +32,7 @@ function normalizePrivateKey(privateKey) {
 }
 
 if (hasFirebaseConfig) {
-
   try {
-
     admin.initializeApp({
       credential: admin.credential.cert({
         projectId: process.env.FIREBASE_PROJECT_ID,
@@ -45,8 +45,8 @@ if (hasFirebaseConfig) {
 
     db = admin.firestore();
 
+    console.log("Firebase connected");
   } catch (err) {
-
     firebaseInitError = err.message;
 
     console.error(
@@ -55,599 +55,207 @@ if (hasFirebaseConfig) {
     );
 
     console.error(
-      "Fix Firebase env vars on Render."
+      "Temporary in-memory fallback is active."
     );
   }
-
 } else {
-
   console.warn(
     "Firebase credentials missing."
   );
 }
 
-function requireDb(res) {
+/* -------------------------------
+   MEMORY FALLBACK
+-------------------------------- */
 
-  if (db) {
-    return true;
-  }
+const memoryStore = {
+  profiles: new Map(),
+  tags: new Map(),
+  events: []
+};
 
-  res.status(503).json({
-    error:
-      "Firebase is not configured on this environment"
-  });
+function storeMode() {
+  return db ? "firebase" : "memory_fallback";
+}
 
-  return false;
+function publicBaseUrl(req) {
+  return (
+    process.env.PUBLIC_BASE_URL ||
+    `${req.protocol}://${req.get("host")}`
+  );
+}
+
+function cleanText(value, fallback = "") {
+  return String(value || fallback)
+    .trim()
+    .slice(0, 500);
 }
 
 function cleanUsername(username) {
   return String(username || "")
     .trim()
     .toLowerCase()
-    .replace(/^@/, "");
+    .replace(/^@/, "")
+    .replace(/[^a-z0-9_]/g, "");
 }
 
-function isValidUsername(username) {
+function cleanUrl(value) {
+  const raw = cleanText(value);
 
-  return /^[a-z0-9_]{3,30}$/.test(username) &&
-    !username.startsWith("_") &&
-    !username.endsWith("_");
-}
-
-function usernameValidationError(username) {
-
-  if (!username) {
-    return "Username required";
+  if (!raw) {
+    return "";
   }
 
-  if (!isValidUsername(username)) {
-
-    return "Username can use only letters, numbers and underscore.";
+  if (/^https?:\/\//i.test(raw)) {
+    return raw;
   }
 
-  return null;
+  return `https://${raw}`;
 }
 
-function buildSuggestionSeeds(username) {
-
-  const currentYear = new Date().getFullYear();
-
-  return [
-    "the" + username,
-    username + "live",
-    username + "_official",
-    username + "_now",
-    "my" + username,
-    username + "hq",
-    username + "online",
-    username + "india",
-    username + currentYear,
-    username + Math.floor(
-      100 + Math.random() * 900
-    )
-  ];
-}
-
-async function getUsernameSuggestions(
-  username,
-  limit = 5
-) {
-
-  const suggestions = [];
-
-  const seen = new Set([username]);
-
-  for (const seed of buildSuggestionSeeds(username)) {
-
-    const suggestion = cleanUsername(seed);
-
-    if (
-      !isValidUsername(suggestion) ||
-      seen.has(suggestion)
-    ) {
-      continue;
-    }
-
-    seen.add(suggestion);
-
-    const doc = await db
-      .collection("users")
-      .doc(suggestion)
-      .get();
-
-    if (!doc.exists) {
-      suggestions.push(suggestion);
-    }
-
-    if (suggestions.length >= limit) {
-      break;
-    }
-  }
-
-  return suggestions;
-}
-
-const TAG_CATEGORIES = {
-  I: "Identity",
-  P: "Pet",
-  A: "Asset",
-  B: "Business",
-  S: "Safety",
-  G: "Group"
-};
-
-function normalizeCategory(category) {
-
-  const cleanCategory = String(category || "I")
+function slugify(value, fallback = "myqrid") {
+  const slug = String(value || fallback)
+    .toLowerCase()
     .trim()
-    .toUpperCase();
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 36);
 
-  return TAG_CATEGORIES[cleanCategory]
-    ? cleanCategory
-    : "I";
+  return slug || fallback;
 }
 
-function formatSerial(serial) {
-
-  return String(serial).padStart(6, "0");
+function normalizeEmail(email) {
+  return cleanText(email).toLowerCase();
 }
 
-function createTagSlug(category, serial) {
-
-  return `${normalizeCategory(category)}-${formatSerial(serial)}`;
+function normalizePhone(phone) {
+  return cleanText(phone)
+    .replace(/[^+\d\s()-]/g, "")
+    .slice(0, 30);
 }
 
-function createClaimCode(serial) {
-
-  return "MQ-" + formatSerial(serial);
+function phoneDigits(phone) {
+  return String(phone || "")
+    .replace(/\D/g, "");
 }
 
-function buildTagData({
-  serial,
-  slug,
-  category,
-  username,
-  accountNo,
-  now,
-  status = "active"
-}) {
-
-  return {
-    serial_no: serial,
-    slug,
-    category,
-    category_name: TAG_CATEGORIES[category],
-    owner_username: username,
-    owner_account_no: accountNo,
-    status,
-    privacy: "public",
-    claim_code: createClaimCode(serial),
-    created_at: now,
-    activated_at: now,
-    total_scans: 0,
-    last_scan_at: null
-  };
+function isValidEmail(email) {
+  return (
+    !email ||
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  );
 }
 
 function createDefaultAnalytics() {
-
   return {
     total_views: 0,
     total_clicks: 0,
-    last_seen: null,
-    is_online: false,
-    profile_opens: [],
-    link_clicks: {}
+    link_clicks: {},
+    created_from: "web_mvp",
+    last_seen: null
   };
 }
 
 function normalizeAnalytics(analytics) {
-
-  const defaults = createDefaultAnalytics();
-
-  const safeAnalytics =
+  const safe =
     analytics && typeof analytics === "object"
       ? analytics
       : {};
 
   return {
-    ...defaults,
-    ...safeAnalytics,
+    ...createDefaultAnalytics(),
+    ...safe,
     total_views: Number(
-      safeAnalytics.total_views || 0
+      safe.total_views || 0
     ),
     total_clicks: Number(
-      safeAnalytics.total_clicks || 0
+      safe.total_clicks || 0
     ),
-    profile_opens: Array.isArray(
-      safeAnalytics.profile_opens
-    )
-      ? safeAnalytics.profile_opens
-      : [],
     link_clicks:
-      safeAnalytics.link_clicks &&
-      typeof safeAnalytics.link_clicks === "object"
-        ? safeAnalytics.link_clicks
+      safe.link_clicks &&
+      typeof safe.link_clicks === "object"
+        ? safe.link_clicks
         : {}
   };
 }
 
-/* -------------------------------
-   ROOT
--------------------------------- */
+function buildVCard(profile) {
+  const phone = cleanText(profile.phone);
 
-app.get("/", (req, res) => {
-
-  res.sendFile(
-    path.join(__dirname, "public", "index.html")
+  const whatsapp = cleanText(
+    profile.whatsapp || profile.phone
   );
-});
+
+  return [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    `FN:${cleanText(
+      profile.name ||
+      profile.username ||
+      "myQRID User"
+    )}`,
+    phone
+      ? `TEL;TYPE=CELL:${phone}`
+      : "",
+    profile.email
+      ? `EMAIL:${cleanText(profile.email)}`
+      : "",
+    profile.profile_url
+      ? `URL:${profile.profile_url}`
+      : "",
+    whatsapp
+      ? `NOTE:WhatsApp ${whatsapp}`
+      : "",
+    "END:VCARD"
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
 
 /* -------------------------------
-   HEALTH
+   ROUTES
 -------------------------------- */
+
+function sendMvp(req, res) {
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "web-mvp.html"
+    )
+  );
+}
+
+app.get(
+  [
+    "/",
+    "/web-mvp",
+    "/admin",
+    "/u/:username",
+    "/t/:slug"
+  ],
+  sendMvp
+);
 
 app.get("/health", (req, res) => {
-
   res.json({
     success: true,
     firebase_configured: Boolean(db),
+    storage: storeMode(),
     firebase_error: firebaseInitError,
     message: db
       ? "Server running with Firebase"
-      : "Server running without Firebase"
+      : "Server running with memory fallback"
   });
 });
 
-/* -------------------------------
-   CHECK USERNAME
--------------------------------- */
-
-app.get("/check-username", async (req, res) => {
-
-  try {
-
-    if (!requireDb(res)) {
-      return;
-    }
-
-    const username = cleanUsername(
-      req.query.username
-    );
-
-    const validationError =
-      usernameValidationError(username);
-
-    if (validationError) {
-
-      return res.json({
-        available: false,
-        error: validationError,
-        suggestions: []
-      });
-    }
-
-    const doc = await db
-      .collection("users")
-      .doc(username)
-      .get();
-
-    if (!doc.exists) {
-
-      return res.json({
-        available: true,
-        suggestions: []
-      });
-    }
-
-    const suggestions =
-      await getUsernameSuggestions(username);
-
-    return res.json({
-      available: false,
-      error: "Username already taken",
-      suggestions
-    });
-
-  } catch (err) {
-
-    return res.status(500).json({
-      error: err.message
-    });
-  }
-});
-
-/* -------------------------------
-   CREATE USER
--------------------------------- */
-
-app.get("/create-user", async (req, res) => {
-
-  try {
-
-    if (!requireDb(res)) {
-      return;
-    }
-
-    const username = cleanUsername(
-      req.query.username
-    );
-
-    const display_name = String(
-      req.query.display_name || ""
-    ).trim();
-
-    const category = normalizeCategory(
-      req.query.category || "I"
-    );
-
-    const validationError =
-      usernameValidationError(username);
-
-    if (validationError) {
-
-      return res.json({
-        error: validationError,
-        suggestions: []
-      });
-    }
-
-    const ref = db
-      .collection("users")
-      .doc(username);
-
-    const existing = await ref.get();
-
-    if (existing.exists) {
-
-      const suggestions =
-        await getUsernameSuggestions(username);
-
-      return res.json({
-        available: false,
-        error: "Username already taken",
-        suggestions
-      });
-    }
-
-    const now = new Date().toISOString();
-
-    const counterRef = db
-      .collection("counters")
-      .doc("global");
-
-    let userData = null;
-    let tagData = null;
-
-    await db.runTransaction(async transaction => {
-
-      const counterDoc =
-        await transaction.get(counterRef);
-
-      const counters = counterDoc.exists
-        ? counterDoc.data()
-        : {};
-
-      const accountNo =
-        Number(counters.last_account_no || 0) + 1;
-
-      const tagSerial =
-        Number(counters.last_tag_serial || 0) + 1;
-
-      const slug = createTagSlug(
-        category,
-        tagSerial
-      );
-
-      const tagRef = db
-        .collection("tags")
-        .doc(slug);
-
-      userData = {
-        account_no: accountNo,
-        username,
-        display_name:
-          display_name || "New User",
-        unique_slug: slug,
-        primary_tag_slug: slug,
-        phone: "",
-        bio: "New profile",
-        avatar: "",
-        whatsapp: "",
-        email: "",
-        instagram: "",
-        x: "",
-        snapchat: "",
-        linkedin: "",
-        youtube: "",
-        website: "",
-        links: [],
-        products: [],
-        status: "active",
-        tag_count: 1,
-        tags: [slug],
-        old_usernames: [],
-        username_last_changed: 0,
-        analytics: createDefaultAnalytics(),
-        created_at: now
-      };
-
-      tagData = buildTagData({
-        serial: tagSerial,
-        slug,
-        category,
-        username,
-        accountNo,
-        now
-      });
-
-      transaction.set(
-        counterRef,
-        {
-          last_account_no: accountNo,
-          last_tag_serial: tagSerial,
-          updated_at: now
-        },
-        { merge: true }
-      );
-
-      transaction.set(ref, userData);
-
-      transaction.set(tagRef, tagData);
-
-    });
-
-    return res.json({
-      success: true,
-      user: userData,
-      tag: tagData
-    });
-
-  } catch (err) {
-
-    return res.status(500).json({
-      error: err.message
-    });
-  }
-});
-
-/* -------------------------------
-   GET PROFILE
--------------------------------- */
-
-app.get("/:username", async (req, res) => {
-
-  try {
-
-    if (!requireDb(res)) {
-      return;
-    }
-
-    const username = cleanUsername(
-      req.params.username
-    );
-
-    if (!username) {
-
-      return res.json({
-        error: "Username required"
-      });
-    }
-
-    const ref = db
-      .collection("users")
-      .doc(username);
-
-    const doc = await ref.get();
-
-    if (!doc.exists) {
-
-      return res.json({
-        error: "Profile not found"
-      });
-    }
-
-    const user = doc.data();
-
-    const analytics = normalizeAnalytics(
-      user.analytics
-    );
-
-    const now = new Date().toISOString();
-
-    analytics.total_views += 1;
-    analytics.last_seen = now;
-    analytics.is_online = true;
-
-    analytics.profile_opens.push({
-      time: now
-    });
-
-    await ref.update({
-      analytics
-    });
-
-    return res.json({
-      ...user,
-      analytics
-    });
-
-  } catch (err) {
-
-    return res.status(500).json({
-      error: err.message
-    });
-  }
-});
-
-/* -------------------------------
-   TRACK CLICK
--------------------------------- */
-
-app.get("/track-click", async (req, res) => {
-
-  try {
-
-    if (!requireDb(res)) {
-      return;
-    }
-
-    const username = cleanUsername(
-      req.query.username
-    );
-
-    const button = String(
-      req.query.button || ""
-    ).trim();
-
-    if (!username || !button) {
-
-      return res.json({
-        error: "username & button required"
-      });
-    }
-
-    const ref = db
-      .collection("users")
-      .doc(username);
-
-    const doc = await ref.get();
-
-    if (!doc.exists) {
-
-      return res.json({
-        error: "User not found"
-      });
-    }
-
-    const user = doc.data();
-
-    const analytics = normalizeAnalytics(
-      user.analytics
-    );
-
-    analytics.link_clicks[button] =
-      Number(
-        analytics.link_clicks[button] || 0
-      ) + 1;
-
-    analytics.total_clicks += 1;
-
-    await ref.update({
-      analytics
-    });
-
-    return res.json({
-      success: true,
-      analytics
-    });
-
-  } catch (err) {
-
-    return res.status(500).json({
-      error: err.message
-    });
-  }
+app.get("/api/status", (req, res) => {
+  res.json({
+    success: true,
+    firebase_configured: Boolean(db),
+    storage: storeMode(),
+    firebase_error: firebaseInitError
+  });
 });
 
 /* -------------------------------
@@ -657,8 +265,8 @@ app.get("/track-click", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-
   console.log(
-    "Server running on port " + PORT
+    `myQRID MVP running on port ${PORT}`
   );
 });
+```

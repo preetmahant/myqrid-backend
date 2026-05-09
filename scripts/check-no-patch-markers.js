@@ -22,7 +22,6 @@ const blocked = [
 ];
 
 function walk(filePath) {
-
   if (!fs.existsSync(filePath)) {
     return [];
   }
@@ -30,12 +29,9 @@ function walk(filePath) {
   const stat = fs.statSync(filePath);
 
   if (stat.isDirectory()) {
-
     return fs
       .readdirSync(filePath)
-      .flatMap(entry =>
-        walk(path.join(filePath, entry))
-      );
+      .flatMap(entry => walk(path.join(filePath, entry)));
   }
 
   return [filePath];
@@ -44,11 +40,9 @@ function walk(filePath) {
 const failures = [];
 
 for (const target of targets) {
-
   const targetPath = path.join(root, target);
 
   for (const filePath of walk(targetPath)) {
-
     const stat = fs.statSync(filePath);
 
     if (!stat.isFile()) {
@@ -58,27 +52,19 @@ for (const target of targets) {
     let text = "";
 
     try {
-
-      text = fs.readFileSync(
-        filePath,
-        "utf8"
-      );
-
+      text = fs.readFileSync(filePath, "utf8");
     } catch {
-
       continue;
     }
 
     const lines = text.split(/\r?\n/);
 
     lines.forEach((line, index) => {
-
       if (
         blocked.some(marker =>
           line.includes(marker)
         )
       ) {
-
         failures.push(
           `${path.relative(root, filePath)}:${index + 1}`
         );
@@ -88,7 +74,6 @@ for (const target of targets) {
 }
 
 if (failures.length) {
-
   console.error(
     "Pasted patch metadata found in deployable files:"
   );
