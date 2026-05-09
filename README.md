@@ -1,25 +1,40 @@
 # myqrid-backend
 
-myQRID backend — QR based identity, lead capture, analytics, inventory, emergency safety and lost & found platform using Node.js, Express and Firebase.
+myQRID backend — QR identity, smart profile, analytics, inventory, emergency safety and lost & found platform using Node.js, Express.js and Firebase Firestore.
 
 ---
 
-# Current backend architecture
+# Current production stack
 
-The current myQRID backend uses:
+| Component         | Service            |
+| ----------------- | ------------------ |
+| Frontend Hosting  | Hostinger          |
+| Backend Hosting   | Render             |
+| Database          | Firebase Firestore |
+| Domain Provider   | GoDaddy            |
+| Backend Runtime   | Node.js            |
+| Backend Framework | Express.js         |
+| Package Manager   | npm                |
 
-* Node.js
-* Express.js
-* Firebase Admin SDK
-* Firestore
-* Render deployment
-* Static frontend serving
-* QR/tag identity system
-* Dynamic profile rendering
-* Analytics tracking
-* Inventory and activation system
+---
 
-The platform currently runs as a Firebase-first architecture optimized for rapid MVP development and scalable QR identity management.
+# Current architecture
+
+```txt
+GoDaddy Domain
+        ↓
+Hostinger Frontend
+        ↓
+Render Backend API
+        ↓
+Firebase Firestore
+```
+
+Frontend pages are hosted on Hostinger.
+
+Backend APIs run on Render.
+
+All database operations use Firebase Firestore.
 
 ---
 
@@ -31,24 +46,24 @@ node server.js
 
 ---
 
-# Current deployment stack
+# Frontend files
 
-* Render (backend hosting)
-* Firebase Firestore (database)
-* Firebase Admin SDK
-* npm package management
+Static frontend files are included inside:
 
----
+* `public/index.html`
+* `public/style.css`
+* `public/app.js`
 
-# Premium viewer frontend
+Features included:
 
-Static frontend files are included for the Hostinger / viewer UI flow:
-
-* `public/index.html` — premium mobile-first viewer page with five working sections: myQRID, Shop, Scan, Insight, More.
-* `public/style.css` — purple glassmorphism theme.
-* `public/app.js` — dynamic profile loading, smart links, product cards, QR sharing, vCard download and analytics display.
-
-The backend also serves these files for quick preview.
+* dynamic QR profiles
+* smart links
+* analytics display
+* QR sharing
+* vCard download
+* product cards
+* emergency sections
+* inventory rendering
 
 ---
 
@@ -56,16 +71,24 @@ The backend also serves these files for quick preview.
 
 Do not paste GitHub diff/patch text into runtime files.
 
-Files such as:
+Wrong example:
+
+```txt
+diff --git a/server.js b/server.js
+```
+
+Files must contain only valid code.
+
+Important files:
 
 * `server.js`
 * `package.json`
 * `public/*.js`
 * `public/*.html`
 
-must contain only valid code or valid JSON.
+---
 
-Before deploying:
+# Install dependencies
 
 ```bash
 npm install
@@ -73,7 +96,15 @@ npm install
 
 ---
 
-# Render deploy issue fix
+# Start backend locally
+
+```bash
+node server.js
+```
+
+---
+
+# Render deployment issue fix
 
 If Render shows:
 
@@ -85,7 +116,7 @@ Application exited early
 most common causes are:
 
 * invalid Firebase private key
-* broken JSON/service account
+* broken service account JSON
 * pasted Git diff text
 * missing environment variables
 * syntax errors
@@ -104,14 +135,35 @@ Do not wrap the key in extra quotes.
 
 ---
 
+# Firestore collections
+
+Current collections used:
+
+* users
+* tags
+* counters
+* settings
+* plans
+* pages
+* tag_inventory
+* warehouses
+* catalog_categories
+* catalog_items
+* affiliate_partners
+* scan_events
+* geo_analytics
+* conversion_analytics
+
+---
+
 # QR serial and tag structure
 
-Global serial counters:
+Global counters:
 
 * `counters/global.last_account_no`
 * `counters/global.last_tag_serial`
 
-Collections used:
+Main collections:
 
 * `users/{username}`
 * `tags/{slug}`
@@ -162,13 +214,11 @@ Category codes:
 
 Firestore automatically creates collections when documents are written.
 
-You do not need to manually create collections before testing.
+Manual collection creation is not required before testing.
 
 ---
 
-# Render environment variables
-
-Required:
+# Required Render environment variables
 
 ```txt
 SETUP_SECRET=your-private-secret
@@ -199,43 +249,23 @@ Seed demo data:
 
 ---
 
-# Current Firestore collections
-
-Core collections:
-
-* users
-* tags
-* counters
-* settings
-* plans
-* pages
-* catalog_categories
-* catalog_items
-* affiliate_partners
-* scan_events
-* geo_analytics
-* conversion_analytics
-* warehouses
-* tag_inventory
-
----
-
 # Current features supported
 
-* Username-based profiles
+* username-based profiles
 * QR identity tags
-* Tag inventory
-* Activation system
-* Lost & found
-* Emergency profiles
-* Analytics tracking
-* Dynamic frontend rendering
-* Product catalogs
-* Warehouse inventory
-* Affiliate marketplace preparation
-* Scan tracking
-* Lead capture
-* Modular profile sections
+* smart profile pages
+* tag inventory
+* activation system
+* lost & found
+* emergency profiles
+* analytics tracking
+* scan tracking
+* dynamic frontend rendering
+* product catalogs
+* warehouse inventory
+* lead capture
+* affiliate marketplace preparation
+* modular profile sections
 
 ---
 
@@ -275,7 +305,7 @@ Frontend inventory table:
 
 # Analytics tracking
 
-Current analytics system supports:
+Current analytics supports:
 
 * profile views
 * QR scans
@@ -287,31 +317,46 @@ Current analytics system supports:
 
 ---
 
-# Planned future upgrades
+# Hosting responsibilities
 
-Future versions may later introduce:
+## Hostinger
 
-* PostgreSQL
-* Prisma ORM
-* Redis caching
-* Docker infrastructure
-* Enterprise RBAC
-* BLE integrations
-* Advanced analytics engine
+Handles:
 
-These are future roadmap items and are not part of the current production deployment.
+* frontend UI
+* HTML/CSS/JS
+* landing pages
+* viewer pages
 
----
+## Render
 
-# Deployment notes
+Handles:
 
-The current production deployment uses:
+* Express backend
+* APIs
+* Firebase logic
+* QR routes
+* analytics
+* admin routes
 
-```bash
-node server.js
-```
+## Firebase Firestore
 
-Do not change entrypoint unless backend architecture is migrated fully.
+Handles:
+
+* profiles
+* tags
+* analytics
+* inventory
+* scan events
+* plans
+* settings
+
+## GoDaddy
+
+Handles:
+
+* domain ownership
+* DNS records
 
 ---
 
@@ -324,18 +369,19 @@ Never commit:
 * private keys
 * setup secrets
 
-Always keep them in Render environment variables.
+Always store them in Render environment variables.
 
 ---
 
-# Important reminder
+# Planned future upgrades
 
-Do not paste Git diffs into runtime files.
+Possible future upgrades:
 
-Example of WRONG content:
+* BLE integrations
+* NFC automation
+* advanced analytics
+* enterprise dashboard
+* AI recommendations
+* realtime tracking
 
-```txt
-diff --git a/server.js b/server.js
-```
-
-Only paste final valid code into actual files.
+These are future roadmap features and are not part of the current production deployment.
