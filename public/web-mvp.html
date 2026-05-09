@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0F0F1A">
+  <title>myQRID MVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="mvp-body">
+  <div class="mvp-aurora" aria-hidden="true"></div>
+
+  <header class="mvp-nav glass-panel">
+    <a class="mvp-brand" href="/">myQRID</a>
+    <nav>
+      <a href="/">Create</a>
+      <a href="/admin">Admin</a>
+      <a href="/health">Health</a>
+    </nav>
+  </header>
+
+  <main class="mvp-shell">
+    <section id="statusBanner" class="mvp-status" hidden></section>
+
+    <section id="createView" class="mvp-screen">
+      <div class="mvp-hero glass-panel">
+        <div>
+          <span class="eyebrow">Working Express + Firebase MVP</span>
+          <h1>Create your myQRID in seconds.</h1>
+          <p>Save a real profile, auto-generate a username, public profile URL, tag URL, VCF contact and QR codes.</p>
+          <div class="mvp-actions">
+            <a class="mvp-secondary" href="/admin">Open admin</a>
+          </div>
+        </div>
+        <div class="mvp-preview-card">
+          <strong>Flow</strong>
+          <span>1. Create profile</span>
+          <span>2. Open /u/:username</span>
+          <span>3. Scan /t/:slug</span>
+        </div>
+      </div>
+
+      <div class="mvp-two">
+        <form id="profileForm" class="glass-panel mvp-form">
+          <h2>Create profile</h2>
+          <label>Name<input name="name" placeholder="Your full name" required></label>
+          <label>Phone<input name="phone" placeholder="+91 98765 43210" required></label>
+          <label>WhatsApp<input name="whatsapp" placeholder="+91 98765 43210" required></label>
+          <label>Email<input name="email" type="email" placeholder="you@example.com"></label>
+          <label>Bio<textarea name="bio" placeholder="What should people know when they scan your QR?"></textarea></label>
+          <label>Profile image URL<input name="image_url" type="url" placeholder="https://example.com/photo.jpg"></label>
+          <button class="mvp-primary" type="submit">Save profile + generate QR</button>
+        </form>
+
+        <section id="resultCard" class="glass-panel mvp-result" hidden>
+          <h2>Your profile is ready</h2>
+          <img id="resultAvatar" class="public-avatar" alt="Profile image">
+          <h3 id="resultName"></h3>
+          <p id="resultUsername"></p>
+          <div class="mvp-link-box"><span>Profile</span><a id="resultProfileUrl" href="#" target="_blank" rel="noreferrer"></a></div>
+          <div class="mvp-link-box"><span>Tag</span><a id="resultTagUrl" href="#" target="_blank" rel="noreferrer"></a></div>
+          <div class="mvp-qr-grid">
+            <div><img id="resultProfileQr" alt="Profile QR"><small>Profile QR</small></div>
+            <div><img id="resultTagQr" alt="Tag QR"><small>Tag QR</small></div>
+          </div>
+          <div class="mvp-actions">
+            <button id="copyProfileLink" class="mvp-secondary" type="button">Copy profile link</button>
+            <button id="downloadResultVcf" class="mvp-secondary" type="button">Save Contact</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="publicView" class="mvp-screen" hidden>
+      <article class="glass-panel mvp-public-card">
+        <div id="publicLoading" class="mvp-loading">Loading myQRID…</div>
+        <div id="publicContent" hidden>
+          <span id="publicBadge" class="mvp-pill">Verified myQRID</span>
+          <img id="publicAvatar" class="public-avatar" alt="Profile image">
+          <h1 id="publicName"></h1>
+          <p id="publicBio"></p>
+          <div class="mvp-actions" id="publicActions"></div>
+          <div class="mvp-qr-grid single"><div><img id="publicQr" alt="Public QR"><small id="publicQrLabel">QR code</small></div></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="adminView" class="mvp-screen" hidden>
+      <div class="mvp-two">
+        <form id="adminLoginForm" class="glass-panel mvp-form">
+          <h2>Admin access</h2>
+          <p class="mvp-muted">Enter ADMIN_PASSWORD or SETUP_SECRET from Render environment variables.</p>
+          <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+          <button class="mvp-primary" type="submit">View profiles</button>
+        </form>
+        <section class="glass-panel">
+          <h2>All profiles</h2>
+          <div id="adminList" class="mvp-list"><p class="mvp-muted">Login to load profiles.</p></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/web-mvp.js"></script>
+</body>
+</html>

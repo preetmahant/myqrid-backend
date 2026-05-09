@@ -1,19 +1,17 @@
 {
   "name": "myqrid-backend",
   "version": "1.0.0",
-  "description": "myQRID backend - QR based identity, lead capture & lost & found system",
+  "description": "myQRID web MVP - Node.js, Express, Firebase, HTML/CSS/JS",
   "main": "server.js",
-
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "check": "node scripts/check-no-patch-markers.js && node --check server.js && node --check public/web-mvp.js"
   },
-
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "qrcode": "^1.5.3",
-    "nanoid": "^3.3.7",
-    "firebase-admin": "^11.10.1"
+    "firebase-admin": "^11.10.1",
+    "qrcode": "^1.5.3"
   }
 }
