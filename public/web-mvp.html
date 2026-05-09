@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0F0F1A">
+  <title>myQRID Web MVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="mvp-body">
+  <div class="mvp-aurora"></div>
+  <header class="mvp-nav glass-panel">
+    <strong>myQRID</strong>
+    <nav>
+      <button data-view="landing">Home</button>
+      <button data-view="dashboard">Dashboard</button>
+      <button data-view="activate">Activate</button>
+      <button data-view="qr">QR Studio</button>
+      <button data-view="analytics">Analytics</button>
+      <button data-view="admin">Admin</button>
+    </nav>
+  </header>
+
+  <main class="mvp-shell">
+    <section class="mvp-view active" id="view-landing">
+      <div class="mvp-hero glass-panel">
+        <div>
+          <span class="eyebrow">Digital identity + ReturnMe MVP</span>
+          <h1>Create. Scan. Connect. Return.</h1>
+          <p>Launch a premium profile, generate QR, activate physical tags by claim ID and let finders contact owners instantly.</p>
+          <div class="mvp-actions">
+            <button class="mvp-primary" data-view="dashboard">Create MyQRID</button>
+            <button class="mvp-secondary" data-view="activate">Activate Tag</button>
+            <button class="mvp-secondary" data-view="qr">Generate QR</button>
+          </div>
+        </div>
+        <div class="mvp-phone glass-panel">
+          <div class="mvp-avatar">mQ</div>
+          <h3 id="landingName">Your myQRID</h3>
+          <p>WhatsApp • Call • Save Contact • Links</p>
+          <div id="landingQr" class="mvp-qr-box"></div>
+        </div>
+      </div>
+      <div class="mvp-grid three">
+        <article class="glass-panel"><h3>Digital Identity</h3><p>Linktree + digital card + QR sharing.</p></article>
+        <article class="glass-panel"><h3>ReturnMe Tags</h3><p>Lost item page with call, WhatsApp and reward.</p></article>
+        <article class="glass-panel"><h3>Admin Ready</h3><p>Generate slugs, claim IDs, QR tags and export CSV.</p></article>
+      </div>
+    </section>
+
+    <section class="mvp-view" id="view-dashboard">
+      <div class="mvp-two">
+        <form class="glass-panel mvp-form" id="profileForm">
+          <h2>Create digital identity</h2>
+          <input name="username" placeholder="username" required value="preetmahant">
+          <input name="display_name" placeholder="Display name" value="Preet Mahant">
+          <input name="profession" placeholder="Profession" value="Founder, myQRID">
+          <input name="location" placeholder="Location" value="Ahmedabad, India">
+          <textarea name="bio" placeholder="Bio">Smart identity, ReturnMe tags and QR experiences.</textarea>
+          <input name="phone" placeholder="Phone" value="+919876543210">
+          <input name="whatsapp" placeholder="WhatsApp" value="+919876543210">
+          <input name="email" placeholder="Email" value="hello@myqrid.in">
+          <input name="website" placeholder="Website" value="https://myqrid.in">
+          <input name="instagram" placeholder="Instagram URL">
+          <input name="youtube" placeholder="YouTube URL">
+          <input name="linkedin" placeholder="LinkedIn URL">
+          <button class="mvp-primary" type="submit">Save profile + generate QR</button>
+        </form>
+        <section class="glass-panel">
+          <h2>Profile QR</h2>
+          <div id="profileQr" class="mvp-qr-box large"></div>
+          <p id="profileResult">Save profile to generate public URL.</p>
+          <div class="mvp-actions vertical">
+            <a id="openPublicProfile" class="mvp-secondary" href="#" target="_blank">Open public page</a>
+            <button class="mvp-secondary" id="downloadProfileQr">Download PNG</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="mvp-view" id="view-activate">
+      <div class="mvp-two">
+        <form class="glass-panel mvp-form" id="activateForm">
+          <h2>Activate physical tag</h2>
+          <input name="claim_id" placeholder="Claim ID e.g. RM-1001-ABCD" required>
+          <input name="username" placeholder="Your username" value="preetmahant" required>
+          <select name="profile_type">
+            <option value="digital_identity">Digital Identity</option>
+            <option value="returnme">ReturnMe / Lost Item</option>
+            <option value="pet">Pet</option>
+            <option value="vehicle">Vehicle</option>
+            <option value="asset">Asset</option>
+          </select>
+          <input name="item_name" placeholder="Lost item name (optional)" value="Black laptop bag">
+          <input name="reward_amount" placeholder="Reward amount" value="500">
+          <textarea name="return_instructions" placeholder="Return instructions">Please call or WhatsApp me. Reward available.</textarea>
+          <button class="mvp-primary" type="submit">Activate ownership</button>
+        </form>
+        <section class="glass-panel">
+          <h2>Activation result</h2>
+          <p id="activationResult">Scan printed tag → enter claim ID → activate.</p>
+          <div id="tagQr" class="mvp-qr-box large"></div>
+          <a id="openTagPage" class="mvp-secondary" href="#" target="_blank">Open tag/finder page</a>
+        </section>
+      </div>
+    </section>
+
+    <section class="mvp-view" id="view-qr">
+      <div class="mvp-two">
+        <section class="glass-panel">
+          <h2>QR Designer Studio</h2>
+          <input id="qrValue" placeholder="QR URL/value" value="https://myqrid.in/u/preetmahant">
+          <label><input type="checkbox" id="qrLogo" checked> Center logo</label>
+          <label><input type="checkbox" id="qrGradient" checked> Gradient frame</label>
+          <button class="mvp-primary" id="renderCustomQr">Render QR</button>
+          <button class="mvp-secondary" id="downloadCustomQr">Download PNG</button>
+        </section>
+        <section class="glass-panel">
+          <div id="customQr" class="mvp-qr-box designer"></div>
+        </section>
+      </div>
+    </section>
+
+    <section class="mvp-view" id="view-analytics">
+      <div class="mvp-grid four">
+        <article class="glass-panel"><span>Total scans</span><strong id="metricScans">0</strong></article>
+        <article class="glass-panel"><span>Profile views</span><strong id="metricViews">0</strong></article>
+        <article class="glass-panel"><span>CTA clicks</span><strong id="metricClicks">0</strong></article>
+        <article class="glass-panel"><span>Top CTA</span><strong id="metricTopCta">WhatsApp</strong></article>
+      </div>
+      <section class="glass-panel"><h2>Recent activity</h2><div id="activityList" class="mvp-list"></div></section>
+    </section>
+
+    <section class="mvp-view" id="view-admin">
+      <div class="mvp-two">
+        <form class="glass-panel mvp-form" id="adminGenerateForm">
+          <h2>Admin tag generator</h2>
+          <input name="key" placeholder="SETUP_SECRET" required>
+          <input name="count" type="number" min="1" max="1000" value="25">
+          <select name="prefix"><option>DI</option><option>RM</option><option>HM</option><option>PT</option><option>VH</option><option>AS</option><option>BS</option></select>
+          <button class="mvp-primary" type="submit">Generate tags + claim IDs</button>
+          <button class="mvp-secondary" id="exportCsv" type="button">Export CSV</button>
+        </form>
+        <section class="glass-panel">
+          <h2>Generated tags</h2>
+          <div id="adminTagList" class="mvp-list"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <template id="profileTemplate">
+    <section class="mvp-public glass-panel">
+      <img class="public-avatar" data-field="avatar" alt="">
+      <h1 data-field="display_name"></h1>
+      <p data-field="bio"></p>
+    </section>
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="/web-mvp.js"></script>
+</body>
+</html>

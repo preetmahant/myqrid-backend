@@ -1,0 +1,3 @@
+-- Initial myQRID PostgreSQL schema is generated from prisma/schema.prisma.
+-- Run: npx prisma migrate dev --name init
+-- For production: npx prisma migrate deploy

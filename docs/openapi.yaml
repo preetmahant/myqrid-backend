@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  title: myQRID Production API
+  version: 1.0.0
+  description: Production-ready REST API for QR, NFC, BLE, inventory, ecommerce, subscriptions and analytics.
+servers:
+  - url: /api/v1
+security:
+  - bearerAuth: []
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register user
+      responses:
+        '201': { description: Created }
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login with email or phone
+      responses:
+        '200': { description: Authenticated }
+  /tags:
+    get:
+      tags: [Tags]
+      summary: List tags
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [Tags]
+      summary: Create QR/NFC/BLE tag
+      responses:
+        '201': { description: Created }
+  /inventory/manufacture:
+    post:
+      tags: [Inventory]
+      summary: Create manufactured tag inventory records
+      responses:
+        '201': { description: Created }
+  /orders:
+    get:
+      tags: [Orders]
+      summary: List orders
+      responses:
+        '200': { description: OK }
+    post:
+      tags: [Orders]
+      summary: Create ecommerce/COD/GST order
+      responses:
+        '201': { description: Created }
+  /subscriptions:
+    get:
+      tags: [Subscriptions]
+      summary: List subscriptions
+      responses:
+        '200': { description: OK }
+  /scans/track:
+    post:
+      tags: [Analytics]
+      summary: Track scan, click, share, NFC tap or BLE ping
+      responses:
+        '201': { description: Created }
+  /devices:
+    get:
+      tags: [Devices]
+      summary: List NFC/BLE mappings
+      responses:
+        '200': { description: OK }
+  /admin/dashboard:
+    get:
+      tags: [Admin]
+      summary: Admin dashboard metrics
+      responses:
+        '200': { description: OK }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

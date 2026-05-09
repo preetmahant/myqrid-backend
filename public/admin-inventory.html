@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>myQRID Tag Inventory</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="inventory-page">
+  <main class="inventory-shell">
+    <section class="glass-panel inventory-hero">
+      <p class="eyebrow">Admin inventory</p>
+      <h1>Tag Inventory Table</h1>
+      <p>Dynamic, category-driven view for manufactured tags, activation status and warehouse stock.</p>
+      <div class="inventory-actions">
+        <input id="setupKey" type="password" placeholder="SETUP_SECRET key" autocomplete="off" />
+        <select id="categoryFilter" aria-label="Category filter">
+          <option value="">All categories</option>
+        </select>
+        <button id="loadInventory" type="button">Load inventory</button>
+      </div>
+      <small>Tip: open <code>/admin/setup-db?key=YOUR_SETUP_SECRET</code> once before loading inventory.</small>
+    </section>
+
+    <section id="categoryCards" class="inventory-grid" aria-live="polite"></section>
+
+    <section class="glass-panel inventory-table-panel">
+      <div class="inventory-table-header">
+        <div>
+          <p class="eyebrow">Warehouse stock</p>
+          <h2 id="tableTitle">Tag Inventory</h2>
+        </div>
+        <div id="inventorySummary" class="inventory-summary">No data loaded</div>
+      </div>
+      <div class="table-scroll">
+        <table id="inventoryTable">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="admin-inventory.js"></script>
+</body>
+</html>
