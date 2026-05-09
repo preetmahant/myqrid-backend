@@ -1,0 +1,132 @@
+openapi: 3.0.3
+
+info:
+title: myQRID API
+version: 1.0.0
+description: Firebase Firestore based API for QR identity, analytics, inventory and smart profile management.
+
+servers:
+
+* url: https://your-render-backend.onrender.com
+
+paths:
+
+/health:
+get:
+tags:
+- System
+summary: Backend health check
+responses:
+'200':
+description: Backend running
+
+/create-user:
+get:
+tags:
+- Users
+summary: Create user profile
+parameters:
+- in: query
+name: username
+schema:
+type: string
+- in: query
+name: display_name
+schema:
+type: string
+- in: query
+name: category
+schema:
+type: string
+responses:
+'200':
+description: User created
+
+/create-tag:
+get:
+tags:
+- Tags
+summary: Create additional QR tag
+parameters:
+- in: query
+name: username
+schema:
+type: string
+- in: query
+name: category
+schema:
+type: string
+responses:
+'200':
+description: Tag created
+
+/admin/db-status:
+get:
+tags:
+- Admin
+summary: Check Firestore database readiness
+parameters:
+- in: query
+name: key
+schema:
+type: string
+responses:
+'200':
+description: Database status
+
+/admin/setup-db:
+get:
+tags:
+- Admin
+summary: Initialize Firestore setup documents
+parameters:
+- in: query
+name: key
+schema:
+type: string
+responses:
+'200':
+description: Database initialized
+
+/admin/create-manufactured-tags:
+get:
+tags:
+- Inventory
+summary: Create manufactured inventory stock
+parameters:
+- in: query
+name: key
+schema:
+type: string
+- in: query
+name: count
+schema:
+type: integer
+responses:
+'200':
+description: Inventory created
+
+/admin/tag-inventory:
+get:
+tags:
+- Inventory
+summary: Get manufactured inventory list
+parameters:
+- in: query
+name: key
+schema:
+type: string
+responses:
+'200':
+description: Inventory response
+
+/admin/db-help:
+get:
+tags:
+- Help
+summary: Plain English DB help
+responses:
+'200':
+description: Help response
+
+components: {}

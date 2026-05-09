@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#24103f">
+  <title>myQRID — Smart Digital Identity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"></div>
+
+  <main class="shell">
+    <header class="topbar glass-panel">
+      <button class="round-button" id="topProfile" type="button" aria-label="Profile photo">
+        <i class="fas fa-user"></i>
+      </button>
+      <div class="brand-lockup">
+        <span class="brand-dot"></span>
+        <span>myQRID</span>
+      </div>
+      <button class="round-button" type="button" onclick="openShare()" aria-label="Open share menu">
+        <i class="fas fa-share-nodes"></i>
+      </button>
+    </header>
+
+    <section class="hero-card glass-panel" id="profilePanel">
+      <div class="identity-badge" id="identityBadge">IDENTITY TAG</div>
+      <img id="avatar" class="avatar" src="https://i.pravatar.cc/180?img=12" alt="Profile photo">
+      <h1 id="name">Loading...</h1>
+      <p id="bio">Connecting smart identity...</p>
+      <div class="slug-row">
+        <span id="usernamePill">@myqrid</span>
+        <span id="slugPill">UID loading</span>
+      </div>
+
+      <div class="quick-actions" id="quickActions">
+        <a id="waicon" class="action-button whatsapp" href="#" target="_blank" rel="noreferrer" data-track="whatsapp">
+          <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
+        </a>
+        <a id="callAction" class="action-button" href="#" data-track="call">
+          <i class="fas fa-phone"></i><span>Call</span>
+        </a>
+        <button class="action-button" type="button" onclick="saveContact()">
+          <i class="fas fa-address-card"></i><span>Save</span>
+        </button>
+      </div>
+
+      <div class="social-strip" aria-label="Social links">
+        <a id="insta" href="#" target="_blank" rel="noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a id="twitter" href="#" target="_blank" rel="noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+        <a id="linkedin" href="#" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a id="youtube" href="#" target="_blank" rel="noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a id="websiteIcon" href="#" target="_blank" rel="noreferrer" aria-label="Website"><i class="fas fa-globe"></i></a>
+      </div>
+    </section>
+
+    <section class="emergency-card glass-panel hidden" id="emergencyPanel">
+      <div>
+        <span class="eyebrow">Priority mode</span>
+        <h2 id="emergencyTitle">Emergency information</h2>
+        <p id="emergencyText">Important details are shown first for fast action.</p>
+      </div>
+      <a class="panic-button" id="emergencyCall" href="#"><i class="fas fa-phone-volume"></i> Call now</a>
+    </section>
+
+    <nav class="tab-rail glass-panel" aria-label="Page sections">
+      <button class="tab active" data-page="profile"><i class="fas fa-id-card"></i><span>myQRID</span></button>
+      <button class="tab" data-page="shop"><i class="fas fa-bag-shopping"></i><span>Shop</span></button>
+      <button class="tab scan-tab" data-page="scan"><i class="fas fa-qrcode"></i><span>Scan</span></button>
+      <button class="tab" data-page="insights"><i class="fas fa-chart-line"></i><span>Insight</span></button>
+      <button class="tab" data-page="more"><i class="fas fa-table-cells-large"></i><span>More</span></button>
+    </nav>
+
+    <section class="page active" id="page-profile">
+      <div class="section-heading">
+        <span>Smart links</span>
+        <small>Tap any action to connect</small>
+      </div>
+      <div class="link-stack" id="links"></div>
+    </section>
+
+    <section class="page" id="page-shop">
+      <div class="section-heading">
+        <span>Products / Earn</span>
+        <small>Premium cards ready for commerce</small>
+      </div>
+      <div class="product-grid" id="products"></div>
+    </section>
+
+    <section class="page" id="page-scan">
+      <div class="qr-card glass-panel">
+        <div class="qr-frame">
+          <img id="qrImage" alt="QR code for this profile">
+        </div>
+        <h2>Share this identity</h2>
+        <p id="qrCaption">Scan to open this myQRID profile instantly.</p>
+        <button class="primary-button" type="button" onclick="generateQR()"><i class="fas fa-up-right-from-square"></i> Open QR</button>
+      </div>
+    </section>
+
+    <section class="page" id="page-insights">
+      <div class="section-heading">
+        <span>Live analytics</span>
+        <small>Connected to profile analytics when available</small>
+      </div>
+      <div class="metric-grid">
+        <article class="metric-card glass-panel"><span>Total views</span><strong id="totalViews">0</strong></article>
+        <article class="metric-card glass-panel"><span>Total clicks</span><strong id="totalClicks">0</strong></article>
+        <article class="metric-card glass-panel"><span>Status</span><strong id="onlineStatus">Live</strong></article>
+      </div>
+      <div class="chart-card glass-panel">
+        <div class="chart-bars" id="chartBars"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-more">
+      <div class="more-grid">
+        <a class="more-card glass-panel" href="/manage"><i class="fas fa-wand-magic-sparkles"></i><span>Create myQRID</span></a>
+        <a class="more-card glass-panel" href="/activate"><i class="fas fa-bolt"></i><span>Activate tag</span></a>
+        <button class="more-card glass-panel" type="button" onclick="copyLink()"><i class="fas fa-link"></i><span>Copy link</span></button>
+        <button class="more-card glass-panel" type="button" onclick="downloadVCard()"><i class="fas fa-download"></i><span>Download vCard</span></button>
+      </div>
+    </section>
+  </main>
+
+  <div class="share-sheet glass-panel" id="popup" role="dialog" aria-modal="true" aria-label="Share profile">
+    <div class="sheet-handle"></div>
+    <h3>Share myQRID</h3>
+    <button onclick="shareWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+    <button onclick="shareSMS()"><i class="fas fa-message"></i> SMS</button>
+    <button onclick="downloadVCard()"><i class="fas fa-address-card"></i> VCard</button>
+    <button onclick="copyLink()"><i class="fas fa-link"></i> Copy Link</button>
+    <button onclick="generateQR()"><i class="fas fa-qrcode"></i> QR Share</button>
+  </div>
+
+  <div class="toast" id="toast">Copied</div>
+  <script src="/app.js"></script>
+</body>
+</html>
