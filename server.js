@@ -150,6 +150,12 @@ function buildVCard(profile) {
   ].filter(Boolean).join("\n");
 }
 
+function publicProfile(profile) {
+  if (!profile) return null;
+  const { edit_token: editToken, ...safeProfile } = profile;
+  return safeProfile;
+}
+
 function createEditToken() {
   return Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
 }
@@ -345,7 +351,7 @@ app.get("/api/status", (req, res) => {
   });
 });
 
-app.post(["/api/profiles", "/api/mvp/profile"], async (req, res) => {
+async function createProfileHandler(req, res) {
   try {
     const validation = validateProfileInput(req.body);
     if (validation.error) return res.status(422).json({ success: false, error: validation.error });
@@ -374,9 +380,12 @@ app.post(["/api/profiles", "/api/mvp/profile"], async (req, res) => {
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
   }
-});
+}
 
-app.get(["/api/profiles/:username", "/api/mvp/profile/:username"], async (req, res) => {
+app.post("/api/profiles", createProfileHandler);
+app.post("/api/mvp/profile", createProfileHandler);
+
+async function getProfileHandler(req, res) {
   try {
     const username = cleanUsername(req.params.username);
     const profile = await getProfile(username);
@@ -390,13 +399,16 @@ app.get(["/api/profiles/:username", "/api/mvp/profile/:username"], async (req, r
     await updateProfile(username, { analytics, updated_at: new Date().toISOString() });
     const updatedProfile = { ...profile, analytics };
     await logEvent({ username, tag_slug: profile.tag_slug, action: "profile_open", storage: storeMode(), device_type: seenDevice, user_agent: req.get("user-agent") || "" });
-    return res.json({ success: true, storage: storeMode(), profile: updatedProfile, vcard: buildVCard(updatedProfile) });
+    return res.json({ success: true, storage: storeMode(), profile: publicProfile(updatedProfile), vcard: buildVCard(updatedProfile) });
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
   }
-});
+}
 
-app.get(["/api/tags/:slug", "/api/mvp/tag/:slug"], async (req, res) => {
+app.get("/api/profiles/:username", getProfileHandler);
+app.get("/api/mvp/profile/:username", getProfileHandler);
+
+async function getTagHandler(req, res) {
   try {
     const tag = await getTag(req.params.slug);
     if (!tag) return res.status(404).json({ success: false, error: "Tag not found." });
@@ -411,12 +423,14 @@ app.get(["/api/tags/:slug", "/api/mvp/tag/:slug"], async (req, res) => {
     await updateProfile(profile.username, { analytics, updated_at: new Date().toISOString() });
     const updatedProfile = { ...profile, analytics };
     await logEvent({ username: profile.username, tag_slug: tag.slug, action: "qr_scan", storage: storeMode(), device_type: scanDevice, user_agent: req.get("user-agent") || "" });
-    return res.json({ success: true, storage: storeMode(), tag, profile: updatedProfile, vcard: buildVCard(updatedProfile) });
+    return res.json({ success: true, storage: storeMode(), tag, profile: publicProfile(updatedProfile), vcard: buildVCard(updatedProfile) });
   } catch (err) {
     return res.status(500).json({ success: false, error: err.message });
   }
-});
+}
 
+app.get("/api/tags/:slug", getTagHandler);
+app.get("/api/mvp/tag/:slug", getTagHandler);
 
 app.put("/api/profiles/:username", async (req, res) => {
   try {

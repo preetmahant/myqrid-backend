@@ -2,7 +2,8 @@ const state = {
   profile: null,
   adminPassword: sessionStorage.getItem("myqrid_admin_password") || "",
   adminProfiles: [],
-  recentActivity: []
+  recentActivity: [],
+  editAdminPassword: ""
 };
 const $ = selector => document.querySelector(selector);
 
@@ -213,7 +214,11 @@ async function createProfile(event) {
     const payload = formPayload(form);
     const data = await requestJson(editingUsername ? `/api/profiles/${encodeURIComponent(editingUsername)}` : "/api/profiles", {
       method: editingUsername ? "PUT" : "POST",
-      headers: { "Content-Type": "application/json", ...(payload.edit_token ? { "x-edit-token": payload.edit_token } : {}) },
+      headers: {
+        "Content-Type": "application/json",
+        ...(payload.edit_token ? { "x-edit-token": payload.edit_token } : {}),
+        ...(state.editAdminPassword ? { "x-admin-password": state.editAdminPassword } : {})
+      },
       body: JSON.stringify(payload)
     });
     fillResult(data.profile);
@@ -352,7 +357,8 @@ function adminEdit(username) {
   const profile = state.adminProfiles.find(item => item.username === username);
   if (!profile) return;
   showOnly("createView");
-  loadProfileIntoForm({ ...profile, admin_password: state.adminPassword });
+  state.editAdminPassword = state.adminPassword;
+  loadProfileIntoForm(profile);
   const form = $("#profileForm");
   form.elements.edit_token.value = profile.edit_token || "";
   toast("Loaded profile for editing");
@@ -387,6 +393,7 @@ function init() {
     adminLoad(formPayload(event.currentTarget).password);
   });
 
+  if (route.section !== "admin") state.editAdminPassword = "";
   if (route.section === "u" && route.value) return loadPublicProfile(route.value);
   if (route.section === "t" && route.value) return loadTag(route.value);
   if (route.section === "admin") return initAdmin();
