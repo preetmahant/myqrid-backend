@@ -1,110 +1,341 @@
-diff --git a/README.md b/README.md
-index afcd5f42a3520abcd0dbc7449515f313e1bf04fd..108b14501d90c9a38aba30ed7f9e59876734495f 100644
---- a/README.md
-+++ b/README.md
-@@ -1,2 +1,104 @@
- # myqrid-backend
--myQRID backend - QR based identity, lead capture &amp; lost &amp; found system (Node.js + Express + Firebase)
-+
-+myQRID backend - QR based identity, lead capture & lost & found system (Node.js + Express + Firebase).
-+
-+## Premium viewer frontend
-+
-+Static frontend files are now included for the Hostinger / viewer UI flow:
-+
-+- `public/index.html` — premium mobile-first viewer page with five working sections: myQRID, Shop, Scan, Insight, More.
-+- `public/style.css` — medium-tone purple glassmorphism theme.
-+- `public/app.js` — dynamic profile loading from `https://myqrid-backend.onrender.com/:username`, smart links, product cards, QR sharing, vCard download, and analytics display.
-+
-+Use these same files on Hostinger if the frontend is hosted separately. The backend also serves them at `/` for quick preview.
-+
-+## Render deploy troubleshooting
-+
-+If Render logs show this error:
-+
-+```txt
-+SyntaxError: Unexpected identifier 'git'
-+diff --git a/server.js b/server.js
-+```
-+
-+then a GitHub diff/patch was pasted into `server.js` instead of only the JavaScript code. Render runs `node server.js`, so lines like `diff --git`, `@@`, `--- a/server.js`, or `+++ b/server.js` will crash the deployment.
-+
-+Fix:
-+
-+1. Open `server.js` in GitHub or your editor.
-+2. Remove every pasted diff line such as `diff --git ...`, `@@ ...`, `--- ...`, and `+++ ...`.
-+3. Keep only valid JavaScript starting with:
-+
-+```js
-+const express = require("express");
-+const admin = require("firebase-admin");
-+const cors = require("cors");
-+```
-+
-+4. Before pushing, run:
-+
-+```bash
-+npm run check
-+```
-+
-+5. Commit and push again. Render should redeploy from the clean JavaScript file.
-+
-+## Render `package.json` JSON parse failure
-+
-+If Render logs show this error:
-+
-+```txt
-+npm error JSON.parse Invalid package.json
-+Unexpected token "d" ... "diff --git" ... is not valid JSON
-+```
-+
-+then a GitHub diff/patch was pasted into `package.json`. Unlike JavaScript files, `package.json` must be pure JSON only. It cannot contain comments, `diff --git`, `@@`, `---`, `+++`, or any pasted PR diff text.
-+
-+Use this clean `package.json`:
-+
-+```json
-+{
-+  "name": "myqrid-backend",
-+  "version": "1.0.0",
-+  "description": "myQRID backend - QR based identity, lead capture & lost & found system",
-+  "main": "server.js",
-+  "scripts": {
-+    "start": "node server.js",
-+    "dev": "node --watch server.js",
-+    "check": "node --check server.js && node --check public/app.js"
-+  },
-+  "dependencies": {
-+    "cors": "^2.8.5",
-+    "express": "^4.19.2",
-+    "qrcode": "^1.5.3",
-+    "nanoid": "^3.3.7",
-+    "firebase-admin": "^11.10.1"
-+  }
-+}
-+```
-+
-+After replacing `package.json`, run this locally before pushing:
-+
-+```bash
-+node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package ok')"
-+npm run check
-+```
-+
-+## Render deploy starts then exits early
-+
-+If Render shows build success and then:
-+
-+```txt
-+Running 'node server.js'
-+Application exited early
-+```
-+
-+check `/health` after the next deploy. The server now stays alive even when Firebase Admin cannot initialize and reports the Firebase error in `/health` as `firebase_error`. Most commonly this means `FIREBASE_PRIVATE_KEY` was pasted in the wrong format on Render.
-+
-+For Render, keep the private key as one environment value with escaped newlines:
-+
-+```txt
-+-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n
-+```
-+
-+Do not paste Git diffs into any source file, and do not wrap the private key in extra quotes unless Render added them automatically.
+# myqrid-backend
+
+myQRID backend — QR based identity, lead capture, analytics, inventory, emergency safety and lost & found platform using Node.js, Express and Firebase.
+
+---
+
+# Current backend architecture
+
+The current myQRID backend uses:
+
+* Node.js
+* Express.js
+* Firebase Admin SDK
+* Firestore
+* Render deployment
+* Static frontend serving
+* QR/tag identity system
+* Dynamic profile rendering
+* Analytics tracking
+* Inventory and activation system
+
+The platform currently runs as a Firebase-first architecture optimized for rapid MVP development and scalable QR identity management.
+
+---
+
+# Current backend entrypoint
+
+```bash
+node server.js
+```
+
+---
+
+# Current deployment stack
+
+* Render (backend hosting)
+* Firebase Firestore (database)
+* Firebase Admin SDK
+* npm package management
+
+---
+
+# Premium viewer frontend
+
+Static frontend files are included for the Hostinger / viewer UI flow:
+
+* `public/index.html` — premium mobile-first viewer page with five working sections: myQRID, Shop, Scan, Insight, More.
+* `public/style.css` — purple glassmorphism theme.
+* `public/app.js` — dynamic profile loading, smart links, product cards, QR sharing, vCard download and analytics display.
+
+The backend also serves these files for quick preview.
+
+---
+
+# Source-file safety before deploy
+
+Do not paste GitHub diff/patch text into runtime files.
+
+Files such as:
+
+* `server.js`
+* `package.json`
+* `public/*.js`
+* `public/*.html`
+
+must contain only valid code or valid JSON.
+
+Before deploying:
+
+```bash
+npm install
+```
+
+---
+
+# Render deploy issue fix
+
+If Render shows:
+
+```txt
+Running 'node server.js'
+Application exited early
+```
+
+most common causes are:
+
+* invalid Firebase private key
+* broken JSON/service account
+* pasted Git diff text
+* missing environment variables
+* syntax errors
+
+---
+
+# Firebase private key format for Render
+
+Use escaped newlines:
+
+```txt
+-----BEGIN PRIVATE KEY-----\nYOUR_KEY\n-----END PRIVATE KEY-----\n
+```
+
+Do not wrap the key in extra quotes.
+
+---
+
+# QR serial and tag structure
+
+Global serial counters:
+
+* `counters/global.last_account_no`
+* `counters/global.last_tag_serial`
+
+Collections used:
+
+* `users/{username}`
+* `tags/{slug}`
+
+---
+
+# Tag slug format
+
+```txt
+I-000001
+P-000002
+A-000003
+B-000004
+S-000005
+G-000006
+```
+
+Category codes:
+
+* `I` = Identity
+* `P` = Pet
+* `A` = Asset
+* `B` = Business
+* `S` = Safety
+* `G` = Group
+
+---
+
+# Create user
+
+```txt
+/create-user?username=preetmahant&display_name=Preet%20Mahant&category=I
+```
+
+---
+
+# Create additional tags
+
+```txt
+/create-tag?username=preetmahant&category=P
+
+/create-tag?username=preetmahant&category=A
+```
+
+---
+
+# Firestore setup
+
+Firestore automatically creates collections when documents are written.
+
+You do not need to manually create collections before testing.
+
+---
+
+# Render environment variables
+
+Required:
+
+```txt
+SETUP_SECRET=your-private-secret
+PUBLIC_BASE_URL=https://your-backend-url.onrender.com
+```
+
+---
+
+# Database setup URLs
+
+Check DB readiness:
+
+```txt
+/admin/db-status?key=YOUR_SETUP_SECRET
+```
+
+Initialize DB:
+
+```txt
+/admin/setup-db?key=YOUR_SETUP_SECRET
+```
+
+Seed demo data:
+
+```txt
+/admin/setup-db?key=YOUR_SETUP_SECRET&seed_demo=true
+```
+
+---
+
+# Current Firestore collections
+
+Core collections:
+
+* users
+* tags
+* counters
+* settings
+* plans
+* pages
+* catalog_categories
+* catalog_items
+* affiliate_partners
+* scan_events
+* geo_analytics
+* conversion_analytics
+* warehouses
+* tag_inventory
+
+---
+
+# Current features supported
+
+* Username-based profiles
+* QR identity tags
+* Tag inventory
+* Activation system
+* Lost & found
+* Emergency profiles
+* Analytics tracking
+* Dynamic frontend rendering
+* Product catalogs
+* Warehouse inventory
+* Affiliate marketplace preparation
+* Scan tracking
+* Lead capture
+* Modular profile sections
+
+---
+
+# Manufactured tag inventory
+
+Create manufactured stock:
+
+```txt
+/admin/create-manufactured-tags?key=YOUR_SETUP_SECRET&count=50&category=nfc_products&sku=nfc-smart-card&warehouse=MAIN
+```
+
+This creates:
+
+* unique tag serials
+* warehouse inventory
+* activation-ready QR URLs
+* manufacturing status
+* stock tracking
+
+---
+
+# Inventory APIs
+
+JSON inventory:
+
+```txt
+/admin/tag-inventory?key=YOUR_SETUP_SECRET
+```
+
+Frontend inventory table:
+
+```txt
+/admin-inventory.html?key=YOUR_SETUP_SECRET
+```
+
+---
+
+# Analytics tracking
+
+Current analytics system supports:
+
+* profile views
+* QR scans
+* link clicks
+* WhatsApp opens
+* scan locations
+* device analytics
+* conversion analytics
+
+---
+
+# Planned future upgrades
+
+Future versions may later introduce:
+
+* PostgreSQL
+* Prisma ORM
+* Redis caching
+* Docker infrastructure
+* Enterprise RBAC
+* BLE integrations
+* Advanced analytics engine
+
+These are future roadmap items and are not part of the current production deployment.
+
+---
+
+# Deployment notes
+
+The current production deployment uses:
+
+```bash
+node server.js
+```
+
+Do not change entrypoint unless backend architecture is migrated fully.
+
+---
+
+# Security notes
+
+Never commit:
+
+* `.env`
+* Firebase service account JSON
+* private keys
+* setup secrets
+
+Always keep them in Render environment variables.
+
+---
+
+# Important reminder
+
+Do not paste Git diffs into runtime files.
+
+Example of WRONG content:
+
+```txt
+diff --git a/server.js b/server.js
+```
+
+Only paste final valid code into actual files.
