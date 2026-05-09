@@ -1,7 +1,8 @@
 {
   "name": "myqrid-backend",
   "version": "1.0.0",
-  "description": "myQRID web MVP - Node.js, Express, Firebase, HTML/CSS/JS",
+  "description": "myQRID web MVP - Node.js Express Firebase",
+
   "main": "server.js",
 
   "engines": {
