@@ -1,0 +1,6 @@
+future-postgres/
+    notes.md
+    schema.prisma
+    migrations/
+        000001_init/
+            migration.sql
