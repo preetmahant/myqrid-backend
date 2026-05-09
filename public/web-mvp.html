@@ -4,17 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0F0F1A">
+
   <title>myQRID MVP</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
   <link rel="stylesheet" href="/style.css">
 </head>
+
 <body class="mvp-body">
+
   <div class="mvp-aurora" aria-hidden="true"></div>
 
   <header class="mvp-nav glass-panel">
     <a class="mvp-brand" href="/">myQRID</a>
+
     <nav>
       <a href="/">Create</a>
       <a href="/admin">Admin</a>
@@ -23,117 +33,394 @@
   </header>
 
   <main class="mvp-shell">
-    <section id="statusBanner" class="mvp-status" hidden></section>
 
-    <section id="createView" class="mvp-screen">
-      <div class="mvp-hero glass-panel premium-hero">
+    <section
+      id="statusBanner"
+      class="mvp-status"
+      hidden
+    ></section>
+
+    <!-- CREATE VIEW -->
+
+    <section
+      id="createView"
+      class="mvp-screen"
+    >
+
+      <div class="mvp-hero glass-panel">
+
         <div>
-          <span class="eyebrow">Premium QR identity + recovery</span>
-          <h1>Create a scan-ready identity profile.</h1>
-          <p>Generate a beautiful public profile, printable QR, recovery tag page, emergency contact and analytics-ready calls to action.</p>
+          <span class="eyebrow">
+            Premium QR identity + recovery
+          </span>
+
+          <h1>
+            Create a scan-ready identity profile.
+          </h1>
+
+          <p>
+            Generate a public profile, QR code,
+            recovery tag page and instant
+            contact actions.
+          </p>
+
           <div class="mvp-actions">
-            <a class="mvp-secondary" href="/admin">Open admin dashboard</a>
+            <a
+              class="mvp-secondary"
+              href="/admin"
+            >
+              Open admin dashboard
+            </a>
           </div>
         </div>
-        <div class="mvp-preview-card premium-card">
+
+        <div class="mvp-preview-card">
           <strong>Production MVP</strong>
+
           <span>✓ Firebase profile save</span>
-          <span>✓ /u public profile</span>
-          <span>✓ /t found-item page</span>
-          <span>✓ CTA + scan analytics</span>
+          <span>✓ Public /u profile</span>
+          <span>✓ Recovery /t tag page</span>
+          <span>✓ QR generation</span>
+          <span>✓ Analytics-ready actions</span>
         </div>
+
       </div>
 
       <div class="mvp-two">
-        <form id="profileForm" class="glass-panel mvp-form">
-          <h2>Create / edit profile</h2>
-          <input name="edit_token" type="hidden">
-          <label>Name<input name="name" placeholder="Your full name" required></label>
-          <label>Phone<input name="phone" placeholder="+91 98765 43210" required></label>
-          <label>WhatsApp<input name="whatsapp" placeholder="+91 98765 43210" required></label>
-          <label>Email<input name="email" type="email" placeholder="you@example.com"></label>
-          <label>Bio<textarea name="bio" placeholder="What should people know when they scan your QR?"></textarea></label>
-          <label>Profile image URL<input name="image_url" type="url" placeholder="https://example.com/photo.jpg"></label>
+
+        <!-- FORM -->
+
+        <form
+          id="profileForm"
+          class="glass-panel mvp-form"
+        >
+
+          <h2>Create profile</h2>
+
+          <input
+            name="edit_token"
+            type="hidden"
+          >
+
+          <label>
+            Name
+
+            <input
+              name="name"
+              placeholder="Your full name"
+              required
+            >
+          </label>
+
+          <label>
+            Phone
+
+            <input
+              name="phone"
+              placeholder="+91 98765 43210"
+              required
+            >
+          </label>
+
+          <label>
+            WhatsApp
+
+            <input
+              name="whatsapp"
+              placeholder="+91 98765 43210"
+              required
+            >
+          </label>
+
+          <label>
+            Email
+
+            <input
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+            >
+          </label>
+
+          <label>
+            Bio
+
+            <textarea
+              name="bio"
+              placeholder="What should people know when they scan your QR?"
+            ></textarea>
+          </label>
+
+          <label>
+            Profile image URL
+
+            <input
+              name="image_url"
+              type="url"
+              placeholder="https://example.com/photo.jpg"
+            >
+          </label>
+
           <div class="mvp-form-grid">
-            <label>Emergency name<input name="emergency_name" placeholder="Emergency contact"></label>
-            <label>Emergency phone<input name="emergency_phone" placeholder="+91 98765 43210"></label>
+
+            <label>
+              Emergency name
+
+              <input
+                name="emergency_name"
+                placeholder="Emergency contact"
+              >
+            </label>
+
+            <label>
+              Emergency phone
+
+              <input
+                name="emergency_phone"
+                placeholder="+91 98765 43210"
+              >
+            </label>
+
           </div>
-          <button id="profileSubmit" class="mvp-primary" type="submit">Save profile + generate QR</button>
+
+          <button
+            id="profileSubmit"
+            class="mvp-primary"
+            type="submit"
+          >
+            Save profile + generate QR
+          </button>
+
         </form>
 
-        <section id="resultCard" class="glass-panel mvp-result" hidden>
+        <!-- RESULT -->
+
+        <section
+          id="resultCard"
+          class="glass-panel mvp-result"
+          hidden
+        >
+
           <h2>Your profile is ready</h2>
-          <img id="resultAvatar" class="public-avatar" alt="Profile image">
+
+          <img
+            id="resultAvatar"
+            class="public-avatar"
+            alt="Profile image"
+          >
+
           <h3 id="resultName"></h3>
+
           <p id="resultUsername"></p>
-          <div class="mvp-link-box"><span>Profile</span><a id="resultProfileUrl" href="#" target="_blank" rel="noreferrer"></a></div>
-          <div class="mvp-link-box"><span>Tag</span><a id="resultTagUrl" href="#" target="_blank" rel="noreferrer"></a></div>
+
+          <div class="mvp-link-box">
+            <span>Profile</span>
+
+            <a
+              id="resultProfileUrl"
+              href="#"
+              target="_blank"
+              rel="noreferrer"
+            ></a>
+          </div>
+
+          <div class="mvp-link-box">
+            <span>Tag</span>
+
+            <a
+              id="resultTagUrl"
+              href="#"
+              target="_blank"
+              rel="noreferrer"
+            ></a>
+          </div>
+
           <div class="mvp-qr-grid">
-            <div class="print-card"><img id="resultProfileQr" alt="Profile QR"><small>Profile QR</small><button id="downloadProfileQr" class="mvp-secondary" type="button">Download PNG</button></div>
-            <div class="print-card"><img id="resultTagQr" alt="Tag QR"><small>Recovery Tag QR</small><button id="downloadTagQr" class="mvp-secondary" type="button">Download PNG</button></div>
+
+            <div>
+              <img
+                id="resultProfileQr"
+                alt="Profile QR"
+              >
+
+              <small>Profile QR</small>
+            </div>
+
+            <div>
+              <img
+                id="resultTagQr"
+                alt="Tag QR"
+              >
+
+              <small>Recovery Tag QR</small>
+            </div>
+
           </div>
+
           <div class="mvp-actions">
-            <button id="copyProfileLink" class="mvp-secondary" type="button">Copy profile link</button>
-            <button id="downloadResultVcf" class="mvp-secondary" type="button">Download VCF</button>
-            <button id="editProfile" class="mvp-secondary" type="button">Edit profile</button>
-            <button id="printQr" class="mvp-primary" type="button">Print QR sheet</button>
+
+            <button
+              id="copyProfileLink"
+              class="mvp-secondary"
+              type="button"
+            >
+              Copy profile link
+            </button>
+
+            <button
+              id="downloadResultVcf"
+              class="mvp-secondary"
+              type="button"
+            >
+              Download VCF
+            </button>
+
           </div>
+
         </section>
+
       </div>
+
     </section>
 
-    <section id="publicView" class="mvp-screen" hidden>
+    <!-- PUBLIC PROFILE -->
+
+    <section
+      id="publicView"
+      class="mvp-screen"
+      hidden
+    >
+
       <article class="glass-panel mvp-public-card">
-        <div id="publicLoading" class="mvp-loading"><span class="scan-loader"></span>Loading myQRID…</div>
-        <div id="publicContent" hidden>
-          <span id="publicBadge" class="mvp-pill">Verified myQRID</span>
-          <div id="scanAnimation" class="scan-animation" hidden><span></span></div>
-          <img id="publicAvatar" class="public-avatar premium-avatar" alt="Profile image">
-          <h1 id="publicName"></h1>
-          <p id="publicBio"></p>
-          <section id="recoveryPanel" class="recovery-panel" hidden>
-            <strong>Found item recovery</strong>
-            <p>You scanned a myQRID recovery tag. Use WhatsApp or Call to quickly connect with the owner.</p>
-          </section>
-          <section id="emergencyPanel" class="emergency-panel" hidden></section>
-          <div class="mvp-actions public-cta" id="publicActions"></div>
-          <div class="mvp-qr-grid single"><div class="print-card"><img id="publicQr" alt="Public QR"><small id="publicQrLabel">QR code</small><button id="publicDownloadQr" class="mvp-secondary" type="button">Download QR</button></div></div>
+
+        <div
+          id="publicLoading"
+          class="mvp-loading"
+        >
+          Loading myQRID…
         </div>
+
+        <div
+          id="publicContent"
+          hidden
+        >
+
+          <span
+            id="publicBadge"
+            class="mvp-pill"
+          >
+            Verified myQRID
+          </span>
+
+          <img
+            id="publicAvatar"
+            class="public-avatar"
+            alt="Profile image"
+          >
+
+          <h1 id="publicName"></h1>
+
+          <p id="publicBio"></p>
+
+          <div
+            class="mvp-actions public-cta"
+            id="publicActions"
+          ></div>
+
+          <div class="mvp-qr-grid single">
+
+            <div>
+
+              <img
+                id="publicQr"
+                alt="Public QR"
+              >
+
+              <small id="publicQrLabel">
+                QR code
+              </small>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </article>
+
     </section>
 
-    <section id="adminView" class="mvp-screen" hidden>
-      <div class="mvp-two admin-layout">
-        <form id="adminLoginForm" class="glass-panel mvp-form">
+    <!-- ADMIN -->
+
+    <section
+      id="adminView"
+      class="mvp-screen"
+      hidden
+    >
+
+      <div class="mvp-two">
+
+        <form
+          id="adminLoginForm"
+          class="glass-panel mvp-form"
+        >
+
           <h2>Admin dashboard</h2>
-          <p class="mvp-muted">Enter ADMIN_PASSWORD or SETUP_SECRET from Render environment variables.</p>
-          <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
-          <button class="mvp-primary" type="submit">View dashboard</button>
+
+          <p class="mvp-muted">
+            Enter ADMIN_PASSWORD from
+            Render environment variables.
+          </p>
+
+          <label>
+            Password
+
+            <input
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            >
+          </label>
+
+          <button
+            class="mvp-primary"
+            type="submit"
+          >
+            View dashboard
+          </button>
+
         </form>
-        <section class="glass-panel admin-panel">
-          <h2>Business metrics</h2>
-          <div class="metric-grid">
-            <article><span>Total profiles</span><strong id="metricProfiles">0</strong></article>
-            <article><span>Total scans</span><strong id="metricScans">0</strong></article>
-            <article><span>Total leads</span><strong id="metricLeads">0</strong></article>
-            <article><span>Profile opens</span><strong id="metricViews">0</strong></article>
+
+        <section class="glass-panel">
+
+          <h2>All profiles</h2>
+
+          <div
+            id="adminList"
+            class="mvp-list"
+          >
+            <p class="mvp-muted">
+              Login to load profiles.
+            </p>
           </div>
+
         </section>
+
       </div>
-      <div class="mvp-two admin-layout lower">
-        <section class="glass-panel admin-panel">
-          <div class="admin-heading"><h2>Profiles</h2><input id="adminSearch" placeholder="Search name, username, phone"></div>
-          <div id="adminList" class="mvp-list"><p class="mvp-muted">Login to load profiles.</p></div>
-        </section>
-        <section class="glass-panel admin-panel">
-          <h2>Recent activity</h2>
-          <div id="activityList" class="mvp-list"><p class="mvp-muted">Activity appears after scans and clicks.</p></div>
-        </section>
-      </div>
+
     </section>
+
   </main>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
   <script src="/web-mvp.js"></script>
+
 </body>
 </html>
