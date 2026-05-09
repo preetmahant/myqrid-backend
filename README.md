@@ -143,6 +143,7 @@ https://your-render-service.onrender.com/
 npm start       # production start, used by Render
 npm run dev     # local development with node --watch
 npm run check   # syntax and safety checks
+npm run smoke:live  # end-to-end smoke test against SMOKE_BASE_URL or PUBLIC_BASE_URL
 ```
 
 ## API routes
@@ -210,6 +211,102 @@ After `npm start`:
 4. Open `/t/:slug` and confirm it shows the same owner profile.
 5. Open `/admin`, enter `ADMIN_PASSWORD`, view profiles and delete a test profile.
 6. Open `/api/status` and confirm `storage` is `firebase` on Render after Firebase env vars are configured.
+7. Optional live Render smoke test:
+
+```bash
+SMOKE_BASE_URL=https://your-render-service.onrender.com \
+SMOKE_ADMIN_PASSWORD=your-admin-password \
+npm run smoke:live
+```
+
+The smoke test creates a temporary profile, verifies `/api/profiles`, `/api/tags`, `/u/:username`, `/t/:slug`, `/api/qr`, admin listing, and deletes the temporary profile when an admin password is provided.
+
+## Notes about Firebase fallback
+
+When Firebase credentials are missing or invalid, `/api/status` returns `storage: "memory_fallback"`. This is only for local/demo testing. Data will disappear when the Node process restarts. For production on Render, configure Firebase so `/api/status` returns `storage: "firebase"`.
+
+## Production UX and analytics features
+
+The current MVP includes production-focused UX improvements while keeping the stack simple:
+
+- Premium mobile-first public profile card with profile image and fast-loading static assets.
+- Tag scan page at `/t/:slug` with scan animation and found-item recovery messaging.
+- WhatsApp quick connect, Call, Copy profile link and Download VCF actions.
+- Emergency contact fields (`emergency_name`, `emergency_phone`) shown on public/tag pages.
+- Downloadable QR PNGs from `/api/qr` and a printable QR sheet from the browser result card.
+- Profile editing with an `edit_token` returned at profile creation and stored in the creator browser.
+- Admin dashboard metrics for total profiles, total scans, total leads and profile opens.
+- Admin search/filter and recent activity feed.
+
+### Analytics tracked
+
+The backend writes scan/click events to `scan_logs` and profile counters to `profiles/{username}.analytics`:
+
+- `profile_open` when `/u/:username` loads profile data.
+- `qr_scan` when `/t/:slug` resolves the owner profile.
+- `whatsapp_click` when WhatsApp CTA is tapped.
+- `call_click` when Call or emergency Call is tapped.
+- `save_contact` when VCF is downloaded.
+- `copy_link` when the public profile link is copied.
+- `device_type` as `mobile`, `tablet`, `desktop` or `unknown`.
+- `timestamp` / `created_at` for recent activity.
+
+### Profile edit API
+
+```txt
+PUT /api/profiles/:username
+```
+
+Headers:
+
+```txt
+x-edit-token: PROFILE_EDIT_TOKEN
+```
+
+or admin override:
+
+```txt
+x-admin-password: ADMIN_PASSWORD
+```
+
+Body uses the same fields as profile creation, plus optional emergency fields:
+
+```json
+{
+  "name": "Preet Mahant",
+  "phone": "+919876543210",
+  "whatsapp": "+919876543210",
+  "email": "hello@example.com",
+  "bio": "Updated profile bio",
+  "image_url": "https://example.com/photo.jpg",
+  "emergency_name": "Family contact",
+  "emergency_phone": "+919800000000"
+}
+```
+
+### Firebase validation and security rules guidance
+
+For this MVP, Firebase Admin SDK writes from the trusted Express backend. Do **not** expose Firestore directly from browser code. If you later add browser-side Firebase SDK access, start with locked-down Firestore rules and only open specific authenticated paths.
+
+Recommended locked-down baseline:
+
+```txt
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+```
+
+Operational guidance:
+
+- Keep `FIREBASE_PRIVATE_KEY`, `FIREBASE_CLIENT_EMAIL`, `ADMIN_PASSWORD` and `SETUP_SECRET` only in Render environment variables.
+- Let the Express API validate writes; the frontend should call `/api/profiles`, `/api/tags`, `/api/track` and admin endpoints only.
+- Profile reads/writes are optimized to single profile/tag document reads where possible.
+- Admin dashboard reads up to 200 profile docs and the latest 60 activity docs to avoid unbounded Firestore scans.
 
 ## Notes about Firebase fallback
 
