@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0F0F1A">
+  <title>myQRID Premium Profile MVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="mvp-body">
+  <div class="mvp-aurora" aria-hidden="true"></div>
+
+  <header class="mvp-nav glass-panel">
+    <a class="mvp-brand" href="/">myQRID</a>
+    <nav>
+      <a href="/">Create</a>
+      <a href="/admin">Admin</a>
+      <a href="/health">Health</a>
+    </nav>
+  </header>
+
+  <main class="mvp-shell">
+    <section id="statusBanner" class="mvp-status" hidden></section>
+
+    <section id="createView" class="mvp-screen">
+      <div class="mvp-hero glass-panel premium-hero">
+        <div>
+          <span class="eyebrow">Premium QR identity + recovery</span>
+          <h1>Create a scan-ready identity profile.</h1>
+          <p>Generate a beautiful public profile, printable QR, recovery tag page, emergency contact and analytics-ready calls to action.</p>
+          <div class="mvp-actions">
+            <a class="mvp-primary" href="#profileForm">Build profile</a>
+            <a class="mvp-secondary" href="/admin">Open admin dashboard</a>
+          </div>
+          <div class="home-action-grid" aria-label="myQRID product shortcuts">
+            <a href="#profileForm">User Digital Profile</a>
+            <a href="#productsPreview">Earn + My Products</a>
+            <a href="#scanPayPreview">Scan & Pay</a>
+            <a href="#analyticsPreview">Analytics + Quick Actions</a>
+            <a href="#rewardsPreview">Rewards & Earn</a>
+          </div>
+        </div>
+        <div class="mvp-preview-card premium-card theme-purple-nebula">
+          <strong>Premium profile preview</strong>
+          <span>✓ Social CTA buttons</span>
+          <span>✓ QR profile section</span>
+          <span>✓ Dynamic themes</span>
+          <span>✓ Share + VCF actions</span>
+        </div>
+      </div>
+
+      <div class="mvp-two">
+        <form id="profileForm" class="glass-panel mvp-form">
+          <h2>Create / edit profile</h2>
+          <input name="edit_token" type="hidden">
+          <label>Name<input name="name" placeholder="Your full name" required></label>
+          <label>Phone<input name="phone" placeholder="+91 98765 43210" required></label>
+          <label>WhatsApp<input name="whatsapp" placeholder="+91 98765 43210" required></label>
+          <label>Email<input name="email" type="email" placeholder="you@example.com"></label>
+          <label>Website<input name="website" inputmode="url" placeholder="https://myqrid.in"></label>
+          <label>Theme
+            <select name="theme" id="themeSelect">
+              <option value="dark-mesh">Dark mesh</option>
+              <option value="purple-nebula">Purple nebula</option>
+              <option value="neon-city">Neon city</option>
+              <option value="glass">Glass</option>
+              <option value="light-pearl">Light pearl</option>
+              <option value="royal-velvet">Royal velvet</option>
+            </select>
+          </label>
+          <label>Bio<textarea name="bio" placeholder="What should people know when they scan your QR?"></textarea></label>
+          <label>Profile image URL<input name="image_url" type="url" placeholder="https://example.com/photo.jpg"></label>
+          <div class="mvp-form-grid">
+            <label>Emergency name<input name="emergency_name" placeholder="Emergency contact"></label>
+            <label>Emergency phone<input name="emergency_phone" placeholder="+91 98765 43210"></label>
+          </div>
+          <input name="links_json" id="linksJson" type="hidden" value="[]">
+          <section class="link-editor" aria-labelledby="linkEditorTitle">
+            <div class="section-heading compact">
+              <div>
+                <h3 id="linkEditorTitle">Social CTA buttons</h3>
+                <p>Drag to reorder, toggle visibility, and add unlimited links.</p>
+              </div>
+              <button id="addLinkRow" class="mvp-secondary" type="button">Add link</button>
+            </div>
+            <div id="linkBuilder" class="link-builder"></div>
+          </section>
+          <button id="profileSubmit" class="mvp-primary" type="submit">Save profile + generate QR</button>
+        </form>
+
+        <section id="resultCard" class="glass-panel mvp-result" hidden>
+          <h2>Your profile is ready</h2>
+          <img id="resultAvatar" class="public-avatar" alt="Profile image">
+          <h3 id="resultName"></h3>
+          <p id="resultUsername"></p>
+          <div class="mvp-link-box"><span>Profile</span><a id="resultProfileUrl" href="#" target="_blank" rel="noreferrer"></a></div>
+          <div class="mvp-link-box"><span>Tag</span><a id="resultTagUrl" href="#" target="_blank" rel="noreferrer"></a></div>
+          <div id="resultSocialLinks" class="social-links-grid compact"></div>
+          <div class="mvp-qr-grid">
+            <div class="print-card"><img id="resultProfileQr" alt="Profile QR"><small>Profile QR</small><button id="downloadProfileQr" class="mvp-secondary" type="button">Download PNG</button></div>
+            <div class="print-card"><img id="resultTagQr" alt="Tag QR"><small>Recovery Tag QR</small><button id="downloadTagQr" class="mvp-secondary" type="button">Download PNG</button></div>
+          </div>
+          <div class="mvp-actions">
+            <button id="copyProfileLink" class="mvp-secondary" type="button">Copy profile link</button>
+            <button id="downloadResultVcf" class="mvp-secondary" type="button">Download VCF</button>
+            <button id="editProfile" class="mvp-secondary" type="button">Edit profile</button>
+            <button id="printQr" class="mvp-primary" type="button">Print QR sheet</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="feature-strip" aria-label="Platform previews">
+        <article id="productsPreview" class="glass-panel feature-card"><span>Products</span><strong>Smart tags, cards, bands</strong><p>Prepare inventory, activation and product experiences in later phases.</p></article>
+        <article id="scanPayPreview" class="glass-panel feature-card"><span>Scan & Pay</span><strong>QR-first quick actions</strong><p>Mobile-first cards for payment and partner service shortcuts.</p></article>
+        <article id="analyticsPreview" class="glass-panel feature-card"><span>Analytics</span><strong>Views, scans, leads</strong><p>Track CTA clicks and public profile activity from the existing API.</p></article>
+        <article id="rewardsPreview" class="glass-panel feature-card"><span>Rewards</span><strong>Earn, badges, referrals</strong><p>Future-ready UI space without adding build tools or React.</p></article>
+      </section>
+    </section>
+
+    <section id="publicView" class="mvp-screen" hidden>
+      <article class="glass-panel mvp-public-card">
+        <div id="publicLoading" class="mvp-loading"><span class="scan-loader"></span>Loading myQRID…</div>
+        <div id="publicContent" hidden>
+          <span id="publicBadge" class="mvp-pill">Verified myQRID</span>
+          <div id="scanAnimation" class="scan-animation" hidden><span></span></div>
+          <img id="publicAvatar" class="public-avatar premium-avatar" alt="Profile image">
+          <h1 id="publicName"></h1>
+          <p id="publicBio"></p>
+          <div id="publicStats" class="profile-stats" aria-label="Profile analytics summary"></div>
+          <div id="publicSocialLinks" class="social-links-grid"></div>
+          <section id="recoveryPanel" class="recovery-panel" hidden>
+            <strong>Found item recovery</strong>
+            <p>You scanned a myQRID recovery tag. Use WhatsApp or Call to quickly connect with the owner.</p>
+          </section>
+          <section id="emergencyPanel" class="emergency-panel" hidden></section>
+          <div class="mvp-actions public-cta" id="publicActions"></div>
+          <div class="mvp-qr-grid single qr-profile-section"><div class="print-card"><img id="publicQr" alt="Public QR"><small id="publicQrLabel">QR code</small><button id="publicDownloadQr" class="mvp-secondary" type="button">Download QR</button></div></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="adminView" class="mvp-screen" hidden>
+      <div class="mvp-two admin-layout">
+        <form id="adminLoginForm" class="glass-panel mvp-form">
+          <h2>Admin dashboard</h2>
+          <p class="mvp-muted">Enter ADMIN_PASSWORD or SETUP_SECRET from Render environment variables.</p>
+          <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+          <button class="mvp-primary" type="submit">View dashboard</button>
+        </form>
+        <section class="glass-panel admin-panel">
+          <h2>Business metrics</h2>
+          <div class="metric-grid">
+            <article><span>Total profiles</span><strong id="metricProfiles">0</strong></article>
+            <article><span>Total scans</span><strong id="metricScans">0</strong></article>
+            <article><span>Total leads</span><strong id="metricLeads">0</strong></article>
+            <article><span>Profile opens</span><strong id="metricViews">0</strong></article>
+          </div>
+        </section>
+      </div>
+      <div class="mvp-two admin-layout lower">
+        <section class="glass-panel admin-panel">
+          <div class="admin-heading"><h2>Profiles</h2><input id="adminSearch" placeholder="Search name, username, phone"></div>
+          <div id="adminList" class="mvp-list"><p class="mvp-muted">Login to load profiles.</p></div>
+        </section>
+        <section class="glass-panel admin-panel">
+          <h2>Recent activity</h2>
+          <div id="activityList" class="mvp-list"><p class="mvp-muted">Activity appears after scans and clicks.</p></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Mobile quick navigation">
+    <a href="/" data-nav="home">Home</a>
+    <a href="/#profileForm" data-nav="profile">Profile</a>
+    <a href="/#productsPreview" data-nav="products">Products</a>
+    <a href="/#analyticsPreview" data-nav="analytics">Analytics</a>
+    <a href="/#rewardsPreview" data-nav="rewards">Rewards</a>
+  </nav>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/web-mvp.js"></script>
+</body>
+</html>
