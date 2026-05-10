@@ -1,157 +1,145 @@
+function normalizeUrl(url) {
+  if (!url) return null;
+
+  const trimmed = String(url).trim();
+
+  if (!trimmed) return null;
+
+  if (
+    trimmed.startsWith("http://") ||
+    trimmed.startsWith("https://") ||
+    trimmed.startsWith("mailto:") ||
+    trimmed.startsWith("tel:")
+  ) {
+    return trimmed;
+  }
+
+  return `https://${trimmed}`;
+}
+
+function buildWhatsAppLink(number) {
+  if (!number) return null;
+
+  const clean = String(number).replace(/\D/g, "");
+
+  if (!clean) return null;
+
+  return `https://wa.me/${clean}`;
+}
+
 function getSocialLinks(profile) {
-
   return [
-
     {
       id: "whatsapp",
       label: "WhatsApp",
       icon: "📱",
-
-      href: profile.whatsapp
-        ? `https://wa.me/${String(profile.whatsapp).replace(/\D/g, "")}`
-        : null,
-
+      href: buildWhatsAppLink(profile.whatsapp),
       gradient:
-        "linear-gradient(135deg, rgba(124,58,237,0.82), rgba(91,33,182,0.74))",
-
-      visible: !!profile.whatsapp
+        "linear-gradient(135deg, rgba(124,58,237,0.85), rgba(91,33,182,0.78))"
     },
 
     {
       id: "call",
       label: "Call",
       icon: "📞",
-
       href: profile.phone
         ? `tel:${profile.phone}`
         : null,
 
       gradient:
-        "linear-gradient(135deg, rgba(139,92,246,0.82), rgba(109,40,217,0.74))",
-
-      visible: !!profile.phone
+        "linear-gradient(135deg, rgba(139,92,246,0.85), rgba(109,40,217,0.78))"
     },
 
     {
       id: "email",
       label: "Email",
       icon: "✉️",
-
       href: profile.email
         ? `mailto:${profile.email}`
         : null,
 
       gradient:
-        "linear-gradient(135deg, rgba(147,51,234,0.82), rgba(88,28,135,0.72))",
-
-      visible: !!profile.email
+        "linear-gradient(135deg, rgba(147,51,234,0.85), rgba(88,28,135,0.78))"
     },
 
     {
       id: "website",
       label: "Website",
       icon: "🌐",
-
-      href: profile.website || null,
+      href: normalizeUrl(profile.website),
 
       gradient:
-        "linear-gradient(135deg, rgba(126,34,206,0.82), rgba(76,29,149,0.72))",
-
-      visible: !!profile.website
+        "linear-gradient(135deg, rgba(126,34,206,0.85), rgba(76,29,149,0.78))"
     },
 
     {
       id: "instagram",
       label: "Instagram",
       icon: "📸",
-
-      href: profile.instagram || null,
+      href: normalizeUrl(profile.instagram),
 
       gradient:
-        "linear-gradient(135deg, rgba(168,85,247,0.82), rgba(107,33,168,0.74))",
-
-      visible: !!profile.instagram
+        "linear-gradient(135deg, rgba(168,85,247,0.85), rgba(107,33,168,0.78))"
     },
 
     {
       id: "youtube",
       label: "YouTube",
       icon: "▶️",
-
-      href: profile.youtube || null,
+      href: normalizeUrl(profile.youtube),
 
       gradient:
-        "linear-gradient(135deg, rgba(139,92,246,0.82), rgba(91,33,182,0.74))",
-
-      visible: !!profile.youtube
+        "linear-gradient(135deg, rgba(139,92,246,0.85), rgba(91,33,182,0.78))"
     },
 
     {
       id: "linkedin",
       label: "LinkedIn",
       icon: "💼",
-
-      href: profile.linkedin || null,
+      href: normalizeUrl(profile.linkedin),
 
       gradient:
-        "linear-gradient(135deg, rgba(139,92,246,0.82), rgba(67,56,202,0.72))",
-
-      visible: !!profile.linkedin
+        "linear-gradient(135deg, rgba(139,92,246,0.85), rgba(67,56,202,0.78))"
     },
 
     {
       id: "telegram",
       label: "Telegram",
       icon: "✈️",
-
-      href: profile.telegram || null,
+      href: normalizeUrl(profile.telegram),
 
       gradient:
-        "linear-gradient(135deg, rgba(124,58,237,0.82), rgba(76,29,149,0.72))",
-
-      visible: !!profile.telegram
+        "linear-gradient(135deg, rgba(124,58,237,0.85), rgba(76,29,149,0.78))"
     },
 
     {
       id: "twitter",
       label: "X / Twitter",
       icon: "𝕏",
-
-      href: profile.twitter || null,
+      href: normalizeUrl(profile.twitter),
 
       gradient:
-        "linear-gradient(135deg, rgba(91,33,182,0.82), rgba(67,56,202,0.72))",
-
-      visible: !!profile.twitter
+        "linear-gradient(135deg, rgba(91,33,182,0.85), rgba(67,56,202,0.78))"
     },
 
     {
       id: "snapchat",
       label: "Snapchat",
       icon: "👻",
-
-      href: profile.snapchat || null,
+      href: normalizeUrl(profile.snapchat),
 
       gradient:
-        "linear-gradient(135deg, rgba(168,85,247,0.82), rgba(126,34,206,0.72))",
-
-      visible: !!profile.snapchat
+        "linear-gradient(135deg, rgba(168,85,247,0.85), rgba(126,34,206,0.78))"
     }
-
-  ];
+  ].filter(link => !!link.href);
 }
 
-function renderSocialLinks(
-  profile,
-  container
-) {
+function renderSocialLinks(profile, container) {
+  if (!container) return;
 
-  const links =
-    getSocialLinks(profile)
-      .filter(link => link.visible);
+  const links = getSocialLinks(profile);
 
   if (!links.length) {
-
     container.innerHTML = `
       <div class="social-empty">
         No social links added yet.
@@ -161,30 +149,29 @@ function renderSocialLinks(
     return;
   }
 
-  container.innerHTML =
-    links.map(link => `
-      <a
-        class="social-card"
-        href="${link.href}"
-        target="_blank"
-        rel="noreferrer"
-        style="background:${link.gradient}"
-      >
+  container.innerHTML = links.map(link => `
+    <a
+      class="social-card"
+      href="${link.href}"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="background:${link.gradient};"
+    >
 
-        <div class="social-glow"></div>
+      <div class="social-glow"></div>
 
-        <span class="social-icon">
-          ${link.icon}
-        </span>
+      <span class="social-icon">
+        ${link.icon}
+      </span>
 
-        <span class="social-label">
-          ${link.label}
-        </span>
+      <span class="social-label">
+        ${link.label}
+      </span>
 
-        <span class="social-arrow">
-          →
-        </span>
+      <span class="social-arrow">
+        →
+      </span>
 
-      </a>
-    `).join("");
+    </a>
+  `).join("");
 }
