@@ -1,190 +1,111 @@
-function getSocialLinks(profile) {
+(function () {
 
-  return [
-
-    {
-      id: "whatsapp",
-      label: "WhatsApp",
-      icon: "📱",
-
-      href: profile.whatsapp
-        ? `https://wa.me/${String(profile.whatsapp).replace(/\D/g, "")}`
-        : null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(124,58,237,0.82), rgba(91,33,182,0.74))",
-
-      visible: !!profile.whatsapp
-    },
-
-    {
-      id: "call",
-      label: "Call",
-      icon: "📞",
-
-      href: profile.phone
-        ? `tel:${profile.phone}`
-        : null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(139,92,246,0.82), rgba(109,40,217,0.74))",
-
-      visible: !!profile.phone
-    },
-
-    {
-      id: "email",
-      label: "Email",
-      icon: "✉️",
-
-      href: profile.email
-        ? `mailto:${profile.email}`
-        : null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(147,51,234,0.82), rgba(88,28,135,0.72))",
-
-      visible: !!profile.email
-    },
-
-    {
-      id: "website",
-      label: "Website",
-      icon: "🌐",
-
-      href: profile.website || null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(126,34,206,0.82), rgba(76,29,149,0.72))",
-
-      visible: !!profile.website
-    },
-
-    {
-      id: "instagram",
-      label: "Instagram",
-      icon: "📸",
-
-      href: profile.instagram || null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(168,85,247,0.82), rgba(107,33,168,0.74))",
-
-      visible: !!profile.instagram
-    },
-
-    {
-      id: "youtube",
-      label: "YouTube",
-      icon: "▶️",
-
-      href: profile.youtube || null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(139,92,246,0.82), rgba(91,33,182,0.74))",
-
-      visible: !!profile.youtube
-    },
-
-    {
-      id: "linkedin",
-      label: "LinkedIn",
-      icon: "💼",
-
-      href: profile.linkedin || null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(139,92,246,0.82), rgba(67,56,202,0.72))",
-
-      visible: !!profile.linkedin
-    },
-
-    {
-      id: "telegram",
-      label: "Telegram",
-      icon: "✈️",
-
-      href: profile.telegram || null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(124,58,237,0.82), rgba(76,29,149,0.72))",
-
-      visible: !!profile.telegram
-    },
-
-    {
-      id: "twitter",
-      label: "X / Twitter",
-      icon: "𝕏",
-
-      href: profile.twitter || null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(91,33,182,0.82), rgba(67,56,202,0.72))",
-
-      visible: !!profile.twitter
-    },
-
-    {
-      id: "snapchat",
-      label: "Snapchat",
-      icon: "👻",
-
-      href: profile.snapchat || null,
-
-      gradient:
-        "linear-gradient(135deg, rgba(168,85,247,0.82), rgba(126,34,206,0.72))",
-
-      visible: !!profile.snapchat
-    }
-
-  ];
-}
-
-function renderSocialLinks(
-  profile,
-  container
-) {
-
-  const links =
-    getSocialLinks(profile)
-      .filter(link => link.visible);
-
-  if (!links.length) {
-
-    container.innerHTML = `
-      <div class="social-empty">
-        No social links added yet.
-      </div>
-    `;
-
-    return;
+  function showView(id) {
+    document.querySelectorAll(".view").forEach(function (v) {
+      v.classList.remove("active");
+    });
+    var el = document.getElementById(id);
+    if (el) el.classList.add("active");
   }
 
-  container.innerHTML =
-    links.map(link => `
-      <a
-        class="social-card"
-        href="${link.href}"
-        target="_blank"
-        rel="noreferrer"
-        style="background:${link.gradient}"
-      >
+  function escHtml(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
 
-        <div class="social-glow"></div>
+  function loadProfile(username) {
+    showView("view-profile");
+    var container = document.getElementById("profileContainer");
+    if (!container) return;
 
-        <span class="social-icon">
-          ${link.icon}
-        </span>
+    container.innerHTML = '<div class="mvp-loading"><p>Loading profile...</p></div>';
 
-        <span class="social-label">
-          ${link.label}
-        </span>
+    fetch("/api/profiles/" + encodeURIComponent(username))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success && data.profile) {
+          if (typeof window.renderProfileCard === "function") {
+            window.renderProfileCard(data.profile, container);
+          }
+        } else {
+          container.innerHTML =
+            '<div class="mvp-error glass-panel">' +
+              '<h2>Profile not found</h2>' +
+              '<p>No profile exists for @' + escHtml(username) + '</p>' +
+              '<a href="/" class="action-button">Back to home</a>' +
+            '</div>';
+        }
+      })
+      .catch(function () {
+        container.innerHTML =
+          '<div class="mvp-error glass-panel">' +
+            '<h2>Could not load profile</h2>' +
+            '<p>Check your connection and try again.</p>' +
+            '<a href="/" class="action-button">Back to home</a>' +
+          '</div>';
+      });
+  }
 
-        <span class="social-arrow">
-          →
-        </span>
+  var PAGE_INFO = {
+    "/products":  { title: "Earn + My Products",       msg: "Product management and tag activation coming in Phase 2.", nav: "products"  },
+    "/scan":      { title: "Scan & Pay",                msg: "QR scan and payment features coming in Phase 2.",          nav: "home"      },
+    "/analytics": { title: "Analytics",                 msg: "Scan analytics and click tracking coming in Phase 2.",     nav: "analytics" },
+    "/rewards":   { title: "Rewards & Earn",            msg: "Points, badges and referrals coming in Phase 2.",          nav: "rewards"   }
+  };
 
-      </a>
-    `).join("");
-}
+  function boot() {
+    var path = window.location.pathname;
+
+    // Wire action tiles (always, regardless of view shown)
+    document.querySelectorAll(".action-tile[data-href]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        window.location.href = btn.getAttribute("data-href");
+      });
+    });
+
+    var backBtn = document.getElementById("placeholder-back");
+    if (backBtn) {
+      backBtn.addEventListener("click", function () {
+        window.location.href = "/";
+      });
+    }
+
+    // /u/:username — public profile
+    var profileM = path.match(/^\/u\/([^/]+)/);
+    if (profileM && profileM[1] !== "me") {
+      loadProfile(profileM[1]);
+      if (typeof window.initNav === "function") window.initNav("profile");
+      return;
+    }
+
+    // /t/:slug — tag scan (resolve to profile for now)
+    var tagM = path.match(/^\/t\/([^/]+)/);
+    if (tagM) {
+      loadProfile(tagM[1]);
+      if (typeof window.initNav === "function") window.initNav("home");
+      return;
+    }
+
+    // Known Phase 2 placeholder routes
+    var info = PAGE_INFO[path] || PAGE_INFO[path.replace(/\/$/, "")];
+    if (info) {
+      showView("view-placeholder");
+      var titleEl = document.getElementById("placeholder-title");
+      var msgEl   = document.getElementById("placeholder-msg");
+      if (titleEl) titleEl.textContent = info.title;
+      if (msgEl)   msgEl.textContent   = info.msg;
+      if (typeof window.initNav === "function") window.initNav(info.nav);
+      return;
+    }
+
+    // Default: homepage
+    showView("view-home");
+    if (typeof window.initNav === "function") window.initNav("home");
+  }
+
+  document.addEventListener("DOMContentLoaded", boot);
+
+}());

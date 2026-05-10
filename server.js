@@ -160,7 +160,26 @@ app.get("/api/profiles/:username", async (req, res) => {
   }
 });
 
+app.put("/api/profiles/:username", async (req, res) => {
+  try {
+    if (!db) {
+      return res.status(500).json({ success: false, error: "Firebase not configured" });
+    }
+    const updates = req.body;
+    delete updates.username;
+    delete updates.created_at;
+    await db.collection("profiles").doc(req.params.username).set(updates, { merge: true });
+    res.json({ success: true, message: "Profile updated" });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 /* ---------------- FRONTEND ---------------- */
+
+app.get("/dashboard", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "pages", "dashboard.html"));
+});
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "web-mvp.html"));

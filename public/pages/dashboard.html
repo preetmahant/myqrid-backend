@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — myQRID</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0f0c29;
+      color: #fff;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Aurora background */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .aurora::before, .aurora::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+    }
+    .aurora::before {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.8), transparent 70%);
+      top: -200px; left: -100px;
+      animation: aurora-drift 12s ease-in-out infinite alternate;
+    }
+    .aurora::after {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(236,72,153,0.5), transparent 70%);
+      bottom: -150px; right: -100px;
+      animation: aurora-drift 16s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes aurora-drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    /* Shell */
+    .shell {
+      position: relative;
+      z-index: 1;
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      padding-bottom: 96px;
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
+    }
+    .brand {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .topbar-title {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    /* Glass shared */
+    .glass {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.11);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+    }
+
+    /* Profile hero */
+    .hero {
+      margin: 0 14px 14px;
+      padding: 28px 20px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+    }
+
+    .avatar-ring {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 0 28px rgba(139,92,246,0.5);
+      margin-bottom: 4px;
+    }
+
+    .hero-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .hero-handle {
+      font-size: 0.78rem;
+      color: rgba(168,85,247,0.9);
+      font-weight: 600;
+    }
+
+    .hero-bio {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+      max-width: 260px;
+      margin-top: 2px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 50px;
+      border: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+    .btn:active { transform: scale(0.96); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(139,92,246,0.4);
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #fff;
+    }
+
+    .btn-green {
+      background: rgba(37,211,102,0.18);
+      border: 1px solid rgba(37,211,102,0.35);
+      color: #25d366;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 0 14px 14px;
+    }
+
+    .stat-card {
+      padding: 16px 14px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .stat-value {
+      font-size: 1.7rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .stat-sub {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+
+    .stat-icon {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    /* Section */
+    .section {
+      margin: 0 14px 14px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .toggle-btn {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #a855f7;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 0;
+    }
+
+    /* Edit form */
+    .edit-form {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .edit-form.open { display: flex; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .field input,
+    .field textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 11px 14px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: rgba(255,255,255,0.28); }
+    .field input:focus,
+    .field textarea:focus { border-color: rgba(139,92,246,0.6); }
+    .field textarea { resize: none; height: 72px; line-height: 1.5; }
+
+    .save-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    /* Quick actions grid */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .action-card {
+      padding: 16px 14px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      color: #fff;
+      font-family: inherit;
+      text-align: left;
+      text-decoration: none;
+      transition: transform 0.15s, background 0.2s;
+    }
+    .action-card:active { transform: scale(0.97); }
+
+    .action-card-icon { font-size: 1.3rem; }
+    .action-card-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .action-card-sub {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Loading state */
+    .loading-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 60px 20px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid rgba(139,92,246,0.2);
+      border-top-color: #8b5cf6;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Error state */
+    .error-state {
+      margin: 40px 14px;
+      padding: 24px 20px;
+      border-radius: 24px;
+      text-align: center;
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+    .error-state p { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-top: 8px; }
+
+    /* Bottom nav (from component) */
+    #bottomNav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 8px 10px 20px;
+      background: rgba(15,12,41,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .bnav-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 6px 4px;
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.38);
+      font-size: 0.6rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+    .bnav-tab svg { width: 20px; height: 20px; }
+    .bnav-tab--active {
+      color: #a855f7;
+      background: rgba(168,85,247,0.12);
+    }
+
+    /* Toast */
+    .mvp-toast {
+      position: fixed;
+      bottom: 96px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(30,20,60,0.95);
+      border: 1px solid rgba(139,92,246,0.35);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 50px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 999;
+      pointer-events: none;
+    }
+    .mvp-toast--show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Skeleton shimmer */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.06) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 8px;
+    }
+    @keyframes shimmer {
+      from { background-position: 200% 0; }
+      to   { background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="aurora"></div>
+
+<div class="shell">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <span class="brand">myQRID</span>
+    <span class="topbar-title">Dashboard</span>
+    <div style="width:48px"></div>
+  </div>
+
+  <!-- Dynamic content injected by JS -->
+  <div id="dashboardContent">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <span>Loading profile…</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom nav -->
+<div id="bottomNav"></div>
+
+<!-- Components -->
+<script src="/components/toast.js"></script>
+<script src="/components/bottom-nav.js"></script>
+
+<script>
+(function () {
+  var username = new URLSearchParams(window.location.search).get("u");
+  var profile = null;
+  var editOpen = false;
+
+  function initPage() {
+    initNav("profile");
+
+    if (!username) {
+      showError("No profile specified. Add <code>?u=yourusername</code> to the URL.");
+      return;
+    }
+
+    loadProfile();
+  }
+
+  function loadProfile() {
+    fetch("/api/profiles/" + encodeURIComponent(username))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data.success) throw new Error(data.error || "Profile not found");
+        profile = data.profile;
+        renderDashboard();
+      })
+      .catch(function (err) {
+        showError(err.message);
+      });
+  }
+
+  function renderDashboard() {
+    var initials = (profile.name || username || "?")
+      .split(" ").slice(0, 2).map(function (w) { return w[0]; }).join("").toUpperCase();
+
+    var views = (profile.analytics && profile.analytics.views) ? profile.analytics.views : 0;
+    var waClicks = (profile.analytics && profile.analytics.whatsapp_clicks) ? profile.analytics.whatsapp_clicks : 0;
+    var publicUrl = window.location.origin + "/u/" + username;
+
+    var html = [
+      /* Hero card */
+      '<div class="hero glass">',
+        '<div class="avatar-ring">' + initials + '</div>',
+        '<div class="hero-name">' + escHtml(profile.name || username) + '</div>',
+        '<div class="hero-handle">@' + escHtml(username) + '</div>',
+        profile.bio ? '<div class="hero-bio">' + escHtml(profile.bio) + '</div>' : '',
+        '<div class="hero-actions">',
+          '<a href="/u/' + encodeURIComponent(username) + '" class="btn btn-ghost" target="_blank">',
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5zm0 12.5a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>',
+            'View Profile',
+          '</a>',
+          '<button class="btn btn-primary" onclick="window.toggleEdit()">',
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>',
+            'Edit Profile',
+          '</button>',
+        '</div>',
+      '</div>',
+
+      /* Stats row */
+      '<div class="stats-row">',
+        '<div class="stat-card glass">',
+          '<div class="stat-icon">👁️</div>',
+          '<div class="stat-label">Profile Views</div>',
+          '<div class="stat-value">' + formatNum(views) + '</div>',
+          '<div class="stat-sub">All time</div>',
+        '</div>',
+        '<div class="stat-card glass">',
+          '<div class="stat-icon">💬</div>',
+          '<div class="stat-label">WhatsApp Taps</div>',
+          '<div class="stat-value">' + formatNum(waClicks) + '</div>',
+          '<div class="stat-sub">All time</div>',
+        '</div>',
+      '</div>',
+
+      /* Edit section */
+      '<div class="section">',
+        '<div class="section-head">',
+          '<span class="section-title">Edit Profile</span>',
+          '<button class="toggle-btn" onclick="window.toggleEdit()" id="editToggleBtn">Open</button>',
+        '</div>',
+        '<div class="glass" style="padding:16px 16px;" id="editPanel">',
+          '<form class="edit-form" id="editForm" onsubmit="window.saveProfile(event)">',
+            '<div class="field"><label>Full Name</label><input type="text" id="editName" value="' + escAttr(profile.name || '') + '" placeholder="Your name" /></div>',
+            '<div class="field"><label>Bio</label><textarea id="editBio" placeholder="Short bio...">' + escHtml(profile.bio || '') + '</textarea></div>',
+            '<div class="field"><label>WhatsApp Number</label><input type="tel" id="editWhatsapp" value="' + escAttr(profile.whatsapp || '') + '" placeholder="+1234567890" /></div>',
+            '<div class="field"><label>Phone</label><input type="tel" id="editPhone" value="' + escAttr(profile.phone || '') + '" placeholder="+1234567890" /></div>',
+            '<div class="field"><label>Email</label><input type="email" id="editEmail" value="' + escAttr(profile.email || '') + '" placeholder="you@example.com" /></div>',
+            '<div class="save-row">',
+              '<button type="submit" class="btn btn-primary" id="saveBtn" style="flex:1">Save Changes</button>',
+              '<button type="button" class="btn btn-ghost" onclick="window.toggleEdit()">Cancel</button>',
+            '</div>',
+          '</form>',
+          '<div id="editClosed" style="color:rgba(255,255,255,0.4);font-size:0.82rem;">Tap <strong style="color:#a855f7">Open</strong> to edit your name, bio, WhatsApp, phone, and email.</div>',
+        '</div>',
+      '</div>',
+
+      /* Quick actions */
+      '<div class="section">',
+        '<div class="section-head"><span class="section-title">Quick Actions</span></div>',
+        '<div class="actions-grid">',
+          /* WhatsApp CTA - #1 always */
+          profile.whatsapp
+            ? '<a class="action-card glass" href="https://wa.me/' + encodeURIComponent(profile.whatsapp.replace(/\D/g, '')) + '" target="_blank" rel="noopener" style="background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.25)">' +
+                '<div class="action-card-icon">💬</div>' +
+                '<div class="action-card-label">Open WhatsApp</div>' +
+                '<div class="action-card-sub">Test your link</div>' +
+              '</a>'
+            : '<button class="action-card glass" onclick="window.toggleEdit()" style="background:rgba(37,211,102,0.07);border-color:rgba(37,211,102,0.18)">' +
+                '<div class="action-card-icon">💬</div>' +
+                '<div class="action-card-label">Add WhatsApp</div>' +
+                '<div class="action-card-sub">Required for profile</div>' +
+              '</button>',
+          '<button class="action-card glass" onclick="window.copyLink(\'' + publicUrl + '\')">',
+            '<div class="action-card-icon">🔗</div>',
+            '<div class="action-card-label">Copy Link</div>',
+            '<div class="action-card-sub">' + escHtml(publicUrl.replace('https://', '')) + '</div>',
+          '</button>',
+          '<a class="action-card glass" href="/api/qr?data=' + encodeURIComponent(publicUrl) + '" download="' + encodeURIComponent(username) + '-qr.png">',
+            '<div class="action-card-icon">📲</div>',
+            '<div class="action-card-label">Download QR</div>',
+            '<div class="action-card-sub">PNG image</div>',
+          '</a>',
+          '<a class="action-card glass" href="https://wa.me/?text=' + encodeURIComponent('Check out my myQRID profile: ' + publicUrl) + '" target="_blank" rel="noopener">',
+            '<div class="action-card-icon">📤</div>',
+            '<div class="action-card-label">Share Profile</div>',
+            '<div class="action-card-sub">via WhatsApp</div>',
+          '</a>',
+        '</div>',
+      '</div>',
+
+    ].join("");
+
+    document.getElementById("dashboardContent").innerHTML = html;
+  }
+
+  window.toggleEdit = function () {
+    editOpen = !editOpen;
+    var form = document.getElementById("editForm");
+    var closed = document.getElementById("editClosed");
+    var btn = document.getElementById("editToggleBtn");
+    if (!form) return;
+    form.classList.toggle("open", editOpen);
+    closed.style.display = editOpen ? "none" : "block";
+    btn.textContent = editOpen ? "Close" : "Open";
+  };
+
+  window.saveProfile = function (e) {
+    e.preventDefault();
+    var saveBtn = document.getElementById("saveBtn");
+    saveBtn.textContent = "Saving…";
+    saveBtn.disabled = true;
+
+    var updates = {
+      name:     document.getElementById("editName").value.trim(),
+      bio:      document.getElementById("editBio").value.trim(),
+      whatsapp: document.getElementById("editWhatsapp").value.trim(),
+      phone:    document.getElementById("editPhone").value.trim(),
+      email:    document.getElementById("editEmail").value.trim(),
+    };
+
+    fetch("/api/profiles/" + encodeURIComponent(username), {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data.success) throw new Error(data.error || "Save failed");
+        Object.assign(profile, updates);
+        showToast("Profile saved ✓");
+        window.toggleEdit();
+        renderDashboard();
+      })
+      .catch(function (err) {
+        showToast("Error: " + err.message);
+      })
+      .finally(function () {
+        if (saveBtn) { saveBtn.textContent = "Save Changes"; saveBtn.disabled = false; }
+      });
+  };
+
+  window.copyLink = function (url) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(function () { showToast("Link copied!"); });
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = url;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      showToast("Link copied!");
+    }
+  };
+
+  function showError(msg) {
+    document.getElementById("dashboardContent").innerHTML =
+      '<div class="error-state">' +
+        '<div style="font-size:1.5rem">⚠️</div>' +
+        '<div style="font-weight:700;margin-top:8px">Profile not found</div>' +
+        '<p>' + msg + '</p>' +
+        '<a href="/" class="btn btn-ghost" style="margin-top:16px;display:inline-flex">Go Home</a>' +
+      '</div>';
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function escAttr(s) {
+    return String(s).replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function formatNum(n) {
+    n = parseInt(n, 10) || 0;
+    if (n >= 1000) return (n / 1000).toFixed(1) + "k";
+    return String(n);
+  }
+
+  initPage();
+}());
+</script>
+
+</body>
+</html>

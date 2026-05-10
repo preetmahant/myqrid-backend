@@ -721,7 +721,7 @@ async function boot() {
 
   try {
     const response = await fetch(
-      `${API_BASE}/${encodeURIComponent(username)}`
+      `${API_BASE}/api/profiles/${encodeURIComponent(username)}`
     );
 
     const data = await response.json();
