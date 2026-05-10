@@ -283,27 +283,3 @@ Body uses the same fields as profile creation, plus optional emergency fields:
   "emergency_phone": "+919800000000"
 }
 ```
-
-### Firebase validation and security rules guidance
-
-For this MVP, Firebase Admin SDK writes from the trusted Express backend. Do **not** expose Firestore directly from browser code. If you later add browser-side Firebase SDK access, start with locked-down Firestore rules and only open specific authenticated paths.
-
-Recommended locked-down baseline:
-
-```txt
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if false;
-    }
-  }
-}
-```
-
-Operational guidance:
-
-- Keep `FIREBASE_PRIVATE_KEY`, `FIREBASE_CLIENT_EMAIL`, `ADMIN_PASSWORD` and `SETUP_SECRET` only in Render environment variables.
-- Let the Express API validate writes; the frontend should call `/api/profiles`, `/api/tags`, `/api/track` and admin endpoints only.
-- Profile reads/writes are optimized to single profile/tag document reads where possible.
-- Admin dashboard reads up to 200 profile docs and the latest 60 activity docs to avoid unbounded Firestore scans.
