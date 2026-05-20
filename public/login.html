@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Login — myQRID</title>
+<meta name="theme-color" content="#7C3AED">
+<link rel="icon" href="/assets/myqrid-logo.png">
+<link rel="stylesheet" href="/css/glass.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/logo.js"></script>
+<style>
+body{background:#1E1008;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.auth-box{width:100%;max-width:380px}
+.auth-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
+.auth-title{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-0.02em;margin-top:16px}
+.auth-sub{color:rgba(255,255,255,0.4);font-size:0.9rem;margin-top:4px;text-align:center}
+.auth-card{background:rgba(0,0,0,0.35);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.10);border-radius:24px;padding:28px 24px}
+.form-gap{display:flex;flex-direction:column;gap:16px}
+.divider{display:flex;align-items:center;gap:12px;margin:8px 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+.divider span{color:rgba(255,255,255,0.25);font-size:0.8rem}
+.auth-footer{text-align:center;margin-top:20px;color:rgba(255,255,255,0.35);font-size:0.875rem}
+.auth-footer a{color:#DDD6FE;font-weight:600;text-decoration:none}
+.auth-footer a:hover{color:#fff}
+.forgot{text-align:right;margin-top:-8px}
+.forgot a{color:rgba(255,255,255,0.35);font-size:0.8rem;text-decoration:none}
+.forgot a:hover{color:#DDD6FE}
+</style>
+</head>
+<body data-top="coffee" data-bottom="deep-purple">
+
+<div class="auth-box">
+  <div class="auth-logo">
+    <img id="auth-logo" width="72" height="72" alt="myQRID" style="object-fit:contain">
+    <div class="auth-title">Welcome back</div>
+    <div class="auth-sub">Login to your myQRID account</div>
+  </div>
+
+  <div class="auth-card">
+    <div class="form-gap">
+      <div class="input-group">
+        <label class="input-label">Email</label>
+        <input id="email" class="input" type="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Password</label>
+        <input id="password" class="input" type="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <div class="forgot"><a href="/forgot.html">Forgot password?</a></div>
+      <button id="login-btn" class="btn btn-accent btn-full" onclick="doLogin()">Login</button>
+    </div>
+
+    <div class="divider"><span>or</span></div>
+
+    <a href="/claim.html" class="btn btn-dark-glass btn-full">🔑 Activate a QR Code</a>
+  </div>
+
+  <div class="auth-footer">
+    Don't have an account? <a href="/signup.html">Sign up free</a>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/app.js"></script>
+<script>
+document.getElementById('auth-logo').src = MYQRID_LOGO;
+redirectIfAuth();
+
+document.getElementById('password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+async function doLogin() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const btn = document.getElementById('login-btn');
+
+  if (!email || !password) { toast('Please fill all fields', 'error'); return; }
+
+  btnLoad(btn, true);
+
+  const { ok, data, error } = await apiFetch('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password })
+  });
+
+  btnLoad(btn, false);
+
+  if (ok && data.token) {
+    Auth.set(data.token);
+    toast('Welcome back!', 'success');
+    const pending = localStorage.getItem('pending_code');
+    if (pending) {
+      localStorage.removeItem('pending_code');
+      window.location.href = `/claim.html?code=${pending}`;
+    } else {
+      setTimeout(() => window.location.href = '/dashboard.html', 800);
+    }
+  } else {
+    document.getElementById('email').classList.add('error');
+    document.getElementById('password').classList.add('error');
+    toast(error || 'Invalid email or password', 'error');
+  }
+}
+</script>
+</body>
+</html>
