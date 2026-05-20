@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sign Up — myQRID</title>
+<meta name="theme-color" content="#7C3AED">
+<link rel="icon" href="/assets/myqrid-logo.png">
+<link rel="stylesheet" href="/css/glass.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/logo.js"></script>
+<style>
+body{background:#1E1008;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.auth-box{width:100%;max-width:380px}
+.auth-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:32px}
+.auth-title{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-0.02em;margin-top:16px}
+.auth-sub{color:rgba(255,255,255,0.4);font-size:0.9rem;margin-top:4px;text-align:center}
+.auth-card{background:rgba(0,0,0,0.35);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.10);border-radius:24px;padding:28px 24px}
+.form-gap{display:flex;flex-direction:column;gap:16px}
+.auth-footer{text-align:center;margin-top:20px;color:rgba(255,255,255,0.35);font-size:0.875rem}
+.auth-footer a{color:#DDD6FE;font-weight:600;text-decoration:none}
+.username-wrap{position:relative}
+.username-prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.3);font-size:1rem;pointer-events:none}
+.username-input{padding-left:28px}
+.username-status{font-size:0.78rem;margin-top:4px;min-height:18px}
+.username-status.ok{color:#00E5A0}
+.username-status.err{color:#FF3B5C}
+.terms{font-size:0.78rem;color:rgba(255,255,255,0.3);text-align:center;line-height:1.5}
+.terms a{color:#DDD6FE}
+</style>
+</head>
+<body data-top="coffee" data-bottom="deep-purple">
+
+<div class="auth-box">
+  <div class="auth-logo">
+    <img id="auth-logo" width="72" height="72" alt="myQRID" style="object-fit:contain">
+    <div class="auth-title">Create your myQRID</div>
+    <div class="auth-sub">Your digital identity starts here</div>
+  </div>
+
+  <div class="auth-card">
+    <div class="form-gap">
+
+      <div class="input-group">
+        <label class="input-label">Full Name</label>
+        <input id="name" class="input" type="text" placeholder="Preet Mahant" autocomplete="name">
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Username</label>
+        <div class="username-wrap">
+          <span class="username-prefix">@</span>
+          <input id="username" class="input username-input" type="text" placeholder="preetmahant" autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+        <div class="username-status" id="username-status"></div>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Email</label>
+        <input id="email" class="input" type="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Password</label>
+        <input id="password" class="input" type="password" placeholder="Min 8 characters" autocomplete="new-password">
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">Phone (for WhatsApp)</label>
+        <input id="phone" class="input" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
+      </div>
+
+      <div class="terms">
+        By signing up you agree to our <a href="/terms.html">Terms</a> and <a href="/privacy.html">Privacy Policy</a>
+      </div>
+
+      <button id="signup-btn" class="btn btn-accent btn-full" onclick="doSignup()">
+        Create Account
+      </button>
+
+    </div>
+  </div>
+
+  <div class="auth-footer">
+    Already have an account? <a href="/login.html">Login</a>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/app.js"></script>
+<script>
+document.getElementById('auth-logo').src = MYQRID_LOGO;
+redirectIfAuth();
+
+/* Pre-fill code from URL */
+const params = new URLSearchParams(window.location.search);
+const pendingCode = params.get('code') || localStorage.getItem('pending_code');
+
+/* Username availability check */
+let usernameTimer;
+const usernameInput = document.getElementById('username');
+const usernameStatus = document.getElementById('username-status');
+
+usernameInput.addEventListener('input', () => {
+  const val = usernameInput.value.toLowerCase().replace(/[^a-z0-9_]/g,'');
+  usernameInput.value = val;
+  clearTimeout(usernameTimer);
+  usernameStatus.textContent = '';
+  usernameStatus.className = 'username-status';
+  if (val.length < 3) { usernameStatus.textContent = 'Min 3 characters'; usernameStatus.className='username-status err'; return; }
+  usernameStatus.textContent = 'Checking...';
+  usernameTimer = setTimeout(async () => {
+    const { ok, data } = await apiFetch(`/check-username/${val}`);
+    if (ok && data.available) {
+      usernameStatus.textContent = '✓ Available';
+      usernameStatus.className = 'username-status ok';
+      usernameInput.classList.remove('error');
+    } else {
+      usernameStatus.textContent = '✗ Already taken';
+      usernameStatus.className = 'username-status err';
+      usernameInput.classList.add('error');
+    }
+  }, 600);
+});
+
+async function doSignup() {
+  const name = document.getElementById('name').value.trim();
+  const username = document.getElementById('username').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const phone = document.getElementById('phone').value.trim();
+  const btn = document.getElementById('signup-btn');
+
+  if (!name || !username || !email || !password) {
+    toast('Please fill all required fields', 'error');
+    return;
+  }
+  if (password.length < 8) {
+    toast('Password must be at least 8 characters', 'error');
+    return;
+  }
+  if (username.length < 3) {
+    toast('Username must be at least 3 characters', 'error');
+    return;
+  }
+
+  btnLoad(btn, true);
+
+  const { ok, data, error } = await apiFetch('/auth/signup', {
+    method: 'POST',
+    body: JSON.stringify({ name, username, email, password, phone, code: pendingCode })
+  });
+
+  btnLoad(btn, false);
+
+  if (ok && data.token) {
+    Auth.set(data.token);
+    localStorage.removeItem('pending_code');
+    toast('Account created!', 'success');
+    setTimeout(() => window.location.href = '/dashboard.html', 800);
+  } else {
+    toast(error || 'Signup failed. Please try again.', 'error');
+  }
+}
+</script>
+</body>
+</html>
