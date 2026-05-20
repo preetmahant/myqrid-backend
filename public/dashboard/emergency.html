@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Emergency — myQRID</title>
+<meta name="theme-color" content="#FF3B5C">
+<link rel="icon" href="/assets/myqrid-logo.png">
+<link rel="stylesheet" href="/css/glass.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/logo.js"></script>
+<style>
+body{background:#0a0a0a;min-height:100dvh}
+.em-header{background:#FF3B5C;padding:16px;padding-top:calc(16px + var(--safe-top));display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.em-header-icon{font-size:1.4rem}
+.em-header-title{font-size:1rem;font-weight:900;letter-spacing:0.04em;color:#fff}
+.em-back{margin-left:auto;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1rem;border:none}
+.page{padding:20px 16px;padding-bottom:calc(var(--bottom-nav-h) + var(--safe-bottom) + 24px)}
+.em-toggle-card{background:rgba(255,59,92,0.08);border:1px solid rgba(255,59,92,0.25);border-radius:16px;padding:18px;margin-bottom:24px}
+.em-toggle-title{font-size:1rem;font-weight:800;color:#fff;margin-bottom:4px}
+.em-toggle-sub{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:14px;line-height:1.4}
+.section-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:18px;margin-bottom:16px}
+.section-card-title{font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.form-col{display:flex;flex-direction:column;gap:14px}
+.blood-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:4px}
+.blood-chip{padding:10px 4px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);font-size:0.85rem;font-weight:700;text-align:center;cursor:pointer;transition:all 0.2s}
+.blood-chip.active{background:rgba(255,59,92,0.2);border-color:rgba(255,59,92,0.5);color:#FF3B5C}
+.blood-chip:hover{background:rgba(255,59,92,0.1);border-color:rgba(255,59,92,0.3);color:#FF3B5C}
+.contact-card{display:flex;align-items:center;gap:12px;padding:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;margin-bottom:10px}
+.contact-num{width:32px;height:32px;border-radius:50%;background:#FF3B5C;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:800;color:#fff;flex-shrink:0}
+.preview-banner{background:linear-gradient(135deg,rgba(255,59,92,0.15),rgba(255,59,92,0.05));border:1px solid rgba(255,59,92,0.2);border-radius:14px;padding:16px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.preview-icon{font-size:1.5rem}
+.preview-text{flex:1}
+.preview-title{font-size:0.875rem;font-weight:700;color:#fff}
+.preview-sub{font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:2px}
+.save-bar{position:fixed;bottom:calc(var(--bottom-nav-h) + var(--safe-bottom));left:0;right:0;padding:12px 16px;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.07);z-index:50}
+</style>
+</head>
+<body>
+
+<div class="em-header">
+  <span class="em-header-icon">⚕</span>
+  <span class="em-header-title">EMERGENCY INFORMATION</span>
+  <button class="em-back" onclick="window.location.href='/dashboard.html'">←</button>
+</div>
+
+<div class="page">
+
+  <!-- Preview banner -->
+  <div class="preview-banner">
+    <div class="preview-icon">👁</div>
+    <div class="preview-text">
+      <div class="preview-title">When someone scans your QR in emergency</div>
+      <div class="preview-sub">They will see this info instantly — no login needed</div>
+    </div>
+  </div>
+
+  <!-- Toggle -->
+  <div class="em-toggle-card">
+    <div class="em-toggle-title">Emergency Mode</div>
+    <div class="em-toggle-sub">When ON, scanning your QR shows emergency medical info instead of your profile</div>
+    <label class="toggle-wrap">
+      <span style="color:#fff;font-weight:700;font-size:0.9rem">Enable Emergency Mode</span>
+      <label class="toggle">
+        <input type="checkbox" id="em-toggle" onchange="toggleMode()">
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>
+    </label>
+  </div>
+
+  <!-- Blood Group -->
+  <div class="section-card">
+    <div class="section-card-title">🩸 Blood Group</div>
+    <div class="blood-grid">
+      <div class="blood-chip" data-blood="A+" onclick="selectBlood('A+')">A+</div>
+      <div class="blood-chip" data-blood="A-" onclick="selectBlood('A-')">A-</div>
+      <div class="blood-chip" data-blood="B+" onclick="selectBlood('B+')">B+</div>
+      <div class="blood-chip" data-blood="B-" onclick="selectBlood('B-')">B-</div>
+      <div class="blood-chip" data-blood="O+" onclick="selectBlood('O+')">O+</div>
+      <div class="blood-chip" data-blood="O-" onclick="selectBlood('O-')">O-</div>
+      <div class="blood-chip" data-blood="AB+" onclick="selectBlood('AB+')">AB+</div>
+      <div class="blood-chip" data-blood="AB-" onclick="selectBlood('AB-')">AB-</div>
+    </div>
+  </div>
+
+  <!-- Allergies -->
+  <div class="section-card">
+    <div class="section-card-title">⚠ Allergies</div>
+    <div class="form-col">
+      <div class="input-group">
+        <input id="em-allergies" class="input" type="text" placeholder="Penicillin, Peanuts, Latex...">
+        <div class="input-hint" style="font-size:0.75rem;color:rgba(255,255,255,0.3);margin-top:4px">Separate with commas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Medications -->
+  <div class="section-card">
+    <div class="section-card-title">💊 Current Medications</div>
+    <div class="form-col">
+      <input id="em-meds" class="input" type="text" placeholder="Metformin 500mg, Aspirin...">
+    </div>
+  </div>
+
+  <!-- Emergency Contacts -->
+  <div class="section-card">
+    <div class="section-card-title">📞 Emergency Contacts</div>
+    <div class="contact-card">
+      <div class="contact-num">1</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+        <input id="em-c1-name" class="input" type="text" placeholder="Contact name (e.g. Mom)" style="min-height:44px">
+        <input id="em-c1-rel" class="input" type="text" placeholder="Relation (e.g. Mother)" style="min-height:44px">
+        <input id="em-c1-phone" class="input" type="tel" placeholder="+91 98765 43210" style="min-height:44px">
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-num">2</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+        <input id="em-c2-name" class="input" type="text" placeholder="Contact name (e.g. Dad)" style="min-height:44px">
+        <input id="em-c2-rel" class="input" type="text" placeholder="Relation (e.g. Father)" style="min-height:44px">
+        <input id="em-c2-phone" class="input" type="tel" placeholder="+91 98765 43210" style="min-height:44px">
+      </div>
+    </div>
+  </div>
+
+  <!-- Doctor & Hospital -->
+  <div class="section-card">
+    <div class="section-card-title">👨‍⚕ Doctor & Hospital</div>
+    <div class="form-col">
+      <div class="input-group">
+        <label class="input-label">Doctor Name</label>
+        <input id="em-doctor" class="input" type="text" placeholder="Dr. Sharma">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Doctor Phone</label>
+        <input id="em-doc-phone" class="input" type="tel" placeholder="+91 98765 43210">
+      </div>
+      <div class="input-group">
+        <label class="input-label">Preferred Hospital</label>
+        <input id="em-hospital" class="input" type="text" placeholder="Apollo Hospital, Delhi">
+      </div>
+    </div>
+  </div>
+
+  <!-- Extra notes -->
+  <div class="section-card">
+    <div class="section-card-title">📝 Additional Notes</div>
+    <textarea id="em-notes" class="input" rows="3" placeholder="Any other important medical info..." style="padding-top:14px;resize:none"></textarea>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<!-- Save bar -->
+<div class="save-bar">
+  <button class="btn btn-emergency btn-full" onclick="saveAll()">⚕ Save Emergency Info</button>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/app.js"></script>
+<script>
+if (!requireAuth()) {}
+Theme.load();
+let selectedBlood = '';
+
+function selectBlood(b) {
+  selectedBlood = b;
+  document.querySelectorAll('.blood-chip').forEach(c => c.classList.toggle('active', c.dataset.blood === b));
+}
+
+async function toggleMode() {
+  const on = document.getElementById('em-toggle').checked;
+  const { ok } = await apiFetch('/profile/emergency-mode', { method:'POST', body: JSON.stringify({ enabled: on }) });
+  if (ok) toast(on ? '🔴 Emergency mode ON' : 'Emergency mode OFF', on ? 'error' : 'success');
+  else toast('Failed to update', 'error');
+}
+
+async function saveAll() {
+  const body = {
+    blood_group: selectedBlood,
+    allergies: document.getElementById('em-allergies').value.split(',').map(s=>s.trim()).filter(Boolean),
+    medications: document.getElementById('em-meds').value.split(',').map(s=>s.trim()).filter(Boolean),
+    contact1_name: document.getElementById('em-c1-name').value,
+    contact1_relation: document.getElementById('em-c1-rel').value,
+    contact1_phone: document.getElementById('em-c1-phone').value,
+    contact2_name: document.getElementById('em-c2-name').value,
+    contact2_relation: document.getElementById('em-c2-rel').value,
+    contact2_phone: document.getElementById('em-c2-phone').value,
+    doctor_name: document.getElementById('em-doctor').value,
+    doctor_phone: document.getElementById('em-doc-phone').value,
+    hospital: document.getElementById('em-hospital').value,
+    notes: document.getElementById('em-notes').value
+  };
+  const { ok } = await apiFetch('/emergency', { method:'POST', body: JSON.stringify(body) });
+  if (ok) toast('Emergency info saved! ✓', 'success');
+  else toast('Save failed', 'error');
+}
+
+async function loadData() {
+  const { ok, data } = await apiFetch('/dashboard');
+  if (!ok) return;
+  const em = data.profile?.emergency || {};
+  if (em.blood_group) selectBlood(em.blood_group);
+  if (em.allergies) document.getElementById('em-allergies').value = em.allergies.join(', ');
+  if (em.medications) document.getElementById('em-meds').value = em.medications.join(', ');
+  if (em.contact1_name) { document.getElementById('em-c1-name').value = em.contact1_name; document.getElementById('em-c1-rel').value = em.contact1_relation||''; document.getElementById('em-c1-phone').value = em.contact1_phone||''; }
+  if (em.contact2_name) { document.getElementById('em-c2-name').value = em.contact2_name; document.getElementById('em-c2-rel').value = em.contact2_relation||''; document.getElementById('em-c2-phone').value = em.contact2_phone||''; }
+  if (em.doctor_name) document.getElementById('em-doctor').value = em.doctor_name;
+  if (em.doctor_phone) document.getElementById('em-doc-phone').value = em.doctor_phone;
+  if (em.hospital) document.getElementById('em-hospital').value = em.hospital;
+  if (em.notes) document.getElementById('em-notes').value = em.notes;
+  if (em.enabled) document.getElementById('em-toggle').checked = true;
+}
+
+loadData();
+</script>
+</body>
+</html>
