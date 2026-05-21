@@ -190,3 +190,56 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
+/* ── AUTH ROUTES ── */
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const users = new Map();
+
+app.post('/auth/signup', async (req, res) => {
+  try {
+    const { name, username, email, password, phone } = req.body;
+    if (!name || !username || !email || !password) return res.json({ success: false, error: 'Missing fields' });
+    if (users.has(email)) return res.json({ success: false, error: 'Email already exists' });
+    const hash = await bcrypt.hash(password, 10);
+    const user = { id: Date.now(), name, username, email, phone, password: hash, created: new Date() };
+    users.set(email, user);
+    const token = jwt.sign({ id: user.id, email, username }, process.env.JWT_ACCESS_SECRET || 'secret', { expiresIn: '7d' });
+    res.json({ success: true, token, user: { id: user.id, name, username, email, phone } });
+  } catch(e) { res.json({ success: false, error: e.message }); }
+});
+
+app.post('/auth/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = users.get(email);
+    if (!user) return res.json({ success: false, error: 'Invalid email or password' });
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.json({ success: false, error: 'Invalid email or password' });
+    const token = jwt.sign({ id: user.id, email, username: user.username }, process.env.JWT_ACCESS_SECRET || 'secret', { expiresIn: '7d' });
+    res.json({ success: true, token, user: { id: user.id, name: user.name, username: user.username, email } });
+  } catch(e) { res.json({ success: false, error: e.message }); }
+});
+
+app.get('/check-username/:username', (req, res) => {
+  const taken = [...users.values()].some(u => u.username === req.params.username);
+  res.json({ available: !taken });
+});
+
+app.get('/profile/:username', (req, res) => {
+  const user = [...users.values()].find(u => u.username === req.params.username);
+  if (!user) return res.json({ success: false, error: 'Not found', claimed: false });
+  res.json({ success: true, claimed: true, username: user.username, display_name: user.name, phone: user.phone });
+});
+
+app.get('/dashboard', (req, res) => {
+  const auth = req.headers.authorization;
+  if (!auth) return res.json({ success: false, error: 'Unauthorized' });
+  try {
+    const token = auth.replace('Bearer ', '');
+    const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET || 'secret');
+    const user = [...users.values()].find(u => u.id === decoded.id);
+    if (!user) return res.json({ success: false, error: 'User not found' });
+    res.json({ success: true, profile: { username: user.username, display_name: user.name, email: user.email, phone: user.phone }, links: [], stats: { total: 0, today: 0, week: 0 } });
+  } catch(e) { res.json({ success: false, error: 'Invalid token' }); }
+});
