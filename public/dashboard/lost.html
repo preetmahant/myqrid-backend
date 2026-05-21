@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lost & Found — myQRID</title>
+<meta name="theme-color" content="#FF3B5C">
+<link rel="icon" href="/assets/myqrid-logo.png">
+<link rel="stylesheet" href="/css/glass.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/logo.js"></script>
+<style>
+body{background:#0a0a0a;min-height:100dvh}
+.lost-header{background:linear-gradient(135deg,#1a0008,#2d0010);padding:16px;padding-top:calc(16px + var(--safe-top));display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,59,92,0.2)}
+.lost-header-icon{font-size:1.4rem}
+.lost-header-title{font-size:1rem;font-weight:900;letter-spacing:0.04em;color:#fff}
+.back-btn{margin-left:auto;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1rem;border:none}
+.page{padding:20px 16px;padding-bottom:calc(var(--bottom-nav-h) + var(--safe-bottom) + 80px)}
+.status-card{border-radius:20px;padding:24px;margin-bottom:24px;text-align:center;transition:all 0.4s}
+.status-card.off{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
+.status-card.on{background:linear-gradient(135deg,rgba(255,59,92,0.15),rgba(255,59,92,0.05));border:1px solid rgba(255,59,92,0.3)}
+.status-icon{font-size:3rem;margin-bottom:12px;display:block}
+.status-title{font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:4px}
+.status-sub{font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:20px;line-height:1.5}
+.big-toggle{display:flex;align-items:center;justify-content:center;gap:14px}
+.big-toggle-label{font-size:1rem;font-weight:700;color:#fff}
+.toggle-big{position:relative;width:60px;height:32px}
+.toggle-big input{opacity:0;width:0;height:0}
+.toggle-big .toggle-track{position:absolute;inset:0;background:rgba(255,255,255,0.12);border-radius:16px;transition:background 0.25s}
+.toggle-big .toggle-thumb{position:absolute;top:4px;left:4px;width:24px;height:24px;background:#fff;border-radius:50%;transition:transform 0.25s;box-shadow:0 2px 6px rgba(0,0,0,0.3)}
+.toggle-big input:checked ~ .toggle-track{background:#FF3B5C}
+.toggle-big input:checked ~ .toggle-thumb{transform:translateX(28px)}
+.section-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:18px;margin-bottom:16px}
+.section-title{font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:14px}
+.form-col{display:flex;flex-direction:column;gap:14px}
+.photo-upload{border:2px dashed rgba(255,59,92,0.3);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.photo-upload:hover{border-color:rgba(255,59,92,0.6);background:rgba(255,59,92,0.05)}
+.photo-upload input{display:none}
+.photo-preview{width:100%;max-height:200px;object-fit:cover;border-radius:10px;display:none}
+.photo-placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.3)}
+.photo-placeholder-icon{font-size:2rem}
+.photo-placeholder-text{font-size:0.85rem;font-weight:600}
+.finder-preview{background:linear-gradient(135deg,#1a0008,#2d0010);border:1px solid rgba(255,59,92,0.2);border-radius:16px;padding:20px;margin-bottom:16px}
+.finder-preview-title{font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,59,92,0.6);margin-bottom:12px}
+.finder-preview-content{text-align:center}
+.finder-preview-icon{font-size:2rem;animation:emergencyPulse 1.2s ease infinite;display:block;margin-bottom:8px}
+.finder-preview-lost{font-size:1rem;font-weight:900;color:#FF3B5C;margin-bottom:4px}
+.finder-preview-msg{font-size:0.8rem;color:rgba(255,255,255,0.5)}
+.save-bar{position:fixed;bottom:calc(var(--bottom-nav-h) + var(--safe-bottom));left:0;right:0;padding:12px 16px;background:rgba(10,10,10,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.07);z-index:50}
+.found-notif{background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.2);border-radius:14px;padding:14px;margin-bottom:16px;display:none}
+.found-notif-title{font-size:0.875rem;font-weight:700;color:#00E5A0;margin-bottom:4px}
+.found-notif-sub{font-size:0.78rem;color:rgba(255,255,255,0.4)}
+</style>
+</head>
+<body>
+
+<div class="lost-header">
+  <span class="lost-header-icon">🔴</span>
+  <span class="lost-header-title">LOST & FOUND</span>
+  <button class="back-btn" onclick="window.location.href='/dashboard.html'">←</button>
+</div>
+
+<div class="page">
+
+  <!-- Found notification (shows if someone marked found) -->
+  <div class="found-notif" id="found-notif">
+    <div class="found-notif-title">🎉 Someone found your item!</div>
+    <div class="found-notif-sub" id="found-notif-sub">Check your WhatsApp for details</div>
+  </div>
+
+  <!-- Status card -->
+  <div class="status-card off" id="status-card">
+    <span class="status-icon" id="status-icon">🟢</span>
+    <div class="status-title" id="status-title">Item is Safe</div>
+    <div class="status-sub" id="status-sub">Toggle lost mode if your item goes missing. Finders will see your contact info.</div>
+    <div class="big-toggle">
+      <span class="big-toggle-label" id="toggle-label">Lost Mode OFF</span>
+      <label class="toggle-big">
+        <input type="checkbox" id="lost-toggle" onchange="toggleLost()">
+        <div class="toggle-track"></div>
+        <div class="toggle-thumb"></div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Finder preview -->
+  <div class="finder-preview">
+    <div class="finder-preview-title">👁 What finder will see</div>
+    <div class="finder-preview-content">
+      <span class="finder-preview-icon">🔴</span>
+      <div class="finder-preview-lost">THIS ITEM IS LOST</div>
+      <div class="finder-preview-msg" id="preview-msg">Your message will appear here</div>
+    </div>
+  </div>
+
+  <!-- Item photo -->
+  <div class="section-card">
+    <div class="section-title">📷 Item Photo</div>
+    <label class="photo-upload" id="photo-upload" onclick="document.getElementById('photo-input').click()">
+      <img id="photo-preview" class="photo-preview" alt="Item photo">
+      <div class="photo-placeholder" id="photo-placeholder">
+        <span class="photo-placeholder-icon">📷</span>
+        <span class="photo-placeholder-text">Tap to add item photo</span>
+        <span style="font-size:0.72rem;color:rgba(255,255,255,0.2)">Helps finder identify your item</span>
+      </div>
+    </label>
+    <input type="file" id="photo-input" accept="image/*" style="display:none" onchange="previewPhoto(this)">
+  </div>
+
+  <!-- Message to finder -->
+  <div class="section-card">
+    <div class="section-title">💬 Message to Finder</div>
+    <div class="form-col">
+      <textarea id="lost-message" class="input" rows="3"
+        placeholder="Please contact me, this item is important to me. I will reward you."
+        style="padding-top:14px;resize:none"
+        oninput="updatePreview()"></textarea>
+    </div>
+  </div>
+
+  <!-- Reward -->
+  <div class="section-card">
+    <div class="section-title">💰 Reward Amount</div>
+    <div class="form-col">
+      <div style="position:relative">
+        <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.4);font-size:1rem;pointer-events:none">₹</span>
+        <input id="lost-reward" class="input" type="number" placeholder="500" style="padding-left:28px">
+      </div>
+      <div style="font-size:0.75rem;color:rgba(255,255,255,0.3)">Leave empty for no reward</div>
+    </div>
+  </div>
+
+  <!-- Contact info reminder -->
+  <div class="section-card">
+    <div class="section-title">📞 Finder Contact Options</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 0">
+        <span style="font-size:1.1rem">💬</span>
+        <span style="font-size:0.875rem;color:rgba(255,255,255,0.7)">WhatsApp button (uses your phone number)</span>
+        <span style="margin-left:auto;color:#00E5A0;font-size:0.75rem;font-weight:700">AUTO</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:1.1rem">📞</span>
+        <span style="font-size:0.875rem;color:rgba(255,255,255,0.7)">Call button (uses your phone number)</span>
+        <span style="margin-left:auto;color:#00E5A0;font-size:0.75rem;font-weight:700">AUTO</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:1.1rem">📍</span>
+        <span style="font-size:0.875rem;color:rgba(255,255,255,0.7)">Share location button</span>
+        <span style="margin-left:auto;color:#00E5A0;font-size:0.75rem;font-weight:700">AUTO</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:80px"></div>
+</div>
+
+<!-- Save bar -->
+<div class="save-bar">
+  <button class="btn btn-full" id="save-btn"
+    style="background:linear-gradient(135deg,#FF3B5C,#CC1A3A);color:#fff;font-weight:800"
+    onclick="saveAll()">
+    🔴 Save Lost Info
+  </button>
+</div>
+
+<div id="toast-container"></div>
+<script src="/js/app.js"></script>
+<script>
+if (!requireAuth()) {}
+Theme.load();
+
+function updatePreview() {
+  const msg = document.getElementById('lost-message').value;
+  document.getElementById('preview-msg').textContent = msg || 'Your message will appear here';
+}
+
+function toggleLost() {
+  const on = document.getElementById('lost-toggle').checked;
+  const card = document.getElementById('status-card');
+  const icon = document.getElementById('status-icon');
+  const title = document.getElementById('status-title');
+  const sub = document.getElementById('status-sub');
+  const label = document.getElementById('toggle-label');
+  if (on) {
+    card.className = 'status-card on';
+    icon.textContent = '🔴';
+    title.textContent = 'Lost Mode ACTIVE';
+    sub.textContent = 'Finders will see your lost alert when they scan your QR code.';
+    label.textContent = 'Lost Mode ON';
+    toast('Lost mode activated!', 'error');
+  } else {
+    card.className = 'status-card off';
+    icon.textContent = '🟢';
+    title.textContent = 'Item is Safe';
+    sub.textContent = 'Toggle lost mode if your item goes missing.';
+    label.textContent = 'Lost Mode OFF';
+    toast('Lost mode deactivated', 'success');
+  }
+  apiFetch('/profile/lost-mode', {
+    method: 'POST',
+    body: JSON.stringify({ enabled: on })
+  });
+}
+
+function previewPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const preview = document.getElementById('photo-preview');
+    const placeholder = document.getElementById('photo-placeholder');
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+    placeholder.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function saveAll() {
+  const message = document.getElementById('lost-message').value;
+  const reward = document.getElementById('lost-reward').value;
+  const photo = document.getElementById('photo-preview').src;
+  const body = {
+    lost_message: message,
+    lost_reward: reward ? parseInt(reward) : null,
+    lost_photo: photo && photo !== window.location.href ? photo : null
+  };
+  const btn = document.getElementById('save-btn');
+  btnLoad(btn, true);
+  const { ok } = await apiFetch('/profile/lost-info', {
+    method: 'POST',
+    body: JSON.stringify(body)
+  });
+  btnLoad(btn, false);
+  if (ok) toast('Lost info saved!', 'success');
+  else toast('Save failed', 'error');
+}
+
+async function loadData() {
+  const { ok, data } = await apiFetch('/dashboard');
+  if (!ok) return;
+  const p = data.profile || {};
+  if (p.lost_mode) {
+    document.getElementById('lost-toggle').checked = true;
+    toggleLost();
+  }
+  if (p.lost_message) {
+    document.getElementById('lost-message').value = p.lost_message;
+    updatePreview();
+  }
+  if (p.lost_reward) document.getElementById('lost-reward').value = p.lost_reward;
+  if (p.found_notification) {
+    document.getElementById('found-notif').style.display = 'block';
+    document.getElementById('found-notif-sub').textContent = `Found ${timeAgo(p.found_at)} — Check your WhatsApp`;
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
