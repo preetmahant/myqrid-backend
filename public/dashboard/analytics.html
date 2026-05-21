@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Analytics — myQRID</title>
+<meta name="theme-color" content="#7C3AED">
+<link rel="icon" href="/assets/myqrid-logo.png">
+<link rel="stylesheet" href="/css/glass.css">
+<link rel="stylesheet" href="/css/responsive.css">
+<script src="/js/logo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{background:#1E1008;min-height:100dvh}
+.top-strip{position:fixed;top:0;left:0;right:0;height:var(--top-height);min-height:var(--top-min-height);background-color:var(--top-bg);background-image:linear-gradient(var(--top-check-color) 1px,transparent 1px),linear-gradient(90deg,var(--top-check-color) 1px,transparent 1px);background-size:var(--top-check-size) var(--top-check-size);z-index:0}
+.bottom-panel{position:fixed;bottom:0;left:0;right:0;top:calc(var(--top-height) - var(--panel-radius));background:var(--panel-bg);border-radius:var(--panel-radius) var(--panel-radius) 0 0;z-index:1}
+.page{position:relative;z-index:10;padding:0 16px;padding-bottom:calc(var(--bottom-nav-h) + var(--safe-bottom) + 24px)}
+.page-header{padding-top:calc(var(--top-height) + 16px);margin-bottom:20px}
+.page-title{font-size:1.4rem;font-weight:900;color:#fff}
+.page-sub{font-size:0.8rem;color:rgba(255,255,255,0.35);margin-top:4px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:rgba(0,0,0,0.25);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:18px 14px}
+.stat-card.full{grid-column:span 2}
+.stat-num{font-size:2rem;font-weight:900;color:#fff;line-height:1}
+.stat-num.accent{color:#DDD6FE}
+.stat-label{font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:6px}
+.stat-change{font-size:0.75rem;margin-top:4px;font-weight:600}
+.stat-change.up{color:#00E5A0}
+.stat-change.down{color:#FF3B5C}
+.chart-card{background:rgba(0,0,0,0.25);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:18px;margin-bottom:16px}
+.chart-title{font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px}
+.chart-wrap{position:relative;height:180px}
+.scan-list{display:flex;flex-direction:column;gap:0}
+.scan-item{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.scan-item:last-child{border-bottom:none}
+.scan-left{display:flex;align-items:center;gap:10px}
+.scan-icon{width:34px;height:34px;border-radius:10px;background:var(--glass-purple);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.scan-loc{font-size:0.875rem;font-weight:600;color:#fff}
+.scan-device{font-size:0.72rem;color:rgba(255,255,255,0.35);margin-top:2px}
+.scan-time{font-size:0.72rem;color:rgba(255,255,255,0.3);text-align:right}
+.device-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.device-row:last-child{border-bottom:none}
+.device-name{font-size:0.875rem;font-weight:600;color:#fff}
+.device-bar-wrap{flex:1;margin:0 12px;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden}
+.device-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width 0.8s ease}
+.device-pct{font-size:0.75rem;color:rgba(255,255,255,0.4);width:32px;text-align:right}
+.empty-chart{display:flex;flex-direction:column;align-items:center;justify-content:center;height:120px;color:rgba(255,255,255,0.25);font-size:0.875rem;gap:8px}
+</style>
+</head>
+<body data-top="coffee" data-bottom="deep-purple">
+
+<div class="top-strip"></div>
+<div class="bottom-panel"></div>
+
+<div class="page">
+  <div class="page-header">
+    <div class="page-title">Analytics</div>
+    <div class="page-sub">Last 7 days · Free plan</div>
+  </div>
+
+  <!-- Stats grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num accent" id="s-total">—</div>
+      <div class="stat-label">Total Scans</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="s-today">—</div>
+      <div class="stat-label">Today</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="s-week">—</div>
+      <div class="stat-label">This Week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="s-unique">—</div>
+      <div class="stat-label">Unique</div>
+    </div>
+  </div>
+
+  <!-- 7-day chart -->
+  <div class="chart-card">
+    <div class="chart-title">Scans — Last 7 Days</div>
+    <div class="chart-wrap">
+      <canvas id="scans-chart"></canvas>
+    </div>
+  </div>
+
+  <!-- Device split -->
+  <div class="chart-card">
+    <div class="chart-title">Device Split</div>
+    <div id="device-list"></div>
+  </div>
+
+  <!-- Recent scans -->
+  <div class="chart-card">
+    <div class="chart-title">Recent Scans</div>
+    <div id="recent-list"></div>
+  </div>
+
+</div>
+
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+  <button class="bottom-nav-item" onclick="window.location.href='/dashboard.html'">
+    <span class="nav-icon">🏠</span><span>Home</span>
+  </button>
+  <button class="bottom-nav-item" onclick="window.location.href='/dashboard/links.html'">
+    <span class="nav-icon">🔗</span><span>Links</span>
+  </button>
+  <button class="bottom-nav-item nav-center">
+    <div class="nav-center-btn" onclick="window.location.href='/dashboard.html'">
+      <img id="nav-logo" width="28" height="28" alt="Q" style="object-fit:contain">
+    </div>
+  </button>
+  <button class="bottom-nav-item active" data-nav="stats">
+    <span class="nav-icon">📊</span><span>Stats</span>
+  </button>
+  <button class="bottom-nav-item" onclick="window.location.href='/dashboard.html'">
+    <span class="nav-icon">⚙</span><span>Settings</span>
+  </button>
+</nav>
+
+<div id="toast-container"></div>
+<script src="/js/app.js"></script>
+<script>
+if (!requireAuth()) {}
+document.getElementById('nav-logo').src = MYQRID_LOGO;
+Theme.load();
+
+let scanChart = null;
+
+async function loadAnalytics() {
+  const { ok, data } = await apiFetch('/analytics');
+  if (!ok) { toast('Could not load analytics', 'error'); return; }
+
+  const s = data.stats || {};
+  document.getElementById('s-total').textContent = s.total || 0;
+  document.getElementById('s-today').textContent = s.today || 0;
+  document.getElementById('s-week').textContent = s.week || 0;
+  document.getElementById('s-unique').textContent = s.unique || 0;
+
+  /* 7-day chart */
+  const days = data.daily || [];
+  if (days.length) {
+    const ctx = document.getElementById('scans-chart').getContext('2d');
+    scanChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: days.map(d => d.date),
+        datasets: [{
+          label: 'Scans',
+          data: days.map(d => d.count),
+          backgroundColor: 'rgba(124,58,237,0.5)',
+          borderColor: '#7C3AED',
+          borderWidth: 2,
+          borderRadius: 6,
+          borderSkipped: false,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 } } },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 } }, beginAtZero: true }
+        }
+      }
+    });
+  } else {
+    document.getElementById('scans-chart').parentElement.innerHTML = '<div class="empty-chart"><span>📊</span><span>No scan data yet</span></div>';
+  }
+
+  /* Device split */
+  const devices = data.devices || [];
+  const dl = document.getElementById('device-list');
+  if (devices.length) {
+    dl.innerHTML = devices.map(d => `
+      <div class="device-row">
+        <div class="device-name">${d.device || 'Unknown'}</div>
+        <div class="device-bar-wrap"><div class="device-bar" style="width:${d.percent}%"></div></div>
+        <div class="device-pct">${d.percent}%</div>
+      </div>`).join('');
+  } else {
+    dl.innerHTML = '<div class="empty-chart"><span>📱</span><span>No device data yet</span></div>';
+  }
+
+  /* Recent scans */
+  const recent = data.recent || [];
+  const rl = document.getElementById('recent-list');
+  if (recent.length) {
+    rl.innerHTML = recent.map(r => `
+      <div class="scan-item">
+        <div class="scan-left">
+          <div class="scan-icon">📍</div>
+          <div>
+            <div class="scan-loc">${r.location || 'Unknown location'}</div>
+            <div class="scan-device">${r.device || 'Unknown device'}</div>
+          </div>
+        </div>
+        <div class="scan-time">${timeAgo(r.created_at)}</div>
+      </div>`).join('');
+  } else {
+    rl.innerHTML = '<div class="empty-chart"><span>👁</span><span>No scans yet — share your profile!</span></div>';
+  }
+}
+
+loadAnalytics();
+</script>
+</body>
+</html>
