@@ -1,4 +1,4 @@
-const MYQRID_LOGO = '/assets/myqrid-logo.png';
+const MYQRID_LOGO = '/assets/myqrid-logo.svg';
 function setLogo(id, size) {
   const el = document.getElementById(id);
   if (!el) return;
