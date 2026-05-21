@@ -1,7 +1,1 @@
-const MYQRID_LOGO = '/assets/myqrid-logo.svg';
-function setLogo(id, size) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.src = MYQRID_LOGO;
-  if (size) { el.width = size; el.height = size; }
-}
+const MYQRID_LOGO="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjE2MCIgeTE9Ijc4MCIgeDI9Ijg2MCIgeTI9IjE2MCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkY1QTNEIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjRkYyRTlBIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzVBMjRGRiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHBhdGggZD0iTSA1MjguMyw3MjEuNCBBIDIzMiwyMzIgMCAxLDEgMzc5LjAsNjgwLjAgQyA0MTAsNzM4IDQ5OCw4MDggNTcyLDg0OCIKICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNnKSIgc3Ryb2tlLXdpZHRoPSIxMjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K";
