@@ -1,11 +1,2 @@
-/dashboard/links      /dashboard/links.html      200
-/dashboard/emergency  /dashboard/emergency.html  200
-/dashboard/analytics  /dashboard/analytics.html  200
-/dashboard/lost       /dashboard/lost.html        200
-/dashboard            /dashboard.html             200
-/login                /login.html                 200
-/signup               /signup.html                200
-/claim                /claim.html                 200
-/404                  /404.html                   200
-/:username            /profile.html               200
-/*                    /404.html                   404
+/:username  /profile.html  200
+/*          /index.html    200
