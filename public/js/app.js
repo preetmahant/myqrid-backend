@@ -1,4 +1,4 @@
-const API_BASE = "https://myqrid-backend.onrender.com";
+const API_BASE = "https://myqrid-backend.myqrid.workers.dev";
 
 const FALLBACK_USERNAME = "preetmahant";
 
