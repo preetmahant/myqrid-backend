@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block admin
+Disallow: /admin.html
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://app.myqrid.in/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
