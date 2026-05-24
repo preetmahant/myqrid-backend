@@ -39,6 +39,7 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);color:#c4b5fd;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .powered{text-align:center;margin-top:24px;font-size:11px;color:rgba(255,255,255,0.12)}
+.onboard-banner{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);border-radius:12px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#a78bfa;display:none;align-items:center;gap:8px}
 </style>
 </head>
 <body>
@@ -49,6 +50,10 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
     <div class="logo-sub">Create Your Digital Identity</div>
   </div>
   <div class="card">
+    <div class="onboard-banner" id="onboardBanner">
+      <i class="fas fa-magic"></i>
+      <span>Your profile details are pre-filled from onboarding!</span>
+    </div>
     <div class="err-box" id="err"></div>
     <div class="field">
       <div class="field-label">Full Name</div>
@@ -94,6 +99,21 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
 <script>
 const API = 'https://myqrid-backend.myqrid.workers.dev';
 
+// Pre-fill from onboarding
+const sp = new URLSearchParams(window.location.search);
+if (sp.get('onboard')) {
+  const n = sessionStorage.getItem('signup_name');
+  const u = sessionStorage.getItem('signup_username');
+  const ph = sessionStorage.getItem('signup_phone');
+  if (n) document.getElementById('name').value = n;
+  if (u) document.getElementById('username').value = u;
+  if (ph) document.getElementById('phone').value = ph;
+  if (n || u) {
+    const banner = document.getElementById('onboardBanner');
+    banner.style.display = 'flex';
+  }
+}
+
 function togglePass() {
   const input = document.getElementById('pass');
   const icon = document.getElementById('eyeIcon');
@@ -131,6 +151,7 @@ async function doSignup() {
   const phone = document.getElementById('phone').value.trim();
   const pass = document.getElementById('pass').value;
   const btn = document.getElementById('btn');
+
   if (!name || !username || !email || !pass) {
     showErr('Please fill all required fields');
     return;
@@ -143,8 +164,10 @@ async function doSignup() {
     showErr('Password must be at least 6 characters');
     return;
   }
+
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+
   try {
     const res = await fetch(API + '/auth/signup', {
       method: 'POST',
@@ -156,6 +179,9 @@ async function doSignup() {
       localStorage.setItem('token', data.token);
       localStorage.setItem('username', data.user.username);
       localStorage.setItem('name', data.user.name);
+      sessionStorage.removeItem('signup_name');
+      sessionStorage.removeItem('signup_username');
+      sessionStorage.removeItem('signup_phone');
       showToast('Welcome to myQRID! 🎉');
       setTimeout(() => window.location.href = '/dashboard.html', 900);
     } else {
