@@ -2,26 +2,177 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>myQRID — Your Digital Identity</title>
-<meta name="theme-color" content="#7c3aed">
-<link rel="manifest" href="/manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 20% 20%,#7c3aed55,transparent),radial-gradient(circle at 80% 60%,#ec489955,transparent),#0a0a0f;z-index:-1}
+
+/* TOP */
+.top{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top))}
+.logo-text{font-size:20px;font-weight:700;color:#fff}
+.logo-text span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.login-btn{padding:8px 18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;color:rgba(255,255,255,0.7);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none}
+
+/* HERO */
+.hero{text-align:center;padding:30px 24px 20px}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);border-radius:20px;padding:5px 14px;font-size:12px;color:#a78bfa;margin-bottom:20px}
+.hero-title{font-size:32px;font-weight:700;line-height:1.2;margin-bottom:12px}
+.hero-title span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:28px}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:16px;font-family:'Inter',sans-serif;font-size:17px;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 0 40px rgba(124,58,237,0.4);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 40px rgba(124,58,237,0.4)}50%{box-shadow:0 0 60px rgba(124,58,237,0.7)}}
+
+/* DEMO PROFILE */
+.demo-label{text-align:center;font-size:11px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;margin:24px 0 12px}
+.demo-card{margin:0 16px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:24px;pointer-events:none;user-select:none}
+.demo-profile{text-align:center;margin-bottom:20px}
+.demo-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#fff;border:3px solid rgba(124,58,237,0.5);box-shadow:0 0 25px rgba(124,58,237,0.4);margin:0 auto 14px}
+.demo-name{font-size:22px;font-weight:700;margin-bottom:4px}
+.demo-username{font-size:13px;color:rgba(255,255,255,0.35);margin-bottom:8px}
+.demo-bio{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;margin-bottom:14px}
+.demo-social{display:flex;justify-content:center;gap:10px;margin-bottom:16px}
+.demo-social a{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);font-size:16px}
+.demo-links{display:flex;flex-direction:column;gap:8px}
+.demo-link{display:flex;align-items:center;gap:12px;padding:13px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:13px;font-size:14px;font-weight:500;color:rgba(255,255,255,0.7)}
+.demo-link-icon{width:32px;height:32px;border-radius:9px;background:rgba(124,58,237,0.2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.demo-wa{background:linear-gradient(135deg,#25D366,#1ebe5d);color:#fff;border-color:transparent!important}
+.demo-wa .demo-link-icon{background:rgba(255,255,255,0.2)}
+
+/* FEATURES */
+.features{padding:32px 20px}
+.features-title{text-align:center;font-size:20px;font-weight:700;margin-bottom:20px;color:rgba(255,255,255,0.8)}
+.feature-list{display:flex;flex-direction:column;gap:10px}
+.feature-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px}
+.feature-icon{width:40px;height:40px;border-radius:12px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.feature-info{flex:1}
+.feature-title{font-size:14px;font-weight:600;color:#fff}
+.feature-sub{font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px}
+
+/* BOTTOM CTA */
+.bottom-cta{padding:24px 20px 40px;text-align:center}
+.bottom-cta-title{font-size:22px;font-weight:700;margin-bottom:8px}
+.bottom-cta-sub{font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:24px}
+.cta-btn-full{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:16px;font-family:'Inter',sans-serif;font-size:17px;font-weight:700;cursor:pointer;text-decoration:none;width:100%;box-shadow:0 0 30px rgba(124,58,237,0.3)}
+.powered{text-align:center;padding:20px;font-size:11px;color:rgba(255,255,255,0.15)}
+
+/* OVERLAY on demo */
+.demo-overlay{position:relative}
+.demo-overlay::after{content:'✨ This could be your profile';position:absolute;bottom:-1px;left:0;right:0;background:linear-gradient(to top,rgba(10,10,15,0.95) 0%,transparent 100%);padding:40px 20px 20px;text-align:center;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);border-radius:0 0 24px 24px;pointer-events:none}
+</style>
 </head>
 <body>
-<script>
-(function() {
-  try {
-    var token = localStorage.getItem('token');
-    if (token) {
-      var p = JSON.parse(atob(token));
-      if (p.exp > Date.now()) {
-        window.location.replace('/dashboard.html');
-        return;
-      }
-    }
-  } catch(e) {}
-  window.location.replace('/login.html');
-})();
-</script>
+<div class="bg"></div>
+
+<!-- TOP BAR -->
+<div class="top">
+  <div class="logo-text">my<span>QRID</span></div>
+  <a href="/login.html" class="login-btn">Login</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">⚡ India's Digital Identity Platform</div>
+  <div class="hero-title">One QR.<br><span>Your Entire Identity.</span></div>
+  <div class="hero-sub">Share your profile, links, contact & emergency info — all in one scan. No app needed.</div>
+  <a href="/onboard.html" class="cta-btn">
+    <i class="fas fa-user-plus"></i> Create My Profile — Free
+  </a>
+</div>
+
+<!-- DEMO PROFILE -->
+<div class="demo-label">👇 Live Preview — See How It Looks</div>
+<div class="demo-overlay">
+  <div class="demo-card">
+    <div class="demo-profile">
+      <div class="demo-avatar">P</div>
+      <div class="demo-name" id="demoName">Preet Mahant</div>
+      <div class="demo-username">@preetmahant</div>
+      <div class="demo-bio">Founder • Builder • Creator 🚀<br>India's digital identity ecosystem</div>
+      <div class="demo-social">
+        <a><i class="fab fa-whatsapp"></i></a>
+        <a><i class="fab fa-instagram"></i></a>
+        <a><i class="fab fa-x-twitter"></i></a>
+        <a><i class="fab fa-linkedin"></i></a>
+        <a><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="demo-links">
+      <div class="demo-link demo-wa">
+        <div class="demo-link-icon"><i class="fab fa-whatsapp"></i></div>
+        <span>Chat on WhatsApp</span>
+      </div>
+      <div class="demo-link">
+        <div class="demo-link-icon">🚀</div>
+        <span>My Startup — myQRID.in</span>
+      </div>
+      <div class="demo-link">
+        <div class="demo-link-icon">📊</div>
+        <span>My Portfolio</span>
+      </div>
+      <div class="demo-link">
+        <div class="demo-link-icon">📱</div>
+        <span>Book an Appointment</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="features-title">Everything in One Scan</div>
+  <div class="feature-list">
+    <div class="feature-item">
+      <div class="feature-icon">🔗</div>
+      <div class="feature-info">
+        <div class="feature-title">Linktree-style Links</div>
+        <div class="feature-sub">All your links in one beautiful page</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">📇</div>
+      <div class="feature-info">
+        <div class="feature-title">Digital Business Card</div>
+        <div class="feature-sub">Save contact with one tap — no app needed</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🛡️</div>
+      <div class="feature-info">
+        <div class="feature-title">Emergency Info</div>
+        <div class="feature-sub">Blood group, allergies, emergency contacts</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🏷️</div>
+      <div class="feature-info">
+        <div class="feature-title">Lost & Found</div>
+        <div class="feature-sub">Smart recovery for kids, pets & assets</div>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🏍️</div>
+      <div class="feature-info">
+        <div class="feature-title">Drift — Rider Ecosystem</div>
+        <div class="feature-sub">Helmet QR, crash mode, road safety</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="bottom-cta-title">Ready to go digital?</div>
+  <div class="bottom-cta-sub">Free forever. No credit card. Setup in 60 seconds.</div>
+  <a href="/onboard.html" class="cta-btn-full">
+    <i class="fas fa-rocket"></i> Create My Profile — Free
+  </a>
+</div>
+
+<div class="powered">Powered by myQRID • Made in India 🇮🇳</div>
+
 </body>
 </html>
