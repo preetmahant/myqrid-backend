@@ -3,167 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Dashboard — myQRID</title>
+<title>myQRID Profile</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="/css/glass.css">
 <style>
-body{padding-bottom:90px}
-.app{max-width:480px;margin:0 auto;min-height:100vh}
-
-/* TOP BAR */
-.topbar{background:rgba(0,0,0,0.3);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);padding:14px 20px;padding-top:calc(14px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
-.topbar-logo{font-size:22px;font-weight:700;color:#fff}
-.topbar-logo span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.topbar-right{display:flex;gap:8px}
-
-/* PROFILE CARD */
-.profile-card{margin:16px;padding:20px}
-.profile-top{display:flex;align-items:center;gap:14px}
-.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid rgba(124,58,237,0.4);box-shadow:0 0 20px rgba(124,58,237,0.4)}
-.profile-info{flex:1;min-width:0}
-.profile-name{font-size:18px;font-weight:700;color:#fff}
-.profile-username{font-size:13px;color:rgba(255,255,255,0.4);margin-top:2px}
-.plan-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;color:#a78bfa;margin-top:6px}
-.view-btn{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:12px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 4px 15px rgba(124,58,237,0.4)}
-
-/* STATS */
-.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 16px 16px}
-.stat-card{padding:14px 10px;text-align:center}
-.stat-num{font-size:24px;font-weight:700;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stat-label{font-size:10px;color:rgba(255,255,255,0.35);margin-top:3px;text-transform:uppercase;letter-spacing:0.3px}
-
-/* QR CARD */
-.section{margin:0 16px 16px}
-.qr-card{padding:18px;display:flex;align-items:center;gap:14px}
-.qr-box{width:56px;height:56px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-.qr-info{flex:1;min-width:0}
-.qr-title{font-size:14px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.qr-url{font-size:12px;color:rgba(255,255,255,0.35);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.share-btn{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0}
-
-/* ACTIONS */
-.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.action-card{padding:18px 16px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block}
-.action-card:active{transform:scale(0.97);background:rgba(124,58,237,0.15)}
-.action-icon{font-size:26px;margin-bottom:10px}
-.action-title{font-size:14px;font-weight:600;color:#fff}
-.action-sub{font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px}
+body{padding-bottom:40px}
+.profile-section{text-align:center;padding:0 20px 20px}
+.avatar-placeholder{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:700;color:#fff;border:3px solid rgba(124,58,237,0.5);box-shadow:0 0 30px rgba(124,58,237,0.5);margin:0 auto 14px}
+.profile-name{font-size:26px;font-weight:700;color:#fff;margin-bottom:6px}
+.profile-bio{color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:4px}
+.profile-username{color:rgba(255,255,255,0.3);font-size:13px;margin-bottom:16px}
+.social-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.action-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;margin-bottom:20px}
+.action-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:14px;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.2s}
+.action-btn:active{background:rgba(124,58,237,0.2)}
+.action-btn.whatsapp{background:linear-gradient(135deg,#25D366,#1ebe5d);border-color:transparent}
+.action-btn.call{background:linear-gradient(135deg,#7c3aed,#ec4899);border-color:transparent}
+.scroll-cards{display:flex;gap:10px;padding:0 16px 20px;overflow-x:auto;scrollbar-width:none}
+.scroll-cards::-webkit-scrollbar{display:none}
+.scroll-card{min-width:120px;padding:14px;text-align:center;cursor:pointer;flex-shrink:0}
+.scroll-card-icon{font-size:22px;margin-bottom:6px}
+.scroll-card-label{font-size:13px;font-weight:600;color:#fff}
+.links-section{padding:0 16px}
+.link-item{display:flex;align-items:center;padding:16px;margin-bottom:10px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);color:#fff;font-weight:600;text-decoration:none;gap:12px;transition:all 0.2s;font-size:15px}
+.link-item:active{background:rgba(124,58,237,0.15)}
+.link-icon{width:36px;height:36px;border-radius:10px;background:rgba(124,58,237,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.save-wrap{padding:16px}
+.save-btn{width:100%;padding:15px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:14px;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.powered{text-align:center;padding:20px;opacity:0.2;font-size:12px}
+.unclaimed{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;padding:40px 24px;text-align:center}
+.unclaimed-icon{font-size:64px;margin-bottom:24px;animation:float 3s ease-in-out infinite;display:block}
+.unclaimed-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:10px}
+.unclaimed-sub{color:rgba(255,255,255,0.4);font-size:15px;margin-bottom:32px;line-height:1.6}
+.activate-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 0 30px rgba(124,58,237,0.4)}
 </style>
 </head>
 <body>
 <div class="bg-fixed"></div>
-<div class="app">
+<div class="content-wrap" id="app">
 
   <div class="topbar">
-    <div class="topbar-logo">my<span>QRID</span></div>
-    <div class="topbar-right">
-      <div class="icon-circle">🔔</div>
-      <div class="icon-circle" onclick="doLogout()">⏻</div>
+    <div class="icon-circle">⬡</div>
+    <div class="icon-circle" onclick="shareProfile()">
+      <i class="fas fa-share-nodes"></i>
     </div>
   </div>
 
-  <div class="glass profile-card">
-    <div class="profile-top">
-      <div class="avatar" id="avatar">P</div>
-      <div class="profile-info">
-        <div class="profile-name" id="pname">Loading...</div>
-        <div class="profile-username" id="pusername">@—</div>
-        <div class="plan-badge">✦ Free Plan</div>
+  <div id="loadingState" style="text-align:center;padding:60px 20px;color:rgba(255,255,255,0.3)">
+    <div style="font-size:32px;margin-bottom:12px;animation:float 2s ease-in-out infinite">⬡</div>
+    <div>Loading profile...</div>
+  </div>
+
+  <div id="profileContent" style="display:none">
+    <div class="profile-section fadeIn">
+      <div class="avatar-placeholder" id="avatarEl">P</div>
+      <div class="profile-name" id="nameEl">—</div>
+      <div class="profile-bio" id="bioEl"></div>
+      <div class="profile-username" id="usernameEl">@—</div>
+      <div class="social-row">
+        <a class="social-icon" id="wa-btn" href="#" style="display:none"><i class="fab fa-whatsapp"></i></a>
+        <a class="social-icon" id="insta-btn" href="#" style="display:none"><i class="fab fa-instagram"></i></a>
+        <a class="social-icon" id="twitter-btn" href="#" style="display:none"><i class="fab fa-x-twitter"></i></a>
+        <a class="social-icon" id="linkedin-btn" href="#" style="display:none"><i class="fab fa-linkedin"></i></a>
+        <a class="social-icon" id="yt-btn" href="#" style="display:none"><i class="fab fa-youtube"></i></a>
       </div>
-      <button class="view-btn" onclick="viewProfile()">View ›</button>
     </div>
-  </div>
 
-  <div class="stats-row">
-    <div class="glass stat-card">
-      <div class="stat-num" id="s-total">0</div>
-      <div class="stat-label">Total Scans</div>
+    <div class="action-row">
+      <a class="action-btn whatsapp" id="wa-action" href="#" style="display:none">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
+      <a class="action-btn call" id="call-action" href="#" style="display:none">
+        <i class="fas fa-phone"></i> Call
+      </a>
+      <button class="action-btn" onclick="saveContactBtn()">
+        <i class="fas fa-address-card"></i> Save Contact
+      </button>
+      <button class="action-btn" onclick="shareProfile()">
+        <i class="fas fa-share-nodes"></i> Share
+      </button>
     </div>
-    <div class="glass stat-card">
-      <div class="stat-num" id="s-today">0</div>
-      <div class="stat-label">Today</div>
-    </div>
-    <div class="glass stat-card">
-      <div class="stat-num" id="s-week">0</div>
-      <div class="stat-label">This Week</div>
-    </div>
-  </div>
 
-  <div class="section">
-    <div class="section-title">Your myQRID</div>
-    <div class="glass qr-card">
-      <div class="qr-box">⬡</div>
-      <div class="qr-info">
-        <div class="qr-title" id="qr-title">My myQRID Profile</div>
-        <div class="qr-url" id="qr-url">app.myqrid.in/profile/—</div>
+    <div class="scroll-cards">
+      <div class="glass scroll-card">
+        <div class="scroll-card-icon">🛍</div>
+        <div class="scroll-card-label">Products</div>
       </div>
-      <button class="share-btn" onclick="shareProfile()">Share</button>
+      <div class="glass scroll-card">
+        <div class="scroll-card-icon">📊</div>
+        <div class="scroll-card-label">Insights</div>
+      </div>
+      <div class="glass scroll-card">
+        <div class="scroll-card-icon">⚙️</div>
+        <div class="scroll-card-label">Settings</div>
+      </div>
+      <div class="glass scroll-card" onclick="copyURL()">
+        <div class="scroll-card-icon">🔗</div>
+        <div class="scroll-card-label">Copy URL</div>
+      </div>
     </div>
+
+    <div class="links-section" id="linksSection"></div>
+
+    <div class="save-wrap">
+      <button class="save-btn" onclick="saveContactBtn()">
+        <i class="fas fa-download"></i> Save Contact
+      </button>
+    </div>
+
+    <div class="powered">Powered by myQRID</div>
   </div>
 
-  <div class="section">
-    <div class="section-title">Quick Actions</div>
-    <div class="actions-grid">
-      <a href="#" class="glass action-card">
-        <div class="action-icon">🔗</div>
-        <div class="action-title">Manage Links</div>
-        <div class="action-sub">Add & edit your links</div>
-      </a>
-      <a href="#" class="glass action-card">
-        <div class="action-icon">📇</div>
-        <div class="action-title">Digital Card</div>
-        <div class="action-sub">Edit contact info</div>
-      </a>
-      <a href="#" class="glass action-card">
-        <div class="action-icon">🛡️</div>
-        <div class="action-title">Emergency Info</div>
-        <div class="action-sub">Blood group & contacts</div>
-      </a>
-      <a href="#" class="glass action-card">
-        <div class="action-icon">📊</div>
-        <div class="action-title">Analytics</div>
-        <div class="action-sub">Scan stats & map</div>
-      </a>
-      <a href="#" class="glass action-card">
-        <div class="action-icon">🏷️</div>
-        <div class="action-title">Lost & Found</div>
-        <div class="action-sub">Enable lost mode</div>
-      </a>
-      <a href="/claim.html" class="glass action-card">
-        <div class="action-icon">✨</div>
-        <div class="action-title">Activate Tag</div>
-        <div class="action-sub">Claim a myQRID tag</div>
+  <div id="unclaimedState" style="display:none">
+    <div class="unclaimed">
+      <span class="unclaimed-icon">⬡</span>
+      <div class="unclaimed-title">This myQRID hasn't been activated yet</div>
+      <div class="unclaimed-sub">Scan a myQRID tag to activate your digital identity and share your world in one tap.</div>
+      <a href="/claim.html" class="activate-btn">
+        <i class="fas fa-qrcode"></i> Activate This Identity
       </a>
     </div>
   </div>
 </div>
 
-<nav class="bottom-nav">
-  <a href="/dashboard.html" class="nav-item active">
-    <span class="nav-icon">🏠</span>
-    <span>Home</span>
-  </a>
-  <a href="#" class="nav-item">
-    <span class="nav-icon">🔗</span>
-    <span>Links</span>
-  </a>
-  <a href="#" class="nav-item" style="flex:none;width:64px">
-    <div class="nav-center-btn">⬡</div>
-  </a>
-  <a href="#" class="nav-item">
-    <span class="nav-icon">📊</span>
-    <span>Stats</span>
-  </a>
-  <a href="#" class="nav-item">
-    <span class="nav-icon">⚙️</span>
-    <span>Settings</span>
-  </a>
-</nav>
-
 <div class="toast" id="toast"></div>
 
 <script>
 const API = 'https://myqrid-backend.myqrid.workers.dev';
+let profileData = {};
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -172,56 +140,89 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-function doLogout() {
-  if (confirm('Logout from myQRID?')) {
-    localStorage.clear();
-    window.location.href = '/login.html';
-  }
+function getUsernameFromURL() {
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  return parts[parts.length - 1] || null;
 }
 
-function viewProfile() {
-  const u = localStorage.getItem('username');
-  if (u) window.location.href = '/profile/' + u;
+function copyURL() {
+  navigator.clipboard.writeText(window.location.href);
+  showToast('URL copied!');
 }
 
 async function shareProfile() {
-  const u = localStorage.getItem('username');
-  const url = 'https://app.myqrid.in/profile/' + u;
+  const url = window.location.href;
   if (navigator.share) {
-    navigator.share({ title: 'My myQRID Profile', url });
+    navigator.share({ title: (profileData.display_name || 'myQRID') + ' — myQRID', url });
   } else {
     await navigator.clipboard.writeText(url);
-    showToast('Profile link copied!');
+    showToast('Link copied!');
   }
 }
 
-async function loadDashboard() {
-  const token = localStorage.getItem('token');
-  if (!token) { window.location.href = '/login.html'; return; }
-  try {
-    const p = JSON.parse(atob(token));
-    if (p.exp < Date.now()) { window.location.href = '/login.html'; return; }
-  } catch { window.location.href = '/login.html'; return; }
-  try {
-    const res = await fetch(API + '/dashboard', {
-      headers: { Authorization: 'Bearer ' + token }
-    });
-    const data = await res.json();
-    if (!data.success) { window.location.href = '/login.html'; return; }
-    const pr = data.profile;
-    document.getElementById('avatar').textContent = (pr.display_name || pr.username || 'U')[0].toUpperCase();
-    document.getElementById('pname').textContent = pr.display_name || pr.username;
-    document.getElementById('pusername').textContent = '@' + pr.username;
-    document.getElementById('s-total').textContent = data.stats?.total ?? 0;
-    document.getElementById('s-today').textContent = data.stats?.today ?? 0;
-    document.getElementById('s-week').textContent = data.stats?.week ?? 0;
-    document.getElementById('qr-title').textContent = (pr.display_name || pr.username) + "'s myQRID";
-    document.getElementById('qr-url').textContent = 'app.myqrid.in/profile/' + pr.username;
-    localStorage.setItem('username', pr.username);
-  } catch(e) { console.error(e); }
+function saveContactBtn() {
+  if (!profileData.display_name) return;
+  const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${profileData.display_name}\nTEL:${profileData.phone || ''}\nURL:${window.location.href}\nEND:VCARD`;
+  const blob = new Blob([vcard], { type: 'text/vcard' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (profileData.username || 'contact') + '.vcf';
+  a.click();
 }
 
-loadDashboard();
+async function loadProfile() {
+  const username = getUsernameFromURL();
+  if (!username || username === 'profile') {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('unclaimedState').style.display = 'block';
+    return;
+  }
+  document.title = '@' + username + ' — myQRID';
+  try {
+    const res = await fetch(API + '/profile/' + username);
+    const data = await res.json();
+    document.getElementById('loadingState').style.display = 'none';
+    if (!data.success || !data.claimed) {
+      document.getElementById('unclaimedState').style.display = 'block';
+      return;
+    }
+    profileData = data;
+    document.getElementById('profileContent').style.display = 'block';
+    document.getElementById('avatarEl').textContent = (data.display_name || username)[0].toUpperCase();
+    document.getElementById('nameEl').textContent = data.display_name || username;
+    document.getElementById('bioEl').textContent = data.bio || '';
+    document.getElementById('usernameEl').textContent = '@' + data.username;
+    document.title = data.display_name + ' — myQRID';
+    if (data.phone) {
+      const phone = data.phone.replace(/\s/g, '');
+      const waBtn = document.getElementById('wa-btn');
+      const callBtn = document.getElementById('call-action');
+      const waAction = document.getElementById('wa-action');
+      waBtn.href = 'https://wa.me/' + phone;
+      waBtn.style.display = 'flex';
+      callBtn.href = 'tel:' + phone;
+      callBtn.style.display = 'flex';
+      waAction.href = 'https://wa.me/' + phone;
+      waAction.style.display = 'flex';
+    }
+    if (data.links && data.links.length) {
+      const container = document.getElementById('linksSection');
+      data.links.forEach(link => {
+        const a = document.createElement('a');
+        a.className = 'link-item';
+        a.href = link.url || '#';
+        a.target = '_blank';
+        a.innerHTML = `<div class="link-icon">🔗</div><span>${link.title || link.url}</span>`;
+        container.appendChild(a);
+      });
+    }
+  } catch(e) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('unclaimedState').style.display = 'block';
+  }
+}
+
+loadProfile();
 </script>
 </body>
 </html>
