@@ -5,54 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Login — myQRID</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/glass.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;min-height:100vh}
-body{background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 100%);font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;padding:20px;padding-top:env(safe-area-inset-top)}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .wrap{width:100%;max-width:400px}
 .logo{text-align:center;margin-bottom:40px}
-.logo-text{font-size:32px;font-weight:700;color:#FFD200;letter-spacing:-1px}
+.logo-text{font-size:32px;font-weight:700;color:#fff;letter-spacing:-1px}
+.logo-text span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .logo-sub{font-size:14px;color:rgba(255,255,255,0.35);margin-top:6px}
-.card{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-radius:24px;padding:32px 28px}
+.card{padding:32px 28px}
 .field{margin-bottom:20px}
-label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
-input{width:100%;padding:14px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:12px;color:#F0F0F8;font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:all 0.2s}
-input:focus{border-color:rgba(255,210,0,0.5);background:rgba(255,255,255,0.08)}
-input.error{border-color:rgba(255,59,92,0.6)}
-input::placeholder{color:rgba(255,255,255,0.2)}
-.btn-gold{width:100%;padding:15px;background:#FFD200;color:#000;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:4px;transition:all 0.2s;min-height:52px}
-.btn-gold:active{transform:scale(0.98);opacity:0.9}
-.btn-gold:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-.err-box{background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.3);color:#FF3B5C;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none}
+.field-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.btn-login{width:100%;padding:15px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:4px;min-height:52px;transition:all 0.2s;box-shadow:0 0 25px rgba(124,58,237,0.3)}
+.btn-login:active{transform:scale(0.98);opacity:0.9}
+.btn-login:disabled{opacity:0.5;cursor:not-allowed;transform:none}
 .divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:rgba(255,255,255,0.2);font-size:13px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
-.footer{text-align:center;margin-top:20px;font-size:14px;color:rgba(255,255,255,0.35)}
-.footer a{color:#FFD200;text-decoration:none;font-weight:600}
-.btn-ghost{width:100%;padding:14px;background:transparent;border:1px solid rgba(255,255,255,0.15);border-radius:12px;color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;text-align:center;min-height:52px;line-height:22px}
-.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);color:#00E5A0;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;z-index:999;transition:transform 0.3s ease;white-space:nowrap}
-.toast.show{transform:translateX(-50%) translateY(0)}
+.btn-ghost-link{display:block;width:100%;padding:14px;background:transparent;border:1px solid rgba(255,255,255,0.12);border-radius:12px;color:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;text-align:center;text-decoration:none;min-height:52px;line-height:24px;transition:all 0.2s}
+.btn-ghost-link:active{background:rgba(255,255,255,0.05)}
+.footer{text-align:center;margin-top:20px;font-size:14px;color:rgba(255,255,255,0.3)}
+.footer a{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;font-weight:600}
 .powered{text-align:center;margin-top:32px;font-size:11px;color:rgba(255,255,255,0.15)}
 </style>
 </head>
 <body>
+<div class="bg-fixed"></div>
 <div class="wrap">
   <div class="logo">
-    <div class="logo-text">myQRID</div>
+    <div class="logo-text">my<span>QRID</span></div>
     <div class="logo-sub">Your Digital Identity</div>
   </div>
-  <div class="card">
+  <div class="glass card">
     <div class="err-box" id="err"></div>
     <div class="field">
-      <label>Email</label>
-      <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+      <div class="field-label">Email</div>
+      <input class="input" type="email" id="email" placeholder="you@example.com" autocomplete="email">
     </div>
     <div class="field">
-      <label>Password</label>
-      <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
+      <div class="field-label">Password</div>
+      <input class="input" type="password" id="pass" placeholder="••••••••" autocomplete="current-password">
     </div>
-    <button class="btn-gold" id="btn" onclick="doLogin()">Login</button>
+    <button class="btn-login" id="btn" onclick="doLogin()">Login</button>
     <div class="divider">or</div>
-    <a href="/signup.html" class="btn-ghost">Create Account</a>
+    <a href="/signup.html" class="btn-ghost-link">Create Account</a>
   </div>
   <div class="footer">
     <a href="/claim.html">🔖 Activate a myQRID Tag</a>
@@ -60,6 +55,7 @@ input::placeholder{color:rgba(255,255,255,0.2)}
   <div class="powered">Powered by myQRID</div>
 </div>
 <div class="toast" id="toast"></div>
+
 <script>
 const API = 'https://myqrid-backend.myqrid.workers.dev';
 
@@ -78,8 +74,6 @@ function showErr(msg) {
 
 function clearErr() {
   document.getElementById('err').style.display = 'none';
-  document.getElementById('email').classList.remove('error');
-  document.getElementById('pass').classList.remove('error');
 }
 
 async function doLogin() {
@@ -87,12 +81,7 @@ async function doLogin() {
   const email = document.getElementById('email').value.trim();
   const pass = document.getElementById('pass').value;
   const btn = document.getElementById('btn');
-  if (!email || !pass) {
-    showErr('Please fill all fields');
-    if (!email) document.getElementById('email').classList.add('error');
-    if (!pass) document.getElementById('pass').classList.add('error');
-    return;
-  }
+  if (!email || !pass) { showErr('Please fill all fields'); return; }
   btn.disabled = true;
   btn.textContent = 'Logging in...';
   try {
@@ -122,7 +111,6 @@ async function doLogin() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
-// Auto redirect if already logged in
 const token = localStorage.getItem('token');
 if (token) {
   try {
