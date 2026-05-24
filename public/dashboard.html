@@ -2,588 +2,250 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Dashboard — myQRID</title>
-<meta name="theme-color" content="#7C3AED">
-<link rel="icon" href="/assets/myqrid-logo.png">
-<link rel="stylesheet" href="/css/glass.css">
-<link rel="stylesheet" href="/css/responsive.css">
-<script src="/js/logo.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ── Dashboard Layout ── */
-.dash-shell{min-height:100dvh;position:relative}
-.top-strip{position:fixed;top:0;left:0;right:0;height:var(--top-height);min-height:var(--top-min-height);background-color:var(--top-bg);background-image:linear-gradient(var(--top-check-color) 1px,transparent 1px),linear-gradient(90deg,var(--top-check-color) 1px,transparent 1px);background-size:var(--top-check-size) var(--top-check-size);z-index:0}
-.bottom-panel{position:fixed;bottom:0;left:0;right:0;top:calc(var(--top-height) - var(--panel-radius));background:var(--panel-bg);border-radius:var(--panel-radius) var(--panel-radius) 0 0;z-index:1}
-.dash-content{position:relative;z-index:10;padding:0 16px;padding-bottom:calc(var(--bottom-nav-h) + var(--safe-bottom) + 24px)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;min-height:100vh;background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 100%);font-family:'DM Sans',sans-serif;color:#F0F0F8}
+.app{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:80px}
 
-/* ── Top bar ── */
-.dash-topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;padding-top:calc(12px + var(--safe-top));position:relative;z-index:20}
-.dash-topbar-logo{display:flex;align-items:center;gap:8px}
-.dash-topbar-logo img{width:28px;height:28px;object-fit:contain}
-.dash-topbar-title{font-size:1rem;font-weight:800;color:#fff}
-.dash-topbar-actions{display:flex;gap:8px}
-.icon-btn{width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,0.30);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;cursor:pointer;transition:all 0.2s}
-.icon-btn:hover{background:rgba(0,0,0,0.5)}
+/* TOP BAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;padding-top:calc(16px + env(safe-area-inset-top))}
+.topbar-logo{font-size:20px;font-weight:700;color:#FFD200}
+.topbar-actions{display:flex;gap:10px}
+.icon-btn{width:40px;height:40px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;text-decoration:none;color:#F0F0F8}
 
-/* ── Profile card ── */
-.profile-card{background:rgba(0,0,0,0.25);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.10);border-radius:20px;padding:20px;margin-top:calc(var(--top-height) - 20px);display:flex;align-items:center;gap:16px}
-.profile-card-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--avatar-ring);flex-shrink:0}
-.profile-card-info{flex:1;min-width:0}
-.profile-card-name{font-size:1.1rem;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.profile-card-username{font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:2px}
-.profile-card-badges{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
-.view-profile-btn{flex-shrink:0;padding:8px 14px;border-radius:20px;background:var(--accent-dim);border:1px solid var(--accent-border);color:#DDD6FE;font-size:0.78rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all 0.2s;white-space:nowrap}
-.view-profile-btn:hover{background:var(--accent);color:#fff}
+/* PROFILE CARD */
+.profile-card{margin:0 16px 16px;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.10);border-radius:20px;padding:20px}
+.profile-top{display:flex;align-items:center;gap:16px}
+.avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#6D3DF5,#FFD200);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#000;flex-shrink:0;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.profile-info{flex:1;min-width:0}
+.profile-name{font-size:18px;font-weight:700;color:#F0F0F8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-username{font-size:13px;color:#6B6B85;margin-top:2px}
+.profile-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,210,0,0.10);border:1px solid rgba(255,210,0,0.25);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;color:#FFD200;margin-top:6px}
+.view-btn{background:#FFD200;color:#000;border:none;border-radius:10px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
 
-/* ── Stats row ── */
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
-.stat-card{background:rgba(0,0,0,0.25);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 10px;text-align:center}
-.stat-num{font-size:1.5rem;font-weight:900;color:#fff;line-height:1}
-.stat-label{font-size:0.65rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:4px}
+/* STATS */
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 16px 16px}
+.stat-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 10px;text-align:center}
+.stat-num{font-size:22px;font-weight:700;color:#FFD200}
+.stat-label{font-size:11px;color:#6B6B85;margin-top:2px;text-transform:uppercase;letter-spacing:0.3px}
 
-/* ── Section header ── */
-.sec-head{display:flex;align-items:center;justify-content:space-between;margin:24px 0 12px}
-.sec-head-title{font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
-.sec-head-action{font-size:0.78rem;color:#DDD6FE;font-weight:600;cursor:pointer;text-decoration:none}
+/* SECTION */
+.section{margin:0 16px 16px}
+.section-title{font-size:12px;font-weight:600;color:#6B6B85;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
 
-/* ── Quick actions ── */
-.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.quick-card{background:rgba(0,0,0,0.25);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:all 0.2s;text-decoration:none}
-.quick-card:hover{border-color:var(--accent-border);background:rgba(0,0,0,0.40)}
-.quick-card-icon{font-size:1.6rem;line-height:1}
-.quick-card-title{font-size:0.9rem;font-weight:700;color:#fff}
-.quick-card-sub{font-size:0.75rem;color:rgba(255,255,255,0.35)}
+/* QUICK ACTIONS */
+.actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.action-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block}
+.action-card:active{transform:scale(0.97)}
+.action-icon{font-size:24px;margin-bottom:8px}
+.action-title{font-size:14px;font-weight:600;color:#F0F0F8}
+.action-sub{font-size:11px;color:#6B6B85;margin-top:2px}
 
-/* ── Tab content ── */
-.tab-content{display:none}
-.tab-content.active{display:block}
+/* QR CARD */
+.qr-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,210,0,0.20);border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px}
+.qr-box{width:64px;height:64px;background:rgba(255,210,0,0.1);border:1px solid rgba(255,210,0,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.qr-info{flex:1}
+.qr-title{font-size:15px;font-weight:600;color:#F0F0F8}
+.qr-url{font-size:12px;color:#6B6B85;margin-top:2px}
+.qr-share-btn{background:#FFD200;color:#000;border:none;border-radius:10px;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
 
-/* ── Links manager ── */
-.link-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(0,0,0,0.25);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.08);border-radius:14px;margin-bottom:10px}
-.link-item-icon{font-size:1.2rem;width:36px;text-align:center;flex-shrink:0}
-.link-item-info{flex:1;min-width:0}
-.link-item-title{font-size:0.9rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.link-item-url{font-size:0.75rem;color:rgba(255,255,255,0.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.link-item-actions{display:flex;gap:8px;flex-shrink:0}
-.link-action-btn{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.85rem;color:rgba(255,255,255,0.6);transition:all 0.2s}
-.link-action-btn:hover{background:rgba(255,255,255,0.12);color:#fff}
-.add-link-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:var(--accent-dim);border:1px dashed var(--accent-border);border-radius:14px;color:#DDD6FE;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all 0.2s;margin-top:8px}
-.add-link-btn:hover{background:rgba(124,58,237,0.25)}
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(10,10,26,0.95);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.08);display:flex;padding:8px 0;padding-bottom:calc(8px + env(safe-area-inset-bottom))}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:6px 0;text-decoration:none;transition:all 0.2s}
+.nav-icon{font-size:20px;line-height:1}
+.nav-label{font-size:10px;font-weight:500;color:#6B6B85}
+.nav-item.active .nav-label{color:#FFD200}
+.nav-item.active .nav-icon{filter:drop-shadow(0 0 6px rgba(255,210,0,0.5))}
 
-/* ── Modal ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000;display:none;align-items:flex-end;justify-content:center}
-.modal-overlay.open{display:flex}
-.modal-sheet{background:linear-gradient(170deg,#2a0550,#1E0A3C);border:1px solid rgba(255,255,255,0.10);border-radius:24px 24px 0 0;padding:24px 20px;padding-bottom:calc(24px + var(--safe-bottom));width:100%;max-width:480px;animation:slideUp 0.35s ease}
-.modal-handle{width:40px;height:4px;background:rgba(255,255,255,0.2);border-radius:2px;margin:0 auto 20px}
-.modal-title{font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:20px}
-.modal-form{display:flex;flex-direction:column;gap:14px}
-
-/* ── Toggle row ── */
-.setting-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:rgba(0,0,0,0.20);border:1px solid rgba(255,255,255,0.07);border-radius:14px;margin-bottom:10px}
-.setting-info{flex:1}
-.setting-title{font-size:0.9rem;font-weight:700;color:#fff}
-.setting-sub{font-size:0.75rem;color:rgba(255,255,255,0.35);margin-top:2px}
-
-/* ── Avatar upload ── */
-.avatar-upload{position:relative;display:inline-block;cursor:pointer}
-.avatar-upload-img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--avatar-ring)}
-.avatar-upload-badge{position:absolute;bottom:0;right:0;width:26px;height:26px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.7rem;border:2px solid #1E0A3C}
-.avatar-upload input{display:none}
-
-/* ── Logout btn ── */
-.logout-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:rgba(255,59,92,0.08);border:1px solid rgba(255,59,92,0.20);border-radius:14px;color:#FF3B5C;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all 0.2s;width:100%;margin-top:8px}
-.logout-btn:hover{background:rgba(255,59,92,0.15)}
+/* LOADING */
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,0.05) 25%,rgba(255,255,255,0.10) 50%,rgba(255,255,255,0.05) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:8px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.sk-text{height:16px;margin-bottom:8px}
+.sk-num{height:28px;width:40px;margin:0 auto}
 </style>
 </head>
-<body data-top="coffee" data-bottom="deep-purple">
-
-<div class="dash-shell">
-  <div class="top-strip"></div>
-  <div class="bottom-panel"></div>
-
-  <!-- Top bar -->
-  <div class="dash-topbar">
-    <div class="dash-topbar-logo">
-      <img id="dash-logo" alt="myQRID">
-      <span class="dash-topbar-title">myQRID</span>
-    </div>
-    <div class="dash-topbar-actions">
-      <button class="icon-btn" onclick="copyProfileLink()" title="Copy profile link">⤴</button>
-      <button class="icon-btn" onclick="showTab('settings')" title="Settings">⚙</button>
+<body>
+<div class="app">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-logo">myQRID</div>
+    <div class="topbar-actions">
+      <a href="#" class="icon-btn" title="Notifications">🔔</a>
+      <a href="#" class="icon-btn" onclick="doLogout()" title="Logout">👤</a>
     </div>
   </div>
 
-  <!-- Main content -->
-  <div class="dash-content">
-
-    <!-- HOME TAB -->
-    <div id="tab-home" class="tab-content active">
-
-      <!-- Profile card -->
-      <div class="profile-card stagger">
-        <img id="dash-avatar" class="profile-card-avatar" src="/assets/myqrid-logo.png" alt="Avatar">
-        <div class="profile-card-info">
-          <div class="profile-card-name" id="dash-name">Loading...</div>
-          <div class="profile-card-username" id="dash-username">@—</div>
-          <div class="profile-card-badges">
-            <span class="badge badge-accent" id="dash-score" style="display:none">⭐ <span id="dash-score-val"></span></span>
-            <span class="badge badge-verified" id="dash-verified" style="display:none">✓ Verified</span>
-          </div>
-        </div>
-        <a id="view-profile-link" href="#" target="_blank" class="view-profile-btn">View ›</a>
+  <!-- PROFILE CARD -->
+  <div class="profile-card">
+    <div class="profile-top">
+      <div class="avatar" id="avatar">P</div>
+      <div class="profile-info">
+        <div class="profile-name" id="pname">Loading...</div>
+        <div class="profile-username" id="pusername">@—</div>
+        <div class="profile-badge">⭐ Free Plan</div>
       </div>
-
-      <!-- Stats -->
-      <div class="stats-row stagger">
-        <div class="stat-card">
-          <div class="stat-num" id="stat-total">—</div>
-          <div class="stat-label">Total Scans</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" id="stat-today">—</div>
-          <div class="stat-label">Today</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" id="stat-week">—</div>
-          <div class="stat-label">This Week</div>
-        </div>
-      </div>
-
-      <!-- Quick actions -->
-      <div class="sec-head">
-        <div class="sec-head-title">Quick Actions</div>
-      </div>
-      <div class="quick-grid stagger">
-        <a class="quick-card" onclick="showTab('links')">
-          <div class="quick-card-icon">🔗</div>
-          <div class="quick-card-title">Manage Links</div>
-          <div class="quick-card-sub">Add & edit your links</div>
-        </a>
-        <a class="quick-card" onclick="showTab('card')">
-          <div class="quick-card-icon">📇</div>
-          <div class="quick-card-title">Digital Card</div>
-          <div class="quick-card-sub">Edit contact info</div>
-        </a>
-        <a class="quick-card" onclick="showTab('lost')">
-          <div class="quick-card-icon">🔴</div>
-          <div class="quick-card-title">Lost & Found</div>
-          <div class="quick-card-sub">Toggle lost mode</div>
-        </a>
-        <a class="quick-card" onclick="showTab('emergency')">
-          <div class="quick-card-icon">⚕</div>
-          <div class="quick-card-title">Emergency</div>
-          <div class="quick-card-sub">Medical info</div>
-        </a>
-        <a class="quick-card" onclick="showTab('stats')">
-          <div class="quick-card-icon">📊</div>
-          <div class="quick-card-title">Analytics</div>
-          <div class="quick-card-sub">Scan insights</div>
-        </a>
-        <a class="quick-card" onclick="copyProfileLink()">
-          <div class="quick-card-icon">⤴</div>
-          <div class="quick-card-title">Share Profile</div>
-          <div class="quick-card-sub">Copy your link</div>
-        </a>
-      </div>
+      <button class="view-btn" onclick="viewProfile()">View ›</button>
     </div>
+  </div>
 
-    <!-- LINKS TAB -->
-    <div id="tab-links" class="tab-content">
-      <div class="sec-head">
-        <div class="sec-head-title">My Links</div>
-      </div>
-      <div id="links-list"></div>
-      <div class="add-link-btn" onclick="openAddLink()">+ Add New Link</div>
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="s-total">—</div>
+      <div class="stat-label">Total Scans</div>
     </div>
-
-    <!-- CARD TAB -->
-    <div id="tab-card" class="tab-content">
-      <div class="sec-head">
-        <div class="sec-head-title">Digital Card</div>
-        <span class="sec-head-action" onclick="saveCardData()">Save</span>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="input-group"><label class="input-label">Display Name</label><input id="card-name" class="input" type="text" placeholder="Your full name"></div>
-        <div class="input-group"><label class="input-label">Job Title</label><input id="card-title" class="input" type="text" placeholder="CEO, Designer, etc."></div>
-        <div class="input-group"><label class="input-label">Company</label><input id="card-company" class="input" type="text" placeholder="Company name"></div>
-        <div class="input-group"><label class="input-label">Phone</label><input id="card-phone" class="input" type="tel" placeholder="+91 98765 43210"></div>
-        <div class="input-group"><label class="input-label">Email</label><input id="card-email" class="input" type="email" placeholder="you@example.com"></div>
-        <div class="input-group"><label class="input-label">Website</label><input id="card-website" class="input" type="url" placeholder="https://yoursite.com"></div>
-        <div class="input-group"><label class="input-label">Bio</label><textarea id="card-bio" class="input" rows="3" placeholder="Short bio..." style="padding-top:14px;resize:none"></textarea></div>
-        <div class="input-group"><label class="input-label">Instagram</label><input id="card-instagram" class="input" type="text" placeholder="@username"></div>
-        <div class="input-group"><label class="input-label">LinkedIn</label><input id="card-linkedin" class="input" type="text" placeholder="linkedin.com/in/username"></div>
-        <button class="btn btn-accent btn-full" onclick="saveCardData()">Save Card</button>
-        <button class="btn btn-dark-glass btn-full" onclick="downloadVCF()">📥 Download VCF</button>
-      </div>
+    <div class="stat-card">
+      <div class="stat-num" id="s-today">—</div>
+      <div class="stat-label">Today</div>
     </div>
-
-    <!-- LOST TAB -->
-    <div id="tab-lost" class="tab-content">
-      <div class="sec-head"><div class="sec-head-title">Lost & Found</div></div>
-      <div class="setting-row" style="margin-bottom:20px">
-        <div class="setting-info">
-          <div class="setting-title">🔴 Lost Mode</div>
-          <div class="setting-sub">Show lost alert when someone scans your QR</div>
-        </div>
-        <label class="toggle">
-          <input type="checkbox" id="lost-toggle" onchange="toggleLostMode()">
-          <div class="toggle-track"></div>
-          <div class="toggle-thumb"></div>
-        </label>
-      </div>
-      <div id="lost-form" style="display:flex;flex-direction:column;gap:14px">
-        <div class="input-group"><label class="input-label">Message to Finder</label><textarea id="lost-message" class="input" rows="3" placeholder="Please contact me, this is my..." style="padding-top:14px;resize:none"></textarea></div>
-        <div class="input-group"><label class="input-label">Reward Amount (₹)</label><input id="lost-reward-amt" class="input" type="number" placeholder="500"></div>
-        <button class="btn btn-accent btn-full" onclick="saveLostData()">Save Lost Info</button>
-      </div>
+    <div class="stat-card">
+      <div class="stat-num" id="s-week">—</div>
+      <div class="stat-label">This Week</div>
     </div>
+  </div>
 
-    <!-- EMERGENCY TAB -->
-    <div id="tab-emergency" class="tab-content">
-      <div class="sec-head"><div class="sec-head-title">Emergency Info</div></div>
-      <div class="setting-row" style="margin-bottom:20px">
-        <div class="setting-info">
-          <div class="setting-title">⚕ Emergency Mode</div>
-          <div class="setting-sub">Show medical info when QR is scanned</div>
-        </div>
-        <label class="toggle">
-          <input type="checkbox" id="em-toggle" onchange="toggleEmergencyMode()">
-          <div class="toggle-track"></div>
-          <div class="toggle-thumb"></div>
-        </label>
+  <!-- QR CARD -->
+  <div class="section">
+    <div class="section-title">Your myQRID</div>
+    <div class="qr-card">
+      <div class="qr-box">⬡</div>
+      <div class="qr-info">
+        <div class="qr-title" id="qr-title">myQRID Profile</div>
+        <div class="qr-url" id="qr-url">app.myqrid.in/profile/—</div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <div class="input-group"><label class="input-label">Blood Group</label>
-          <select id="em-blood" class="input" style="cursor:pointer">
-            <option value="">Select blood group</option>
-            <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
-            <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
-          </select>
-        </div>
-        <div class="input-group"><label class="input-label">Allergies (comma separated)</label><input id="em-allergies" class="input" type="text" placeholder="Penicillin, Peanuts"></div>
-        <div class="input-group"><label class="input-label">Medications</label><input id="em-meds" class="input" type="text" placeholder="Metformin 500mg"></div>
-        <div class="input-group"><label class="input-label">Emergency Contact 1 Name</label><input id="em-c1-name" class="input" type="text" placeholder="Mom"></div>
-        <div class="input-group"><label class="input-label">Emergency Contact 1 Phone</label><input id="em-c1-phone" class="input" type="tel" placeholder="+91 98765 43210"></div>
-        <div class="input-group"><label class="input-label">Emergency Contact 2 Name</label><input id="em-c2-name" class="input" type="text" placeholder="Dad"></div>
-        <div class="input-group"><label class="input-label">Emergency Contact 2 Phone</label><input id="em-c2-phone" class="input" type="tel" placeholder="+91 98765 43210"></div>
-        <div class="input-group"><label class="input-label">Doctor Name</label><input id="em-doctor" class="input" type="text" placeholder="Dr. Sharma"></div>
-        <div class="input-group"><label class="input-label">Hospital Preference</label><input id="em-hospital" class="input" type="text" placeholder="Apollo Hospital, Delhi"></div>
-        <button class="btn btn-emergency btn-full" onclick="saveEmergencyData()">Save Emergency Info</button>
-      </div>
+      <button class="qr-share-btn" onclick="shareProfile()">Share</button>
     </div>
+  </div>
 
-    <!-- STATS TAB -->
-    <div id="tab-stats" class="tab-content">
-      <div class="sec-head"><div class="sec-head-title">Analytics</div></div>
-      <div class="stats-row" style="margin-bottom:20px">
-        <div class="stat-card"><div class="stat-num" id="s-total">—</div><div class="stat-label">Total</div></div>
-        <div class="stat-card"><div class="stat-num" id="s-today">—</div><div class="stat-label">Today</div></div>
-        <div class="stat-card"><div class="stat-num" id="s-week">—</div><div class="stat-label">Week</div></div>
-      </div>
-      <div class="glass-card" style="padding:20px;margin-bottom:16px">
-        <div class="section-title">Recent Scans</div>
-        <div id="recent-scans" style="color:rgba(255,255,255,0.4);font-size:0.875rem;margin-top:8px">Loading...</div>
-      </div>
-    </div>
-
-    <!-- SETTINGS TAB -->
-    <div id="tab-settings" class="tab-content">
-      <div class="sec-head"><div class="sec-head-title">Settings</div></div>
-
-      <!-- Avatar -->
-      <div style="display:flex;justify-content:center;margin-bottom:24px">
-        <label class="avatar-upload">
-          <img id="settings-avatar" class="avatar-upload-img" src="/assets/myqrid-logo.png" alt="Avatar">
-          <div class="avatar-upload-badge">✎</div>
-          <input type="file" accept="image/*" onchange="uploadAvatar(this)">
-        </label>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:24px">
-        <div class="input-group"><label class="input-label">Display Name</label><input id="set-name" class="input" type="text"></div>
-        <div class="input-group"><label class="input-label">Username</label><input id="set-username" class="input" type="text"></div>
-        <div class="input-group"><label class="input-label">Email</label><input id="set-email" class="input" type="email"></div>
-        <button class="btn btn-accent btn-full" onclick="saveSettings()">Save Changes</button>
-      </div>
-
-      <!-- Theme picker -->
-      <div class="sec-head"><div class="sec-head-title">Top Strip Theme</div></div>
-      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
-        <div class="theme-chip active" data-theme="coffee" style="background:#2C1A10" onclick="setTopTheme('coffee')"></div>
-        <div class="theme-chip" data-theme="graphite" style="background:#1C1C1E" onclick="setTopTheme('graphite')"></div>
-        <div class="theme-chip" data-theme="matte" style="background:#0A0A0A;border:2px solid rgba(255,255,255,0.2)" onclick="setTopTheme('matte')"></div>
-        <div class="theme-chip" data-theme="space" style="background:#3A3A3C" onclick="setTopTheme('space')"></div>
-        <div class="theme-chip" data-theme="steel" style="background:#48484A" onclick="setTopTheme('steel')"></div>
-      </div>
-
-      <div class="sec-head"><div class="sec-head-title">Bottom Panel Theme</div></div>
-      <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap">
-        <div class="theme-chip active" data-theme="deep-purple" style="background:linear-gradient(135deg,#3B0764,#1E0A3C)" onclick="setBottomTheme('deep-purple')"></div>
-        <div class="theme-chip" data-theme="mid-purple" style="background:linear-gradient(135deg,#5B21B6,#2D1A4B)" onclick="setBottomTheme('mid-purple')"></div>
-        <div class="theme-chip" data-theme="soft-purple" style="background:linear-gradient(135deg,#7C3AED,#3D1A6E)" onclick="setBottomTheme('soft-purple')"></div>
-        <div class="theme-chip" data-theme="lavender" style="background:linear-gradient(135deg,#8B5CF6,#4C1D95)" onclick="setBottomTheme('lavender')"></div>
-        <div class="theme-chip" data-theme="light-green" style="background:linear-gradient(135deg,#065F46,#022C22)" onclick="setBottomTheme('light-green')"></div>
-      </div>
-
-      <button class="logout-btn" onclick="doLogout()">🚪 Logout</button>
-    </div>
-
-  </div><!-- /dash-content -->
-
-  <!-- Bottom Nav -->
-  <nav class="bottom-nav">
-    <button class="bottom-nav-item active" data-nav="home" onclick="showTab('home')">
-      <span class="nav-icon">🏠</span><span>Home</span>
-    </button>
-    <button class="bottom-nav-item" data-nav="links" onclick="showTab('links')">
-      <span class="nav-icon">🔗</span><span>Links</span>
-    </button>
-    <button class="bottom-nav-item nav-center" data-nav="card" onclick="showTab('card')">
-      <div class="nav-center-btn">
-        <img id="nav-logo" width="28" height="28" alt="Q" style="object-fit:contain">
-      </div>
-    </button>
-    <button class="bottom-nav-item" data-nav="stats" onclick="showTab('stats')">
-      <span class="nav-icon">📊</span><span>Stats</span>
-    </button>
-    <button class="bottom-nav-item" data-nav="settings" onclick="showTab('settings')">
-      <span class="nav-icon">⚙</span><span>Settings</span>
-    </button>
-  </nav>
-
-</div>
-
-<!-- Add Link Modal -->
-<div class="modal-overlay" id="link-modal">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Add New Link</div>
-    <div class="modal-form">
-      <div class="input-group"><label class="input-label">Title</label><input id="link-title" class="input" type="text" placeholder="My Website"></div>
-      <div class="input-group"><label class="input-label">URL</label><input id="link-url" class="input" type="url" placeholder="https://"></div>
-      <div class="input-group"><label class="input-label">Icon (emoji)</label><input id="link-icon" class="input" type="text" placeholder="🔗" maxlength="2"></div>
-      <button class="btn btn-accent btn-full" onclick="addLink()">Add Link</button>
-      <button class="btn btn-ghost btn-full" onclick="closeModal()">Cancel</button>
+  <!-- QUICK ACTIONS -->
+  <div class="section">
+    <div class="section-title">Quick Actions</div>
+    <div class="actions-grid">
+      <a href="#" class="action-card">
+        <div class="action-icon">🔗</div>
+        <div class="action-title">Manage Links</div>
+        <div class="action-sub">Add & edit your links</div>
+      </a>
+      <a href="#" class="action-card">
+        <div class="action-icon">📇</div>
+        <div class="action-title">Digital Card</div>
+        <div class="action-sub">Edit contact info</div>
+      </a>
+      <a href="#" class="action-card">
+        <div class="action-icon">🛡️</div>
+        <div class="action-title">Emergency Info</div>
+        <div class="action-sub">Blood group & contacts</div>
+      </a>
+      <a href="#" class="action-card">
+        <div class="action-icon">📊</div>
+        <div class="action-title">Analytics</div>
+        <div class="action-sub">Scan stats & map</div>
+      </a>
+      <a href="#" class="action-card">
+        <div class="action-icon">🏷️</div>
+        <div class="action-title">Lost & Found</div>
+        <div class="action-sub">Enable lost mode</div>
+      </a>
+      <a href="/claim.html" class="action-card">
+        <div class="action-icon">✨</div>
+        <div class="action-title">Activate Tag</div>
+        <div class="action-sub">Claim a myQRID tag</div>
+      </a>
     </div>
   </div>
 </div>
 
-<div id="toast-container"></div>
-<script src="/js/app.js"></script>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="/dashboard.html" class="nav-item active">
+    <span class="nav-icon">🏠</span>
+    <span class="nav-label">Home</span>
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">🔗</span>
+    <span class="nav-label">Links</span>
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">⬡</span>
+    <span class="nav-label">QR</span>
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">📊</span>
+    <span class="nav-label">Stats</span>
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">⚙️</span>
+    <span class="nav-label">Settings</span>
+  </a>
+</nav>
+
 <script>
-let userData = {};
-let userLinks = [];
+const API = 'https://myqrid-backend.myqrid.workers.dev';
 
-/* ── Init ── */
-async function init() {
-  if (!requireAuth()) return;
-  document.getElementById('dash-logo').src = MYQRID_LOGO;
-  document.getElementById('nav-logo').src = MYQRID_LOGO;
-  Theme.load();
-  await loadDashboard();
-}
-
-async function loadDashboard() {
-  const { ok, data } = await apiFetch('/dashboard');
-  if (!ok) { Auth.clear(); window.location.href = '/login.html'; return; }
-  userData = data.profile || {};
-  userLinks = data.links || [];
-  renderProfile();
-  renderStats(data.stats || {});
-  renderLinks();
-  renderSettings();
-  if (data.profile?.emergency) renderEmergency(data.profile.emergency);
-  if (data.profile?.lost_mode) {
-    document.getElementById('lost-toggle').checked = true;
-    document.getElementById('lost-message').value = data.profile.lost_message || '';
-    document.getElementById('lost-reward-amt').value = data.profile.lost_reward || '';
-  }
-}
-
-function renderProfile() {
-  const d = userData;
-  document.title = `${d.display_name || d.username} — myQRID`;
-  if (d.avatar) {
-    document.getElementById('dash-avatar').src = d.avatar;
-    document.getElementById('settings-avatar').src = d.avatar;
-  }
-  document.getElementById('dash-name').textContent = d.display_name || d.username || '—';
-  document.getElementById('dash-username').textContent = `@${d.username || '—'}`;
-  document.getElementById('view-profile-link').href = `/${d.username}`;
-  if (d.score) { document.getElementById('dash-score').style.display='inline-flex'; document.getElementById('dash-score-val').textContent = d.score; }
-  if (d.verified) document.getElementById('dash-verified').style.display='inline-flex';
-}
-
-function renderStats(s) {
-  document.getElementById('stat-total').textContent = s.total || 0;
-  document.getElementById('stat-today').textContent = s.today || 0;
-  document.getElementById('stat-week').textContent = s.week || 0;
-  document.getElementById('s-total').textContent = s.total || 0;
-  document.getElementById('s-today').textContent = s.today || 0;
-  document.getElementById('s-week').textContent = s.week || 0;
-  const rs = document.getElementById('recent-scans');
-  if (s.recent && s.recent.length) {
-    rs.innerHTML = s.recent.map(r => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span>${r.location||'Unknown'}</span><span style="color:rgba(255,255,255,0.35)">${timeAgo(r.created_at)}</span></div>`).join('');
-  } else {
-    rs.textContent = 'No scans yet. Share your profile link!';
-  }
-}
-
-function renderLinks() {
-  const list = document.getElementById('links-list');
-  list.innerHTML = '';
-  if (!userLinks.length) {
-    list.innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.3);padding:32px;font-size:0.875rem">No links yet. Add your first link!</div>';
-    return;
-  }
-  userLinks.forEach((l, i) => {
-    const div = document.createElement('div');
-    div.className = 'link-item';
-    div.innerHTML = `
-      <div class="link-item-icon">${l.icon||'🔗'}</div>
-      <div class="link-item-info">
-        <div class="link-item-title">${l.title}</div>
-        <div class="link-item-url">${l.url}</div>
-      </div>
-      <div class="link-item-actions">
-        <button class="link-action-btn" onclick="deleteLink(${l.id})">🗑</button>
-      </div>`;
-    list.appendChild(div);
-  });
-}
-
-function renderSettings() {
-  document.getElementById('set-name').value = userData.display_name || '';
-  document.getElementById('set-username').value = userData.username || '';
-  document.getElementById('set-email').value = userData.email || '';
-}
-
-function renderEmergency(em) {
-  if (em.blood_group) document.getElementById('em-blood').value = em.blood_group;
-  if (em.allergies) document.getElementById('em-allergies').value = em.allergies.join(', ');
-  if (em.medications) document.getElementById('em-meds').value = em.medications.join(', ');
-  if (em.contact1_name) { document.getElementById('em-c1-name').value = em.contact1_name; document.getElementById('em-c1-phone').value = em.contact1_phone || ''; }
-  if (em.contact2_name) { document.getElementById('em-c2-name').value = em.contact2_name; document.getElementById('em-c2-phone').value = em.contact2_phone || ''; }
-  if (em.doctor_name) document.getElementById('em-doctor').value = em.doctor_name;
-  if (em.hospital) document.getElementById('em-hospital').value = em.hospital;
-  if (em.enabled) document.getElementById('em-toggle').checked = true;
-}
-
-/* ── Tab switching ── */
-function showTab(name) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
-  document.getElementById(`tab-${name}`).classList.add('active');
-  document.querySelector(`[data-nav="${name}"]`)?.classList.add('active');
-}
-
-/* ── Link actions ── */
-function openAddLink() { document.getElementById('link-modal').classList.add('open'); }
-function closeModal() { document.getElementById('link-modal').classList.remove('open'); }
-
-async function addLink() {
-  const title = document.getElementById('link-title').value.trim();
-  const url = document.getElementById('link-url').value.trim();
-  const icon = document.getElementById('link-icon').value.trim() || '🔗';
-  if (!title || !url) { toast('Title and URL required', 'error'); return; }
-  const { ok, data } = await apiFetch('/links', { method:'POST', body: JSON.stringify({ title, url, icon }) });
-  if (ok) { userLinks.push(data); renderLinks(); closeModal(); toast('Link added!', 'success'); document.getElementById('link-title').value=''; document.getElementById('link-url').value=''; document.getElementById('link-icon').value=''; }
-  else toast('Failed to add link', 'error');
-}
-
-async function deleteLink(id) {
-  if (!confirm('Delete this link?')) return;
-  const { ok } = await apiFetch(`/links/${id}`, { method:'DELETE' });
-  if (ok) { userLinks = userLinks.filter(l => l.id !== id); renderLinks(); toast('Deleted', 'success'); }
-}
-
-/* ── Card ── */
-async function saveCardData() {
-  const body = { display_name: document.getElementById('card-name').value, job_title: document.getElementById('card-title').value, company: document.getElementById('card-company').value, phone: document.getElementById('card-phone').value, email: document.getElementById('card-email').value, website: document.getElementById('card-website').value, bio: document.getElementById('card-bio').value, instagram: document.getElementById('card-instagram').value, linkedin: document.getElementById('card-linkedin').value };
-  const { ok } = await apiFetch('/profile/update', { method:'POST', body: JSON.stringify(body) });
-  if (ok) toast('Card saved!', 'success'); else toast('Save failed', 'error');
-}
-
-function downloadVCF() {
-  saveContact({ display_name: document.getElementById('card-name').value, phone: document.getElementById('card-phone').value, email: document.getElementById('card-email').value, website: document.getElementById('card-website').value, username: userData.username });
-}
-
-/* ── Lost ── */
-async function toggleLostMode() {
-  const on = document.getElementById('lost-toggle').checked;
-  await apiFetch('/profile/lost-mode', { method:'POST', body: JSON.stringify({ enabled: on }) });
-  toast(on ? 'Lost mode ON' : 'Lost mode OFF', on ? 'error' : 'success');
-}
-
-async function saveLostData() {
-  const body = { lost_message: document.getElementById('lost-message').value, lost_reward: document.getElementById('lost-reward-amt').value };
-  const { ok } = await apiFetch('/profile/lost-info', { method:'POST', body: JSON.stringify(body) });
-  if (ok) toast('Lost info saved!', 'success'); else toast('Save failed', 'error');
-}
-
-/* ── Emergency ── */
-async function toggleEmergencyMode() {
-  const on = document.getElementById('em-toggle').checked;
-  await apiFetch('/profile/emergency-mode', { method:'POST', body: JSON.stringify({ enabled: on }) });
-  toast(on ? 'Emergency mode ON' : 'Emergency mode OFF', on ? 'error' : 'success');
-}
-
-async function saveEmergencyData() {
-  const body = { blood_group: document.getElementById('em-blood').value, allergies: document.getElementById('em-allergies').value.split(',').map(s=>s.trim()).filter(Boolean), medications: document.getElementById('em-meds').value.split(',').map(s=>s.trim()).filter(Boolean), contact1_name: document.getElementById('em-c1-name').value, contact1_phone: document.getElementById('em-c1-phone').value, contact2_name: document.getElementById('em-c2-name').value, contact2_phone: document.getElementById('em-c2-phone').value, doctor_name: document.getElementById('em-doctor').value, hospital: document.getElementById('em-hospital').value };
-  const { ok } = await apiFetch('/emergency', { method:'POST', body: JSON.stringify(body) });
-  if (ok) toast('Emergency info saved!', 'success'); else toast('Save failed', 'error');
-}
-
-/* ── Settings ── */
-async function saveSettings() {
-  const body = { display_name: document.getElementById('set-name').value, username: document.getElementById('set-username').value, email: document.getElementById('set-email').value };
-  const { ok } = await apiFetch('/profile/update', { method:'POST', body: JSON.stringify(body) });
-  if (ok) toast('Settings saved!', 'success'); else toast('Save failed', 'error');
-}
-
-async function uploadAvatar(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = async (e) => {
-    const base64 = e.target.result;
-    document.getElementById('settings-avatar').src = base64;
-    document.getElementById('dash-avatar').src = base64;
-    const { ok } = await apiFetch('/profile/avatar', { method:'POST', body: JSON.stringify({ avatar: base64 }) });
-    if (ok) toast('Avatar updated!', 'success'); else toast('Upload failed', 'error');
-  };
-  reader.readAsDataURL(file);
-}
-
-function setTopTheme(t) {
-  document.body.dataset.top = t;
-  localStorage.setItem('mq_top', t);
-  document.querySelectorAll('[data-theme]').forEach(c => c.classList.toggle('active', c.dataset.theme === t));
-  apiFetch('/profile/theme', { method:'POST', body: JSON.stringify({ theme_top: t }) });
-}
-
-function setBottomTheme(t) {
-  document.body.dataset.bottom = t;
-  localStorage.setItem('mq_bottom', t);
-  apiFetch('/profile/theme', { method:'POST', body: JSON.stringify({ theme_bottom: t }) });
-}
-
-function copyProfileLink() {
-  copyText(`https://myqrid.in/${userData.username}`);
+function getToken() {
+  return localStorage.getItem('token');
 }
 
 function doLogout() {
-  Auth.clear();
-  window.location.href = '/login.html';
+  if (confirm('Logout?')) {
+    localStorage.clear();
+    window.location.href = '/login.html';
+  }
 }
 
-/* Close modal on overlay click */
-document.getElementById('link-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+function viewProfile() {
+  const u = localStorage.getItem('username');
+  if (u) window.open('/profile/' + u, '_blank');
+}
 
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
-init();
+async function shareProfile() {
+  const u = localStorage.getItem('username');
+  const url = 'https://app.myqrid.in/profile/' + u;
+  if (navigator.share) {
+    navigator.share({ title: 'My myQRID Profile', url });
+  } else {
+    await navigator.clipboard.writeText(url);
+    alert('Link copied!');
+  }
+}
+
+async function loadDashboard() {
+  const token = getToken();
+  if (!token) { window.location.href = '/login.html'; return; }
+  try {
+    const p = JSON.parse(atob(token));
+    if (p.exp < Date.now()) { window.location.href = '/login.html'; return; }
+  } catch { window.location.href = '/login.html'; return; }
+
+  try {
+    const res = await fetch(API + '/dashboard', {
+      headers: { Authorization: 'Bearer ' + token }
+    });
+    const data = await res.json();
+    if (!data.success) { window.location.href = '/login.html'; return; }
+
+    const profile = data.profile;
+    const initials = (profile.display_name || profile.username || 'U')[0].toUpperCase();
+    document.getElementById('avatar').textContent = initials;
+    document.getElementById('pname').textContent = profile.display_name || profile.username;
+    document.getElementById('pusername').textContent = '@' + profile.username;
+    document.getElementById('s-total').textContent = data.stats?.total ?? 0;
+    document.getElementById('s-today').textContent = data.stats?.today ?? 0;
+    document.getElementById('s-week').textContent = data.stats?.week ?? 0;
+    document.getElementById('qr-title').textContent = profile.display_name + "'s myQRID";
+    document.getElementById('qr-url').textContent = 'app.myqrid.in/profile/' + profile.username;
+    localStorage.setItem('username', profile.username);
+    localStorage.setItem('name', profile.display_name);
+  } catch(e) {
+    console.error(e);
+  }
+}
+
+loadDashboard();
 </script>
 </body>
 </html>
