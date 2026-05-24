@@ -2,136 +2,165 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Activate myQRID</title>
-<meta name="theme-color" content="#7C3AED">
-<link rel="icon" href="/assets/myqrid-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="/css/glass.css">
-<link rel="stylesheet" href="/css/responsive.css">
-<script src="/js/logo.js"></script>
 <style>
-body{background:#1E1008;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
-.claim-logo{margin-bottom:24px;animation:float 3s ease-in-out infinite}
-.claim-title{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-0.02em;margin-bottom:8px}
-.claim-sub{color:rgba(255,255,255,0.45);font-size:0.9rem;margin-bottom:40px;line-height:1.5}
-.claim-box{width:100%;max-width:360px}
-.code-input{width:100%;min-height:64px;background:rgba(0,0,0,0.40);border:2px solid rgba(255,255,255,0.15);border-radius:16px;color:#fff;font-size:1.5rem;font-family:'Courier New',monospace;font-weight:700;text-align:center;letter-spacing:0.15em;outline:none;transition:all 0.2s;padding:0 16px;text-transform:uppercase}
-.code-input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-dim)}
-.code-input.error{border-color:#FF3B5C;animation:shake 0.4s ease}
-.code-input.success{border-color:#00E5A0}
-.code-hint{font-size:0.78rem;color:rgba(255,255,255,0.3);margin-top:8px;margin-bottom:24px}
-.error-msg{color:#FF3B5C;font-size:0.85rem;margin-top:12px;min-height:20px}
-.back-link{margin-top:24px;color:rgba(255,255,255,0.3);font-size:0.85rem;cursor:pointer;text-decoration:none}
-.back-link:hover{color:rgba(255,255,255,0.6)}
-.steps{display:flex;flex-direction:column;gap:12px;margin:32px 0;text-align:left;width:100%;max-width:360px}
-.step{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.06)}
-.step-num{width:28px;height:28px;border-radius:50%;background:var(--accent-dim);border:1px solid var(--accent-border);color:#DDD6FE;font-size:0.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.step-text{font-size:0.85rem;color:rgba(255,255,255,0.6)}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.wrap{width:100%;max-width:420px}
+.logo{text-align:center;margin-bottom:40px}
+.logo-icon{font-size:56px;margin-bottom:16px;animation:float 3s ease-in-out infinite;display:block}
+.logo-title{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+.logo-title span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:15px;color:rgba(255,255,255,0.4);line-height:1.5}
+.card{padding:28px 24px}
+.field-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.code-input{width:100%;padding:18px 20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:14px;color:#fff;font-family:'Courier New',monospace;font-size:24px;font-weight:700;letter-spacing:4px;text-align:center;outline:none;text-transform:uppercase;transition:all 0.2s;margin-bottom:8px}
+.code-input:focus{border-color:rgba(124,58,237,0.6);background:rgba(124,58,237,0.08);box-shadow:0 0 20px rgba(124,58,237,0.2)}
+.code-input.error{border-color:rgba(255,59,92,0.6);animation:shake 0.4s ease}
+.code-input.success{border-color:rgba(0,229,160,0.6);background:rgba(0,229,160,0.06)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.code-hint{font-size:12px;color:rgba(255,255,255,0.25);text-align:center;margin-bottom:24px}
+.activate-btn{width:100%;padding:16px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;cursor:pointer;min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;box-shadow:0 0 30px rgba(124,58,237,0.3)}
+.activate-btn:active{transform:scale(0.98)}
+.activate-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.steps{display:flex;gap:6px;margin-bottom:20px}
+.step{flex:1;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;transition:all 0.3s}
+.step.active{background:linear-gradient(135deg,#7c3aed,#ec4899)}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:rgba(255,255,255,0.15);font-size:12px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+.login-link{text-align:center;font-size:14px;color:rgba(255,255,255,0.35)}
+.login-link a{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;font-weight:600}
+.success-state{text-align:center;padding:20px 0;display:none}
+.success-icon{font-size:60px;margin-bottom:16px}
+.success-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:8px}
+.success-sub{font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:24px}
+.go-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 0 25px rgba(124,58,237,0.4)}
 </style>
 </head>
-<body data-top="coffee" data-bottom="deep-purple">
-
-<div class="claim-logo">
-  <img id="claim-logo" width="80" height="80" alt="myQRID" style="object-fit:contain">
-</div>
-
-<div class="claim-title">Activate Your myQRID</div>
-<div class="claim-sub">Enter the 12-character code printed on your QR tag, card, or sticker</div>
-
-<div class="claim-box">
-  <input
-    id="code-input"
-    class="code-input"
-    type="text"
-    placeholder="A7K9P2 X8RT24"
-    maxlength="13"
-    autocomplete="off"
-    autocorrect="off"
-    spellcheck="false"
-    inputmode="text"
-  >
-  <div class="code-hint">Format: 6 characters · space · 6 characters</div>
-  <button id="activate-btn" class="btn btn-accent btn-full" onclick="activate()">
-    ✦ Activate This Identity
-  </button>
-  <div class="error-msg" id="error-msg"></div>
-</div>
-
-<div class="steps">
-  <div class="step">
-    <div class="step-num">1</div>
-    <div class="step-text">Find the code on your myQRID tag, card, or packaging</div>
+<body>
+<div class="bg-fixed"></div>
+<div class="wrap">
+  <div class="logo">
+    <span class="logo-icon">⬡</span>
+    <div class="logo-title">Activate Your <span>myQRID</span></div>
+    <div class="logo-sub">Enter the code from your myQRID tag, card, or packaging</div>
   </div>
-  <div class="step">
-    <div class="step-num">2</div>
-    <div class="step-text">Enter it above and tap Activate</div>
-  </div>
-  <div class="step">
-    <div class="step-num">3</div>
-    <div class="step-text">Set up your profile — it goes live instantly</div>
+
+  <div class="glass card">
+    <div id="formState">
+      <div class="steps">
+        <div class="step active" id="step1"></div>
+        <div class="step" id="step2"></div>
+        <div class="step" id="step3"></div>
+      </div>
+      <div class="err-box" id="err"></div>
+      <div class="field-label">Your Activation Code</div>
+      <input class="code-input" id="codeInput" type="text" placeholder="A7K9P2 X8RT24" maxlength="13" autocomplete="off" autocapitalize="characters" spellcheck="false">
+      <div class="code-hint">Format: 6 characters · space · 6 characters</div>
+      <button class="activate-btn" id="activateBtn" onclick="doActivate()">
+        <i class="fas fa-qrcode"></i> Activate Now
+      </button>
+      <div class="divider">or</div>
+      <div class="login-link">Already have an account? <a href="/login.html">Login →</a></div>
+    </div>
+
+    <div class="success-state" id="successState">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Tag Activated!</div>
+      <div class="success-sub">Your myQRID is ready. Set up your profile now.</div>
+      <a href="/dashboard.html" class="go-btn">
+        <i class="fas fa-arrow-right"></i> Go to Dashboard
+      </a>
+    </div>
   </div>
 </div>
 
-<a href="/" class="back-link">← Back to home</a>
+<div class="toast" id="toast"></div>
 
-<div id="toast-container"></div>
-
-<script src="/js/app.js"></script>
 <script>
-document.getElementById('claim-logo').src = MYQRID_LOGO;
+const API = 'https://myqrid-backend.myqrid.workers.dev';
 
-const input = document.getElementById('code-input');
-const errMsg = document.getElementById('error-msg');
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
 
-/* Auto format: XXXXXX XXXXXX */
-input.addEventListener('input', () => {
-  let val = input.value.replace(/[^A-Z0-9]/gi,'').toUpperCase();
+function showErr(msg) {
+  const e = document.getElementById('err');
+  e.textContent = msg;
+  e.style.display = 'block';
+}
+
+function clearErr() {
+  document.getElementById('err').style.display = 'none';
+}
+
+document.getElementById('codeInput').addEventListener('input', function(e) {
+  let val = e.target.value.replace(/[^A-Z0-9]/gi, '').toUpperCase();
   if (val.length > 6) val = val.slice(0,6) + ' ' + val.slice(6,12);
-  input.value = val;
-  input.classList.remove('error');
-  errMsg.textContent = '';
+  e.target.value = val;
+  clearErr();
+  const len = val.replace(' ','').length;
+  document.getElementById('step1').className = 'step' + (len > 0 ? ' active' : '');
+  document.getElementById('step2').className = 'step' + (len >= 4 ? ' active' : '');
+  document.getElementById('step3').className = 'step' + (len >= 8 ? ' active' : '');
 });
 
-input.addEventListener('keydown', e => {
-  if (e.key === 'Enter') activate();
-});
-
-async function activate() {
-  const raw = input.value.replace(/\s/g,'');
-  errMsg.textContent = '';
-
-  if (raw.length !== 12) {
+async function doActivate() {
+  clearErr();
+  const code = document.getElementById('codeInput').value.trim();
+  const btn = document.getElementById('activateBtn');
+  const input = document.getElementById('codeInput');
+  if (code.length < 13) {
     input.classList.add('error');
-    errMsg.textContent = 'Please enter all 12 characters';
+    setTimeout(() => input.classList.remove('error'), 500);
+    showErr('Please enter a valid 12-character activation code');
     return;
   }
-
-  const btn = document.getElementById('activate-btn');
-  btnLoad(btn, true);
-
-  /* Check if logged in */
-  if (!Auth.get()) {
-    localStorage.setItem('pending_code', raw);
-    window.location.href = `/signup.html?code=${raw}`;
+  const token = localStorage.getItem('token');
+  if (!token) {
+    localStorage.setItem('pending_code', code);
+    showToast('Please login first to activate');
+    setTimeout(() => window.location.href = '/login.html', 1000);
     return;
   }
-
-  const { ok, data, error } = await apiFetch('/claim', {
-    method: 'POST',
-    body: JSON.stringify({ code: raw })
-  });
-
-  btnLoad(btn, false);
-
-  if (ok) {
-    input.classList.add('success');
-    toast('Successfully activated!', 'success');
-    setTimeout(() => window.location.href = '/dashboard.html', 1200);
-  } else {
-    input.classList.add('error');
-    errMsg.textContent = error || 'Invalid code. Please check and try again.';
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Activating...';
+  try {
+    const res = await fetch(API + '/claim', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ code })
+    });
+    const data = await res.json();
+    if (data.success) {
+      input.classList.add('success');
+      document.getElementById('formState').style.display = 'none';
+      document.getElementById('successState').style.display = 'block';
+    } else {
+      input.classList.add('error');
+      setTimeout(() => input.classList.remove('error'), 500);
+      showErr(data.error || 'Invalid code. Please check and try again.');
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-qrcode"></i> Activate Now';
+    }
+  } catch(e) {
+    showErr('Network error. Please try again.');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-qrcode"></i> Activate Now';
   }
 }
+
+const params = new URLSearchParams(window.location.search);
+const pendingCode = params.get('code') || localStorage.getItem('pending_code');
+if (pendingCode) document.getElementById('codeInput').value = pendingCode;
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') doActivate(); });
 </script>
 </body>
 </html>
