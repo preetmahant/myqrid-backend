@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>myQRID</title>
 </head>
 <body>
+<h1>myQRID Loading...</h1>
 <script>
-var token = localStorage.getItem('token') || localStorage.getItem('authToken') || localStorage.getItem('myqrid_token');
-if(token) { window.location.replace('/dashboard.html'); } else { window.location.replace('/login.html'); }
+localStorage.removeItem('token');
+localStorage.removeItem('authToken');
+localStorage.removeItem('myqrid_token');
+window.location.href = '/login.html';
 </script>
 </body>
 </html>
