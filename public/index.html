@@ -2,47 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>myQRID — Your Digital Identity</title>
-<meta name="theme-color" content="#7C3AED">
-<link rel="icon" href="/assets/myqrid-icon.svg">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',system-ui,sans-serif;background:#1E1008;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;padding:24px;text-align:center;color:#fff}
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;800;900&display=swap');
-.logo{margin-bottom:28px;animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.title{font-size:2.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:8px}
-.sub{color:rgba(255,255,255,0.45);font-size:1rem;margin-bottom:48px;line-height:1.5}
-.btn-row{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px}
-.btn{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s}
-.btn-purple{background:linear-gradient(135deg,#7C3AED,#6D28D9);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,0.4)}
-.btn-dark{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.15);color:#fff}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)}
-.divider{color:rgba(255,255,255,0.25);font-size:0.8rem}
-.powered{position:fixed;bottom:24px;color:rgba(255,255,255,0.2);font-size:0.75rem}
-</style>
+<meta http-equiv="refresh" content="0;url=/login.html">
 </head>
 <body>
-
-<div class="logo">
-  <img src="/assets/myqrid-icon.svg" width="90" height="90" alt="myQRID">
-</div>
-
-<div class="title">myQRID</div>
-<div class="sub">One QR. Complete Digital Identity.</div>
-
-<div class="btn-row">
-  <a href="/signup.html" class="btn btn-purple">✦ Create Free Account</a>
-  <div class="divider">already have an account?</div>
-  <a href="/login.html" class="btn btn-dark">Login</a>
-  <a href="/claim.html" class="btn btn-ghost">🔑 Activate QR Code</a>
-</div>
-
-<div class="powered">Powered by myQRID</div>
-
-<script>
-if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
-</script>
+<script>window.location.href='/login.html';</script>
 </body>
 </html>
