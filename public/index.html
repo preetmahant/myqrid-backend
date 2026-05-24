@@ -1,16 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>myQRID</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>myQRID — Your Digital Identity</title>
+<meta name="theme-color" content="#7c3aed">
+<link rel="manifest" href="/manifest.json">
 </head>
 <body>
-<h1>myQRID Loading...</h1>
 <script>
-localStorage.removeItem('token');
-localStorage.removeItem('authToken');
-localStorage.removeItem('myqrid_token');
-window.location.href = '/login.html';
+(function() {
+  try {
+    var token = localStorage.getItem('token');
+    if (token) {
+      var p = JSON.parse(atob(token));
+      if (p.exp > Date.now()) {
+        window.location.replace('/dashboard.html');
+        return;
+      }
+    }
+  } catch(e) {}
+  window.location.replace('/login.html');
+})();
 </script>
 </body>
 </html>
