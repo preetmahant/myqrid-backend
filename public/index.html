@@ -10,20 +10,16 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:100vh;overflow-x:hidden}
 .bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 20% 20%,#7c3aed55,transparent),radial-gradient(circle at 80% 60%,#ec489955,transparent),#0a0a0f;z-index:-1}
-
 .top{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top))}
 .logo-text{font-size:20px;font-weight:700;color:#fff}
 .logo-text span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .login-btn{padding:8px 18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:20px;color:rgba(255,255,255,0.7);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none}
-
 .hero{text-align:center;padding:30px 24px 20px}
 .hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);border-radius:20px;padding:5px 14px;font-size:12px;color:#a78bfa;margin-bottom:20px}
 .hero-title{font-size:32px;font-weight:700;line-height:1.2;margin-bottom:12px}
 .hero-title span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero-sub{font-size:15px;color:rgba(255,255,255,0.45);line-height:1.6;margin-bottom:28px}
-.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:16px;font-family:'Inter',sans-serif;font-size:17px;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 0 40px rgba(124,58,237,0.4);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 40px rgba(124,58,237,0.4)}50%{box-shadow:0 0 60px rgba(124,58,237,0.7)}}
-
+.cta-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:16px;font-family:'Inter',sans-serif;font-size:17px;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 0 40px rgba(124,58,237,0.4)}
 .demo-label{text-align:center;font-size:11px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:1px;margin:24px 0 12px}
 .demo-overlay{position:relative}
 .demo-overlay::after{content:'✨ This could be your profile';position:absolute;bottom:-1px;left:0;right:0;background:linear-gradient(to top,rgba(10,10,15,0.95) 0%,transparent 100%);padding:40px 20px 20px;text-align:center;font-size:13px;font-weight:600;color:rgba(255,255,255,0.5);border-radius:0 0 24px 24px;pointer-events:none}
@@ -39,8 +35,6 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
 .demo-link-icon{width:32px;height:32px;border-radius:9px;background:rgba(124,58,237,0.2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .demo-wa{background:linear-gradient(135deg,#25D366,#1ebe5d)!important;color:#fff!important;border-color:transparent!important}
 .demo-wa .demo-link-icon{background:rgba(255,255,255,0.2)}
-
-/* FEATURES */
 .features{padding:32px 20px}
 .features-title{text-align:center;font-size:20px;font-weight:700;margin-bottom:6px}
 .features-sub{text-align:center;font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:20px;line-height:1.5}
@@ -50,15 +44,11 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
 .feature-info{flex:1}
 .feature-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
 .feature-sub{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5}
-
-/* WHO IS IT FOR */
 .for-section{padding:0 20px 32px}
 .for-title{text-align:center;font-size:20px;font-weight:700;margin-bottom:6px}
 .for-sub{text-align:center;font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:16px}
 .tags-wrap{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .tag{padding:8px 16px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);border-radius:20px;font-size:13px;color:#a78bfa;font-weight:500}
-
-/* SHARE SECTION */
 .share-section{padding:0 20px 32px}
 .share-title{text-align:center;font-size:20px;font-weight:700;margin-bottom:6px}
 .share-sub{text-align:center;font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:16px}
@@ -66,7 +56,6 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
 .share-opt{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;text-align:center}
 .share-opt-icon{font-size:24px}
 .share-opt-label{font-size:12px;color:rgba(255,255,255,0.5);font-weight:500}
-
 .bottom-cta{padding:0 20px 40px;text-align:center}
 .bottom-cta-title{font-size:24px;font-weight:700;margin-bottom:8px}
 .bottom-cta-sub{font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:24px;line-height:1.5}
@@ -84,8 +73,8 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
 
 <div class="hero">
   <div class="hero-tag">⚡ India's Digital Identity Platform</div>
-  <div class="hero-title">One Scan.<br><span>Your Entire World.</span></div>
-  <div class="hero-sub">Share who you are, what you do, and how to reach you — all in one tap. No app needed.</div>
+  <div class="hero-title">Your Identity.<br><span>Always With You.</span></div>
+  <div class="hero-sub">Share who you are, what you do, and how to reach you — all in one tap. Online, offline, everywhere.</div>
   <a href="/onboard.html" class="cta-btn">
     <i class="fas fa-user-plus"></i> Create My Profile — Free
   </a>
@@ -94,10 +83,10 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
 <div class="demo-label">👇 See How Your Profile Looks</div>
 <div class="demo-overlay">
   <div class="demo-card">
-    <div class="demo-avatar">P</div>
-    <div class="demo-name">Preet Mahant</div>
-    <div class="demo-username">@preetmahant</div>
-    <div class="demo-bio">Founder • Builder • Creator 🚀<br>Sharing expertise, one scan at a time</div>
+    <div class="demo-avatar">M</div>
+    <div class="demo-name">Manish Tiwari</div>
+    <div class="demo-username">@manishtiwari</div>
+    <div class="demo-bio">Co-founder • Creator • Director 🎬<br>16 Years of Expertise</div>
     <div class="demo-social">
       <a><i class="fab fa-whatsapp"></i></a>
       <a><i class="fab fa-instagram"></i></a>
@@ -111,7 +100,7 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
         <span>Connect on WhatsApp</span>
       </div>
       <div class="demo-link">
-        <div class="demo-link-icon">🚀</div>
+        <div class="demo-link-icon">🎬</div>
         <span>My Latest Project</span>
       </div>
       <div class="demo-link">
@@ -119,59 +108,52 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
         <span>Book a Consultation — ₹499</span>
       </div>
       <div class="demo-link">
-        <div class="demo-link-icon">🎬</div>
-        <span>Watch My Latest Video</span>
+        <div class="demo-link-icon">💡</div>
+        <span>Expert Strategy Session</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FEATURES -->
 <div class="features">
   <div class="features-title">Everything You Need</div>
   <div class="features-sub">One profile. Infinite possibilities.</div>
   <div class="feature-list">
-
     <div class="feature-item">
       <div class="feature-icon">🔗</div>
       <div class="feature-info">
         <div class="feature-title">Choose Your Custom Links</div>
-        <div class="feature-sub">Add any link — your latest video, new blog post, business website, product catalogue, social profiles, online resume, achievements & more</div>
+        <div class="feature-sub">Add any link — latest video, new blog, business website, product catalogue, social profiles, online resume, achievements & more</div>
       </div>
     </div>
-
     <div class="feature-item">
       <div class="feature-icon">📇</div>
       <div class="feature-info">
         <div class="feature-title">Share Your Digital Card</div>
-        <div class="feature-sub">Instantly share your contact — via WhatsApp, SMS, QR scan or a tap. Works online & offline. No app needed on their phone.</div>
+        <div class="feature-sub">Share your contact via WhatsApp, SMS, QR or a tap. Works online & offline. No app needed on their phone.</div>
       </div>
     </div>
-
     <div class="feature-item">
       <div class="feature-icon">📅</div>
       <div class="feature-info">
         <div class="feature-title">Get Booked on Your Terms</div>
-        <div class="feature-sub">Set your available time slots, let people book appointments directly from your profile. Perfect for consultants, coaches & creators.</div>
+        <div class="feature-sub">Set your time slots, let people book appointments directly from your profile. Perfect for consultants, coaches & creators.</div>
       </div>
     </div>
-
     <div class="feature-item">
       <div class="feature-icon">💡</div>
       <div class="feature-info">
         <div class="feature-title">Share Your Expertise & Earn</div>
-        <div class="feature-sub">Offer paid consultations, expert advice, strategy sessions & digital products. Get paid for your knowledge directly through your profile.</div>
+        <div class="feature-sub">Offer paid consultations, expert advice & digital products. Get paid for your knowledge directly through your profile.</div>
       </div>
     </div>
-
     <div class="feature-item">
       <div class="feature-icon">🛡️</div>
       <div class="feature-info">
         <div class="feature-title">Emergency & Safety Info</div>
-        <div class="feature-sub">Blood group, allergies, medications & emergency contacts — always accessible with one scan, even offline.</div>
+        <div class="feature-sub">Blood group, allergies & emergency contacts — always accessible with one scan, even offline.</div>
       </div>
     </div>
-
     <div class="feature-item">
       <div class="feature-icon">🏷️</div>
       <div class="feature-info">
@@ -179,7 +161,6 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
         <div class="feature-sub">Tag your belongings, kids, pets & assets. Anyone who scans gets instant recovery options — no login needed.</div>
       </div>
     </div>
-
     <div class="feature-item">
       <div class="feature-icon">🏍️</div>
       <div class="feature-info">
@@ -187,11 +168,9 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
         <div class="feature-sub">Helmet QR with emergency contacts, crash mode & road identity. Built for bikers & car owners.</div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- WHO IS IT FOR -->
 <div class="for-section">
   <div class="for-title">Built for Everyone</div>
   <div class="for-sub">Whether you create, build, teach or lead — myQRID works for you</div>
@@ -213,7 +192,6 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
   </div>
 </div>
 
-<!-- SHARE OPTIONS -->
 <div class="share-section">
   <div class="share-title">Share Anywhere, Anytime</div>
   <div class="share-sub">Your profile works online, offline & everywhere in between</div>
@@ -253,7 +231,6 @@ body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:10
   </div>
 </div>
 
-<!-- BOTTOM CTA -->
 <div class="bottom-cta">
   <div class="bottom-cta-title">Ready to own your identity?</div>
   <div class="bottom-cta-sub">Free forever. No credit card. Your profile goes live in 60 seconds.</div>
