@@ -2,256 +2,163 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>myQRID Profile</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="/css/glass.css">
 <style>
-body { padding-bottom: 40px; }
-
-/* AVATAR */
-.profile-section { text-align: center; padding: 0 20px 20px; }
-.avatar-wrap { position: relative; display: inline-block; margin-bottom: 14px; }
-.avatar-img {
-  width: 110px; height: 110px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--purple);
-  box-shadow: 0 0 30px rgba(124,58,237,0.5);
-  display: block;
-}
-.avatar-placeholder {
-  width: 110px; height: 110px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #7c3aed, #ec4899);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 40px; font-weight: 700; color: #fff;
-  border: 3px solid var(--purple);
-  box-shadow: 0 0 30px rgba(124,58,237,0.5);
-  margin: 0 auto;
-}
-.profile-name { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 6px; }
-.profile-bio { color: rgba(255,255,255,0.5); font-size: 14px; margin-bottom: 4px; }
-.profile-username { color: rgba(255,255,255,0.3); font-size: 13px; margin-bottom: 16px; }
-
-/* SOCIAL ROW */
-.social-row {
-  display: flex; justify-content: center; gap: 10px;
-  flex-wrap: wrap; margin-bottom: 20px;
-}
-
-/* QUICK ACTIONS */
-.action-row {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 10px; padding: 0 16px; margin-bottom: 20px;
-}
-.action-btn {
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px; padding: 13px 16px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  color: var(--text); font-family: 'DM Sans', sans-serif;
-  font-size: 14px; font-weight: 600;
-  cursor: pointer; text-decoration: none;
-  transition: all 0.2s;
-}
-.action-btn:active { background: rgba(124,58,237,0.2); }
-.action-btn.whatsapp { background: linear-gradient(135deg,#25D366,#1ebe5d); color: #fff; border-color: transparent; }
-.action-btn.call { background: linear-gradient(135deg,#7c3aed,#ec4899); color: #fff; border-color: transparent; }
-
-/* SCROLL CARDS (horizontal) */
-.scroll-cards {
-  display: flex; gap: 10px;
-  padding: 0 16px 20px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.scroll-cards::-webkit-scrollbar { display: none; }
-.scroll-card {
-  min-width: 130px; padding: 14px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(20px);
-  text-align: center; cursor: pointer;
-  flex-shrink: 0;
-}
-.scroll-card-icon { font-size: 22px; margin-bottom: 6px; }
-.scroll-card-label { font-size: 13px; font-weight: 600; color: var(--text); }
-
-/* LINKS SECTION */
-.links-section { padding: 0 16px; }
-.link-item {
-  display: flex; align-items: center;
-  padding: 16px; margin-bottom: 10px;
-  border-radius: var(--radius-md);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  color: var(--text); font-weight: 600;
-  text-decoration: none; gap: 12px;
-  transition: all 0.2s;
-  font-size: 15px;
-}
-.link-item:active { background: var(--glass-bg-hover); }
-.link-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(124,58,237,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
-
-/* SAVE BTN */
-.save-wrap { padding: 16px; }
-.save-btn {
-  width: 100%; padding: 15px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  color: var(--text); font-family: 'DM Sans', sans-serif;
-  font-size: 15px; font-weight: 600;
-  cursor: pointer; display: flex;
-  align-items: center; justify-content: center; gap: 8px;
-}
-
-/* POWERED */
-.powered { text-align: center; padding: 20px; opacity: 0.2; font-size: 12px; }
-
-/* UNCLAIMED STATE */
-.unclaimed {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  min-height: 80vh; padding: 40px 24px; text-align: center;
-}
-.unclaimed-icon { font-size: 64px; margin-bottom: 24px; animation: float 3s ease-in-out infinite; }
-.unclaimed-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-.unclaimed-sub { color: rgba(255,255,255,0.4); font-size: 15px; margin-bottom: 32px; line-height: 1.6; }
-.activate-btn {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 16px 32px;
-  background: var(--primary-gradient);
-  color: #fff; border: none; border-radius: var(--radius-md);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px; font-weight: 700;
-  cursor: pointer; text-decoration: none;
-  box-shadow: 0 0 30px rgba(124,58,237,0.4);
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:100vh}
+.bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 20% 20%,#7c3aed55,transparent),radial-gradient(circle at 80% 60%,#ec489955,transparent),#0a0a0f;z-index:-1}
+.top{display:flex;justify-content:space-between;padding:15px;padding-top:calc(15px + env(safe-area-inset-top))}
+.icon{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;border:1px solid rgba(255,255,255,0.08)}
+.icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.icon i{color:rgba(255,255,255,0.7);font-size:16px}
+.profile{text-align:center;padding:0 20px}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:14px}
+.avatar{width:110px;height:110px;border-radius:50%;border:3px solid #7c3aed;object-fit:cover;display:block;box-shadow:0 0 30px rgba(124,58,237,0.4)}
+.avatar-placeholder{width:110px;height:110px;border-radius:50%;border:3px solid #7c3aed;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:700;color:#fff;box-shadow:0 0 30px rgba(124,58,237,0.4);margin:0 auto}
+.name{font-size:26px;font-weight:700;margin-bottom:6px}
+.bio{color:#aaa;font-size:14px;margin-bottom:4px;line-height:1.5}
+.username-tag{color:rgba(255,255,255,0.3);font-size:13px;margin-bottom:16px}
+.social{display:flex;justify-content:center;gap:12px;margin:15px 0;flex-wrap:wrap}
+.social a{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;border:1px solid rgba(255,255,255,0.08);transition:all 0.2s;font-size:18px}
+.social a:active{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.4)}
+.dashboard{display:flex;gap:10px;padding:15px;overflow-x:auto;scrollbar-width:none}
+.dashboard::-webkit-scrollbar{display:none}
+.card{min-width:130px;padding:14px;border-radius:16px;background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,0.07);font-size:14px;font-weight:600;transition:all 0.2s;flex-shrink:0}
+.card:active{background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.3)}
+.links{padding:0 15px 15px}
+.link{display:flex;align-items:center;padding:16px;margin:10px 0;border-radius:16px;text-decoration:none;color:white;font-weight:600;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);transition:all 0.2s;gap:12px}
+.link:active{background:rgba(255,255,255,0.09)}
+.link i{font-size:18px;width:20px;text-align:center}
+.link-icon{width:36px;height:36px;border-radius:10px;background:rgba(124,58,237,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+.whatsapp-link{background:linear-gradient(135deg,#25D366,#1ebe5d)!important;border-color:transparent!important}
+.save-wrap{padding:10px 15px 20px;text-align:center}
+.save-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:50px;background:rgba(255,255,255,0.06);color:white;border:1px solid rgba(255,255,255,0.12);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.save-btn:active{background:rgba(124,58,237,0.2)}
+.btn{display:block;text-align:center;padding:15px;margin:10px 15px;border-radius:16px;text-decoration:none;font-weight:600;font-size:15px}
+.primary{background:linear-gradient(135deg,#7c3aed,#ec4899);color:white}
+.secondary{background:rgba(255,255,255,0.05);color:white;border:1px solid rgba(255,255,255,0.08)}
+.footer{text-align:center;padding:20px;opacity:0.25;font-size:12px}
+.unclaimed{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;padding:40px 24px;text-align:center}
+.unclaimed-icon{font-size:64px;margin-bottom:24px;animation:float 3s ease-in-out infinite}
+.unclaimed-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:10px}
+.unclaimed-sub{color:rgba(255,255,255,0.4);font-size:15px;margin-bottom:32px;line-height:1.6}
+.activate-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:16px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 0 30px rgba(124,58,237,0.4)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 </style>
 </head>
 <body>
-<div class="bg-fixed"></div>
-<div class="content-wrap" id="app">
+<div class="bg"></div>
 
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="icon-circle" id="topLeft">⬡</div>
-    <div class="icon-circle" onclick="shareProfile()">
-      <i class="fas fa-share-nodes"></i>
-    </div>
+<!-- TOP BAR -->
+<div class="top">
+  <div class="icon" id="topLeft">
+    <i class="fas fa-hexagon"></i>
   </div>
-
-  <!-- LOADING STATE -->
-  <div id="loadingState" style="text-align:center;padding:60px 20px;color:rgba(255,255,255,0.3);">
-    <div style="font-size:32px;margin-bottom:12px;animation:float 2s ease-in-out infinite;">⬡</div>
-    <div>Loading profile...</div>
+  <div class="icon" onclick="shareProfile()">
+    <i class="fas fa-share-nodes"></i>
   </div>
-
-  <!-- PROFILE CONTENT (hidden initially) -->
-  <div id="profileContent" style="display:none">
-
-    <!-- PROFILE SECTION -->
-    <div class="profile-section fadeIn">
-      <div class="avatar-wrap">
-        <div class="avatar-placeholder" id="avatarEl">P</div>
-      </div>
-      <div class="profile-name" id="nameEl">—</div>
-      <div class="profile-bio" id="bioEl"></div>
-      <div class="profile-username" id="usernameEl">@—</div>
-
-      <!-- SOCIAL ICONS -->
-      <div class="social-row" id="socialRow">
-        <a class="social-icon" id="wa-btn" href="#" style="display:none"><i class="fab fa-whatsapp"></i></a>
-        <a class="social-icon" id="insta-btn" href="#" style="display:none"><i class="fab fa-instagram"></i></a>
-        <a class="social-icon" id="twitter-btn" href="#" style="display:none"><i class="fab fa-x-twitter"></i></a>
-        <a class="social-icon" id="linkedin-btn" href="#" style="display:none"><i class="fab fa-linkedin"></i></a>
-        <a class="social-icon" id="yt-btn" href="#" style="display:none"><i class="fab fa-youtube"></i></a>
-      </div>
-    </div>
-
-    <!-- ACTION BUTTONS -->
-    <div class="action-row" id="actionRow">
-      <a class="action-btn whatsapp" id="wa-action" href="#" style="display:none">
-        <i class="fab fa-whatsapp"></i> WhatsApp
-      </a>
-      <a class="action-btn call" id="call-action" href="#" style="display:none">
-        <i class="fas fa-phone"></i> Call
-      </a>
-      <button class="action-btn" onclick="saveContactBtn()">
-        <i class="fas fa-address-card"></i> Save Contact
-      </button>
-      <button class="action-btn" onclick="shareProfile()">
-        <i class="fas fa-share-nodes"></i> Share
-      </button>
-    </div>
-
-    <!-- SCROLL CARDS -->
-    <div class="scroll-cards">
-      <div class="scroll-card" onclick="openShop()">
-        <div class="scroll-card-icon">🛍</div>
-        <div class="scroll-card-label">Products</div>
-      </div>
-      <div class="scroll-card" onclick="openInsights()">
-        <div class="scroll-card-icon">📊</div>
-        <div class="scroll-card-label">Insights</div>
-      </div>
-      <div class="scroll-card" onclick="openSettings()">
-        <div class="scroll-card-icon">⚙️</div>
-        <div class="scroll-card-label">Settings</div>
-      </div>
-      <div class="scroll-card" onclick="copyURL()">
-        <div class="scroll-card-icon">🔗</div>
-        <div class="scroll-card-label">Copy URL</div>
-      </div>
-    </div>
-
-    <!-- LINKS -->
-    <div class="links-section" id="linksSection"></div>
-
-    <!-- SAVE CONTACT -->
-    <div class="save-wrap">
-      <button class="save-btn" onclick="saveContactBtn()">
-        <i class="fas fa-download"></i> Save Contact
-      </button>
-    </div>
-
-    <div class="powered">Powered by myQRID</div>
-  </div>
-
-  <!-- UNCLAIMED STATE -->
-  <div id="unclaimedState" style="display:none">
-    <div class="unclaimed">
-      <div class="unclaimed-icon">⬡</div>
-      <div class="unclaimed-title">This myQRID hasn't been activated yet</div>
-      <div class="unclaimed-sub">Scan a myQRID tag to activate your digital identity and share your world in one tap.</div>
-      <a href="/claim.html" class="activate-btn">
-        <i class="fas fa-qrcode"></i> Activate This Identity
-      </a>
-    </div>
-  </div>
-
 </div>
-<div class="toast" id="toast"></div>
+
+<!-- LOADING -->
+<div id="loadingState" style="text-align:center;padding:60px 20px;color:rgba(255,255,255,0.3)">
+  <div style="font-size:32px;margin-bottom:12px;animation:float 2s ease-in-out infinite">⬡</div>
+  <div>Loading profile...</div>
+</div>
+
+<!-- PROFILE CONTENT -->
+<div id="profileContent" style="display:none">
+
+  <!-- PROFILE -->
+  <div class="profile">
+    <div class="avatar-wrap">
+      <div class="avatar-placeholder" id="avatarEl">P</div>
+    </div>
+    <div class="name" id="nameEl">Loading...</div>
+    <div class="bio" id="bioEl"></div>
+    <div class="username-tag" id="usernameEl">@—</div>
+
+    <!-- SOCIAL ICONS — only show if linked -->
+    <div class="social" id="socialRow">
+      <a id="wa-icon" href="#" style="display:none"><i class="fab fa-whatsapp"></i></a>
+      <a id="insta-icon" href="#" style="display:none"><i class="fab fa-instagram"></i></a>
+      <a id="twitter-icon" href="#" style="display:none"><i class="fab fa-x-twitter"></i></a>
+      <a id="linkedin-icon" href="#" style="display:none"><i class="fab fa-linkedin"></i></a>
+      <a id="youtube-icon" href="#" style="display:none"><i class="fab fa-youtube"></i></a>
+      <a id="news-icon" href="#" style="display:none"><i class="fas fa-newspaper"></i></a>
+    </div>
+  </div>
+
+  <!-- DASHBOARD SCROLL CARDS -->
+  <div class="dashboard">
+    <div class="card" onclick="openShop()">🛍 Products</div>
+    <div class="card" onclick="openInsights()">📊 Insights</div>
+    <div class="card" onclick="openSettings()">⚙️ Settings</div>
+    <div class="card" onclick="copyURL()">🔗 Copy URL</div>
+  </div>
+
+  <!-- LINKTREE STYLE STRIPS -->
+  <div class="links" id="linksSection"></div>
+
+  <!-- WHATSAPP STRIP (if phone exists) -->
+  <div id="waStrip" style="display:none;padding:0 15px">
+    <a id="waStripLink" href="#" class="link whatsapp-link">
+      <i class="fab fa-whatsapp"></i>
+      <span>Chat on WhatsApp</span>
+    </a>
+  </div>
+
+  <!-- SAVE CONTACT -->
+  <div class="save-wrap">
+    <button class="save-btn" onclick="saveContact()">
+      <i class="fas fa-address-card"></i> Save Contact
+    </button>
+  </div>
+
+  <!-- CTA -->
+  <a href="/claim.html" class="btn primary">
+    <i class="fas fa-qrcode"></i> Get Your myQRID
+  </a>
+  <a href="/login.html" class="btn secondary">
+    <i class="fas fa-sign-in-alt"></i> Login / Sign Up
+  </a>
+
+  <div class="footer">Powered by myQRID</div>
+</div>
+
+<!-- UNCLAIMED STATE -->
+<div id="unclaimedState" style="display:none">
+  <div class="unclaimed">
+    <div class="unclaimed-icon">⬡</div>
+    <div class="unclaimed-title">This myQRID hasn't been activated yet</div>
+    <div class="unclaimed-sub">Scan a myQRID tag to activate your digital identity and share your world in one tap.</div>
+    <a href="/claim.html" class="activate-btn">
+      <i class="fas fa-qrcode"></i> Activate This Identity
+    </a>
+  </div>
+</div>
 
 <script>
 const API = 'https://myqrid-backend.myqrid.workers.dev';
 let profileData = {};
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
 function getUsernameFromURL() {
   const parts = window.location.pathname.split('/').filter(Boolean);
   return parts[parts.length - 1] || null;
+}
+
+function copyURL() {
+  navigator.clipboard.writeText(window.location.href);
+  alert('URL copied!');
+}
+
+function openShop() { alert('Products coming soon!'); }
+function openInsights() { alert('Insights coming soon!'); }
+function openSettings() {
+  const token = localStorage.getItem('token');
+  window.location.href = token ? '/dashboard.html' : '/login.html';
 }
 
 async function shareProfile() {
@@ -260,26 +167,21 @@ async function shareProfile() {
     navigator.share({ title: (profileData.display_name || 'myQRID') + ' — myQRID', url });
   } else {
     await navigator.clipboard.writeText(url);
-    showToast('Link copied!');
+    alert('Link copied!');
   }
 }
 
-function copyURL() {
-  navigator.clipboard.writeText(window.location.href);
-  showToast('URL copied!');
-}
-
-function openShop() { showToast('Products coming soon!'); }
-function openInsights() { showToast('Insights coming soon!'); }
-function openSettings() {
-  const token = localStorage.getItem('token');
-  if (token) window.location.href = '/dashboard.html';
-  else window.location.href = '/login.html';
-}
-
-function saveContactBtn() {
+function saveContact() {
   if (!profileData.display_name) return;
-  const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${profileData.display_name}\nTEL:${profileData.phone || ''}\nURL:${window.location.href}\nEND:VCARD`;
+  const vcard = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'FN:' + profileData.display_name,
+    profileData.phone ? 'TEL:' + profileData.phone : '',
+    'URL:' + window.location.href,
+    'NOTE:myQRID Profile',
+    'END:VCARD'
+  ].filter(Boolean).join('\n');
   const blob = new Blob([vcard], { type: 'text/vcard' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -300,7 +202,6 @@ async function loadProfile() {
   try {
     const res = await fetch(API + '/profile/' + username);
     const data = await res.json();
-
     document.getElementById('loadingState').style.display = 'none';
 
     if (!data.success || !data.claimed) {
@@ -310,42 +211,73 @@ async function loadProfile() {
 
     profileData = data;
     document.getElementById('profileContent').style.display = 'block';
+    document.title = (data.display_name || username) + ' — myQRID';
 
     // Avatar
     const initial = (data.display_name || username)[0].toUpperCase();
-    document.getElementById('avatarEl').textContent = initial;
+    const avatarEl = document.getElementById('avatarEl');
+    if (data.avatar) {
+      avatarEl.outerHTML = `<img class="avatar" src="${data.avatar}" alt="${initial}" id="avatarEl">`;
+    } else {
+      avatarEl.textContent = initial;
+    }
 
     // Info
     document.getElementById('nameEl').textContent = data.display_name || username;
     document.getElementById('bioEl').textContent = data.bio || '';
     document.getElementById('usernameEl').textContent = '@' + data.username;
-    document.title = data.display_name + ' — myQRID';
 
-    // Phone actions
-    if (data.phone) {
-      const phone = data.phone.replace(/\s/g, '');
-      const waBtn = document.getElementById('wa-btn');
-      const callBtn = document.getElementById('call-action');
-      const waAction = document.getElementById('wa-action');
-      waBtn.href = 'https://wa.me/' + phone;
-      waBtn.style.display = 'flex';
-      callBtn.href = 'tel:' + phone;
-      callBtn.style.display = 'flex';
-      waAction.href = 'https://wa.me/' + phone;
-      waAction.style.display = 'flex';
+    // Social icons — only show if user has linked them
+    const socials = data.socials || {};
+    if (socials.whatsapp || data.phone) {
+      const phone = (socials.whatsapp || data.phone).replace(/\s/g, '');
+      const el = document.getElementById('wa-icon');
+      el.href = 'https://wa.me/' + phone;
+      el.style.display = 'flex';
+      // WhatsApp strip
+      document.getElementById('waStrip').style.display = 'block';
+      document.getElementById('waStripLink').href = 'https://wa.me/' + phone;
+    }
+    if (socials.instagram) {
+      const el = document.getElementById('insta-icon');
+      el.href = 'https://instagram.com/' + socials.instagram;
+      el.style.display = 'flex';
+    }
+    if (socials.twitter) {
+      const el = document.getElementById('twitter-icon');
+      el.href = 'https://twitter.com/' + socials.twitter;
+      el.style.display = 'flex';
+    }
+    if (socials.linkedin) {
+      const el = document.getElementById('linkedin-icon');
+      el.href = 'https://linkedin.com/in/' + socials.linkedin;
+      el.style.display = 'flex';
+    }
+    if (socials.youtube) {
+      const el = document.getElementById('youtube-icon');
+      el.href = socials.youtube;
+      el.style.display = 'flex';
     }
 
-    // Links
+    // Linktree style link strips
+    const container = document.getElementById('linksSection');
     if (data.links && data.links.length) {
-      const container = document.getElementById('linksSection');
       data.links.forEach(link => {
         const a = document.createElement('a');
-        a.className = 'link-item';
+        a.className = 'link';
         a.href = link.url || '#';
         a.target = '_blank';
-        a.innerHTML = `<div class="link-icon">🔗</div><span>${link.title || link.url}</span>`;
+        a.innerHTML = `<div class="link-icon">${link.icon || '🔗'}</div><span>${link.title || link.url}</span>`;
         container.appendChild(a);
       });
+    }
+
+    // Call strip
+    if (data.phone) {
+      const callEl = document.createElement('div');
+      callEl.style.padding = '0 15px';
+      callEl.innerHTML = `<a href="tel:${data.phone}" class="link"><i class="fas fa-phone"></i><span>Call ${data.display_name}</span></a>`;
+      container.appendChild(callEl);
     }
 
   } catch(e) {
