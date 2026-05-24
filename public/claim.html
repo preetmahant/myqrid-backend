@@ -2,46 +2,54 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Activate myQRID</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="/css/glass.css">
 <style>
-body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 20% 20%,#7c3aed55,transparent),radial-gradient(circle at 80% 60%,#ec489955,transparent),#0a0a0f;z-index:-1}
 .wrap{width:100%;max-width:420px}
 .logo{text-align:center;margin-bottom:40px}
 .logo-icon{font-size:56px;margin-bottom:16px;animation:float 3s ease-in-out infinite;display:block}
 .logo-title{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
 .logo-title span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .logo-sub{font-size:15px;color:rgba(255,255,255,0.4);line-height:1.5}
-.card{padding:28px 24px}
-.field-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
-.code-input{width:100%;padding:18px 20px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:14px;color:#fff;font-family:'Courier New',monospace;font-size:24px;font-weight:700;letter-spacing:4px;text-align:center;outline:none;text-transform:uppercase;transition:all 0.2s;margin-bottom:8px}
-.code-input:focus{border-color:rgba(124,58,237,0.6);background:rgba(124,58,237,0.08);box-shadow:0 0 20px rgba(124,58,237,0.2)}
-.code-input.error{border-color:rgba(255,59,92,0.6);animation:shake 0.4s ease}
-.code-input.success{border-color:rgba(0,229,160,0.6);background:rgba(0,229,160,0.06)}
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-.code-hint{font-size:12px;color:rgba(255,255,255,0.25);text-align:center;margin-bottom:24px}
-.activate-btn{width:100%;padding:16px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;cursor:pointer;min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;box-shadow:0 0 30px rgba(124,58,237,0.3)}
-.activate-btn:active{transform:scale(0.98)}
-.activate-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-.steps{display:flex;gap:6px;margin-bottom:20px}
+.card{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px 24px}
+.steps{display:flex;gap:6px;margin-bottom:24px}
 .step{flex:1;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;transition:all 0.3s}
 .step.active{background:linear-gradient(135deg,#7c3aed,#ec4899)}
+.field-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.code-input{width:100%;padding:18px 20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;color:#fff;font-family:'Courier New',monospace;font-size:24px;font-weight:700;letter-spacing:4px;text-align:center;outline:none;text-transform:uppercase;transition:all 0.2s;margin-bottom:8px}
+.code-input:focus{border-color:rgba(124,58,237,0.5);background:rgba(124,58,237,0.05)}
+.code-input.error{border-color:rgba(255,59,92,0.6);animation:shake 0.4s ease}
+.code-input.success{border-color:rgba(0,229,160,0.6)}
+.code-hint{font-size:12px;color:rgba(255,255,255,0.25);text-align:center;margin-bottom:24px}
+.activate-btn{width:100%;padding:16px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:17px;font-weight:700;cursor:pointer;min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;box-shadow:0 4px 20px rgba(124,58,237,0.3)}
+.activate-btn:active{transform:scale(0.98)}
+.activate-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
 .divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:rgba(255,255,255,0.15);font-size:12px}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.08)}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.07)}
 .login-link{text-align:center;font-size:14px;color:rgba(255,255,255,0.35)}
 .login-link a{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;font-weight:600}
+.err-box{background:rgba(255,59,92,0.08);border:1px solid rgba(255,59,92,0.25);color:#FF3B5C;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none}
 .success-state{text-align:center;padding:20px 0;display:none}
 .success-icon{font-size:60px;margin-bottom:16px}
 .success-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:8px}
 .success-sub{font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:24px}
-.go-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 0 25px rgba(124,58,237,0.4)}
+.go-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border-radius:14px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(124,58,237,0.3)}
+.how-steps{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.how-step{display:flex;align-items:flex-start;gap:12px;padding:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px}
+.how-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.how-text{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.4}
+.powered{text-align:center;margin-top:24px;font-size:11px;color:rgba(255,255,255,0.12)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 </style>
 </head>
 <body>
-<div class="bg-fixed"></div>
+<div class="bg"></div>
 <div class="wrap">
   <div class="logo">
     <span class="logo-icon">⬡</span>
@@ -49,7 +57,7 @@ body{min-height:100vh;display:flex;align-items:center;justify-content:center;pad
     <div class="logo-sub">Enter the code from your myQRID tag, card, or packaging</div>
   </div>
 
-  <div class="glass card">
+  <div class="card">
     <div id="formState">
       <div class="steps">
         <div class="step active" id="step1"></div>
@@ -76,26 +84,33 @@ body{min-height:100vh;display:flex;align-items:center;justify-content:center;pad
       </a>
     </div>
   </div>
-</div>
 
-<div class="toast" id="toast"></div>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div class="how-text">Find the code on your myQRID tag, card, or packaging</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div class="how-text">Enter it above and tap Activate</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div class="how-text">Set up your profile — it goes live instantly</div>
+    </div>
+  </div>
+
+  <div class="powered">Powered by myQRID</div>
+</div>
 
 <script>
 const API = 'https://myqrid-backend.myqrid.workers.dev';
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
 
 function showErr(msg) {
   const e = document.getElementById('err');
   e.textContent = msg;
   e.style.display = 'block';
 }
-
 function clearErr() {
   document.getElementById('err').style.display = 'none';
 }
@@ -125,8 +140,7 @@ async function doActivate() {
   const token = localStorage.getItem('token');
   if (!token) {
     localStorage.setItem('pending_code', code);
-    showToast('Please login first to activate');
-    setTimeout(() => window.location.href = '/login.html', 1000);
+    setTimeout(() => window.location.href = '/login.html', 800);
     return;
   }
   btn.disabled = true;
@@ -134,8 +148,8 @@ async function doActivate() {
   try {
     const res = await fetch(API + '/claim', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({ code })
+      headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body: JSON.stringify({code})
     });
     const data = await res.json();
     if (data.success) {
@@ -159,7 +173,6 @@ async function doActivate() {
 const params = new URLSearchParams(window.location.search);
 const pendingCode = params.get('code') || localStorage.getItem('pending_code');
 if (pendingCode) document.getElementById('codeInput').value = pendingCode;
-
 document.addEventListener('keydown', e => { if (e.key === 'Enter') doActivate(); });
 </script>
 </body>
