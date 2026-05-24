@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Your myQRID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:100vh}
+.bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 20% 20%,#7c3aed55,transparent),radial-gradient(circle at 80% 60%,#ec489955,transparent),#0a0a0f;z-index:-1}
+
+/* HEADER */
+.header{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top))}
+.back-btn{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.6);font-size:14px}
+.header-title{font-size:16px;font-weight:600;color:rgba(255,255,255,0.7)}
+.step-counter{font-size:13px;color:rgba(255,255,255,0.35)}
+
+/* PROGRESS */
+.progress-wrap{padding:0 20px 24px}
+.progress-bar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.4s ease}
+
+/* STEP CONTENT */
+.step{display:none;padding:0 20px;animation:fadeIn 0.3s ease}
+.step.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.step-icon{font-size:48px;text-align:center;margin-bottom:16px}
+.step-title{font-size:24px;font-weight:700;text-align:center;margin-bottom:8px}
+.step-sub{font-size:14px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:28px;line-height:1.5}
+
+/* INPUTS */
+.field{margin-bottom:16px}
+.field-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.input{width:100%;padding:15px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;outline:none;transition:all 0.2s}
+.input:focus{border-color:rgba(124,58,237,0.5);background:rgba(124,58,237,0.05)}
+.input::placeholder{color:rgba(255,255,255,0.2)}
+.input.error{border-color:rgba(255,59,92,0.5)}
+.input.success{border-color:rgba(0,229,160,0.5)}
+.username-wrap{position:relative}
+.username-wrap span{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.3);font-size:16px}
+.username-wrap .input{padding-left:28px}
+.username-status{font-size:12px;margin-top:6px;display:none}
+.username-status.available{color:#00E5A0}
+.username-status.taken{color:#FF3B5C}
+
+/* PHONE */
+.phone-wrap{display:flex;gap:10px}
+.country-code{padding:15px 14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;color:#fff;font-size:16px;white-space:nowrap;font-family:'Inter',sans-serif}
+.phone-wrap .input{flex:1}
+
+/* NEXT BTN */
+.next-btn{width:100%;padding:16px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:14px;font-family:'Inter',sans-serif;font-size:17px;font-weight:700;cursor:pointer;margin-top:8px;min-height:56px;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;box-shadow:0 4px 20px rgba(124,58,237,0.3)}
+.next-btn:active{transform:scale(0.98)}
+.next-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+
+/* SKIP */
+.skip-btn{width:100%;padding:14px;background:transparent;border:none;color:rgba(255,255,255,0.3);font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
+
+/* USERNAME SUGGESTIONS */
+.suggestions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.suggestion{padding:7px 14px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);border-radius:20px;font-size:13px;color:#a78bfa;cursor:pointer;transition:all 0.2s}
+.suggestion:active{background:rgba(124,58,237,0.25)}
+
+/* PROFILE PREVIEW */
+.profile-preview{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:20px;text-align:center;margin-bottom:20px}
+.preview-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 12px;border:3px solid rgba(124,58,237,0.4);box-shadow:0 0 20px rgba(124,58,237,0.3)}
+.preview-name{font-size:20px;font-weight:700;margin-bottom:4px}
+.preview-username{font-size:14px;color:rgba(255,255,255,0.4)}
+.preview-url{font-size:12px;color:#a78bfa;margin-top:6px}
+
+/* SAVE OPTIONS */
+.save-options{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.save-option{display:flex;align-items:center;gap:14px;padding:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;cursor:pointer;transition:all 0.2s;text-decoration:none;color:#fff}
+.save-option:active{background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.3)}
+.save-option-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.save-option-info{flex:1}
+.save-option-title{font-size:15px;font-weight:600}
+.save-option-sub{font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px}
+.opt-google{background:rgba(234,67,53,0.15)}
+.opt-phone{background:rgba(124,58,237,0.15)}
+.opt-email{background:rgba(59,130,246,0.15)}
+
+.err-box{background:rgba(255,59,92,0.08);border:1px solid rgba(255,59,92,0.25);color:#FF3B5C;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none}
+
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);color:#c4b5fd;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i></div>
+  <div class="header-title">Create Profile</div>
+  <div class="step-counter" id="stepCounter">1 of 3</div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width:33%"></div>
+  </div>
+</div>
+
+<!-- STEP 1: NAME + PHONE -->
+<div class="step active" id="step1">
+  <div class="step-icon">👋</div>
+  <div class="step-title">What's your name?</div>
+  <div class="step-sub">This will appear on your public profile</div>
+  <div class="err-box" id="err1"></div>
+  <div class="field">
+    <div class="field-label">Full Name</div>
+    <input class="input" type="text" id="name" placeholder="Preet Mahant" autocomplete="name">
+  </div>
+  <div class="field">
+    <div class="field-label">Phone Number</div>
+    <div class="phone-wrap">
+      <div class="country-code">🇮🇳 +91</div>
+      <input class="input" type="tel" id="phone" placeholder="98765 43210" maxlength="10" inputmode="numeric">
+    </div>
+  </div>
+  <button class="next-btn" onclick="goStep2()">
+    Continue <i class="fas fa-arrow-right"></i>
+  </button>
+</div>
+
+<!-- STEP 2: USERNAME -->
+<div class="step" id="step2">
+  <div class="step-icon">⬡</div>
+  <div class="step-title">Choose your username</div>
+  <div class="step-sub">Your profile will be at app.myqrid.in/profile/<b id="previewSlug">username</b></div>
+  <div class="err-box" id="err2"></div>
+  <div class="field">
+    <div class="field-label">Username</div>
+    <div class="username-wrap">
+      <span>@</span>
+      <input class="input" type="text" id="username" placeholder="preetmahant" autocomplete="off" oninput="onUsernameInput(this.value)" autocapitalize="none">
+    </div>
+    <div class="username-status" id="usernameStatus"></div>
+  </div>
+  <div class="suggestions" id="suggestions"></div>
+  <button class="next-btn" id="step2Btn" onclick="goStep3()" style="margin-top:20px">
+    Continue <i class="fas fa-arrow-right"></i>
+  </button>
+</div>
+
+<!-- STEP 3: SAVE -->
+<div class="step" id="step3">
+  <div class="step-icon">🚀</div>
+  <div class="step-title">Your profile is ready!</div>
+  <div class="step-sub">Save it to make it live and shareable</div>
+
+  <div class="profile-preview">
+    <div class="preview-avatar" id="previewAvatar">P</div>
+    <div class="preview-name" id="previewName">Preet Mahant</div>
+    <div class="preview-username" id="previewUsername">@preetmahant</div>
+    <div class="preview-url" id="previewUrl">app.myqrid.in/profile/preetmahant</div>
+  </div>
+
+  <div class="save-options">
+    <div class="save-option" onclick="saveWithEmail()">
+      <div class="save-option-icon opt-email"><i class="fas fa-envelope" style="color:#60a5fa"></i></div>
+      <div class="save-option-info">
+        <div class="save-option-title">Save with Email</div>
+        <div class="save-option-sub">Create account with email & password</div>
+      </div>
+      <i class="fas fa-chevron-right" style="color:rgba(255,255,255,0.2)"></i>
+    </div>
+    <div class="save-option" onclick="saveWithPhone()">
+      <div class="save-option-icon opt-phone"><i class="fas fa-mobile-alt" style="color:#a78bfa"></i></div>
+      <div class="save-option-info">
+        <div class="save-option-title">Save with Phone OTP</div>
+        <div class="save-option-sub">Verify your +91 number — coming soon</div>
+      </div>
+      <i class="fas fa-chevron-right" style="color:rgba(255,255,255,0.2)"></i>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://myqrid-backend.myqrid.workers.dev';
+let currentStep = 1;
+let usernameAvailable = false;
+let checkTimeout = null;
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function goBack() {
+  if (currentStep > 1) {
+    setStep(currentStep - 1);
+  } else {
+    window.location.href = '/';
+  }
+}
+
+function setStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+  document.getElementById('stepCounter').textContent = n + ' of 3';
+  document.getElementById('progressFill').style.width = (n * 33.33) + '%';
+  currentStep = n;
+}
+
+function showErr(id, msg) {
+  const e = document.getElementById(id);
+  e.textContent = msg;
+  e.style.display = 'block';
+}
+
+function clearErr(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+function goStep2() {
+  clearErr('err1');
+  const name = document.getElementById('name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  if (!name) { showErr('err1', 'Please enter your name'); return; }
+  if (phone && phone.length !== 10) { showErr('err1', 'Enter valid 10-digit phone number'); return; }
+
+  // Generate username suggestions from name
+  const base = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const suggestions = [
+    base,
+    base + Math.floor(Math.random() * 99),
+    base + '_in',
+    'the_' + base,
+  ].filter((v,i,a) => a.indexOf(v) === i).slice(0, 4);
+
+  const container = document.getElementById('suggestions');
+  container.innerHTML = suggestions.map(s =>
+    `<div class="suggestion" onclick="selectSuggestion('${s}')">@${s}</div>`
+  ).join('');
+
+  setStep(2);
+}
+
+function selectSuggestion(val) {
+  document.getElementById('username').value = val;
+  onUsernameInput(val);
+}
+
+let usernameTimer = null;
+function onUsernameInput(val) {
+  val = val.toLowerCase().replace(/[^a-z0-9_]/g, '');
+  document.getElementById('username').value = val;
+  document.getElementById('previewSlug').textContent = val || 'username';
+
+  const status = document.getElementById('usernameStatus');
+  status.style.display = 'none';
+  usernameAvailable = false;
+
+  if (val.length < 3) return;
+
+  clearTimeout(usernameTimer);
+  usernameTimer = setTimeout(async () => {
+    try {
+      const res = await fetch(API + '/profile/' + val);
+      const data = await res.json();
+      if (data.claimed) {
+        status.textContent = '✗ @' + val + ' is already taken';
+        status.className = 'username-status taken';
+        status.style.display = 'block';
+        usernameAvailable = false;
+        document.getElementById('username').classList.add('error');
+        document.getElementById('username').classList.remove('success');
+      } else {
+        status.textContent = '✓ @' + val + ' is available!';
+        status.className = 'username-status available';
+        status.style.display = 'block';
+        usernameAvailable = true;
+        document.getElementById('username').classList.remove('error');
+        document.getElementById('username').classList.add('success');
+      }
+    } catch(e) {
+      usernameAvailable = true;
+    }
+  }, 600);
+}
+
+function goStep3() {
+  clearErr('err2');
+  const username = document.getElementById('username').value.trim();
+  if (username.length < 3) { showErr('err2', 'Username must be at least 3 characters'); return; }
+  if (!usernameAvailable) { showErr('err2', 'Please choose an available username'); return; }
+
+  const name = document.getElementById('name').value.trim();
+  document.getElementById('previewAvatar').textContent = name[0].toUpperCase();
+  document.getElementById('previewName').textContent = name;
+  document.getElementById('previewUsername').textContent = '@' + username;
+  document.getElementById('previewUrl').textContent = 'app.myqrid.in/profile/' + username;
+
+  // Save to session
+  sessionStorage.setItem('onboard_name', name);
+  sessionStorage.setItem('onboard_username', username);
+  sessionStorage.setItem('onboard_phone', '+91' + document.getElementById('phone').value.trim());
+
+  setStep(3);
+}
+
+function saveWithEmail() {
+  const name = sessionStorage.getItem('onboard_name');
+  const username = sessionStorage.getItem('onboard_username');
+  const phone = sessionStorage.getItem('onboard_phone');
+
+  // Pre-fill signup page
+  sessionStorage.setItem('signup_name', name);
+  sessionStorage.setItem('signup_username', username);
+  sessionStorage.setItem('signup_phone', phone);
+
+  window.location.href = '/signup.html?onboard=1';
+}
+
+function saveWithPhone() {
+  showToast('Phone OTP coming soon! Use email for now.');
+}
+
+// Pre-fill signup from session
+const onboard = new URLSearchParams(window.location.search).get('onboard');
+</script>
+</body>
+</html>
