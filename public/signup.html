@@ -2,40 +2,53 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sign Up — myQRID</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/glass.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 20% 20%,#7c3aed55,transparent),radial-gradient(circle at 80% 60%,#ec489955,transparent),#0a0a0f;z-index:-1}
 .wrap{width:100%;max-width:400px}
 .logo{text-align:center;margin-bottom:32px}
 .logo-text{font-size:32px;font-weight:700;color:#fff;letter-spacing:-1px}
 .logo-text span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .logo-sub{font-size:14px;color:rgba(255,255,255,0.35);margin-top:6px}
-.card{padding:28px 24px}
+.card{background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px 24px}
 .field{margin-bottom:16px}
 .field-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.input{width:100%;padding:14px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border 0.2s}
+.input:focus{border-color:rgba(124,58,237,0.5);background:rgba(124,58,237,0.05)}
+.input::placeholder{color:rgba(255,255,255,0.2)}
+.input.error{border-color:rgba(255,59,92,0.6)}
 .username-wrap{position:relative}
 .username-wrap span{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.3);font-size:15px}
 .username-wrap .input{padding-left:28px}
-.btn-signup{width:100%;padding:15px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:4px;min-height:52px;transition:all 0.2s;box-shadow:0 0 25px rgba(124,58,237,0.3)}
+.pass-wrap{position:relative}
+.pass-wrap .input{padding-right:48px}
+.pass-eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:15px;padding:4px;transition:color 0.2s}
+.pass-eye:hover{color:rgba(255,255,255,0.6)}
+.hint{font-size:11px;color:rgba(255,255,255,0.2);margin-top:5px}
+.btn-signup{width:100%;padding:15px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px;min-height:52px;transition:all 0.2s;box-shadow:0 4px 20px rgba(124,58,237,0.3)}
 .btn-signup:active{transform:scale(0.98)}
 .btn-signup:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-.login-row{text-align:center;margin-top:20px;font-size:14px;color:rgba(255,255,255,0.35)}
+.login-row{text-align:center;margin-top:18px;font-size:14px;color:rgba(255,255,255,0.35)}
 .login-row a{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;font-weight:600}
-.hint{font-size:11px;color:rgba(255,255,255,0.25);margin-top:5px}
-.powered{text-align:center;margin-top:24px;font-size:11px;color:rgba(255,255,255,0.15)}
+.err-box{background:rgba(255,59,92,0.08);border:1px solid rgba(255,59,92,0.25);color:#FF3B5C;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;display:none}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);color:#c4b5fd;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.powered{text-align:center;margin-top:24px;font-size:11px;color:rgba(255,255,255,0.12)}
 </style>
 </head>
 <body>
-<div class="bg-fixed"></div>
+<div class="bg"></div>
 <div class="wrap">
   <div class="logo">
     <div class="logo-text">my<span>QRID</span></div>
     <div class="logo-sub">Create Your Digital Identity</div>
   </div>
-  <div class="glass card">
+  <div class="card">
     <div class="err-box" id="err"></div>
     <div class="field">
       <div class="field-label">Full Name</div>
@@ -59,9 +72,17 @@ body{min-height:100vh;display:flex;align-items:center;justify-content:center;pad
     </div>
     <div class="field">
       <div class="field-label">Password</div>
-      <input class="input" type="password" id="pass" placeholder="Min 6 characters" autocomplete="new-password">
+      <div class="pass-wrap">
+        <input class="input" type="password" id="pass" placeholder="Min 6 characters" autocomplete="new-password">
+        <button class="pass-eye" onclick="togglePass()" type="button">
+          <i class="fas fa-eye" id="eyeIcon"></i>
+        </button>
+      </div>
+      <div class="hint">Minimum 6 characters</div>
     </div>
-    <button class="btn-signup" id="btn" onclick="doSignup()">Create Account</button>
+    <button class="btn-signup" id="btn" onclick="doSignup()">
+      <i class="fas fa-user-plus"></i> Create Account
+    </button>
     <div class="login-row">
       Already have an account? <a href="/login.html">Login →</a>
     </div>
@@ -72,6 +93,18 @@ body{min-height:100vh;display:flex;align-items:center;justify-content:center;pad
 
 <script>
 const API = 'https://myqrid-backend.myqrid.workers.dev';
+
+function togglePass() {
+  const input = document.getElementById('pass');
+  const icon = document.getElementById('eyeIcon');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.className = 'fas fa-eye-slash';
+  } else {
+    input.type = 'password';
+    icon.className = 'fas fa-eye';
+  }
+}
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -98,11 +131,20 @@ async function doSignup() {
   const phone = document.getElementById('phone').value.trim();
   const pass = document.getElementById('pass').value;
   const btn = document.getElementById('btn');
-  if (!name || !username || !email || !pass) { showErr('Please fill all required fields'); return; }
-  if (username.length < 3) { showErr('Username must be at least 3 characters'); return; }
-  if (pass.length < 6) { showErr('Password must be at least 6 characters'); return; }
+  if (!name || !username || !email || !pass) {
+    showErr('Please fill all required fields');
+    return;
+  }
+  if (username.length < 3) {
+    showErr('Username must be at least 3 characters');
+    return;
+  }
+  if (pass.length < 6) {
+    showErr('Password must be at least 6 characters');
+    return;
+  }
   btn.disabled = true;
-  btn.textContent = 'Creating account...';
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
   try {
     const res = await fetch(API + '/auth/signup', {
       method: 'POST',
@@ -119,12 +161,12 @@ async function doSignup() {
     } else {
       showErr(data.error || 'Signup failed. Please try again.');
       btn.disabled = false;
-      btn.textContent = 'Create Account';
+      btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
     }
   } catch(e) {
     showErr('Network error. Please try again.');
     btn.disabled = false;
-    btn.textContent = 'Create Account';
+    btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
   }
 }
 
