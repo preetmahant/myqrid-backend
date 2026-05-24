@@ -2,360 +2,358 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>myQRID Profile</title>
-<meta name="theme-color" content="#7C3AED">
-<link rel="manifest" href="/manifest.json">
-<link rel="icon" href="/assets/myqrid-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="/css/glass.css">
-<link rel="stylesheet" href="/css/responsive.css">
-<script src="/js/logo.js"></script>
 <style>
-/* ── Profile specific ── */
-.profile-name{font-size:1.6rem;font-weight:900;color:#fff;letter-spacing:-0.02em;margin-top:16px;text-align:center}
-.profile-username{font-size:0.9rem;color:rgba(255,255,255,0.45);text-align:center;margin-top:4px}
-.profile-bio{font-size:0.9rem;color:rgba(255,255,255,0.6);text-align:center;margin-top:10px;padding:0 24px;line-height:1.5}
-.badge-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
-.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 16px 0}
-.action-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px;border-radius:16px;background:rgba(0,0,0,0.30);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.10);color:#fff;font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s;min-height:72px;text-decoration:none}
-.action-btn:hover{border-color:var(--accent-border);background:rgba(0,0,0,0.45)}
-.action-btn .action-icon{font-size:1.4rem}
-.action-btn.whatsapp{border-color:rgba(37,211,102,0.3)}
-.action-btn.whatsapp:hover{background:rgba(37,211,102,0.15)}
-.links-section{padding:0 16px;margin-top:24px}
-.emergency-section{margin:16px;border-radius:16px;overflow:hidden}
-/* ── UNCLAIMED STATE ── */
-.unclaimed-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;padding:32px;text-align:center;background:#1E1008}
-.unclaimed-icon{font-size:5rem;margin-bottom:24px;animation:float 3s ease-in-out infinite}
-.unclaimed-title{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:8px}
-.unclaimed-sub{color:rgba(255,255,255,0.4);margin-bottom:32px;font-size:0.9rem}
-/* ── LOST STATE ── */
-.lost-screen{background:linear-gradient(135deg,#1a0008,#2d0010);min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center}
-.lost-icon{font-size:5rem;animation:emergencyPulse 1.2s ease infinite;margin-bottom:24px}
-.lost-title{font-size:2rem;font-weight:900;color:#FF3B5C;margin-bottom:16px;letter-spacing:0.02em}
-.lost-msg{color:rgba(255,255,255,0.7);margin-bottom:8px;font-size:0.95rem}
-.lost-reward{color:#FFD60A;font-weight:800;font-size:1.1rem;margin-bottom:32px}
-.lost-btns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px}
-/* ── EMERGENCY STATE ── */
-.emergency-screen{background:#0a0a0a;min-height:100dvh}
-.emergency-header{background:#FF3B5C;padding:16px;display:flex;align-items:center;gap:10px;font-weight:900;font-size:1rem;letter-spacing:0.04em}
-.emergency-body{padding:20px 16px}
-.emergency-profile{display:flex;align-items:center;gap:16px;margin-bottom:24px}
-.emergency-name{font-size:1.3rem;font-weight:800;color:#fff}
-.emergency-dob{font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:2px}
-.blood-display{text-align:center;margin-bottom:24px}
-.blood-label{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:4px}
-.info-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:16px;margin-bottom:12px}
-.info-card-title{font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:10px}
-.info-item{font-size:0.9rem;color:rgba(255,255,255,0.8);padding:4px 0}
-.contact-btn{display:flex;align-items:center;gap:12px;padding:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;margin-bottom:10px;color:#fff;text-decoration:none;transition:all 0.2s}
-.contact-btn:hover{background:rgba(255,255,255,0.10)}
-.contact-btn .contact-icon{width:44px;height:44px;border-radius:50%;background:#FF3B5C;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.contact-info{flex:1}
-.contact-name{font-weight:700;font-size:0.95rem}
-.contact-rel{font-size:0.8rem;color:rgba(255,255,255,0.4)}
-.powered-footer{text-align:center;padding:24px;color:rgba(255,255,255,0.2);font-size:0.75rem}
+body { padding-bottom: 40px; }
+
+/* AVATAR */
+.profile-section { text-align: center; padding: 0 20px 20px; }
+.avatar-wrap { position: relative; display: inline-block; margin-bottom: 14px; }
+.avatar-img {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--purple);
+  box-shadow: 0 0 30px rgba(124,58,237,0.5);
+  display: block;
+}
+.avatar-placeholder {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; font-weight: 700; color: #fff;
+  border: 3px solid var(--purple);
+  box-shadow: 0 0 30px rgba(124,58,237,0.5);
+  margin: 0 auto;
+}
+.profile-name { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.profile-bio { color: rgba(255,255,255,0.5); font-size: 14px; margin-bottom: 4px; }
+.profile-username { color: rgba(255,255,255,0.3); font-size: 13px; margin-bottom: 16px; }
+
+/* SOCIAL ROW */
+.social-row {
+  display: flex; justify-content: center; gap: 10px;
+  flex-wrap: wrap; margin-bottom: 20px;
+}
+
+/* QUICK ACTIONS */
+.action-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px; padding: 0 16px; margin-bottom: 20px;
+}
+.action-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 13px 16px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text); font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; text-decoration: none;
+  transition: all 0.2s;
+}
+.action-btn:active { background: rgba(124,58,237,0.2); }
+.action-btn.whatsapp { background: linear-gradient(135deg,#25D366,#1ebe5d); color: #fff; border-color: transparent; }
+.action-btn.call { background: linear-gradient(135deg,#7c3aed,#ec4899); color: #fff; border-color: transparent; }
+
+/* SCROLL CARDS (horizontal) */
+.scroll-cards {
+  display: flex; gap: 10px;
+  padding: 0 16px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.scroll-cards::-webkit-scrollbar { display: none; }
+.scroll-card {
+  min-width: 130px; padding: 14px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(20px);
+  text-align: center; cursor: pointer;
+  flex-shrink: 0;
+}
+.scroll-card-icon { font-size: 22px; margin-bottom: 6px; }
+.scroll-card-label { font-size: 13px; font-weight: 600; color: var(--text); }
+
+/* LINKS SECTION */
+.links-section { padding: 0 16px; }
+.link-item {
+  display: flex; align-items: center;
+  padding: 16px; margin-bottom: 10px;
+  border-radius: var(--radius-md);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text); font-weight: 600;
+  text-decoration: none; gap: 12px;
+  transition: all 0.2s;
+  font-size: 15px;
+}
+.link-item:active { background: var(--glass-bg-hover); }
+.link-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(124,58,237,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+
+/* SAVE BTN */
+.save-wrap { padding: 16px; }
+.save-btn {
+  width: 100%; padding: 15px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text); font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+}
+
+/* POWERED */
+.powered { text-align: center; padding: 20px; opacity: 0.2; font-size: 12px; }
+
+/* UNCLAIMED STATE */
+.unclaimed {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 80vh; padding: 40px 24px; text-align: center;
+}
+.unclaimed-icon { font-size: 64px; margin-bottom: 24px; animation: float 3s ease-in-out infinite; }
+.unclaimed-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+.unclaimed-sub { color: rgba(255,255,255,0.4); font-size: 15px; margin-bottom: 32px; line-height: 1.6; }
+.activate-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 32px;
+  background: var(--primary-gradient);
+  color: #fff; border: none; border-radius: var(--radius-md);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  box-shadow: 0 0 30px rgba(124,58,237,0.4);
+}
 </style>
 </head>
 <body>
+<div class="bg-fixed"></div>
+<div class="content-wrap" id="app">
 
-<!-- LOADING -->
-<div id="loading-screen" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100dvh;background:#1E1008">
-  <div class="spinner"></div>
-  <div style="color:rgba(255,255,255,0.4);font-size:0.875rem;margin-top:16px">Loading...</div>
-</div>
-
-<!-- UNCLAIMED STATE -->
-<div id="state-unclaimed" style="display:none">
-  <div class="unclaimed-screen">
-    <div class="unclaimed-icon">⬡</div>
-    <div class="unclaimed-title">This myQRID hasn't been activated yet</div>
-    <div class="unclaimed-sub">Scan or tap to claim this digital identity</div>
-    <a href="/claim.html" class="btn btn-accent" style="min-width:240px">✦ Activate This Identity</a>
-    <div style="margin-top:40px;color:rgba(255,255,255,0.15);font-size:0.75rem">Powered by myQRID</div>
-  </div>
-</div>
-
-<!-- LOST STATE -->
-<div id="state-lost" style="display:none">
-  <div class="lost-screen">
-    <div class="lost-icon">🔴</div>
-    <div class="lost-title">THIS ITEM IS LOST</div>
-    <div id="lost-photo" style="margin-bottom:16px"></div>
-    <div id="lost-msg" class="lost-msg"></div>
-    <div id="lost-reward" class="lost-reward"></div>
-    <div class="lost-btns">
-      <a id="lost-whatsapp" href="#" class="btn btn-whatsapp btn-full">💬 WhatsApp Owner</a>
-      <a id="lost-call" href="#" class="btn btn-accent btn-full">📞 Call Owner</a>
-      <button onclick="shareLocation()" class="btn btn-dark-glass btn-full">📍 Share My Location</button>
-      <button onclick="markFound()" class="btn btn-ghost btn-full" style="margin-top:8px">✓ I Found It</button>
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="icon-circle" id="topLeft">⬡</div>
+    <div class="icon-circle" onclick="shareProfile()">
+      <i class="fas fa-share-nodes"></i>
     </div>
-    <div style="margin-top:32px;color:rgba(255,255,255,0.2);font-size:0.75rem">Powered by myQRID</div>
-  </div>
-</div>
-
-<!-- EMERGENCY STATE -->
-<div id="state-emergency" style="display:none">
-  <div class="emergency-screen">
-    <div class="emergency-header animate-emergency">
-      ⚕ EMERGENCY INFORMATION
-    </div>
-    <div class="emergency-body">
-      <div class="emergency-profile">
-        <img id="em-avatar" width="64" height="64" style="border-radius:50%;object-fit:cover;border:2px solid #FF3B5C" src="" alt="">
-        <div>
-          <div class="emergency-name" id="em-name"></div>
-          <div class="emergency-dob" id="em-dob"></div>
-        </div>
-      </div>
-      <div class="blood-display">
-        <div class="blood-label">Blood Group</div>
-        <div class="blood-group" id="em-blood"></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-title">⚠ Allergies</div>
-        <div id="em-allergies"></div>
-      </div>
-      <div class="info-card">
-        <div class="info-card-title">💊 Medications</div>
-        <div id="em-medications"></div>
-      </div>
-      <div class="info-card-title" style="margin:16px 0 8px;color:rgba(255,255,255,0.35);font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase">Emergency Contacts</div>
-      <a id="em-contact1" href="#" class="contact-btn">
-        <div class="contact-icon">📞</div>
-        <div class="contact-info">
-          <div class="contact-name" id="em-c1-name"></div>
-          <div class="contact-rel" id="em-c1-rel"></div>
-        </div>
-      </a>
-      <a id="em-contact2" href="#" class="contact-btn">
-        <div class="contact-icon">📞</div>
-        <div class="contact-info">
-          <div class="contact-name" id="em-c2-name"></div>
-          <div class="contact-rel" id="em-c2-rel"></div>
-        </div>
-      </a>
-      <div class="info-card" id="em-doctor-card">
-        <div class="info-card-title">👨‍⚕ Doctor</div>
-        <div id="em-doctor"></div>
-        <div id="em-hospital" style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin-top:4px"></div>
-      </div>
-    </div>
-    <div class="powered-footer">Powered by myQRID</div>
-  </div>
-</div>
-
-<!-- ACTIVE PROFILE STATE -->
-<div id="state-active" style="display:none">
-  <!-- Top strip -->
-  <div class="top-strip"></div>
-  <!-- Bottom panel -->
-  <div class="bottom-panel"></div>
-
-  <!-- Top bar -->
-  <div class="top-bar">
-    <div style="width:40px"></div>
-    <div class="top-bar-logo">
-      <img id="nav-logo" width="28" height="28" alt="myQRID" style="object-fit:contain">
-      <span class="top-bar-title">myQRID</span>
-    </div>
-    <button class="top-bar-action" onclick="shareProfile(profileData.display_name, window.location.href)">⤴</button>
   </div>
 
-  <!-- Page content -->
-  <div class="page-content" style="padding-top:0">
+  <!-- LOADING STATE -->
+  <div id="loadingState" style="text-align:center;padding:60px 20px;color:rgba(255,255,255,0.3);">
+    <div style="font-size:32px;margin-bottom:12px;animation:float 2s ease-in-out infinite;">⬡</div>
+    <div>Loading profile...</div>
+  </div>
 
-    <!-- Avatar zone -->
-    <div class="avatar-zone">
+  <!-- PROFILE CONTENT (hidden initially) -->
+  <div id="profileContent" style="display:none">
+
+    <!-- PROFILE SECTION -->
+    <div class="profile-section fadeIn">
       <div class="avatar-wrap">
-        <img id="profile-avatar" class="avatar-img" src="" alt="Avatar">
+        <div class="avatar-placeholder" id="avatarEl">P</div>
+      </div>
+      <div class="profile-name" id="nameEl">—</div>
+      <div class="profile-bio" id="bioEl"></div>
+      <div class="profile-username" id="usernameEl">@—</div>
+
+      <!-- SOCIAL ICONS -->
+      <div class="social-row" id="socialRow">
+        <a class="social-icon" id="wa-btn" href="#" style="display:none"><i class="fab fa-whatsapp"></i></a>
+        <a class="social-icon" id="insta-btn" href="#" style="display:none"><i class="fab fa-instagram"></i></a>
+        <a class="social-icon" id="twitter-btn" href="#" style="display:none"><i class="fab fa-x-twitter"></i></a>
+        <a class="social-icon" id="linkedin-btn" href="#" style="display:none"><i class="fab fa-linkedin"></i></a>
+        <a class="social-icon" id="yt-btn" href="#" style="display:none"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
 
-    <!-- Profile info -->
-    <div class="profile-name" id="profile-name"></div>
-    <div class="profile-username" id="profile-username"></div>
-    <div class="badge-row">
-      <span class="badge badge-accent" id="score-badge" style="display:none">⭐ <span id="score-val"></span></span>
-      <span class="badge badge-verified" id="verified-badge" style="display:none">✓ Verified</span>
-    </div>
-    <div class="profile-bio" id="profile-bio"></div>
-
-    <!-- Action buttons -->
-    <div class="action-grid stagger">
-      <a id="action-whatsapp" href="#" class="action-btn whatsapp">
-        <span class="action-icon">💬</span>
-        <span>WhatsApp</span>
+    <!-- ACTION BUTTONS -->
+    <div class="action-row" id="actionRow">
+      <a class="action-btn whatsapp" id="wa-action" href="#" style="display:none">
+        <i class="fab fa-whatsapp"></i> WhatsApp
       </a>
-      <a id="action-call" href="#" class="action-btn">
-        <span class="action-icon">📞</span>
-        <span>Call</span>
+      <a class="action-btn call" id="call-action" href="#" style="display:none">
+        <i class="fas fa-phone"></i> Call
       </a>
-      <button onclick="saveContactBtn()" class="action-btn">
-        <span class="action-icon">👤</span>
-        <span>Save Contact</span>
+      <button class="action-btn" onclick="saveContactBtn()">
+        <i class="fas fa-address-card"></i> Save Contact
       </button>
-      <button onclick="shareProfile(profileData.display_name, window.location.href)" class="action-btn">
-        <span class="action-icon">⤴</span>
-        <span>Share</span>
+      <button class="action-btn" onclick="shareProfile()">
+        <i class="fas fa-share-nodes"></i> Share
       </button>
     </div>
 
-    <!-- Social icons -->
-    <div class="social-row stagger" id="social-row" style="margin-top:20px"></div>
+    <!-- SCROLL CARDS -->
+    <div class="scroll-cards">
+      <div class="scroll-card" onclick="openShop()">
+        <div class="scroll-card-icon">🛍</div>
+        <div class="scroll-card-label">Products</div>
+      </div>
+      <div class="scroll-card" onclick="openInsights()">
+        <div class="scroll-card-icon">📊</div>
+        <div class="scroll-card-label">Insights</div>
+      </div>
+      <div class="scroll-card" onclick="openSettings()">
+        <div class="scroll-card-icon">⚙️</div>
+        <div class="scroll-card-label">Settings</div>
+      </div>
+      <div class="scroll-card" onclick="copyURL()">
+        <div class="scroll-card-icon">🔗</div>
+        <div class="scroll-card-label">Copy URL</div>
+      </div>
+    </div>
 
-    <!-- Links -->
-    <div class="links-section stagger" id="links-section"></div>
+    <!-- LINKS -->
+    <div class="links-section" id="linksSection"></div>
 
-    <!-- Digital card strip -->
-    <div style="padding:0 16px;margin-top:12px" id="card-strip"></div>
+    <!-- SAVE CONTACT -->
+    <div class="save-wrap">
+      <button class="save-btn" onclick="saveContactBtn()">
+        <i class="fas fa-download"></i> Save Contact
+      </button>
+    </div>
 
-    <!-- Footer -->
-    <div class="powered-footer">Powered by myQRID</div>
-
+    <div class="powered">Powered by myQRID</div>
   </div>
+
+  <!-- UNCLAIMED STATE -->
+  <div id="unclaimedState" style="display:none">
+    <div class="unclaimed">
+      <div class="unclaimed-icon">⬡</div>
+      <div class="unclaimed-title">This myQRID hasn't been activated yet</div>
+      <div class="unclaimed-sub">Scan a myQRID tag to activate your digital identity and share your world in one tap.</div>
+      <a href="/claim.html" class="activate-btn">
+        <i class="fas fa-qrcode"></i> Activate This Identity
+      </a>
+    </div>
+  </div>
+
 </div>
+<div class="toast" id="toast"></div>
 
-<div id="toast-container"></div>
-
-<script src="/js/app.js"></script>
 <script>
+const API = 'https://myqrid-backend.myqrid.workers.dev';
 let profileData = {};
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function getUsernameFromURL() {
+  const parts = window.location.pathname.split('/').filter(Boolean);
+  return parts[parts.length - 1] || null;
+}
+
+async function shareProfile() {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: (profileData.display_name || 'myQRID') + ' — myQRID', url });
+  } else {
+    await navigator.clipboard.writeText(url);
+    showToast('Link copied!');
+  }
+}
+
+function copyURL() {
+  navigator.clipboard.writeText(window.location.href);
+  showToast('URL copied!');
+}
+
+function openShop() { showToast('Products coming soon!'); }
+function openInsights() { showToast('Insights coming soon!'); }
+function openSettings() {
+  const token = localStorage.getItem('token');
+  if (token) window.location.href = '/dashboard.html';
+  else window.location.href = '/login.html';
+}
+
+function saveContactBtn() {
+  if (!profileData.display_name) return;
+  const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${profileData.display_name}\nTEL:${profileData.phone || ''}\nURL:${window.location.href}\nEND:VCARD`;
+  const blob = new Blob([vcard], { type: 'text/vcard' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = (profileData.username || 'contact') + '.vcf';
+  a.click();
+}
 
 async function loadProfile() {
   const username = getUsernameFromURL();
-  if (!username) { window.location.href = '/login.html'; return; }
+  if (!username || username === 'profile') {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('unclaimedState').style.display = 'block';
+    return;
+  }
 
-  document.title = `@${username} — myQRID`;
+  document.title = '@' + username + ' — myQRID';
 
-  const { ok, data } = await apiFetch(`/profile/${username}`);
+  try {
+    const res = await fetch(API + '/profile/' + username);
+    const data = await res.json();
 
-  document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('loadingState').style.display = 'none';
 
-  if (!ok || !data) { showUnclaimed(); return; }
+    if (!data.success || !data.claimed) {
+      document.getElementById('unclaimedState').style.display = 'block';
+      return;
+    }
 
-  profileData = data;
+    profileData = data;
+    document.getElementById('profileContent').style.display = 'block';
 
-  /* Determine state */
-  if (data.mode === 'lost') { showLost(data); return; }
-  if (data.mode === 'emergency') { showEmergency(data); return; }
-  if (!data.claimed) { showUnclaimed(); return; }
+    // Avatar
+    const initial = (data.display_name || username)[0].toUpperCase();
+    document.getElementById('avatarEl').textContent = initial;
 
-  showActive(data);
-}
+    // Info
+    document.getElementById('nameEl').textContent = data.display_name || username;
+    document.getElementById('bioEl').textContent = data.bio || '';
+    document.getElementById('usernameEl').textContent = '@' + data.username;
+    document.title = data.display_name + ' — myQRID';
 
-function showUnclaimed() {
-  document.getElementById('state-unclaimed').style.display = 'block';
-}
+    // Phone actions
+    if (data.phone) {
+      const phone = data.phone.replace(/\s/g, '');
+      const waBtn = document.getElementById('wa-btn');
+      const callBtn = document.getElementById('call-action');
+      const waAction = document.getElementById('wa-action');
+      waBtn.href = 'https://wa.me/' + phone;
+      waBtn.style.display = 'flex';
+      callBtn.href = 'tel:' + phone;
+      callBtn.style.display = 'flex';
+      waAction.href = 'https://wa.me/' + phone;
+      waAction.style.display = 'flex';
+    }
 
-function showLost(d) {
-  document.getElementById('state-lost').style.display = 'block';
-  if (d.lost_message) document.getElementById('lost-msg').textContent = d.lost_message;
-  if (d.lost_reward) document.getElementById('lost-reward').textContent = `Reward: ₹${d.lost_reward}`;
-  if (d.phone) {
-    document.getElementById('lost-whatsapp').href = `https://wa.me/${d.phone.replace(/\D/g,'')}?text=Hi, I found your lost item!`;
-    document.getElementById('lost-call').href = `tel:${d.phone}`;
+    // Links
+    if (data.links && data.links.length) {
+      const container = document.getElementById('linksSection');
+      data.links.forEach(link => {
+        const a = document.createElement('a');
+        a.className = 'link-item';
+        a.href = link.url || '#';
+        a.target = '_blank';
+        a.innerHTML = `<div class="link-icon">🔗</div><span>${link.title || link.url}</span>`;
+        container.appendChild(a);
+      });
+    }
+
+  } catch(e) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('unclaimedState').style.display = 'block';
   }
 }
 
-function showEmergency(d) {
-  document.getElementById('state-emergency').style.display = 'block';
-  const em = d.emergency || {};
-  document.getElementById('em-name').textContent = d.display_name || d.username;
-  if (d.avatar) document.getElementById('em-avatar').src = d.avatar;
-  document.getElementById('em-blood').textContent = em.blood_group || '—';
-  document.getElementById('em-allergies').innerHTML = (em.allergies||[]).map(a=>`<div class="info-item">• ${a}</div>`).join('') || '<div class="info-item" style="color:rgba(255,255,255,0.3)">None listed</div>';
-  document.getElementById('em-medications').innerHTML = (em.medications||[]).map(m=>`<div class="info-item">• ${m}</div>`).join('') || '<div class="info-item" style="color:rgba(255,255,255,0.3)">None listed</div>';
-  if (em.contact1_name) { document.getElementById('em-c1-name').textContent = em.contact1_name; document.getElementById('em-c1-rel').textContent = em.contact1_relation||''; document.getElementById('em-contact1').href = `tel:${em.contact1_phone}`; }
-  if (em.contact2_name) { document.getElementById('em-c2-name').textContent = em.contact2_name; document.getElementById('em-c2-rel').textContent = em.contact2_relation||''; document.getElementById('em-contact2').href = `tel:${em.contact2_phone}`; }
-  if (em.doctor_name) document.getElementById('em-doctor').textContent = em.doctor_name;
-  if (em.hospital) document.getElementById('em-hospital').textContent = em.hospital;
-}
-
-function showActive(d) {
-  document.getElementById('state-active').style.display = 'block';
-  document.body.dataset.top = d.theme_top || 'coffee';
-  document.body.dataset.bottom = d.theme_bottom || 'deep-purple';
-  document.title = `${d.display_name||d.username} — myQRID`;
-
-  document.getElementById('nav-logo').src = MYQRID_LOGO;
-  document.getElementById('profile-avatar').src = d.avatar || '/assets/myqrid-logo.png';
-  document.getElementById('profile-name').textContent = d.display_name || d.username;
-  document.getElementById('profile-username').textContent = `@${d.username}`;
-  if (d.bio) document.getElementById('profile-bio').textContent = d.bio;
-
-  if (d.score) { document.getElementById('score-badge').style.display='inline-flex'; document.getElementById('score-val').textContent = d.score; }
-  if (d.verified) document.getElementById('verified-badge').style.display='inline-flex';
-
-  /* Action buttons */
-  if (d.phone) {
-    document.getElementById('action-whatsapp').href = `https://wa.me/${d.phone.replace(/\D/g,'')}`;
-    document.getElementById('action-call').href = `tel:${d.phone}`;
-  }
-
-  /* Social icons */
-  const socials = [
-    { key:'whatsapp', icon:'💬', url: d.phone ? `https://wa.me/${d.phone.replace(/\D/g,'')}` : null },
-    { key:'instagram', icon:'📸', url: d.instagram ? `https://instagram.com/${d.instagram}` : null },
-    { key:'twitter', icon:'𝕏', url: d.twitter ? `https://x.com/${d.twitter}` : null },
-    { key:'linkedin', icon:'💼', url: d.linkedin ? `https://linkedin.com/in/${d.linkedin}` : null },
-    { key:'youtube', icon:'▶', url: d.youtube ? `https://youtube.com/@${d.youtube}` : null },
-    { key:'website', icon:'🌐', url: d.website || null },
-  ];
-  const sr = document.getElementById('social-row');
-  socials.filter(s=>s.url).forEach(s => {
-    const a = document.createElement('a');
-    a.href = s.url; a.target = '_blank';
-    a.className = 'social-pill';
-    a.textContent = s.icon;
-    sr.appendChild(a);
-  });
-
-  /* Links */
-  const ls = document.getElementById('links-section');
-  if (d.links && d.links.length) {
-    d.links.filter(l=>l.active).forEach(l => {
-      const a = document.createElement('a');
-      a.href = l.url; a.target = '_blank';
-      a.className = 'link-strip';
-      a.style.marginBottom = '10px';
-      a.innerHTML = `<div class="link-strip-icon">${l.icon||'🔗'}</div><div class="link-strip-label">${l.title}</div><div class="link-strip-arrow">›</div>`;
-      ls.appendChild(a);
-    });
-  }
-
-  /* Digital card strip */
-  if (d.show_card) {
-    document.getElementById('card-strip').innerHTML = `
-      <div class="strip-grid">
-        <div class="strip-card" onclick="window.open('/card/${d.username}','_blank')">
-          <span>📇</span><span>Digital Card</span>
-        </div>
-        <div class="strip-card" onclick="saveContactBtn()">
-          <span>👤</span><span>Save Contact</span>
-        </div>
-      </div>`;
-  }
-}
-
-function saveContactBtn() { if(profileData.username) saveContact(profileData); }
-
-async function shareLocation() {
-  if (!navigator.geolocation) { toast('Location not available','error'); return; }
-  navigator.geolocation.getCurrentPosition(pos => {
-    const url = `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;
-    if (navigator.share) navigator.share({ title:'My Location', url });
-    else copyText(url);
-  });
-}
-
-async function markFound() {
-  const username = getUsernameFromURL();
-  await apiFetch(`/profile/${username}/found`, { method:'POST' });
-  toast('Thank you! Owner has been notified.','success');
-}
-
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
 loadProfile();
 </script>
 </body>
