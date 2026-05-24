@@ -1,24 +1,23 @@
 {
   "name": "myQRID",
   "short_name": "myQRID",
-  "description": "Your complete digital identity",
-  "start_url": "/",
+  "description": "Your Digital Identity — One QR for everything",
+  "start_url": "/login.html",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#1E1008",
-  "theme_color": "#7C3AED",
+  "background_color": "#0a0a0f",
+  "theme_color": "#7c3aed",
   "icons": [
     {
-      "src": "/assets/myqrid-logo.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/myqrid-logo.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/assets/myqrid-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["productivity", "social", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "prefer_related_applications": false
 }
