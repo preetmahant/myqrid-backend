@@ -5,79 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Dashboard — myQRID</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/glass.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{min-height:100vh;font-family:'DM Sans',sans-serif;color:#F0F0F8;background:#11131A}
-body{background:linear-gradient(180deg,#11131A 0%,#1A1D24 25%,#2D1155 60%,#4B1D68 80%,#6D3DF5 100%);background-attachment:fixed}
-.app{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:90px}
+body{padding-bottom:90px}
+.app{max-width:480px;margin:0 auto;min-height:100vh}
 
 /* TOP BAR */
-.topbar{background:#11131A;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;padding-top:calc(16px + env(safe-area-inset-top));border-bottom:1px solid rgba(255,255,255,0.06)}
-.topbar-logo{font-size:22px;font-weight:700;color:#F0F0F8;letter-spacing:-0.5px}
-.topbar-logo span{color:#8B5CF6}
-.topbar-actions{display:flex;gap:8px}
-.icon-btn{width:38px;height:38px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;text-decoration:none;color:#F0F0F8;transition:all 0.2s}
-.icon-btn:active{background:rgba(109,61,245,0.2)}
+.topbar{background:rgba(0,0,0,0.3);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);padding:14px 20px;padding-top:calc(14px + env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-logo{font-size:22px;font-weight:700;color:#fff}
+.topbar-logo span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-right{display:flex;gap:8px}
 
 /* PROFILE CARD */
-.profile-card{margin:16px;background:rgba(255,255,255,0.08);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,0.35),0 0 35px rgba(109,61,245,0.15)}
+.profile-card{margin:16px;padding:20px}
 .profile-top{display:flex;align-items:center;gap:14px}
-.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#6D3DF5,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid rgba(139,92,246,0.4);box-shadow:0 0 20px rgba(109,61,245,0.4)}
+.avatar{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:#fff;flex-shrink:0;border:2px solid rgba(124,58,237,0.4);box-shadow:0 0 20px rgba(124,58,237,0.4)}
 .profile-info{flex:1;min-width:0}
-.profile-name{font-size:18px;font-weight:700;color:#F0F0F8}
+.profile-name{font-size:18px;font-weight:700;color:#fff}
 .profile-username{font-size:13px;color:rgba(255,255,255,0.4);margin-top:2px}
-.plan-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(109,61,245,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;color:#8B5CF6;margin-top:6px}
-.view-btn{background:linear-gradient(135deg,#6D3DF5,#8B5CF6);color:#fff;border:none;border-radius:12px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 4px 15px rgba(109,61,245,0.4)}
+.plan-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;color:#a78bfa;margin-top:6px}
+.view-btn{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:12px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 4px 15px rgba(124,58,237,0.4)}
 
 /* STATS */
 .stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 16px 16px}
-.stat-card{background:rgba(255,255,255,0.06);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.10);border-radius:16px;padding:14px 10px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
-.stat-num{font-size:24px;font-weight:700;color:#8B5CF6}
+.stat-card{padding:14px 10px;text-align:center}
+.stat-num{font-size:24px;font-weight:700;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .stat-label{font-size:10px;color:rgba(255,255,255,0.35);margin-top:3px;text-transform:uppercase;letter-spacing:0.3px}
 
 /* QR CARD */
 .section{margin:0 16px 16px}
-.section-title{font-size:12px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
-.qr-card{background:rgba(255,255,255,0.06);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(139,92,246,0.25);border-radius:20px;padding:18px;display:flex;align-items:center;gap:14px;box-shadow:0 0 25px rgba(109,61,245,0.15)}
-.qr-box{width:60px;height:60px;background:rgba(109,61,245,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.qr-card{padding:18px;display:flex;align-items:center;gap:14px}
+.qr-box{width:56px;height:56px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
 .qr-info{flex:1;min-width:0}
-.qr-title{font-size:14px;font-weight:600;color:#F0F0F8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qr-title{font-size:14px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .qr-url{font-size:12px;color:rgba(255,255,255,0.35);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.qr-share-btn{background:linear-gradient(135deg,#6D3DF5,#8B5CF6);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0}
+.share-btn{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0}
 
-/* ACTIONS GRID */
+/* ACTIONS */
 .actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.action-card{background:rgba(255,255,255,0.06);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,0.10);border-radius:18px;padding:18px 16px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
-.action-card:active{transform:scale(0.97);background:rgba(109,61,245,0.15);border-color:rgba(139,92,246,0.3)}
+.action-card{padding:18px 16px;cursor:pointer;transition:all 0.2s;text-decoration:none;display:block}
+.action-card:active{transform:scale(0.97);background:rgba(124,58,237,0.15)}
 .action-icon{font-size:26px;margin-bottom:10px}
-.action-title{font-size:14px;font-weight:600;color:#F0F0F8}
+.action-title{font-size:14px;font-weight:600;color:#fff}
 .action-sub{font-size:11px;color:rgba(255,255,255,0.35);margin-top:3px}
-
-/* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(17,19,26,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.08);display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:4px 0;text-decoration:none;transition:all 0.2s}
-.nav-icon{font-size:20px;line-height:1;opacity:0.5}
-.nav-label{font-size:10px;font-weight:500;color:rgba(255,255,255,0.35)}
-.nav-item.active .nav-icon{opacity:1;filter:drop-shadow(0 0 6px rgba(139,92,246,0.8))}
-.nav-item.active .nav-label{color:#8B5CF6;font-weight:600}
-
-/* QR CENTER BTN */
-.nav-qr{width:52px;height:52px;background:linear-gradient(135deg,#6D3DF5,#8B5CF6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;margin-top:-16px;box-shadow:0 0 20px rgba(109,61,245,0.6);border:2px solid rgba(139,92,246,0.4)}
 </style>
 </head>
 <body>
+<div class="bg-fixed"></div>
 <div class="app">
-  <!-- TOP BAR -->
+
   <div class="topbar">
     <div class="topbar-logo">my<span>QRID</span></div>
-    <div class="topbar-actions">
-      <div class="icon-btn">🔔</div>
-      <div class="icon-btn" onclick="doLogout()">⏻</div>
+    <div class="topbar-right">
+      <div class="icon-circle">🔔</div>
+      <div class="icon-circle" onclick="doLogout()">⏻</div>
     </div>
   </div>
 
-  <!-- PROFILE CARD -->
-  <div class="profile-card">
+  <div class="glass profile-card">
     <div class="profile-top">
       <div class="avatar" id="avatar">P</div>
       <div class="profile-info">
@@ -89,65 +74,62 @@ body{background:linear-gradient(180deg,#11131A 0%,#1A1D24 25%,#2D1155 60%,#4B1D6
     </div>
   </div>
 
-  <!-- STATS -->
   <div class="stats-row">
-    <div class="stat-card">
+    <div class="glass stat-card">
       <div class="stat-num" id="s-total">0</div>
       <div class="stat-label">Total Scans</div>
     </div>
-    <div class="stat-card">
+    <div class="glass stat-card">
       <div class="stat-num" id="s-today">0</div>
       <div class="stat-label">Today</div>
     </div>
-    <div class="stat-card">
+    <div class="glass stat-card">
       <div class="stat-num" id="s-week">0</div>
       <div class="stat-label">This Week</div>
     </div>
   </div>
 
-  <!-- QR CARD -->
   <div class="section">
     <div class="section-title">Your myQRID</div>
-    <div class="qr-card">
+    <div class="glass qr-card">
       <div class="qr-box">⬡</div>
       <div class="qr-info">
         <div class="qr-title" id="qr-title">My myQRID Profile</div>
         <div class="qr-url" id="qr-url">app.myqrid.in/profile/—</div>
       </div>
-      <button class="qr-share-btn" onclick="shareProfile()">Share</button>
+      <button class="share-btn" onclick="shareProfile()">Share</button>
     </div>
   </div>
 
-  <!-- QUICK ACTIONS -->
   <div class="section">
     <div class="section-title">Quick Actions</div>
     <div class="actions-grid">
-      <a href="#" class="action-card">
+      <a href="#" class="glass action-card">
         <div class="action-icon">🔗</div>
         <div class="action-title">Manage Links</div>
         <div class="action-sub">Add & edit your links</div>
       </a>
-      <a href="#" class="action-card">
+      <a href="#" class="glass action-card">
         <div class="action-icon">📇</div>
         <div class="action-title">Digital Card</div>
         <div class="action-sub">Edit contact info</div>
       </a>
-      <a href="#" class="action-card">
+      <a href="#" class="glass action-card">
         <div class="action-icon">🛡️</div>
         <div class="action-title">Emergency Info</div>
         <div class="action-sub">Blood group & contacts</div>
       </a>
-      <a href="#" class="action-card">
+      <a href="#" class="glass action-card">
         <div class="action-icon">📊</div>
         <div class="action-title">Analytics</div>
         <div class="action-sub">Scan stats & map</div>
       </a>
-      <a href="#" class="action-card">
+      <a href="#" class="glass action-card">
         <div class="action-icon">🏷️</div>
         <div class="action-title">Lost & Found</div>
         <div class="action-sub">Enable lost mode</div>
       </a>
-      <a href="/claim.html" class="action-card">
+      <a href="/claim.html" class="glass action-card">
         <div class="action-icon">✨</div>
         <div class="action-title">Activate Tag</div>
         <div class="action-sub">Claim a myQRID tag</div>
@@ -156,31 +138,39 @@ body{background:linear-gradient(180deg,#11131A 0%,#1A1D24 25%,#2D1155 60%,#4B1D6
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <a href="/dashboard.html" class="nav-item active">
     <span class="nav-icon">🏠</span>
-    <span class="nav-label">Home</span>
+    <span>Home</span>
   </a>
   <a href="#" class="nav-item">
     <span class="nav-icon">🔗</span>
-    <span class="nav-label">Links</span>
+    <span>Links</span>
   </a>
   <a href="#" class="nav-item" style="flex:none;width:64px">
-    <div class="nav-qr">⬡</div>
+    <div class="nav-center-btn">⬡</div>
   </a>
   <a href="#" class="nav-item">
     <span class="nav-icon">📊</span>
-    <span class="nav-label">Stats</span>
+    <span>Stats</span>
   </a>
   <a href="#" class="nav-item">
     <span class="nav-icon">⚙️</span>
-    <span class="nav-label">Settings</span>
+    <span>Settings</span>
   </a>
 </nav>
 
+<div class="toast" id="toast"></div>
+
 <script>
 const API = 'https://myqrid-backend.myqrid.workers.dev';
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
 
 function doLogout() {
   if (confirm('Logout from myQRID?')) {
@@ -201,7 +191,7 @@ async function shareProfile() {
     navigator.share({ title: 'My myQRID Profile', url });
   } else {
     await navigator.clipboard.writeText(url);
-    alert('Profile link copied!');
+    showToast('Profile link copied!');
   }
 }
 
@@ -212,7 +202,6 @@ async function loadDashboard() {
     const p = JSON.parse(atob(token));
     if (p.exp < Date.now()) { window.location.href = '/login.html'; return; }
   } catch { window.location.href = '/login.html'; return; }
-
   try {
     const res = await fetch(API + '/dashboard', {
       headers: { Authorization: 'Bearer ' + token }
@@ -220,8 +209,7 @@ async function loadDashboard() {
     const data = await res.json();
     if (!data.success) { window.location.href = '/login.html'; return; }
     const pr = data.profile;
-    const init = (pr.display_name || pr.username || 'U')[0].toUpperCase();
-    document.getElementById('avatar').textContent = init;
+    document.getElementById('avatar').textContent = (pr.display_name || pr.username || 'U')[0].toUpperCase();
     document.getElementById('pname').textContent = pr.display_name || pr.username;
     document.getElementById('pusername').textContent = '@' + pr.username;
     document.getElementById('s-total').textContent = data.stats?.total ?? 0;
