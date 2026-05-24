@@ -2,67 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Offline — myQRID</title>
-<meta name="theme-color" content="#7C3AED">
-<link rel="icon" href="/assets/myqrid-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/glass.css">
-<link rel="stylesheet" href="/css/responsive.css">
-<script src="/js/logo.js"></script>
 <style>
-body{background:#1E1008;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
-.offline-icon{font-size:5rem;margin-bottom:24px;animation:float 3s ease-in-out infinite}
-.offline-title{font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:8px}
-.offline-sub{color:rgba(255,255,255,0.4);font-size:0.9rem;margin-bottom:32px;line-height:1.5}
-.offline-logo{margin-bottom:16px}
-.pulse-ring{width:80px;height:80px;border-radius:50%;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;animation:pulse 2s ease infinite;margin:0 auto 24px}
+body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.wrap{width:100%;max-width:420px;text-align:center}
+.icon{font-size:80px;margin-bottom:24px;animation:float 3s ease-in-out infinite;display:block}
+.title{font-size:24px;font-weight:700;color:#fff;margin-bottom:10px}
+.sub{font-size:15px;color:rgba(255,255,255,0.4);margin-bottom:32px;line-height:1.6}
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px 32px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 0 30px rgba(124,58,237,0.3);width:100%}
+.status{display:inline-flex;align-items:center;gap:8px;background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.2);border-radius:50px;padding:8px 20px;font-size:13px;color:#FF3B5C;font-weight:600;margin-bottom:32px}
+.dot{width:8px;height:8px;background:#FF3B5C;border-radius:50%;animation:emergencyPulse 1s ease-in-out infinite}
 </style>
 </head>
-<body data-top="coffee" data-bottom="deep-purple">
-
-<div class="offline-logo">
-  <img id="off-logo" width="60" height="60" alt="myQRID" style="object-fit:contain">
+<body>
+<div class="bg-fixed"></div>
+<div class="wrap">
+  <span class="icon">📡</span>
+  <div class="status">
+    <div class="dot"></div>
+    No Internet Connection
+  </div>
+  <div class="title">You're Offline</div>
+  <div class="sub">Check your connection and try again. myQRID needs internet to show your digital identity.</div>
+  <button class="btn-primary" onclick="window.location.reload()">
+    ↺ Try Again
+  </button>
 </div>
-
-<div class="pulse-ring">
-  <span style="font-size:2rem">📡</span>
-</div>
-
-<div class="offline-title">You're offline</div>
-<div class="offline-sub">
-  No internet connection detected.<br>
-  Some features may not be available.
-</div>
-
-<button class="btn btn-accent" onclick="tryReconnect()" style="min-width:200px">
-  Try Again
-</button>
-
-<div style="margin-top:16px">
-  <a href="/" class="btn btn-ghost">Go Home</a>
-</div>
-
-<div style="margin-top:48px;color:rgba(255,255,255,0.15);font-size:0.75rem">
-  Powered by myQRID
-</div>
-
-<div id="toast-container"></div>
-<script src="/js/app.js"></script>
-<script>
-document.getElementById('off-logo').src = MYQRID_LOGO;
-
-function tryReconnect() {
-  if (navigator.onLine) {
-    window.history.back();
-  } else {
-    toast('Still offline. Check your connection.', 'error');
-  }
-}
-
-window.addEventListener('online', () => {
-  toast('Back online!', 'success');
-  setTimeout(() => window.history.back(), 1000);
-});
-</script>
 </body>
 </html>
