@@ -224,7 +224,7 @@ let profileData = {};
 
 async function loadProfile() {
   const username = getUsernameFromURL();
-  if (!username) { window.location.href = '/'; return; }
+  if (!username) { window.location.href = '/login.html'; return; }
 
   document.title = `@${username} — myQRID`;
 
