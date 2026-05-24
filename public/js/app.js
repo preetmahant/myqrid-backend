@@ -775,3 +775,8 @@ async function boot() {
 }
 
 boot();
+
+function getUsernameFromURL() {
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  return parts[parts.length - 1] || null;
+}
