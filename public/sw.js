@@ -1,4 +1,4 @@
-const CACHE = 'myqrid-v1';
+const CACHE = 'myqrid-v2';
 const STATIC = [
   '/',
   '/login.html',
@@ -8,15 +8,14 @@ const STATIC = [
   '/claim.html',
   '/404.html',
   '/offline.html',
+  '/onboard.html',
   '/css/glass.css',
   '/css/responsive.css',
   '/manifest.json'
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(STATIC))
-  );
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(STATIC)));
   self.skipWaiting();
 });
 
@@ -33,7 +32,6 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
   if (url.origin !== location.origin) return;
-
   e.respondWith(
     fetch(e.request)
       .then(res => {
