@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Settings — myQRID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#0a0a0f;color:#fff}
+.bg{position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(124,58,237,0.3),transparent 50%),radial-gradient(circle at 80% 70%,rgba(236,72,153,0.2),transparent 50%),#0a0a0f;z-index:0}
+.page{position:relative;z-index:1;max-width:480px;margin:0 auto;padding-bottom:100px}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top))}
+.back-btn{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.6);font-size:14px}
+.topbar-title{font-size:17px;font-weight:700}
+.save-all-btn{padding:8px 18px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.save-all-btn:disabled{opacity:0.5;cursor:not-allowed}
+
+/* AVATAR SECTION */
+.avatar-section{display:flex;flex-direction:column;align-items:center;padding:20px;margin:0 16px 8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:20px}
+.avatar-wrap{position:relative;margin-bottom:12px}
+.avatar{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#fff;border:3px solid rgba(124,58,237,0.4);box-shadow:0 0 25px rgba(124,58,237,0.4);overflow:hidden;cursor:pointer}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar-edit{position:absolute;bottom:2px;right:2px;width:30px;height:30px;border-radius:50%;background:rgba(124,58,237,0.9);border:2px solid #0a0a0f;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:#fff}
+.avatar-name{font-size:18px;font-weight:700;margin-bottom:2px}
+.avatar-username{font-size:13px;color:rgba(255,255,255,0.35)}
+.avatar-hint{font-size:11px;color:rgba(255,255,255,0.25);margin-top:8px}
+
+/* SECTION */
+.settings-section{margin:0 16px 8px}
+.section-title{font-size:11px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px;padding:0 4px}
+.settings-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;overflow:hidden}
+
+/* SETTING ROW */
+.setting-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.2s}
+.setting-row:last-child{border-bottom:none}
+.setting-row:active{background:rgba(255,255,255,0.04)}
+.setting-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.setting-info{flex:1;min-width:0}
+.setting-label{font-size:14px;font-weight:600;color:#fff}
+.setting-value{font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.setting-chevron{color:rgba(255,255,255,0.2);font-size:12px;flex-shrink:0}
+
+/* TOGGLE */
+.toggle-wrap{flex-shrink:0}
+.toggle{width:44px;height:24px;background:rgba(255,255,255,0.1);border-radius:12px;position:relative;cursor:pointer;transition:background 0.25s}
+.toggle.on{background:rgba(0,229,160,0.6)}
+.toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1)}
+.toggle.on::after{transform:translateX(20px)}
+
+/* INPUT FIELDS */
+.input-field{width:100%;padding:14px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border 0.2s;margin-top:6px}
+.input-field:focus{border-color:rgba(124,58,237,0.5);background:rgba(124,58,237,0.05)}
+.input-field::placeholder{color:rgba(255,255,255,0.2)}
+textarea.input-field{resize:none;line-height:1.5}
+
+/* INLINE EDIT */
+.inline-edit{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.inline-edit:last-child{border-bottom:none}
+.inline-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+
+/* PLAN CARD */
+.plan-card{margin:0 16px 8px;padding:16px 18px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:16px;display:flex;align-items:center;gap:14px}
+.plan-icon{width:44px;height:44px;border-radius:12px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.plan-info{flex:1}
+.plan-name{font-size:15px;font-weight:700;color:#a78bfa}
+.plan-desc{font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px}
+.upgrade-btn{padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0}
+
+/* DANGER ZONE */
+.danger-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;transition:background 0.2s}
+.danger-row:last-child{border-bottom:none}
+.danger-row:active{background:rgba(255,59,92,0.05)}
+.danger-icon{width:38px;height:38px;border-radius:10px;background:rgba(255,59,92,0.1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:#FF3B5C}
+.danger-label{font-size:14px;font-weight:600;color:#FF3B5C}
+
+/* EDIT MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
+.modal-overlay.open{background:rgba(0,0,0,0.8);pointer-events:all}
+.modal-panel{background:#1a1a2e;border-radius:28px 28px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom))}
+.modal-overlay.open .modal-panel{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 16px}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:16px}
+.modal-save{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:12px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
+.modal-save:active{transform:scale(0.98)}
+.modal-cancel{width:100%;padding:13px;background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.07);display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,0.35);font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;transition:color 0.2s}
+.nav-item.active{color:#a78bfa}
+.nav-icon{font-size:20px;line-height:1}
+.nav-center-btn{width:52px;height:52px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-top:-18px;box-shadow:0 0 20px rgba(124,58,237,0.5)}
+
+/* TOAST */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:#c4b5fd;padding:11px 22px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
+    <div class="topbar-title">Settings</div>
+    <button class="save-all-btn" id="saveAllBtn" onclick="saveProfile()">Save All</button>
+  </div>
+
+  <!-- AVATAR -->
+  <div class="avatar-section">
+    <div class="avatar-wrap">
+      <div class="avatar" id="avatarEl" onclick="document.getElementById('avatarUpload').click()">P</div>
+      <div class="avatar-edit" onclick="document.getElementById('avatarUpload').click()"><i class="fas fa-camera"></i></div>
+    </div>
+    <div class="avatar-name" id="avatarName">Your Name</div>
+    <div class="avatar-username">@<span id="avatarUsername">—</span></div>
+    <div class="avatar-hint">Tap avatar to change photo</div>
+  </div>
+  <input type="file" id="avatarUpload" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)">
+
+  <!-- PLAN -->
+  <div class="plan-card">
+    <div class="plan-icon">⭐</div>
+    <div class="plan-info">
+      <div class="plan-name">Free Plan</div>
+      <div class="plan-desc">5 links · Basic analytics · 2 card themes</div>
+    </div>
+    <button class="upgrade-btn" onclick="showToast('Pro coming soon!')">Upgrade</button>
+  </div>
+
+  <!-- PROFILE INFO -->
+  <div class="settings-section">
+    <div class="section-title">Profile Information</div>
+    <div class="settings-card">
+      <div class="inline-edit">
+        <div class="inline-label">Full Name</div>
+        <input class="input-field" type="text" id="fieldName" placeholder="Your full name">
+      </div>
+      <div class="inline-edit">
+        <div class="inline-label">Username</div>
+        <input class="input-field" type="text" id="fieldUsername" placeholder="@username" readonly style="opacity:0.5;cursor:not-allowed">
+      </div>
+      <div class="inline-edit">
+        <div class="inline-label">Bio</div>
+        <textarea class="input-field" id="fieldBio" rows="2" placeholder="Tell people who you are..."></textarea>
+      </div>
+      <div class="inline-edit">
+        <div class="inline-label">Phone Number</div>
+        <input class="input-field" type="tel" id="fieldPhone" placeholder="+91 98765 43210">
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="settings-section">
+    <div class="section-title">Contact & Social</div>
+    <div class="settings-card">
+      <div class="setting-row" onclick="openSocialEdit('whatsapp')">
+        <div class="setting-icon" style="background:rgba(37,211,102,0.15)"><i class="fab fa-whatsapp" style="color:#25D366"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">WhatsApp</div>
+          <div class="setting-value" id="val-whatsapp">Not linked</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+      <div class="setting-row" onclick="openSocialEdit('instagram')">
+        <div class="setting-icon" style="background:rgba(225,48,108,0.15)"><i class="fab fa-instagram" style="color:#e1306c"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Instagram</div>
+          <div class="setting-value" id="val-instagram">Not linked</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+      <div class="setting-row" onclick="openSocialEdit('twitter')">
+        <div class="setting-icon" style="background:rgba(255,255,255,0.08)"><i class="fab fa-x-twitter"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">X / Twitter</div>
+          <div class="setting-value" id="val-twitter">Not linked</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+      <div class="setting-row" onclick="openSocialEdit('youtube')">
+        <div class="setting-icon" style="background:rgba(255,0,0,0.12)"><i class="fab fa-youtube" style="color:#FF0000"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">YouTube</div>
+          <div class="setting-value" id="val-youtube">Not linked</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+      <div class="setting-row" onclick="openSocialEdit('linkedin')">
+        <div class="setting-icon" style="background:rgba(10,102,194,0.15)"><i class="fab fa-linkedin" style="color:#0a66c2"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">LinkedIn</div>
+          <div class="setting-value" id="val-linkedin">Not linked</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIVACY -->
+  <div class="settings-section">
+    <div class="section-title">Privacy & Display</div>
+    <div class="settings-card">
+      <div class="setting-row" onclick="toggleSetting('showPhone')">
+        <div class="setting-icon" style="background:rgba(124,58,237,0.12)"><i class="fas fa-phone" style="color:#a78bfa"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Show Phone on Profile</div>
+          <div class="setting-value">Visible to profile visitors</div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle on" id="toggle-showPhone"></div></div>
+      </div>
+      <div class="setting-row" onclick="toggleSetting('showEmail')">
+        <div class="setting-icon" style="background:rgba(96,165,250,0.12)"><i class="fas fa-envelope" style="color:#60a5fa"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Show Email on Profile</div>
+          <div class="setting-value">Visible to profile visitors</div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle" id="toggle-showEmail"></div></div>
+      </div>
+      <div class="setting-row" onclick="toggleSetting('maskedWA')">
+        <div class="setting-icon" style="background:rgba(37,211,102,0.12)"><i class="fas fa-user-secret" style="color:#25D366"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Masked WhatsApp</div>
+          <div class="setting-value">Hide number from visitors</div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle on" id="toggle-maskedWA"></div></div>
+      </div>
+      <div class="setting-row" onclick="toggleSetting('sound')">
+        <div class="setting-icon" style="background:rgba(124,58,237,0.12)"><i class="fas fa-volume-up" style="color:#a78bfa"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Card Swipe Sound</div>
+          <div class="setting-value">Audio feedback on card swipe</div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle" id="toggle-sound"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP SETTINGS -->
+  <div class="settings-section">
+    <div class="section-title">App</div>
+    <div class="settings-card">
+      <div class="setting-row" onclick="window.location.href='/cards.html'">
+        <div class="setting-icon" style="background:rgba(124,58,237,0.12)"><i class="fas fa-id-card" style="color:#a78bfa"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Manage Cards</div>
+          <div class="setting-value">Personal, Work, Business, Earn, Drift</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+      <div class="setting-row" onclick="window.location.href='/links.html'">
+        <div class="setting-icon" style="background:rgba(124,58,237,0.12)"><i class="fas fa-link" style="color:#a78bfa"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Manage Links</div>
+          <div class="setting-value">Add, edit & reorder your links</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+      <div class="setting-row" onclick="window.location.href='/emergency.html'">
+        <div class="setting-icon" style="background:rgba(255,59,92,0.12)"><i class="fas fa-heart-pulse" style="color:#FF3B5C"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Emergency Info</div>
+          <div class="setting-value">Blood group, allergies, contacts</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+      <div class="setting-row" onclick="window.location.href='/drift.html'">
+        <div class="setting-icon" style="background:rgba(0,255,240,0.08)"><i class="fas fa-motorcycle" style="color:#00fff0"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Drift — Rider Identity</div>
+          <div class="setting-value">Set up your rider profile</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCOUNT -->
+  <div class="settings-section">
+    <div class="section-title">Account</div>
+    <div class="settings-card">
+      <div class="setting-row" onclick="changePassword()">
+        <div class="setting-icon" style="background:rgba(124,58,237,0.12)"><i class="fas fa-lock" style="color:#a78bfa"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Change Password</div>
+          <div class="setting-value">Update your login password</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+      <div class="setting-row" onclick="window.location.href='/share.html'">
+        <div class="setting-icon" style="background:rgba(96,165,250,0.12)"><i class="fas fa-share-nodes" style="color:#60a5fa"></i></div>
+        <div class="setting-info">
+          <div class="setting-label">Share My Profile</div>
+          <div class="setting-value">WhatsApp, QR, Link, VCF</div>
+        </div>
+        <i class="fas fa-chevron-right setting-chevron"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- DANGER ZONE -->
+  <div class="settings-section">
+    <div class="section-title">Danger Zone</div>
+    <div class="settings-card">
+      <div class="danger-row" onclick="doLogout()">
+        <div class="danger-icon"><i class="fas fa-right-from-bracket"></i></div>
+        <div class="setting-info">
+          <div class="danger-label">Logout</div>
+          <div class="setting-value" style="color:rgba(255,59,92,0.5)">Sign out from this device</div>
+        </div>
+      </div>
+      <div class="danger-row" onclick="confirmDelete()">
+        <div class="danger-icon"><i class="fas fa-trash-alt"></i></div>
+        <div class="setting-info">
+          <div class="danger-label">Delete Account</div>
+          <div class="setting-value" style="color:rgba(255,59,92,0.5)">Permanently delete all data</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:20px;font-size:11px;color:rgba(255,255,255,0.12)">myQRID v2.0 · Made in India 🇮🇳</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+  <a href="/links.html" class="nav-item"><span class="nav-icon">🔗</span><span>Links</span></a>
+  <a href="/cards.html" class="nav-item" style="flex:none;width:64px">
+    <div class="nav-center-btn"><i class="fas fa-id-card" style="color:#fff;font-size:20px"></i></div>
+  </a>
+  <a href="#" class="nav-item" onclick="shareProfile()"><span class="nav-icon">📤</span><span>Share</span></a>
+  <a href="/settings.html" class="nav-item active"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+</nav>
+
+<!-- SOCIAL EDIT MODAL -->
+<div class="modal-overlay" id="socialModal" onclick="closeSocialModal()">
+  <div class="modal-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="socialModalTitle">Edit Social</div>
+    <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px" id="socialModalLabel">Handle</div>
+    <input class="input-field" type="text" id="socialModalInput" placeholder="">
+    <button class="modal-save" onclick="saveSocialEdit()">Save</button>
+    <button class="modal-cancel" onclick="closeSocialModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://myqrid-backend.myqrid.workers.dev';
+let profileData = {};
+let socialsData = {};
+let currentSocialEdit = null;
+let settings = {showPhone:true,showEmail:false,maskedWA:true,sound:localStorage.getItem('sound')!=='off'};
+
+const SOCIALS_CONFIG = {
+  whatsapp: {label:'WhatsApp', inputLabel:'Phone (+91XXXXXXXXXX)', placeholder:'919876543210'},
+  instagram:{label:'Instagram',inputLabel:'Username (without @)',placeholder:'yourusername'},
+  twitter:  {label:'X / Twitter',inputLabel:'Username (without @)',placeholder:'yourusername'},
+  youtube:  {label:'YouTube',  inputLabel:'Channel URL',            placeholder:'youtube.com/c/...'},
+  linkedin: {label:'LinkedIn', inputLabel:'Profile URL',            placeholder:'linkedin.com/in/...'},
+};
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+function toggleSetting(key){
+  settings[key] = !settings[key];
+  const tog = document.getElementById('toggle-'+key);
+  if(tog) tog.classList.toggle('on', settings[key]);
+  if(key==='sound') localStorage.setItem('sound', settings[key]?'on':'off');
+  showToast(settings[key] ? 'Enabled' : 'Disabled');
+}
+
+function openSocialEdit(key){
+  currentSocialEdit = key;
+  const cfg = SOCIALS_CONFIG[key];
+  if(!cfg) return;
+  document.getElementById('socialModalTitle').textContent = 'Edit '+cfg.label;
+  document.getElementById('socialModalLabel').textContent = cfg.inputLabel;
+  document.getElementById('socialModalInput').placeholder = cfg.placeholder;
+  document.getElementById('socialModalInput').value = socialsData[key]||'';
+  document.getElementById('socialModal').classList.add('open');
+}
+function closeSocialModal(){ document.getElementById('socialModal').classList.remove('open'); }
+function saveSocialEdit(){
+  const val = document.getElementById('socialModalInput').value.trim();
+  socialsData[currentSocialEdit]=val;
+  const el = document.getElementById('val-'+currentSocialEdit);
+  if(el) el.textContent = val||'Not linked';
+  closeSocialModal();
+  showToast(val?'✅ Linked!':'Removed');
+}
+
+function handleAvatarUpload(e){
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const el=document.getElementById('avatarEl');
+    el.style.background='none';
+    el.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;
+    localStorage.setItem('avatar_personal',ev.target.result);
+    showToast('Photo updated!');
+  };
+  reader.readAsDataURL(file);
+}
+
+async function saveProfile(){
+  const btn=document.getElementById('saveAllBtn');
+  btn.disabled=true; btn.textContent='Saving...';
+  const token=localStorage.getItem('token');
+  if(!token){ showToast('Please login first'); btn.disabled=false; btn.textContent='Save All'; return; }
+  const updates = {
+    name: document.getElementById('fieldName').value.trim(),
+    phone: document.getElementById('fieldPhone').value.trim(),
+    bio: document.getElementById('fieldBio').value.trim(),
+    socials: socialsData,
+    settings
+  };
+  if(updates.name) localStorage.setItem('name', updates.name);
+  if(updates.phone) localStorage.setItem('phone', updates.phone);
+  try{
+    const res=await fetch(API+'/profile/update',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify(updates)
+    });
+    const data=await res.json();
+    if(data.success){ showToast('✅ Profile saved!'); document.getElementById('avatarName').textContent=updates.name||profileData.display_name||''; }
+    else showToast('Error: '+(data.error||'Failed'));
+  } catch(e){ showToast('Network error'); }
+  btn.disabled=false; btn.textContent='Save All';
+}
+
+function changePassword(){
+  window.location.href='/forgot.html';
+}
+
+function doLogout(){
+  if(confirm('Logout from myQRID?')){ localStorage.clear(); window.location.href='/login.html'; }
+}
+
+function confirmDelete(){
+  if(confirm('⚠️ Delete account permanently? This cannot be undone.')){ showToast('Account deletion coming soon. Contact support.'); }
+}
+
+function shareProfile(){
+  const u=localStorage.getItem('username');
+  const url='https://app.myqrid.in/profile/'+u;
+  if(navigator.share) navigator.share({title:'My myQRID',url});
+  else{ navigator.clipboard.writeText(url); showToast('Link copied!'); }
+}
+
+async function loadProfile(){
+  const name=localStorage.getItem('name')||'';
+  const username=localStorage.getItem('username')||'';
+  const phone=localStorage.getItem('phone')||'';
+  if(name){ document.getElementById('fieldName').value=name; document.getElementById('avatarName').textContent=name; const el=document.getElementById('avatarEl'); if(el&&!el.querySelector('img')) el.textContent=name[0].toUpperCase(); }
+  if(username){ document.getElementById('fieldUsername').value=username; document.getElementById('avatarUsername').textContent=username; }
+  if(phone) document.getElementById('fieldPhone').value=phone;
+  // Saved avatar
+  const saved=localStorage.getItem('avatar_personal');
+  if(saved){ const el=document.getElementById('avatarEl'); el.style.background='none'; el.innerHTML=`<img src="${saved}" style="width:100%;height:100%;object-fit:cover">`; }
+  // Sound toggle
+  document.getElementById('toggle-sound').classList.toggle('on', settings.sound);
+  // Fetch from API
+  const token=localStorage.getItem('token');
+  if(!token) return;
+  try{
+    const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
+    const data=await res.json();
+    if(data.success){
+      profileData=data.profile;
+      document.getElementById('fieldName').value=data.profile.display_name||'';
+      document.getElementById('fieldPhone').value=data.profile.phone||'';
+      document.getElementById('fieldBio').value=data.profile.bio||'';
+      document.getElementById('avatarName').textContent=data.profile.display_name||'';
+      socialsData=data.profile.socials||{};
+      Object.keys(socialsData).forEach(k=>{
+        const el=document.getElementById('val-'+k);
+        if(el&&socialsData[k]) el.textContent=socialsData[k];
+      });
+    }
+  } catch(e){}
+}
+
+loadProfile();
+</script>
+</body>
+</html>
