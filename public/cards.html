@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Cards — myQRID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif}
+
+/* THEMES */
+body.theme-personal{background:#0a0a0f}
+body.theme-work{background:#0a0f1a}
+body.theme-business{background:#0a0a1a}
+body.theme-earn{background:#120a0a}
+body.theme-drift{background:#050505}
+
+.bg-layer{position:fixed;inset:0;z-index:0;transition:background 0.5s ease}
+body.theme-personal .bg-layer{background:radial-gradient(circle at 20% 20%,rgba(124,58,237,0.45) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(236,72,153,0.35) 0%,transparent 50%),#0a0a0f}
+body.theme-work .bg-layer{background:radial-gradient(circle at 20% 20%,rgba(37,99,235,0.45) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(6,182,212,0.35) 0%,transparent 50%),#0a0f1a}
+body.theme-business .bg-layer{background:radial-gradient(circle at 20% 20%,rgba(124,58,237,0.45) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(6,182,212,0.35) 0%,transparent 50%),#0a0a1a}
+body.theme-earn .bg-layer{background:radial-gradient(circle at 20% 20%,rgba(249,115,22,0.45) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(236,72,153,0.35) 0%,transparent 50%),#120a0a}
+body.theme-drift .bg-layer{background:radial-gradient(circle at 20% 20%,rgba(0,255,240,0.2) 0%,transparent 50%),radial-gradient(circle at 80% 70%,rgba(124,58,237,0.25) 0%,transparent 50%),#050505}
+
+/* TOPBAR */
+.topbar{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top))}
+.topbar-logo{font-size:20px;font-weight:700;color:#fff}
+.topbar-logo span{background:var(--card-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-right{display:flex;gap:8px}
+.icon-btn{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.6);font-size:15px;transition:all 0.2s}
+.icon-btn:active{background:rgba(255,255,255,0.12)}
+.sound-btn{position:relative}
+.sound-off-line{position:absolute;width:2px;height:20px;background:rgba(255,255,255,0.6);transform:rotate(45deg);display:none;top:50%;left:50%;margin:-10px -1px}
+.sound-off .sound-off-line{display:block}
+
+/* CARD STACK AREA */
+.cards-area{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;padding:0 16px;overflow:hidden}
+
+/* CARD TABS */
+.card-tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+.card-tabs::-webkit-scrollbar{display:none}
+.card-tab{flex-shrink:0;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.25s;white-space:nowrap}
+.card-tab.active{background:var(--card-gradient);color:#fff;border-color:transparent;box-shadow:0 4px 15px var(--card-shadow)}
+
+/* SWIPEABLE CARD CONTAINER */
+.cards-track-wrap{flex:1;overflow:hidden;position:relative}
+.cards-track{display:flex;height:100%;transition:transform 0.35s cubic-bezier(0.34,1.2,0.64,1);will-change:transform}
+.card-slide{flex:0 0 100%;height:100%;padding:0 4px}
+
+/* THE CARD */
+.id-card{height:100%;border-radius:28px;overflow:hidden;position:relative;cursor:pointer;transition:transform 0.2s;background:#111}
+.id-card:active{transform:scale(0.985)}
+
+/* CARD PHOTO AREA (top 58%) */
+.card-photo{height:58%;position:relative;overflow:hidden}
+.card-photo-bg{width:100%;height:100%;object-fit:cover;display:block}
+.card-photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.card-photo-initials{font-size:72px;font-weight:900;color:rgba(255,255,255,0.2);letter-spacing:-3px}
+.card-type-badge{position:absolute;top:16px;left:50%;transform:translateX(-50%);padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;backdrop-filter:blur(10px);background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.15);color:#fff;white-space:nowrap}
+.card-edit-photo{position:absolute;bottom:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;cursor:pointer}
+
+/* WAVE SEPARATOR */
+.card-wave{position:relative;margin-top:-2px;line-height:0}
+.card-wave svg{display:block;width:100%}
+
+/* CARD BODY (bottom 42%) */
+.card-body{padding:16px 20px 20px;background:var(--card-body-bg)}
+.card-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-role{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-contact-row{display:flex;gap:10px;margin-bottom:14px}
+.card-contact-item{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.45);flex:1;min-width:0}
+.card-contact-item i{font-size:13px;color:var(--card-accent);flex-shrink:0}
+.card-contact-item span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-actions{display:flex;gap:10px}
+.card-action-btn{flex:1;padding:11px;border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all 0.2s;border:none}
+.card-btn-primary{background:var(--card-gradient);color:#fff;box-shadow:0 4px 15px var(--card-shadow)}
+.card-btn-secondary{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.75)}
+.card-btn-secondary:active{background:rgba(255,255,255,0.1)}
+
+/* DRIFT SPECIAL BODY */
+.card-drift-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,255,240,0.08);border:1px solid rgba(0,255,240,0.2);border-radius:8px;padding:5px 12px;font-size:11px;font-weight:700;color:#00fff0;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px}
+.card-drift-bike{font-size:15px;font-weight:700;color:#fff;margin-bottom:14px}
+
+/* PERSONAL CARD THEME */
+.card-personal{--card-gradient:linear-gradient(135deg,#7c3aed,#ec4899);--card-accent:#a78bfa;--card-shadow:rgba(124,58,237,0.4);--card-body-bg:linear-gradient(180deg,#1a0a2e 0%,#0d0618 100%)}
+.card-personal .card-photo-placeholder{background:linear-gradient(135deg,#4c1d95,#831843)}
+
+/* WORK CARD THEME */
+.card-work{--card-gradient:linear-gradient(135deg,#2563eb,#06b6d4);--card-accent:#60a5fa;--card-shadow:rgba(37,99,235,0.4);--card-body-bg:linear-gradient(180deg,#0a1a3a 0%,#071020 100%)}
+.card-work .card-photo-placeholder{background:linear-gradient(135deg,#1e3a8a,#164e63)}
+
+/* BUSINESS CARD THEME */
+.card-business{--card-gradient:linear-gradient(135deg,#7c3aed,#06b6d4);--card-accent:#67e8f9;--card-shadow:rgba(124,58,237,0.35);--card-body-bg:linear-gradient(180deg,#0f0a2e 0%,#071520 100%)}
+.card-business .card-photo-placeholder{background:linear-gradient(135deg,#3730a3,#0e7490)}
+
+/* EARN CARD THEME */
+.card-earn{--card-gradient:linear-gradient(135deg,#f97316,#ec4899);--card-accent:#fb923c;--card-shadow:rgba(249,115,22,0.4);--card-body-bg:linear-gradient(180deg,#2a1000 0%,#180800 100%)}
+.card-earn .card-photo-placeholder{background:linear-gradient(135deg,#7c2d12,#831843)}
+
+/* DRIFT CARD THEME */
+.card-drift{--card-gradient:linear-gradient(135deg,#00fff0,#7c3aed);--card-accent:#00fff0;--card-shadow:rgba(0,255,240,0.3);--card-body-bg:linear-gradient(180deg,#0a0a0a 0%,#050505 100%)}
+.card-drift .card-photo-placeholder{background:linear-gradient(135deg,#0a0a0a,#1a0a2e)}
+
+/* SWIPE DOTS */
+.swipe-dots{display:flex;justify-content:center;gap:6px;padding:12px 0 8px}
+.swipe-dot{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,0.2);transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1)}
+.swipe-dot.active{width:20px;background:var(--active-dot-color,#7c3aed)}
+
+/* ADD CARD */
+.add-card-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);font-size:13px;font-weight:500;cursor:pointer;margin:0 0 8px;transition:all 0.2s}
+.add-card-btn:active{background:rgba(255,255,255,0.07)}
+
+/* BOTTOM NAV */
+.bottom-nav{position:relative;z-index:10;background:rgba(10,10,15,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.07);display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,0.35);font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;transition:color 0.2s}
+.nav-item.active{color:var(--card-accent,#a78bfa)}
+.nav-icon{font-size:20px;line-height:1}
+.nav-center-btn{width:52px;height:52px;background:var(--card-gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-top:-18px;box-shadow:0 0 20px var(--card-shadow)}
+
+/* CARD EXPAND OVERLAY */
+.card-expand-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0);display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s ease}
+.card-expand-overlay.open{background:rgba(0,0,0,0.8);pointer-events:all}
+.card-expand-panel{background:#1a1a2e;border-radius:28px 28px 0 0;width:100%;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:24px 24px calc(24px + env(safe-area-inset-bottom))}
+.card-expand-overlay.open .card-expand-panel{transform:translateY(0)}
+.expand-handle{width:40px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 20px}
+.expand-title{font-size:11px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:16px}
+.expand-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.expand-option{padding:14px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:10px}
+.expand-option:active{background:rgba(255,255,255,0.1)}
+.expand-option i{font-size:18px;color:var(--card-accent,#a78bfa);width:20px}
+.expand-option-text{font-size:13px;font-weight:600;color:#fff}
+.expand-option-sub{font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px}
+
+/* PAGE LAYOUT */
+.page{display:flex;flex-direction:column;height:100%;position:relative;z-index:1}
+
+/* CARD SWIPE GESTURE */
+.cards-track-wrap{touch-action:pan-y pinch-zoom}
+
+/* ANIMATIONS */
+@keyframes cardIn{from{opacity:0;transform:translateY(20px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes tabPop{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+.card-in{animation:cardIn 0.4s cubic-bezier(0.34,1.2,0.64,1) forwards}
+.tab-pop{animation:tabPop 0.3s ease}
+
+/* TOAST */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:#c4b5fd;padding:11px 22px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* PROFILE PIC UPLOAD */
+.upload-input{display:none}
+</style>
+</head>
+<body class="theme-personal">
+<div class="bg-layer" id="bgLayer"></div>
+
+<div class="page" id="mainPage">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-logo">my<span>QRID</span></div>
+    <div class="topbar-right">
+      <div class="icon-btn sound-btn" id="soundBtn" onclick="toggleSound()" title="Toggle sound">
+        <i class="fas fa-volume-up" id="soundIcon"></i>
+        <div class="sound-off-line" id="soundOffLine"></div>
+      </div>
+      <div class="icon-btn" onclick="window.location.href='/dashboard.html'">
+        <i class="fas fa-home"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD TABS -->
+  <div class="cards-area">
+    <div class="card-tabs" id="cardTabs">
+      <div class="card-tab active" data-index="0" onclick="goToCard(0)">Personal</div>
+      <div class="card-tab" data-index="1" onclick="goToCard(1)">Work</div>
+      <div class="card-tab" data-index="2" onclick="goToCard(2)">Business</div>
+      <div class="card-tab" data-index="3" onclick="goToCard(3)">Earn</div>
+      <div class="card-tab" data-index="4" onclick="goToCard(4)">Drift</div>
+    </div>
+
+    <!-- SWIPEABLE CARDS TRACK -->
+    <div class="cards-track-wrap" id="trackWrap">
+      <div class="cards-track" id="cardsTrack">
+
+        <!-- PERSONAL CARD -->
+        <div class="card-slide">
+          <div class="id-card card-personal card-in" onclick="openCardMenu(0)">
+            <div class="card-photo">
+              <div class="card-photo-placeholder" id="photo-personal">
+                <div class="card-photo-initials" id="initials-personal">P</div>
+              </div>
+              <div class="card-type-badge">⬡ Personal</div>
+              <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhotoUpload('personal')">
+                <i class="fas fa-camera"></i>
+              </div>
+            </div>
+            <div class="card-wave">
+              <svg viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,20 C80,40 160,0 240,20 C320,40 360,10 400,20 L400,40 L0,40 Z" fill="#1a0a2e"/>
+              </svg>
+            </div>
+            <div class="card-body" style="background:linear-gradient(180deg,#1a0a2e 0%,#0d0618 100%)">
+              <div class="card-name" id="name-personal">Your Name</div>
+              <div class="card-role" id="role-personal">Tap to set up your identity</div>
+              <div class="card-contact-row">
+                <div class="card-contact-item"><i class="fas fa-phone"></i><span id="phone-personal">Add phone</span></div>
+                <div class="card-contact-item"><i class="fas fa-envelope"></i><span id="email-personal">Add email</span></div>
+              </div>
+              <div class="card-actions">
+                <button class="card-action-btn card-btn-primary" onclick="event.stopPropagation();shareCard('personal')"><i class="fas fa-share-nodes"></i> Share</button>
+                <button class="card-action-btn card-btn-secondary" onclick="event.stopPropagation();editCard('personal')"><i class="fas fa-pen"></i> Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WORK CARD -->
+        <div class="card-slide">
+          <div class="id-card card-work card-in" onclick="openCardMenu(1)">
+            <div class="card-photo">
+              <div class="card-photo-placeholder" id="photo-work">
+                <div class="card-photo-initials" id="initials-work">W</div>
+              </div>
+              <div class="card-type-badge" style="background:rgba(0,0,30,0.5);border-color:rgba(96,165,250,0.3)">💼 Work</div>
+              <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhotoUpload('work')">
+                <i class="fas fa-camera"></i>
+              </div>
+            </div>
+            <div class="card-wave">
+              <svg viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,20 C80,40 160,0 240,20 C320,40 360,10 400,20 L400,40 L0,40 Z" fill="#0a1a3a"/>
+              </svg>
+            </div>
+            <div class="card-body" style="background:linear-gradient(180deg,#0a1a3a 0%,#071020 100%)">
+              <div class="card-name" id="name-work">Work Profile</div>
+              <div class="card-role" id="role-work">Designation · Company</div>
+              <div class="card-contact-row">
+                <div class="card-contact-item" style="--card-accent:#60a5fa"><i class="fas fa-briefcase" style="color:#60a5fa"></i><span id="company-work">Add company</span></div>
+                <div class="card-contact-item" style="--card-accent:#60a5fa"><i class="fas fa-envelope" style="color:#60a5fa"></i><span id="email-work">Work email</span></div>
+              </div>
+              <div class="card-actions">
+                <button class="card-action-btn" style="background:linear-gradient(135deg,#2563eb,#06b6d4);color:#fff;box-shadow:0 4px 15px rgba(37,99,235,0.4);flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:12px;font-family:Inter;font-size:13px;font-weight:600;cursor:pointer;border:none" onclick="event.stopPropagation();shareCard('work')"><i class="fas fa-share-nodes"></i> Share</button>
+                <button class="card-action-btn card-btn-secondary" onclick="event.stopPropagation();editCard('work')"><i class="fas fa-pen"></i> Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BUSINESS CARD -->
+        <div class="card-slide">
+          <div class="id-card card-business card-in" onclick="openCardMenu(2)">
+            <div class="card-photo">
+              <div class="card-photo-placeholder" id="photo-business">
+                <div class="card-photo-initials" id="initials-business">B</div>
+              </div>
+              <div class="card-type-badge" style="background:rgba(0,0,30,0.5);border-color:rgba(103,232,249,0.3)">🏢 Business</div>
+              <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhotoUpload('business')">
+                <i class="fas fa-camera"></i>
+              </div>
+            </div>
+            <div class="card-wave">
+              <svg viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,15 C100,35 200,5 300,25 C350,35 380,15 400,20 L400,40 L0,40 Z" fill="#0f0a2e"/>
+              </svg>
+            </div>
+            <div class="card-body" style="background:linear-gradient(180deg,#0f0a2e 0%,#071520 100%)">
+              <div class="card-name" id="name-business">Business Name</div>
+              <div class="card-role" id="role-business">Your business tagline</div>
+              <div class="card-contact-row">
+                <div class="card-contact-item"><i class="fas fa-globe" style="color:#67e8f9"></i><span id="web-business">Add website</span></div>
+                <div class="card-contact-item"><i class="fas fa-map-marker-alt" style="color:#67e8f9"></i><span id="loc-business">Location</span></div>
+              </div>
+              <div class="card-actions">
+                <button class="card-action-btn" style="background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;box-shadow:0 4px 15px rgba(124,58,237,0.35);flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:12px;font-family:Inter;font-size:13px;font-weight:600;cursor:pointer;border:none" onclick="event.stopPropagation();shareCard('business')"><i class="fas fa-share-nodes"></i> Share</button>
+                <button class="card-action-btn card-btn-secondary" onclick="event.stopPropagation();editCard('business')"><i class="fas fa-pen"></i> Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EARN CARD -->
+        <div class="card-slide">
+          <div class="id-card card-earn card-in" onclick="openCardMenu(3)">
+            <div class="card-photo">
+              <div class="card-photo-placeholder" id="photo-earn">
+                <div class="card-photo-initials" id="initials-earn">E</div>
+              </div>
+              <div class="card-type-badge" style="background:rgba(20,5,0,0.6);border-color:rgba(251,146,60,0.3)">💡 Ea₹n</div>
+              <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhotoUpload('earn')">
+                <i class="fas fa-camera"></i>
+              </div>
+            </div>
+            <div class="card-wave">
+              <svg viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,25 C60,5 140,35 220,15 C300,0 360,30 400,18 L400,40 L0,40 Z" fill="#2a1000"/>
+              </svg>
+            </div>
+            <div class="card-body" style="background:linear-gradient(180deg,#2a1000 0%,#180800 100%)">
+              <div class="card-name" id="name-earn">Creator Name</div>
+              <div class="card-role" id="role-earn">Your expertise · What you offer</div>
+              <div class="card-contact-row">
+                <div class="card-contact-item"><i class="fas fa-indian-rupee-sign" style="color:#fb923c"></i><span id="rate-earn">Set your rate</span></div>
+                <div class="card-contact-item"><i class="fas fa-calendar-check" style="color:#fb923c"></i><span id="avail-earn">Availability</span></div>
+              </div>
+              <div class="card-actions">
+                <button class="card-action-btn" style="background:linear-gradient(135deg,#f97316,#ec4899);color:#fff;box-shadow:0 4px 15px rgba(249,115,22,0.4);flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:12px;font-family:Inter;font-size:13px;font-weight:600;cursor:pointer;border:none" onclick="event.stopPropagation();shareCard('earn')"><i class="fas fa-share-nodes"></i> Share</button>
+                <button class="card-action-btn card-btn-secondary" onclick="event.stopPropagation();editCard('earn')"><i class="fas fa-pen"></i> Edit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DRIFT CARD -->
+        <div class="card-slide">
+          <div class="id-card card-drift card-in" onclick="openCardMenu(4)">
+            <div class="card-photo" style="height:55%">
+              <div class="card-photo-placeholder" id="photo-drift" style="background:linear-gradient(135deg,#050505,#0a0a1a);position:relative;overflow:hidden">
+                <!-- Animated bike silhouette -->
+                <svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="width:90%;opacity:0.7" id="bikeSVG">
+                  <g fill="none" stroke="rgba(0,255,240,0.6)" stroke-width="1.5">
+                    <!-- Rear wheel -->
+                    <circle cx="80" cy="115" r="38" stroke-width="4" stroke="rgba(0,255,240,0.4)"/>
+                    <circle cx="80" cy="115" r="28"/>
+                    <circle cx="80" cy="115" r="6" fill="rgba(0,255,240,0.6)"/>
+                    <!-- Front wheel -->
+                    <circle cx="240" cy="115" r="38" stroke-width="4" stroke="rgba(0,255,240,0.4)"/>
+                    <circle cx="240" cy="115" r="28"/>
+                    <circle cx="240" cy="115" r="6" fill="rgba(0,255,240,0.6)"/>
+                    <!-- Frame -->
+                    <line x1="80" y1="115" x2="155" y2="55"/>
+                    <line x1="155" y1="55" x2="200" y2="115"/>
+                    <line x1="80" y1="115" x2="155" y2="115"/>
+                    <line x1="200" y1="115" x2="240" y2="115"/>
+                    <!-- Seat/tank -->
+                    <path d="M130,55 Q155,35 185,45 L200,65 L155,70 Z" fill="rgba(0,255,240,0.15)" stroke="rgba(0,255,240,0.5)"/>
+                    <!-- Handlebar -->
+                    <line x1="210" y1="60" x2="255" y2="50"/>
+                    <line x1="255" y1="50" x2="258" y2="68"/>
+                    <!-- Fork -->
+                    <line x1="215" y1="65" x2="240" y2="115"/>
+                    <!-- Engine glow -->
+                    <circle cx="155" cy="90" r="8" fill="rgba(0,255,240,0.1)" stroke="rgba(0,255,240,0.3)"/>
+                    <!-- Speed lines -->
+                    <line x1="0" y1="100" x2="40" y2="100" stroke="rgba(0,255,240,0.2)" stroke-width="1"/>
+                    <line x1="0" y1="108" x2="30" y2="108" stroke="rgba(0,255,240,0.15)" stroke-width="1"/>
+                    <line x1="0" y1="116" x2="20" y2="116" stroke="rgba(0,255,240,0.1)" stroke-width="1"/>
+                  </g>
+                </svg>
+                <style>
+                  #bikeSVG{animation:bikeFloat 3s ease-in-out infinite}
+                  @keyframes bikeFloat{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+                </style>
+              </div>
+              <div class="card-type-badge" style="background:rgba(0,0,0,0.7);border-color:rgba(0,255,240,0.3);color:#00fff0">🏍️ Drift</div>
+              <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhotoUpload('drift')" style="border-color:rgba(0,255,240,0.3)">
+                <i class="fas fa-camera"></i>
+              </div>
+              <!-- Engine start button -->
+              <div class="engine-btn" id="engineBtn" onclick="event.stopPropagation();startEngine()" style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;background:rgba(0,0,0,0.7);border:2px solid rgba(0,255,240,0.5);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s">
+                <i class="fas fa-power-off" style="color:#00fff0;font-size:20px"></i>
+              </div>
+            </div>
+            <div class="card-wave">
+              <svg viewBox="0 0 400 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,10 L80,25 L160,10 L240,28 L320,12 L400,22 L400,40 L0,40 Z" fill="#0a0a0a"/>
+              </svg>
+            </div>
+            <div class="card-body" style="background:linear-gradient(180deg,#0a0a0a 0%,#050505 100%)">
+              <div class="card-drift-badge"><i class="fas fa-fire-flame-curved"></i> RIDER IDENTITY</div>
+              <div class="card-name" id="name-drift" style="color:#00fff0;font-size:20px;letter-spacing:1px;text-transform:uppercase">YOUR RIDER NAME</div>
+              <div class="card-drift-bike" id="bike-drift">Set your machine</div>
+              <div class="card-actions">
+                <button class="card-action-btn" style="background:linear-gradient(135deg,#00fff0,#7c3aed);color:#000;box-shadow:0 4px 15px rgba(0,255,240,0.3);flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:11px;border-radius:12px;font-family:Inter;font-size:13px;font-weight:700;cursor:pointer;border:none" onclick="event.stopPropagation();shareCard('drift')"><i class="fas fa-share-nodes"></i> Share Ride</button>
+                <button class="card-action-btn card-btn-secondary" style="border-color:rgba(0,255,240,0.2)" onclick="event.stopPropagation();window.location.href='/drift.html'"><i class="fas fa-motorcycle"></i> Drift</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cards-track -->
+    </div><!-- /track-wrap -->
+
+    <!-- SWIPE DOTS -->
+    <div class="swipe-dots" id="swipeDots">
+      <div class="swipe-dot active" data-index="0"></div>
+      <div class="swipe-dot" data-index="1"></div>
+      <div class="swipe-dot" data-index="2"></div>
+      <div class="swipe-dot" data-index="3"></div>
+      <div class="swipe-dot" data-index="4"></div>
+    </div>
+  </div><!-- /cards-area -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a href="/dashboard.html" class="nav-item">
+      <span class="nav-icon">🏠</span><span>Home</span>
+    </a>
+    <a href="/links.html" class="nav-item">
+      <span class="nav-icon">🔗</span><span>Links</span>
+    </a>
+    <a href="/cards.html" class="nav-item active">
+      <div class="nav-center-btn" id="navCenterBtn"><i class="fas fa-id-card" style="color:#fff;font-size:20px"></i></div>
+    </a>
+    <a href="#" class="nav-item" onclick="shareCard(CARDS[currentIndex].id)">
+      <span class="nav-icon">📤</span><span>Share</span>
+    </a>
+    <a href="/settings.html" class="nav-item">
+      <span class="nav-icon">⚙️</span><span>Settings</span>
+    </a>
+  </nav>
+</div>
+
+<!-- CARD EXPAND OVERLAY -->
+<div class="card-expand-overlay" id="cardExpandOverlay" onclick="closeCardMenu()">
+  <div class="card-expand-panel" onclick="event.stopPropagation()">
+    <div class="expand-handle"></div>
+    <div class="expand-title" id="expandTitle">Personal Card</div>
+    <div class="expand-options" id="expandOptions">
+      <div class="expand-option" onclick="editCard(CARDS[currentIndex].id);closeCardMenu()">
+        <i class="fas fa-pen"></i>
+        <div><div class="expand-option-text">Edit Card</div><div class="expand-option-sub">Update your info</div></div>
+      </div>
+      <div class="expand-option" onclick="shareCard(CARDS[currentIndex].id);closeCardMenu()">
+        <i class="fas fa-share-nodes"></i>
+        <div><div class="expand-option-text">Share Card</div><div class="expand-option-sub">WhatsApp, QR, Link</div></div>
+      </div>
+      <div class="expand-option" onclick="downloadQR(CARDS[currentIndex].id);closeCardMenu()">
+        <i class="fas fa-qrcode"></i>
+        <div><div class="expand-option-text">Download QR</div><div class="expand-option-sub">Print ready</div></div>
+      </div>
+      <div class="expand-option" onclick="previewProfile(CARDS[currentIndex].id);closeCardMenu()">
+        <i class="fas fa-eye"></i>
+        <div><div class="expand-option-text">View Profile</div><div class="expand-option-sub">Public view</div></div>
+      </div>
+      <div class="expand-option" onclick="saveVCF(CARDS[currentIndex].id);closeCardMenu()">
+        <i class="fas fa-address-card"></i>
+        <div><div class="expand-option-text">Save Contact</div><div class="expand-option-sub">Download VCF</div></div>
+      </div>
+      <div class="expand-option" onclick="setTheme(currentIndex);closeCardMenu()">
+        <i class="fas fa-palette"></i>
+        <div><div class="expand-option-text">Change Theme</div><div class="expand-option-sub">Customize look</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HIDDEN FILE INPUT -->
+<input type="file" class="upload-input" id="photoUpload" accept="image/*" onchange="handlePhotoUpload(event)">
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://myqrid-backend.myqrid.workers.dev';
+let currentIndex = 0;
+let photoTarget = null;
+let soundEnabled = localStorage.getItem('sound') !== 'off';
+let engineRunning = false;
+let audioCtx = null;
+
+const CARDS = [
+  {id:'personal', theme:'theme-personal', dotColor:'#a78bfa', label:'Personal Card'},
+  {id:'work',     theme:'theme-work',     dotColor:'#60a5fa', label:'Work Card'},
+  {id:'business', theme:'theme-business', dotColor:'#67e8f9', label:'Business Card'},
+  {id:'earn',     theme:'theme-earn',     dotColor:'#fb923c', label:'Earn Card'},
+  {id:'drift',    theme:'theme-drift',    dotColor:'#00fff0', label:'Drift Card'},
+];
+
+const GRADIENTS = {
+  personal:'linear-gradient(135deg,#7c3aed,#ec4899)',
+  work:'linear-gradient(135deg,#2563eb,#06b6d4)',
+  business:'linear-gradient(135deg,#7c3aed,#06b6d4)',
+  earn:'linear-gradient(135deg,#f97316,#ec4899)',
+  drift:'linear-gradient(135deg,#00fff0,#7c3aed)',
+};
+
+function getAudioCtx(){
+  if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playSwipeSound(){
+  if(!soundEnabled) return;
+  try{
+    const ctx = getAudioCtx();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = 'sine'; o.frequency.setValueAtTime(600, ctx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(900, ctx.currentTime+0.05);
+    g.gain.setValueAtTime(0.15, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.12);
+    o.start(); o.stop(ctx.currentTime+0.12);
+  }catch(e){}
+}
+
+function playSuccessSound(){
+  if(!soundEnabled) return;
+  try{
+    const ctx = getAudioCtx();
+    [520,660,780].forEach((f,i)=>{
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type='sine'; o.frequency.value=f;
+      g.gain.setValueAtTime(0, ctx.currentTime+i*0.1);
+      g.gain.linearRampToValueAtTime(0.1, ctx.currentTime+i*0.1+0.03);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+i*0.1+0.2);
+      o.start(ctx.currentTime+i*0.1);
+      o.stop(ctx.currentTime+i*0.1+0.2);
+    });
+  }catch(e){}
+}
+
+function startEngine(){
+  if(!soundEnabled){ showToast('Enable sound for engine experience'); return; }
+  try{
+    const ctx = getAudioCtx();
+    const btn = document.getElementById('engineBtn');
+    const card = btn.closest('.id-card');
+    engineRunning = !engineRunning;
+    if(engineRunning){
+      btn.style.background='rgba(0,255,240,0.2)';
+      btn.style.boxShadow='0 0 30px rgba(0,255,240,0.6)';
+      card.style.boxShadow='0 0 40px rgba(0,255,240,0.3)';
+      // Engine sound
+      const bufSize=2048, buf=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate), data=buf.getChannelData(0);
+      for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.sin(i*0.01);
+      const src=ctx.createBufferSource(); src.buffer=buf; src.loop=true;
+      const dist=ctx.createWaveShaper();
+      const curve=new Float32Array(256); for(let i=0;i<256;i++) curve[i]=((i/128-1)*3)/(1+Math.abs((i/128-1)*3));
+      dist.curve=curve;
+      const filter=ctx.createBiquadFilter(); filter.type='lowpass'; filter.frequency.value=300;
+      const gain=ctx.createGain(); gain.gain.value=0.4;
+      src.connect(dist); dist.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+      src.start();
+      window._engineSrc=src; window._engineGain=gain;
+      showToast('🔥 Engine running!');
+    } else {
+      btn.style.background='rgba(0,0,0,0.7)'; btn.style.boxShadow=''; card.style.boxShadow='';
+      if(window._engineSrc){ try{window._engineSrc.stop();}catch(e){} }
+      showToast('Engine off');
+    }
+  }catch(e){ showToast('Tap to start engine'); }
+}
+
+function updateCardTheme(index){
+  const card = CARDS[index];
+  document.body.className = card.theme;
+  // Update active dot color CSS variable
+  document.documentElement.style.setProperty('--active-dot-color', card.dotColor);
+  // Update nav center gradient
+  document.getElementById('navCenterBtn').style.background = GRADIENTS[card.id];
+  // Update topbar gradient text
+  document.querySelector('.topbar-logo span').style.backgroundImage = GRADIENTS[card.id];
+  // Update all card tabs
+  document.querySelectorAll('.card-tab').forEach((tab,i)=>{
+    tab.classList.toggle('active', i===index);
+    if(i===index){ tab.style.background=GRADIENTS[card.id]; tab.style.boxShadow=`0 4px 15px ${CARDS[i].dotColor}55`; }
+    else{ tab.style.background=''; tab.style.boxShadow=''; }
+  });
+  // Update dots
+  document.querySelectorAll('.swipe-dot').forEach((dot,i)=>{
+    dot.classList.toggle('active', i===index);
+  });
+}
+
+// TOUCH SWIPE LOGIC
+let touchStartX = 0, touchStartY = 0, isDragging = false;
+const track = document.getElementById('cardsTrack');
+const wrap = document.getElementById('trackWrap');
+
+wrap.addEventListener('touchstart', e=>{
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  isDragging = false;
+  track.style.transition = 'none';
+}, {passive:true});
+
+wrap.addEventListener('touchmove', e=>{
+  const dx = e.touches[0].clientX - touchStartX;
+  const dy = e.touches[0].clientY - touchStartY;
+  if(!isDragging && Math.abs(dy)>Math.abs(dx)) return;
+  isDragging = true;
+  e.preventDefault();
+  const base = -currentIndex * 100;
+  const pct = (dx/wrap.offsetWidth)*100;
+  track.style.transform = `translateX(calc(${base}% + ${dx}px))`;
+}, {passive:false});
+
+wrap.addEventListener('touchend', e=>{
+  if(!isDragging) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  track.style.transition = 'transform 0.35s cubic-bezier(0.34,1.2,0.64,1)';
+  if(dx < -50 && currentIndex < CARDS.length-1){
+    currentIndex++;
+    playSwipeSound();
+  } else if(dx > 50 && currentIndex > 0){
+    currentIndex--;
+    playSwipeSound();
+  }
+  track.style.transform = `translateX(-${currentIndex*100}%)`;
+  updateCardTheme(currentIndex);
+});
+
+// Mouse drag (desktop)
+let mouseStartX = 0, mouseDragging = false;
+wrap.addEventListener('mousedown', e=>{ mouseStartX=e.clientX; mouseDragging=true; track.style.transition='none'; });
+wrap.addEventListener('mousemove', e=>{ if(!mouseDragging) return; const dx=e.clientX-mouseStartX; track.style.transform=`translateX(calc(-${currentIndex*100}% + ${dx}px))`; });
+wrap.addEventListener('mouseup', e=>{
+  if(!mouseDragging) return; mouseDragging=false;
+  const dx=e.clientX-mouseStartX;
+  track.style.transition='transform 0.35s cubic-bezier(0.34,1.2,0.64,1)';
+  if(dx<-50&&currentIndex<CARDS.length-1){currentIndex++;playSwipeSound();}
+  else if(dx>50&&currentIndex>0){currentIndex--;playSwipeSound();}
+  track.style.transform=`translateX(-${currentIndex*100}%)`;
+  updateCardTheme(currentIndex);
+});
+wrap.addEventListener('mouseleave', e=>{ if(mouseDragging){mouseDragging=false; track.style.transition='transform 0.35s cubic-bezier(0.34,1.2,0.64,1)'; track.style.transform=`translateX(-${currentIndex*100}%)`;}});
+
+function goToCard(index){
+  if(index===currentIndex) return;
+  const prev = currentIndex;
+  currentIndex = index;
+  track.style.transition='transform 0.35s cubic-bezier(0.34,1.2,0.64,1)';
+  track.style.transform=`translateX(-${index*100}%)`;
+  playSwipeSound();
+  updateCardTheme(index);
+}
+
+function openCardMenu(index){
+  const overlay = document.getElementById('cardExpandOverlay');
+  document.getElementById('expandTitle').textContent = CARDS[index].label;
+  overlay.classList.add('open');
+}
+function closeCardMenu(){
+  document.getElementById('cardExpandOverlay').classList.remove('open');
+}
+
+function toggleSound(){
+  soundEnabled = !soundEnabled;
+  localStorage.setItem('sound', soundEnabled?'on':'off');
+  document.getElementById('soundBtn').classList.toggle('sound-off', !soundEnabled);
+  document.getElementById('soundOffLine').style.display = soundEnabled ? 'none' : 'block';
+  document.getElementById('soundIcon').className = soundEnabled ? 'fas fa-volume-up' : 'fas fa-volume-xmark';
+  showToast(soundEnabled ? 'Sound on 🔊' : 'Sound off 🔇');
+}
+
+function shareCard(cardId){
+  const u = localStorage.getItem('username');
+  const url = 'https://app.myqrid.in/profile/' + u;
+  if(navigator.share){ navigator.share({title:'My myQRID Profile', url}); }
+  else{ navigator.clipboard.writeText(url); showToast('Link copied!'); }
+}
+
+function editCard(cardId){
+  window.location.href='/settings.html?card='+cardId;
+}
+
+function previewProfile(cardId){
+  const u = localStorage.getItem('username');
+  if(u) window.open('/profile/'+u,'_blank');
+}
+
+function downloadQR(cardId){
+  showToast('QR download coming soon!');
+}
+
+function saveVCF(cardId){
+  const name = localStorage.getItem('name') || 'myQRID User';
+  const phone = localStorage.getItem('phone') || '';
+  const email = localStorage.getItem('email') || '';
+  const username = localStorage.getItem('username') || '';
+  const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${name}\nTEL:${phone}\nEMAIL:${email}\nURL:https://app.myqrid.in/profile/${username}\nNOTE:myQRID Profile\nEND:VCARD`;
+  const blob = new Blob([vcard], {type:'text/vcard'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = username+'.vcf';
+  a.click();
+  showToast('Contact saved!');
+}
+
+function setTheme(index){ showToast('Custom themes coming in Pro!'); }
+
+function triggerPhotoUpload(target){
+  photoTarget = target;
+  document.getElementById('photoUpload').click();
+}
+
+function handlePhotoUpload(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    const container = document.getElementById('photo-'+photoTarget);
+    container.innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;display:block">`;
+    // Update initials element too
+    const initial = (localStorage.getItem('name')||'U')[0].toUpperCase();
+    localStorage.setItem('avatar_'+photoTarget, ev.target.result);
+    showToast('Photo updated!');
+    playSuccessSound();
+  };
+  reader.readAsDataURL(file);
+}
+
+function loadUserData(){
+  const name = localStorage.getItem('name') || '';
+  const username = localStorage.getItem('username') || '';
+  const phone = localStorage.getItem('phone') || '';
+  const email = localStorage.getItem('email') || '';
+  if(name){
+    const initial = name[0].toUpperCase();
+    ['personal','work','business','earn'].forEach(id=>{
+      const el = document.getElementById('initials-'+id);
+      if(el) el.textContent = initial;
+    });
+    const nd = document.getElementById('name-drift');
+    if(nd) nd.textContent = name.toUpperCase();
+  }
+  if(name) ['personal','work','business','earn'].forEach(id=>{ const el=document.getElementById('name-'+id); if(el) el.textContent=name; });
+  if(phone) ['personal'].forEach(id=>{ const el=document.getElementById('phone-'+id); if(el) el.textContent=phone; });
+  if(email) ['personal','work'].forEach(id=>{ const el=document.getElementById('email-'+id); if(el) el.textContent=email; });
+  // Load saved avatars
+  ['personal','work','business','earn','drift'].forEach(id=>{
+    const saved = localStorage.getItem('avatar_'+id);
+    if(saved){
+      const container = document.getElementById('photo-'+id);
+      if(container) container.innerHTML = `<img src="${saved}" style="width:100%;height:100%;object-fit:cover;display:block">`;
+    }
+  });
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// INIT
+if(!soundEnabled){
+  document.getElementById('soundBtn').classList.add('sound-off');
+  document.getElementById('soundOffLine').style.display='block';
+  document.getElementById('soundIcon').className='fas fa-volume-xmark';
+}
+
+loadUserData();
+updateCardTheme(0);
+document.documentElement.style.setProperty('--active-dot-color','#a78bfa');
+</script>
+</body>
+</html>
