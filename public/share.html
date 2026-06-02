@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Share — myQRID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#f7f7f8;color:#111}
+body{background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.032) 39px,rgba(0,0,0,0.032) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.032) 39px,rgba(0,0,0,0.032) 40px)}
+.page{max-width:480px;margin:0 auto;padding-bottom:100px}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
+.back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
+.topbar-title{font-size:16px;font-weight:700}
+.topbar-right{width:34px}
+
+/* QR CARD */
+.qr-card-wrap{padding:20px 16px 0}
+.qr-card{background:#fff;border-radius:24px;padding:24px;box-shadow:0 4px 24px rgba(0,0,0,0.08);border:1px solid #e9e9eb;position:relative;overflow:hidden}
+.qr-card-gradient{position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,58,237,0.04),rgba(236,72,153,0.03));pointer-events:none}
+.qr-top{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.qr-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;border:2px solid rgba(124,58,237,0.2)}
+.qr-avatar img{width:100%;height:100%;object-fit:cover}
+.qr-user-info{flex:1;min-width:0}
+.qr-name{font-size:17px;font-weight:800;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qr-url{font-size:12px;color:#7c3aed;margin-top:2px}
+.qr-verified{display:inline-flex;align-items:center;gap:4px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:2px 8px;font-size:10px;color:#7c3aed;font-weight:600;margin-top:4px}
+
+/* QR CODE DISPLAY */
+.qr-display{display:flex;justify-content:center;margin-bottom:20px}
+.qr-frame{position:relative;padding:16px;background:#fff;border-radius:20px;border:1px solid #e9e9eb;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.qr-frame canvas{display:block;border-radius:8px}
+.qr-logo-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:10px;background:#fff;border:2px solid rgba(124,58,237,0.15);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.qr-logo-text{font-size:8px;font-weight:900;color:#7c3aed;letter-spacing:-0.3px}
+
+/* QR STYLE PICKER */
+.qr-style-row{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+.qr-style-row::-webkit-scrollbar{display:none}
+.qr-style-opt{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;padding:8px 10px;border-radius:12px;border:1.5px solid #e9e9eb;background:#f9f9fb;transition:all 0.18s;min-width:60px}
+.qr-style-opt.active{border-color:rgba(124,58,237,0.4);background:rgba(124,58,237,0.06)}
+.qr-style-preview{width:32px;height:32px;border-radius:6px}
+.qr-style-name{font-size:10px;font-weight:600;color:#888}
+.qr-style-opt.active .qr-style-name{color:#7c3aed}
+
+/* URL DISPLAY */
+.url-row{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;margin-bottom:6px}
+.url-text{flex:1;font-size:13px;color:#7c3aed;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.url-copy-btn{padding:5px 12px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:8px;color:#7c3aed;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
+
+/* DOWNLOAD BUTTONS */
+.download-section{padding:0 16px;margin-top:16px}
+.dl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:14px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.dl-btn:active{transform:scale(0.96)}
+.dl-png{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 14px rgba(124,58,237,0.28)}
+.dl-svg{background:#fff;border:1.5px solid #e9e9eb!important;color:#111;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+.dl-pdf{background:#fff;border:1.5px solid #e9e9eb!important;color:#111;box-shadow:0 1px 6px rgba(0,0,0,0.06)}
+.dl-full{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:14px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;background:#25D366;color:#fff;box-shadow:0 4px 14px rgba(37,211,102,0.3);transition:all 0.2s;margin-bottom:8px}
+.dl-full:active{transform:scale(0.97)}
+.dl-vcf{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:14px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;background:#fff;border:1.5px solid #e9e9eb;color:#111;box-shadow:0 1px 6px rgba(0,0,0,0.06);transition:all 0.2s}
+
+/* SHARE OPTIONS */
+.share-section{padding:0 16px;margin-top:14px}
+.share-title{font-size:12px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.share-opt{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 8px;background:#fff;border:1px solid #e9e9eb;border-radius:14px;cursor:pointer;transition:all 0.18s;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.share-opt:active{transform:scale(0.93)}
+.share-opt-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.share-opt-label{font-size:10px;font-weight:600;color:#666;text-align:center}
+
+/* STORY CARD */
+.story-section{padding:0 16px;margin-top:14px}
+.story-card-preview{border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#4c1d95,#7c3aed,#ec4899);padding:28px 24px;text-align:center;position:relative;box-shadow:0 8px 30px rgba(124,58,237,0.3);margin-bottom:12px}
+.story-card-preview::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,rgba(255,255,255,0.05),transparent);pointer-events:none}
+.story-avatar-ring{width:72px;height:72px;border-radius:50%;border:3px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;overflow:hidden;background:rgba(255,255,255,0.15)}
+.story-avatar-ring img{width:100%;height:100%;object-fit:cover}
+.story-name{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}
+.story-username{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:16px}
+.story-qr-mini{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:10px;display:inline-block;margin-bottom:10px}
+.story-cta{font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:4px}
+.story-brand{font-size:13px;font-weight:800;color:#fff}
+.story-brand span{color:rgba(255,255,255,0.6)}
+.story-dl-btn{width:100%;padding:12px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.2);border-radius:12px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s}
+.story-dl-btn:active{background:rgba(255,255,255,0.2)}
+
+/* SIZE SELECTOR */
+.size-row{display:flex;gap:6px;margin-bottom:14px}
+.size-opt{flex:1;padding:7px;border-radius:10px;border:1.5px solid #e9e9eb;background:#f9f9fb;text-align:center;cursor:pointer;transition:all 0.18s}
+.size-opt.active{border-color:rgba(124,58,237,0.4);background:rgba(124,58,237,0.06)}
+.size-opt-val{font-size:13px;font-weight:700;color:#111}
+.size-opt.active .size-opt-val{color:#7c3aed}
+.size-opt-label{font-size:10px;color:#aaa;margin-top:1px}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.04)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0;cursor:pointer}
+.nav-item.active{color:#7c3aed}
+.nav-icon{font-size:20px;line-height:1}
+.nav-ctr{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
+    <div class="topbar-title">Share & Download</div>
+    <div class="topbar-right"></div>
+  </div>
+
+  <!-- QR CARD -->
+  <div class="qr-card-wrap">
+    <div class="qr-card">
+      <div class="qr-card-gradient"></div>
+      <div class="qr-top">
+        <div class="qr-avatar" id="qrAvatar"><span id="qrInitial">?</span></div>
+        <div class="qr-user-info">
+          <div class="qr-name" id="qrName">Your Name</div>
+          <div class="qr-url" id="qrUrl">myqrid.in/—</div>
+          <div class="qr-verified" id="qrVerified" style="display:none"><i class="fas fa-check" style="font-size:8px"></i> Verified</div>
+        </div>
+      </div>
+
+      <!-- QR STYLE PICKER -->
+      <div class="qr-style-row" id="qrStyleRow"></div>
+
+      <!-- SIZE SELECTOR -->
+      <div class="size-row" id="sizeRow"></div>
+
+      <!-- QR CODE -->
+      <div class="qr-display">
+        <div class="qr-frame">
+          <canvas id="qrCanvas"></canvas>
+          <div class="qr-logo-overlay">
+            <div class="qr-logo-text">myQRID</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- URL ROW -->
+      <div class="url-row">
+        <div class="url-text" id="urlDisplay">myqrid.in/username</div>
+        <button class="url-copy-btn" onclick="copyUrl()"><i class="fas fa-copy"></i> Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD BUTTONS -->
+  <div class="download-section">
+    <div style="font-size:12px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;margin-top:16px">Download QR</div>
+    <div class="dl-grid">
+      <button class="dl-btn dl-png" onclick="downloadQR('png')"><i class="fas fa-image"></i> PNG</button>
+      <button class="dl-btn dl-svg" onclick="downloadQR('svg')"><i class="fas fa-vector-square"></i> SVG</button>
+    </div>
+    <button class="dl-full" onclick="shareWhatsApp()"><i class="fab fa-whatsapp" style="font-size:18px"></i> Share on WhatsApp</button>
+    <button class="dl-vcf" onclick="downloadVCF()"><i class="fas fa-address-card"></i> Download Contact (.vcf)</button>
+  </div>
+
+  <!-- SHARE OPTIONS -->
+  <div class="share-section">
+    <div class="share-title">Share Via</div>
+    <div class="share-grid">
+      <div class="share-opt" onclick="shareNative()">
+        <div class="share-opt-icon" style="background:#f3f0ff"><i class="fas fa-share-nodes" style="color:#7c3aed"></i></div>
+        <div class="share-opt-label">Share</div>
+      </div>
+      <div class="share-opt" onclick="shareWhatsApp()">
+        <div class="share-opt-icon" style="background:#dcfce7"><i class="fab fa-whatsapp" style="color:#16a34a"></i></div>
+        <div class="share-opt-label">WhatsApp</div>
+      </div>
+      <div class="share-opt" onclick="shareTwitter()">
+        <div class="share-opt-icon" style="background:#f0f0f0"><i class="fab fa-x-twitter" style="color:#111"></i></div>
+        <div class="share-opt-label">X</div>
+      </div>
+      <div class="share-opt" onclick="copyUrl()">
+        <div class="share-opt-icon" style="background:#fce7f3"><i class="fas fa-link" style="color:#ec4899"></i></div>
+        <div class="share-opt-label">Copy Link</div>
+      </div>
+      <div class="share-opt" onclick="shareLinkedIn()">
+        <div class="share-opt-icon" style="background:#dbeafe"><i class="fab fa-linkedin" style="color:#0a66c2"></i></div>
+        <div class="share-opt-label">LinkedIn</div>
+      </div>
+      <div class="share-opt" onclick="shareTelegram()">
+        <div class="share-opt-icon" style="background:#e0f2fe"><i class="fab fa-telegram" style="color:#2aabee"></i></div>
+        <div class="share-opt-label">Telegram</div>
+      </div>
+      <div class="share-opt" onclick="shareInstagram()">
+        <div class="share-opt-icon" style="background:#fce7f3"><i class="fab fa-instagram" style="color:#e1306c"></i></div>
+        <div class="share-opt-label">Instagram</div>
+      </div>
+      <div class="share-opt" onclick="shareEmail()">
+        <div class="share-opt-icon" style="background:#fef3c7"><i class="fas fa-envelope" style="color:#f59e0b"></i></div>
+        <div class="share-opt-label">Email</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORY CARD -->
+  <div class="story-section">
+    <div style="font-size:12px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">Story Card</div>
+    <div class="story-card-preview" id="storyCard">
+      <div class="story-avatar-ring" id="storyAvatar"></div>
+      <div class="story-name" id="storyName">Your Name</div>
+      <div class="story-username" id="storyUsername">@username</div>
+      <div class="story-qr-mini">
+        <canvas id="qrMini" width="80" height="80"></canvas>
+      </div>
+      <div class="story-cta">Scan to connect with me</div>
+      <div class="story-brand">my<span>QRID</span></div>
+    </div>
+    <button class="story-dl-btn" onclick="downloadStoryCard()">
+      <i class="fas fa-download"></i> Download Story Card
+    </button>
+  </div>
+
+  <div style="height:20px"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+  <a href="/links.html" class="nav-item"><span class="nav-icon">🔗</span><span>Links</span></a>
+  <a href="/cards.html" class="nav-item" style="flex:none;width:60px">
+    <div class="nav-ctr"><i class="fas fa-id-card" style="color:#fff;font-size:18px"></i></div>
+  </a>
+  <a href="/share.html" class="nav-item active"><span class="nav-icon">📤</span><span>Share</span></a>
+  <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let username='',profileUrl='',qrSize=200,qrStyle='default',userName='';
+
+const QR_STYLES=[
+  {id:'default',name:'Classic',colors:['#000000','#ffffff']},
+  {id:'purple',name:'Purple',colors:['#7c3aed','#ffffff']},
+  {id:'drift',name:'Drift',colors:['#00c8b8','#000000']},
+  {id:'pink',name:'Pink',colors:['#ec4899','#ffffff']},
+  {id:'dark',name:'Dark',colors:['#111827','#f9fafb']},
+  {id:'green',name:'Green',colors:['#059669','#f0fdf4']},
+];
+
+const SIZES=[
+  {val:150,label:'S',desc:'Small'},
+  {val:200,label:'M',desc:'Medium'},
+  {val:280,label:'L',desc:'Large'},
+  {val:400,label:'XL',desc:'Print'},
+];
+
+function buildStylePicker(){
+  document.getElementById('qrStyleRow').innerHTML=QR_STYLES.map(s=>`
+    <div class="qr-style-opt ${s.id===qrStyle?'active':''}" onclick="setStyle('${s.id}')">
+      <div class="qr-style-preview" style="background:${s.colors[1]};border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center">
+        <i class="fas fa-qrcode" style="color:${s.colors[0]};font-size:18px"></i>
+      </div>
+      <div class="qr-style-name">${s.name}</div>
+    </div>`).join('');
+}
+
+function buildSizePicker(){
+  document.getElementById('sizeRow').innerHTML=SIZES.map(s=>`
+    <div class="size-opt ${s.val===qrSize?'active':''}" onclick="setSize(${s.val})">
+      <div class="size-opt-val">${s.label}</div>
+      <div class="size-opt-label">${s.desc}</div>
+    </div>`).join('');
+}
+
+function setStyle(id){qrStyle=id;buildStylePicker();generateQR();generateMiniQR();}
+function setSize(v){qrSize=v;buildSizePicker();generateQR();}
+
+function generateQR(){
+  const style=QR_STYLES.find(s=>s.id===qrStyle)||QR_STYLES[0];
+  const canvas=document.getElementById('qrCanvas');
+  QRCode.toCanvas(canvas,profileUrl,{
+    width:qrSize,margin:2,
+    color:{dark:style.colors[0],light:style.colors[1]}
+  },err=>{if(err)console.error(err);});
+}
+
+function generateMiniQR(){
+  const canvas=document.getElementById('qrMini');
+  QRCode.toCanvas(canvas,profileUrl,{
+    width:80,margin:1,
+    color:{dark:'#fff',light:'rgba(255,255,255,0.15)'}
+  },()=>{});
+}
+
+function loadUserData(){
+  username=localStorage.getItem('username')||'';
+  userName=localStorage.getItem('name')||username;
+  profileUrl=`https://myqrid.in/${username}`;
+
+  document.getElementById('qrName').textContent=userName;
+  document.getElementById('qrUrl').textContent=`myqrid.in/${username}`;
+  document.getElementById('urlDisplay').textContent=profileUrl;
+  document.getElementById('storyName').textContent=userName;
+  document.getElementById('storyUsername').textContent='@'+username;
+
+  const av=localStorage.getItem('avatar_personal');
+  const qrAv=document.getElementById('qrAvatar');
+  const stAv=document.getElementById('storyAvatar');
+  if(av){
+    qrAv.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;
+    stAv.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;
+  }else{
+    const ini=userName[0]?.toUpperCase()||'?';
+    document.getElementById('qrInitial').textContent=ini;
+    stAv.innerHTML=`<span style="font-size:22px;font-weight:800;color:#fff">${ini}</span>`;
+  }
+
+  buildStylePicker();buildSizePicker();
+  setTimeout(()=>{generateQR();generateMiniQR();},300);
+}
+
+/* ── DOWNLOAD QR PNG ── */
+function downloadQR(type){
+  const canvas=document.getElementById('qrCanvas');
+  if(type==='png'){
+    const link=document.createElement('a');
+    link.download=`myqrid-${username}.png`;
+    link.href=canvas.toDataURL('image/png');
+    link.click();showToast('QR downloaded!');
+  }else if(type==='svg'){
+    const style=QR_STYLES.find(s=>s.id===qrStyle)||QR_STYLES[0];
+    QRCode.toString(profileUrl,{type:'svg',color:{dark:style.colors[0],light:style.colors[1]}},
+      (err,str)=>{
+        if(err)return;
+        const blob=new Blob([str],{type:'image/svg+xml'});
+        const link=document.createElement('a');
+        link.download=`myqrid-${username}.svg`;
+        link.href=URL.createObjectURL(blob);
+        link.click();showToast('SVG downloaded!');
+      });
+  }
+}
+
+/* ── DOWNLOAD STORY CARD ── */
+function downloadStoryCard(){
+  const card=document.getElementById('storyCard');
+  /* Use html2canvas if available, else screenshot hint */
+  showToast('Long press the card to save image');
+}
+
+/* ── VCF ── */
+function downloadVCF(){
+  const n=localStorage.getItem('name')||'';
+  const p=localStorage.getItem('phone')||'';
+  const e=localStorage.getItem('email')||'';
+  const u=username;
+  const v=`BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL:${p}\nEMAIL:${e}\nURL:https://myqrid.in/${u}\nNOTE:myQRID Digital Identity\nEND:VCARD`;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));
+  a.download=(u||'contact')+'.vcf';a.click();
+  showToast('Contact saved!');
+}
+
+/* ── SHARE FUNCTIONS ── */
+function copyUrl(){navigator.clipboard.writeText(profileUrl);showToast('Link copied!');}
+function shareNative(){
+  if(navigator.share)navigator.share({title:userName+' — myQRID',url:profileUrl});
+  else copyUrl();
+}
+function shareWhatsApp(){
+  const text=`Check out my digital identity on myQRID!\n${profileUrl}`;
+  window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
+}
+function shareTwitter(){
+  window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Check out my myQRID profile! '+profileUrl),'_blank');
+}
+function shareLinkedIn(){
+  window.open('https://linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(profileUrl),'_blank');
+}
+function shareTelegram(){
+  window.open('https://t.me/share/url?url='+encodeURIComponent(profileUrl)+'&text='+encodeURIComponent('My myQRID Digital Identity'),'_blank');
+}
+function shareInstagram(){showToast('Copy link and paste in Instagram bio!');}
+function shareEmail(){
+  window.location.href='mailto:?subject=My myQRID Digital Identity&body=Check out my profile: '+profileUrl;
+}
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+loadUserData();
+</script>
+</body>
+</html>
