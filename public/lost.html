@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lost & Found — myQRID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111}
+body{background:#f7f7f8;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.032) 39px,rgba(0,0,0,0.032) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.032) 39px,rgba(0,0,0,0.032) 40px)}
+.page{max-width:480px;margin:0 auto;padding-bottom:100px}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
+.back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
+.topbar-title{font-size:16px;font-weight:700}
+.save-btn{padding:7px 16px;background:linear-gradient(135deg,#FF3B5C,#ff6b6b);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(255,59,92,0.3)}
+.save-btn:disabled{opacity:0.5}
+
+/* LOST MODE TOGGLE HERO */
+.lost-hero{margin:14px 16px;border-radius:20px;overflow:hidden;position:relative}
+.lost-hero-bg{padding:20px;background:linear-gradient(135deg,#1a0008,#3d0015);position:relative}
+.lost-hero-bg.active-lost{background:linear-gradient(135deg,#3d0015,#6b001f)}
+.lost-hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.lost-hero-label{font-size:12px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px}
+.lost-main-toggle{width:52px;height:28px;border-radius:14px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.15);cursor:pointer;position:relative;transition:all 0.25s;flex-shrink:0}
+.lost-main-toggle.on{background:#FF3B5C;border-color:#FF3B5C;box-shadow:0 0 20px rgba(255,59,92,0.5)}
+.lost-main-toggle::after{content:'';position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 4px rgba(0,0,0,0.2)}
+.lost-main-toggle.on::after{transform:translateX(24px)}
+.lost-status-text{font-size:22px;font-weight:900;color:#fff;margin-bottom:4px}
+.lost-status-text.on{color:#FF3B5C;text-shadow:0 0 20px rgba(255,59,92,0.4)}
+.lost-status-sub{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5}
+.lost-pulse{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 12px;background:rgba(255,59,92,0.12);border:1px solid rgba(255,59,92,0.25);border-radius:20px;font-size:11px;color:#FF3B5C;font-weight:600}
+.lost-pulse-dot{width:6px;height:6px;border-radius:50%;background:#FF3B5C;animation:pdot 1.5s ease-in-out infinite}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+
+/* SECTION */
+.section{margin:0 16px 12px}
+.section-title{font-size:12px;font-weight:700;color:#FF3B5C;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.section-card{background:#fff;border:1px solid #e9e9eb;border-radius:16px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+
+/* FIELD ROW */
+.field-row{padding:12px 14px;border-bottom:1px solid #f5f5f7;display:flex;align-items:flex-start;gap:12px}
+.field-row:last-child{border-bottom:none}
+.field-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px}
+.field-info{flex:1;min-width:0}
+.field-label{font-size:12px;font-weight:600;color:#888;margin-bottom:5px}
+.field-input{width:100%;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;color:#111;background:transparent;resize:none}
+.field-input::placeholder{color:#ccc}
+.field-textarea{width:100%;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;color:#111;background:transparent;resize:none;min-height:80px;line-height:1.5}
+.field-textarea::placeholder{color:#ccc}
+
+/* PHOTO UPLOAD */
+.photo-upload-area{margin:12px 14px;border:2px dashed rgba(255,59,92,0.25);border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.2s}
+.photo-upload-area:active{border-color:rgba(255,59,92,0.5)}
+.photo-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;color:#ccc}
+.photo-placeholder i{font-size:28px;color:rgba(255,59,92,0.3)}
+.photo-placeholder span{font-size:13px;font-weight:500}
+.photo-preview{width:100%;max-height:200px;object-fit:cover;display:block}
+
+/* REWARD INPUT */
+.reward-row{display:flex;align-items:center;gap:8px;padding:12px 14px}
+.reward-prefix{font-size:15px;font-weight:700;color:#888}
+.reward-input{flex:1;border:none;outline:none;font-family:'Inter',sans-serif;font-size:15px;color:#111;background:transparent}
+.reward-input::placeholder{color:#ccc}
+.reward-type-btns{display:flex;gap:6px;padding:0 14px 12px}
+.rtype-btn{flex:1;padding:7px;border-radius:10px;border:1.5px solid #e9e9eb;background:#f9f9fb;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#888;cursor:pointer;transition:all 0.18s;text-align:center}
+.rtype-btn.active{background:rgba(255,59,92,0.08);border-color:rgba(255,59,92,0.3);color:#FF3B5C}
+
+/* MAP SECTION */
+.map-section{margin:0 16px 12px}
+.map-placeholder{background:#fff;border:1px solid #e9e9eb;border-radius:16px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.map-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f5f5f7}
+.map-title{font-size:13px;font-weight:700;color:#111}
+.map-sub{font-size:11px;color:#aaa;margin-top:2px}
+.map-pro-badge{padding:3px 10px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;font-size:10px;font-weight:700;color:#fff}
+.map-body{height:140px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:pointer}
+.map-body i{font-size:28px;color:rgba(74,222,128,0.5)}
+.map-body span{font-size:12px;color:#aaa}
+#leafletMap{height:200px;border-radius:0}
+
+/* SCAN STATS */
+.scan-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 16px 12px}
+.stat-card{background:#fff;border:1px solid #e9e9eb;border-radius:14px;padding:14px 12px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.stat-val{font-size:22px;font-weight:800;color:#111}
+.stat-label{font-size:10px;color:#aaa;margin-top:3px;font-weight:500}
+
+/* FINDER HISTORY */
+.finder-card{background:#fff;border:1px solid #e9e9eb;border-radius:13px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.finder-dot{width:8px;height:8px;border-radius:50%;background:#00E5A0;flex-shrink:0}
+.finder-info{flex:1}
+.finder-time{font-size:12px;font-weight:600;color:#111}
+.finder-loc{font-size:11px;color:#aaa;margin-top:1px}
+
+/* PREVIEW */
+.preview-banner{margin:0 16px 14px;padding:16px;background:linear-gradient(135deg,#1a0008,#2d0010);border-radius:16px;color:#fff;border:1px solid rgba(255,59,92,0.2)}
+.preview-label{font-size:10px;font-weight:600;color:rgba(255,59,92,0.6);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.preview-warning{font-size:18px;font-weight:900;color:#FF3B5C;margin-bottom:4px}
+.preview-msg{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.5}
+
+/* TOGGLE */
+.toggle-sw{width:44px;height:24px;border-radius:12px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
+.toggle-sw.on{background:#FF3B5C}
+.toggle-sw::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.toggle-sw.on::after{transform:translateX(20px)}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.04)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0;cursor:pointer}
+.nav-item.active{color:#FF3B5C}
+.nav-icon{font-size:20px;line-height:1}
+.nav-ctr{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
+    <div class="topbar-title">Lost & Found</div>
+    <button class="save-btn" id="saveBtn" onclick="saveAll()">Save</button>
+  </div>
+
+  <!-- LOST MODE HERO TOGGLE -->
+  <div class="lost-hero">
+    <div class="lost-hero-bg" id="lostHeroBg">
+      <div class="lost-hero-top">
+        <div class="lost-hero-label">Lost Mode</div>
+        <button class="lost-main-toggle" id="lostMainToggle" onclick="toggleLostMode()"></button>
+      </div>
+      <div class="lost-status-text" id="lostStatusText">Item is Safe</div>
+      <div class="lost-status-sub" id="lostStatusSub">Toggle on if your item is lost. Finders will see your contact info when they scan.</div>
+      <div class="lost-pulse" id="lostPulse" style="display:none">
+        <div class="lost-pulse-dot"></div> LOST MODE ACTIVE — Visible to finders
+      </div>
+    </div>
+  </div>
+
+  <!-- SCAN STATS -->
+  <div class="scan-stats">
+    <div class="stat-card"><div class="stat-val" id="statTotal">0</div><div class="stat-label">Total Scans</div></div>
+    <div class="stat-card"><div class="stat-val" id="statToday">0</div><div class="stat-label">Today</div></div>
+    <div class="stat-card"><div class="stat-val" id="statFinders">0</div><div class="stat-label">Finders</div></div>
+  </div>
+
+  <!-- ITEM DETAILS -->
+  <div class="section">
+    <div class="section-title"><i class="fas fa-tag"></i> Item Details</div>
+    <div class="section-card">
+      <div class="field-row">
+        <div class="field-icon" style="background:#fef3c7"><i class="fas fa-box" style="color:#f59e0b"></i></div>
+        <div class="field-info">
+          <div class="field-label">Item Name</div>
+          <input class="field-input" type="text" id="itemName" placeholder="e.g. My Motorcycle Helmet, Wallet, Keys">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field-icon" style="background:#dbeafe"><i class="fas fa-align-left" style="color:#2563eb"></i></div>
+        <div class="field-info">
+          <div class="field-label">Message to Finder</div>
+          <textarea class="field-textarea" id="finderMsg" placeholder="e.g. Please contact me, I will reward you. This is important to me."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ITEM PHOTO -->
+  <div class="section">
+    <div class="section-title"><i class="fas fa-image"></i> Item Photo</div>
+    <div class="section-card">
+      <div class="photo-upload-area" onclick="document.getElementById('itemPhotoInput').click()">
+        <img id="itemPhotoPreview" class="photo-preview" style="display:none" src="" alt="Item">
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <i class="fas fa-camera"></i>
+          <span>Tap to add item photo</span>
+          <span style="font-size:11px;color:#ddd">Helps finders identify your item</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REWARD -->
+  <div class="section">
+    <div class="section-title"><i class="fas fa-gift"></i> Reward (Optional)</div>
+    <div class="section-card">
+      <div class="reward-type-btns">
+        <button class="rtype-btn active" id="rt-none" onclick="setRewardType('none')">No Reward</button>
+        <button class="rtype-btn" id="rt-amount" onclick="setRewardType('amount')">Amount</button>
+        <button class="rtype-btn" id="rt-custom" onclick="setRewardType('custom')">Custom</button>
+      </div>
+      <div class="reward-row" id="rewardAmountRow" style="display:none">
+        <span class="reward-prefix">₹</span>
+        <input class="reward-input" type="number" id="rewardAmount" placeholder="Enter reward amount">
+      </div>
+      <div class="field-row" id="rewardCustomRow" style="display:none">
+        <div class="field-icon" style="background:#fef3c7"><i class="fas fa-gift" style="color:#f59e0b"></i></div>
+        <div class="field-info">
+          <div class="field-label">Custom Reward</div>
+          <input class="field-input" type="text" id="rewardCustom" placeholder="e.g. Meal treat, Phone call reward">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT VISIBILITY -->
+  <div class="section">
+    <div class="section-title"><i class="fas fa-eye"></i> What Finders Can See</div>
+    <div class="section-card">
+      <div class="field-row" style="align-items:center">
+        <div class="field-icon" style="background:#dcfce7"><i class="fab fa-whatsapp" style="color:#16a34a"></i></div>
+        <div class="field-info"><div class="field-label" style="margin:0;font-size:13px;font-weight:600;color:#111">Show WhatsApp</div><div style="font-size:11px;color:#aaa;margin-top:2px">Finder can message you on WhatsApp</div></div>
+        <button class="toggle-sw on" id="showWaToggle" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div class="field-row" style="align-items:center">
+        <div class="field-icon" style="background:#dbeafe"><i class="fas fa-phone" style="color:#2563eb"></i></div>
+        <div class="field-info"><div class="field-label" style="margin:0;font-size:13px;font-weight:600;color:#111">Show Phone</div><div style="font-size:11px;color:#aaa;margin-top:2px">Finder can call you directly</div></div>
+        <button class="toggle-sw on" id="showPhoneToggle" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div class="field-row" style="align-items:center">
+        <div class="field-icon" style="background:#fce7f3"><i class="fas fa-map-marker-alt" style="color:#ec4899"></i></div>
+        <div class="field-info"><div class="field-label" style="margin:0;font-size:13px;font-weight:600;color:#111">Request Location</div><div style="font-size:11px;color:#aaa;margin-top:2px">Ask finder to share their location</div></div>
+        <button class="toggle-sw on" id="showLocToggle" onclick="this.classList.toggle('on')"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCAN MAP — Pro -->
+  <div class="map-section">
+    <div class="section-title" style="margin-bottom:10px"><i class="fas fa-map-marked-alt"></i> Scan Location Map</div>
+    <div class="map-placeholder">
+      <div class="map-header">
+        <div>
+          <div class="map-title">Live Scan Map</div>
+          <div class="map-sub">See where your QR was scanned</div>
+        </div>
+        <div class="map-pro-badge">Pro Feature</div>
+      </div>
+      <div class="map-body" onclick="showToast('Upgrade to Blaze for live scan map!')">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>Upgrade to see scan locations</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINDER NOTIFICATIONS -->
+  <div class="section">
+    <div class="section-title"><i class="fas fa-bell"></i> Recent Finder Activity</div>
+    <div id="finderHistory">
+      <div style="background:#fff;border:1px solid #e9e9eb;border-radius:14px;padding:20px;text-align:center;color:#bbb;font-size:13px;box-shadow:0 1px 4px rgba(0,0,0,0.04)">
+        <i class="fas fa-search" style="font-size:24px;color:#e5e7eb;display:block;margin-bottom:8px"></i>
+        No finder activity yet
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE PREVIEW -->
+  <div class="preview-banner" id="previewBanner" style="display:none">
+    <div class="preview-label">What finders will see</div>
+    <div class="preview-warning">🚨 THIS ITEM IS LOST</div>
+    <div class="preview-msg" id="previewMsg">Your message will appear here</div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+  <a href="/links.html" class="nav-item"><span class="nav-icon">🔗</span><span>Links</span></a>
+  <a href="/cards.html" class="nav-item" style="flex:none;width:60px">
+    <div class="nav-ctr"><i class="fas fa-id-card" style="color:#fff;font-size:18px"></i></div>
+  </a>
+  <a href="/lost.html" class="nav-item active"><span class="nav-icon">🔍</span><span>Lost</span></a>
+  <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+</nav>
+
+<input type="file" id="itemPhotoInput" accept="image/*" style="display:none" onchange="handlePhoto(event)">
+<div class="toast" id="toast"></div>
+
+<script>
+const API='https://myqrid-backend.myqrid.workers.dev';
+let lostOn=false,rewardType='none';
+
+/* ── LOST MODE TOGGLE ── */
+function toggleLostMode(){
+  lostOn=!lostOn;
+  const toggle=document.getElementById('lostMainToggle');
+  const bg=document.getElementById('lostHeroBg');
+  const txt=document.getElementById('lostStatusText');
+  const sub=document.getElementById('lostStatusSub');
+  const pulse=document.getElementById('lostPulse');
+  const preview=document.getElementById('previewBanner');
+  toggle.classList.toggle('on',lostOn);
+  bg.classList.toggle('active-lost',lostOn);
+  if(lostOn){
+    txt.textContent='ITEM IS LOST';txt.classList.add('on');
+    sub.textContent='Finders will see your contact info and message when they scan.';
+    pulse.style.display='inline-flex';
+    preview.style.display='block';
+    updatePreview();
+    showToast('🚨 Lost mode activated');
+  }else{
+    txt.textContent='Item is Safe';txt.classList.remove('on');
+    sub.textContent='Toggle on if your item is lost. Finders will see your contact info when they scan.';
+    pulse.style.display='none';
+    preview.style.display='none';
+    showToast('✅ Item marked as safe');
+  }
+}
+
+function updatePreview(){
+  const msg=document.getElementById('finderMsg').value.trim();
+  document.getElementById('previewMsg').textContent=msg||'No message set — add one above';
+}
+
+/* ── REWARD TYPE ── */
+function setRewardType(type){
+  rewardType=type;
+  ['none','amount','custom'].forEach(t=>{
+    document.getElementById('rt-'+t).classList.toggle('active',t===type);
+  });
+  document.getElementById('rewardAmountRow').style.display=type==='amount'?'flex':'none';
+  document.getElementById('rewardCustomRow').style.display=type==='custom'?'flex':'none';
+}
+
+/* ── PHOTO ── */
+function handlePhoto(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    const img=document.getElementById('itemPhotoPreview');
+    const ph=document.getElementById('photoPlaceholder');
+    img.src=ev.target.result;img.style.display='block';ph.style.display='none';
+    localStorage.setItem('lost_photo',ev.target.result);
+  };r.readAsDataURL(f);
+}
+
+/* ── SAVE ── */
+async function saveAll(){
+  const btn=document.getElementById('saveBtn');btn.disabled=true;btn.textContent='Saving...';
+  const token=localStorage.getItem('token');
+  let rewardStr='';
+  if(rewardType==='amount'){const v=document.getElementById('rewardAmount').value;if(v)rewardStr='₹'+v;}
+  else if(rewardType==='custom'){rewardStr=document.getElementById('rewardCustom').value.trim();}
+
+  const payload={
+    lost_mode:lostOn,
+    lost_data:{
+      item_name:document.getElementById('itemName').value.trim(),
+      message:document.getElementById('finderMsg').value.trim(),
+      reward:rewardStr,
+      photo:localStorage.getItem('lost_photo')||'',
+      show_wa:document.getElementById('showWaToggle').classList.contains('on'),
+      show_phone:document.getElementById('showPhoneToggle').classList.contains('on'),
+      show_location:document.getElementById('showLocToggle').classList.contains('on'),
+    }
+  };
+
+  localStorage.setItem('lost_data',JSON.stringify(payload));
+
+  if(token){
+    try{
+      const res=await fetch(API+'/profile/update',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(payload)});
+      const d=await res.json();
+      if(d.success)showToast(lostOn?'🚨 Lost mode saved!':'✅ Saved!');
+      else showToast('Error: '+(d.error||'Failed'));
+    }catch(e){showToast('Saved locally');}
+  }else{showToast('✅ Saved locally');}
+  btn.disabled=false;btn.textContent='Save';
+}
+
+/* ── LOAD ── */
+async function loadData(){
+  const token=localStorage.getItem('token');
+  let data=null;
+  if(token){
+    try{
+      const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
+      const d=await res.json();if(d.success)data=d.profile;
+    }catch(e){}
+  }
+  const local=localStorage.getItem('lost_data');
+  if(!data&&local)try{data=JSON.parse(local);}catch(e){}
+
+  if(data){
+    if(data.lost_mode){lostOn=true;toggleLostMode();}
+    const ld=data.lost_data||{};
+    if(ld.item_name)document.getElementById('itemName').value=ld.item_name;
+    if(ld.message)document.getElementById('finderMsg').value=ld.message;
+    if(ld.reward){
+      if(ld.reward.startsWith('₹')){setRewardType('amount');document.getElementById('rewardAmount').value=ld.reward.slice(1);}
+      else if(ld.reward){setRewardType('custom');document.getElementById('rewardCustom').value=ld.reward;}
+    }
+    if(ld.photo){const img=document.getElementById('itemPhotoPreview');img.src=ld.photo;img.style.display='block';document.getElementById('photoPlaceholder').style.display='none';}
+    if(ld.show_wa===false)document.getElementById('showWaToggle').classList.remove('on');
+    if(ld.show_phone===false)document.getElementById('showPhoneToggle').classList.remove('on');
+    if(ld.show_location===false)document.getElementById('showLocToggle').classList.remove('on');
+  }
+
+  /* Load stats */
+  if(token){
+    try{
+      const res=await fetch(API+'/analytics',{headers:{'Authorization':'Bearer '+token}});
+      const d=await res.json();
+      if(d.success){
+        document.getElementById('statTotal').textContent=d.total_scans||0;
+        document.getElementById('statToday').textContent=d.today_scans||0;
+        document.getElementById('statFinders').textContent=d.finders||0;
+      }
+    }catch(e){}
+  }
+}
+
+document.getElementById('finderMsg').addEventListener('input',updatePreview);
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+loadData();
+</script>
+</body>
+</html>
