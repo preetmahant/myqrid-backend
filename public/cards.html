@@ -9,49 +9,40 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif}
-
-/* THEMES - tertiary/muted palette */
 body.theme-personal{background:#1a1025}
-body.theme-work{background:#0f1a14}
-body.theme-business{background:#0d1520}
-body.theme-earn{background:#1a1208}
+body.theme-work{background:#07111f}
+body.theme-business{background:#0a100c}
+body.theme-earn{background:#0d1d14}
 body.theme-drift{background:#050505}
-
 .bg-layer{position:fixed;inset:0;z-index:0;transition:background 0.6s ease}
 body.theme-personal .bg-layer{background:radial-gradient(ellipse at 25% 15%,rgba(167,139,250,0.3) 0%,transparent 55%),radial-gradient(ellipse at 75% 80%,rgba(196,167,255,0.2) 0%,transparent 50%),#1a1025}
-body.theme-work .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(100,140,120,0.35) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(160,190,170,0.2) 0%,transparent 50%),#0f1a14}
-body.theme-business .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(100,140,190,0.3) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(180,200,230,0.2) 0%,transparent 50%),#0d1520}
-body.theme-earn .bg-layer{background:radial-gradient(ellipse at 25% 20%,rgba(180,130,80,0.35) 0%,transparent 50%),radial-gradient(ellipse at 75% 75%,rgba(210,170,110,0.2) 0%,transparent 50%),#1a1208}
+body.theme-work .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(96,165,250,0.25) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(147,197,253,0.15) 0%,transparent 50%),#07111f}
+body.theme-business .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(74,222,128,0.2) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(134,239,172,0.15) 0%,transparent 50%),#0a100c}
+body.theme-earn .bg-layer{background:radial-gradient(ellipse at 25% 20%,rgba(74,222,128,0.2) 0%,transparent 50%),radial-gradient(ellipse at 75% 75%,rgba(187,247,208,0.12) 0%,transparent 50%),#0d1d14}
 body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,200,180,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(100,80,180,0.2) 0%,transparent 50%),#050505}
-
 .topbar{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top))}
 .topbar-logo{font-size:20px;font-weight:700;color:#fff}
 .topbar-right{display:flex;gap:8px}
 .icon-btn{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.6);font-size:15px;transition:all 0.2s;position:relative}
 .icon-btn:active{background:rgba(255,255,255,0.12)}
 .sound-off-line{position:absolute;width:2px;height:22px;background:rgba(255,255,255,0.7);transform:rotate(45deg);display:none;top:50%;left:50%;margin:-11px -1px;pointer-events:none;border-radius:1px}
-
 .cards-area{position:relative;z-index:5;flex:1;display:flex;flex-direction:column;padding:0 16px;overflow:hidden}
 .card-tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
 .card-tabs::-webkit-scrollbar{display:none}
 .card-tab{flex-shrink:0;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);cursor:pointer;transition:all 0.3s;white-space:nowrap}
-
 .cards-track-wrap{flex:1;overflow:hidden;position:relative;touch-action:pan-y pinch-zoom}
 .cards-track{display:flex;height:100%;transition:transform 0.4s cubic-bezier(0.34,1.15,0.64,1);will-change:transform}
 .card-slide{flex:0 0 100%;height:100%;padding:0 4px}
-
 .id-card{height:100%;border-radius:28px;overflow:hidden;position:relative;cursor:pointer;transition:transform 0.2s}
 .id-card:active{transform:scale(0.985)}
-
 .card-photo{height:57%;position:relative;overflow:hidden}
 .card-photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-.card-photo-initials{font-size:68px;font-weight:900;color:rgba(255,255,255,0.12);letter-spacing:-3px}
+.card-photo-initials{font-size:68px;font-weight:900;color:rgba(255,255,255,0.1);letter-spacing:-3px}
 .card-type-badge{position:absolute;top:16px;left:50%;transform:translateX(-50%);padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;backdrop-filter:blur(12px);background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.12);color:#fff;white-space:nowrap}
 .card-edit-photo{position:absolute;bottom:12px;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;cursor:pointer}
-
 .card-wave{position:relative;margin-top:-2px;line-height:0}
 .card-wave svg{display:block;width:100%}
-.card-body{padding:14px 20px 18px}
+.card-body{padding:12px 20px 14px}
 .card-name{font-size:21px;font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card-role{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .card-contact-row{display:flex;gap:10px;margin-bottom:12px}
@@ -64,47 +55,34 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
 /* PERSONAL — soft lavender */
 .card-personal-photo{background:linear-gradient(145deg,#2d1f4a 0%,#3d2060 40%,#2a1840 100%)}
 .card-personal-body{background:linear-gradient(180deg,#231640 0%,#16102e 100%)}
-.card-personal-wave{fill:#231640}
 .card-personal-btn{background:linear-gradient(135deg,#a78bfa,#c4b5fd);color:#1a1025}
-.card-personal-accent{color:#c4b5fd}
 
-/* WORK — sage green grey */
-.card-work-photo{background:linear-gradient(145deg,#1a2e22 0%,#243d2e 40%,#1a2820 100%)}
-.card-work-body{background:linear-gradient(180deg,#1e3228 0%,#131f18 100%)}
-.card-work-wave{fill:#1e3228}
-.card-work-btn{background:linear-gradient(135deg,#6b9e7a,#9dc4aa);color:#0f1a14}
-.card-work-accent{color:#9dc4aa}
+/* WORK — premium business blue */
+.card-work-photo{background:linear-gradient(145deg,#182235 0%,#1e2d45 40%,#152030 100%)}
+.card-work-body{background:linear-gradient(180deg,#101726 0%,#0a101a 100%)}
+.card-work-btn{background:linear-gradient(135deg,#60a5fa,#93c5fd);color:#07111f}
 
-/* BUSINESS — slate blue grey */
-.card-business-photo{background:linear-gradient(145deg,#182235 0%,#1e2d45 40%,#152030 100%)}
-.card-business-body{background:linear-gradient(180deg,#1c2a3e 0%,#111c2a 100%)}
-.card-business-wave{fill:#1c2a3e}
-.card-business-btn{background:linear-gradient(135deg,#7a9fcc,#a8c4e0);color:#0d1520}
-.card-business-accent{color:#a8c4e0}
+/* BUSINESS — executive graphite green */
+.card-business-photo{background:linear-gradient(145deg,#122018 0%,#1b2e24 40%,#101914 100%)}
+.card-business-body{background:linear-gradient(180deg,#121a15 0%,#0a100c 100%)}
+.card-business-btn{background:linear-gradient(135deg,#4ade80,#86efac);color:#07110b}
 
-/* EARN — warm coffee/caramel */
-.card-earn-photo{background:linear-gradient(145deg,#2a1e0a 0%,#3d2c10 40%,#241a08 100%)}
-.card-earn-body{background:linear-gradient(180deg,#2e2010 0%,#1a1208 100%)}
-.card-earn-wave{fill:#2e2010}
-.card-earn-btn{background:linear-gradient(135deg,#c49a4a,#e0c070);color:#1a1208}
-.card-earn-accent{color:#e0c070}
+/* EARN — luxury light green */
+.card-earn-photo{background:linear-gradient(145deg,#163222 0%,#1f4a31 40%,#102217 100%)}
+.card-earn-body{background:linear-gradient(180deg,#183625 0%,#0d1d14 100%)}
+.card-earn-btn{background:linear-gradient(135deg,#4ade80,#bbf7d0);color:#07110b}
 
 /* DRIFT — deep dark neon teal */
 .card-drift-photo{background:linear-gradient(145deg,#050a0a 0%,#091414 40%,#050a0a 100%)}
 .card-drift-body{background:linear-gradient(180deg,#080f0f 0%,#030808 100%)}
-.card-drift-wave{fill:#080f0f}
 .card-drift-btn{background:linear-gradient(135deg,#00c8b8,#00a898);color:#000}
-.card-drift-accent{color:#00c8b8}
-
 .card-drift-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,200,184,0.08);border:1px solid rgba(0,200,184,0.25);border-radius:8px;padding:4px 12px;font-size:11px;font-weight:700;color:#00c8b8;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px}
 
-/* VEHICLE SVG AREA */
-.vehicle-display{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px}
-.vehicle-tabs{display:flex;gap:8px;margin-bottom:4px}
+.vehicle-display{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px}
+.vehicle-tabs{display:flex;gap:8px}
 .vehicle-tab{padding:4px 12px;border-radius:12px;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s;border:1px solid rgba(0,200,184,0.2);color:rgba(0,200,184,0.5);background:transparent}
 .vehicle-tab.active{background:rgba(0,200,184,0.12);color:#00c8b8;border-color:rgba(0,200,184,0.4)}
 .vehicle-svg-wrap{flex:1;display:flex;align-items:center;justify-content:center;width:100%}
-
 .engine-btn{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;background:rgba(0,0,0,0.6);border:2px solid rgba(0,200,184,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s}
 
 .swipe-dots{display:flex;justify-content:center;gap:6px;padding:8px 0 6px}
@@ -171,13 +149,13 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
             <div class="card-type-badge" style="border-color:rgba(196,181,253,0.25)">✦ Personal</div>
             <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhoto('personal')"><i class="fas fa-camera"></i></div>
           </div>
-          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,22 C60,44 130,4 200,22 C270,40 340,8 400,22 L400,44 L0,44 Z" class="card-personal-wave" fill="#231640"/></svg></div>
+          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,22 C60,44 130,4 200,22 C270,40 340,8 400,22 L400,44 L0,44 Z" fill="#231640"/></svg></div>
           <div class="card-body card-personal-body">
             <div class="card-name" id="name-personal">Your Name</div>
             <div class="card-role" id="role-personal">Tap edit to set up your identity</div>
             <div class="card-contact-row">
-              <div class="card-contact-item"><i class="fas fa-phone card-personal-accent" style="color:#c4b5fd;font-size:12px;flex-shrink:0"></i><span id="phone-personal">Add phone</span></div>
-              <div class="card-contact-item"><i class="fas fa-envelope card-personal-accent" style="color:#c4b5fd;font-size:12px;flex-shrink:0"></i><span id="email-personal">Add email</span></div>
+              <div class="card-contact-item"><i class="fas fa-phone" style="color:#c4b5fd;font-size:12px;flex-shrink:0"></i><span id="phone-personal">Add phone</span></div>
+              <div class="card-contact-item"><i class="fas fa-envelope" style="color:#c4b5fd;font-size:12px;flex-shrink:0"></i><span id="email-personal">Add email</span></div>
             </div>
             <div class="card-actions">
               <button class="card-action-btn card-personal-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
@@ -190,16 +168,16 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
         <div class="card-slide"><div class="id-card card-in" onclick="openCardMenu(1)">
           <div class="card-photo card-work-photo">
             <div class="card-photo-placeholder" id="photo-work"><div class="card-photo-initials" id="initials-work">W</div></div>
-            <div class="card-type-badge" style="border-color:rgba(157,196,170,0.25)">◈ Work</div>
+            <div class="card-type-badge" style="border-color:rgba(147,197,253,0.25)">◈ Work</div>
             <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhoto('work')"><i class="fas fa-camera"></i></div>
           </div>
-          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,18 C70,40 150,6 230,24 C310,40 360,12 400,20 L400,44 L0,44 Z" fill="#1e3228"/></svg></div>
+          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,18 C70,40 150,6 230,24 C310,40 360,12 400,20 L400,44 L0,44 Z" fill="#101726"/></svg></div>
           <div class="card-body card-work-body">
             <div class="card-name" id="name-work">Work Profile</div>
             <div class="card-role" id="role-work">Designation · Company</div>
             <div class="card-contact-row">
-              <div class="card-contact-item"><i class="fas fa-briefcase" style="color:#9dc4aa;font-size:12px;flex-shrink:0"></i><span id="company-work">Add company</span></div>
-              <div class="card-contact-item"><i class="fas fa-envelope" style="color:#9dc4aa;font-size:12px;flex-shrink:0"></i><span id="email-work">Work email</span></div>
+              <div class="card-contact-item"><i class="fas fa-briefcase" style="color:#93c5fd;font-size:12px;flex-shrink:0"></i><span id="company-work">Add company</span></div>
+              <div class="card-contact-item"><i class="fas fa-envelope" style="color:#93c5fd;font-size:12px;flex-shrink:0"></i><span id="email-work">Work email</span></div>
             </div>
             <div class="card-actions">
               <button class="card-action-btn card-work-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
@@ -212,16 +190,16 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
         <div class="card-slide"><div class="id-card card-in" onclick="openCardMenu(2)">
           <div class="card-photo card-business-photo">
             <div class="card-photo-placeholder" id="photo-business"><div class="card-photo-initials" id="initials-business">B</div></div>
-            <div class="card-type-badge" style="border-color:rgba(168,196,224,0.25)">⬡ Business</div>
+            <div class="card-type-badge" style="border-color:rgba(134,239,172,0.25)">⬡ Business</div>
             <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhoto('business')"><i class="fas fa-camera"></i></div>
           </div>
-          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,14 C90,38 180,4 270,26 C340,40 375,16 400,22 L400,44 L0,44 Z" fill="#1c2a3e"/></svg></div>
+          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,14 C90,38 180,4 270,26 C340,40 375,16 400,22 L400,44 L0,44 Z" fill="#121a15"/></svg></div>
           <div class="card-body card-business-body">
             <div class="card-name" id="name-business">Business Name</div>
             <div class="card-role" id="role-business">Your business tagline</div>
             <div class="card-contact-row">
-              <div class="card-contact-item"><i class="fas fa-globe" style="color:#a8c4e0;font-size:12px;flex-shrink:0"></i><span id="web-business">Add website</span></div>
-              <div class="card-contact-item"><i class="fas fa-map-marker-alt" style="color:#a8c4e0;font-size:12px;flex-shrink:0"></i><span id="loc-business">Location</span></div>
+              <div class="card-contact-item"><i class="fas fa-globe" style="color:#86efac;font-size:12px;flex-shrink:0"></i><span id="web-business">Add website</span></div>
+              <div class="card-contact-item"><i class="fas fa-map-marker-alt" style="color:#86efac;font-size:12px;flex-shrink:0"></i><span id="loc-business">Location</span></div>
             </div>
             <div class="card-actions">
               <button class="card-action-btn card-business-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
@@ -234,16 +212,16 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
         <div class="card-slide"><div class="id-card card-in" onclick="openCardMenu(3)">
           <div class="card-photo card-earn-photo">
             <div class="card-photo-placeholder" id="photo-earn"><div class="card-photo-initials" id="initials-earn">E</div></div>
-            <div class="card-type-badge" style="border-color:rgba(224,192,112,0.25)">₹ Ea₹n</div>
+            <div class="card-type-badge" style="border-color:rgba(187,247,208,0.25)">₹ Ea₹n</div>
             <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhoto('earn')"><i class="fas fa-camera"></i></div>
           </div>
-          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,28 C50,8 120,38 200,18 C280,0 350,32 400,16 L400,44 L0,44 Z" fill="#2e2010"/></svg></div>
+          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,28 C50,8 120,38 200,18 C280,0 350,32 400,16 L400,44 L0,44 Z" fill="#183625"/></svg></div>
           <div class="card-body card-earn-body">
             <div class="card-name" id="name-earn">Creator Name</div>
             <div class="card-role" id="role-earn">Your expertise · What you offer</div>
             <div class="card-contact-row">
-              <div class="card-contact-item"><i class="fas fa-indian-rupee-sign" style="color:#e0c070;font-size:12px;flex-shrink:0"></i><span id="rate-earn">Set your rate</span></div>
-              <div class="card-contact-item"><i class="fas fa-calendar-check" style="color:#e0c070;font-size:12px;flex-shrink:0"></i><span id="avail-earn">Availability</span></div>
+              <div class="card-contact-item"><i class="fas fa-indian-rupee-sign" style="color:#bbf7d0;font-size:12px;flex-shrink:0"></i><span id="rate-earn">Set your rate</span></div>
+              <div class="card-contact-item"><i class="fas fa-calendar-check" style="color:#bbf7d0;font-size:12px;flex-shrink:0"></i><span id="avail-earn">Availability</span></div>
             </div>
             <div class="card-actions">
               <button class="card-action-btn card-earn-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
@@ -255,70 +233,64 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
         <!-- DRIFT -->
         <div class="card-slide"><div class="id-card card-in" onclick="openCardMenu(4)">
           <div class="card-photo card-drift-photo" style="height:55%">
-            <div class="vehicle-display" id="vehicleDisplay">
+            <div class="vehicle-display">
               <div class="vehicle-tabs">
                 <div class="vehicle-tab active" id="bikeTab" onclick="event.stopPropagation();showVehicle('bike')">🏍 Bike</div>
                 <div class="vehicle-tab" id="carTab" onclick="event.stopPropagation();showVehicle('car')">🚗 Car</div>
               </div>
-              <div class="vehicle-svg-wrap" id="vehicleSVG">
-                <!-- BIKE SVG -->
-                <svg id="bikeSVG" viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="width:88%">
+              <div class="vehicle-svg-wrap">
+
+                <!-- UPGRADED BIKE SVG -->
+                <svg id="bikeSVG" viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg" style="width:90%">
                   <defs><filter id="glow"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-                  <g fill="none" stroke="rgba(0,200,184,0.65)" stroke-width="1.8" filter="url(#glow)">
-                    <circle cx="76" cy="112" r="36" stroke-width="4" stroke="rgba(0,200,184,0.35)"/>
-                    <circle cx="76" cy="112" r="26" stroke-width="1.2"/>
-                    <circle cx="76" cy="112" r="7" fill="rgba(0,200,184,0.5)" stroke="none"/>
-                    <circle cx="244" cy="112" r="36" stroke-width="4" stroke="rgba(0,200,184,0.35)"/>
-                    <circle cx="244" cy="112" r="26" stroke-width="1.2"/>
-                    <circle cx="244" cy="112" r="7" fill="rgba(0,200,184,0.5)" stroke="none"/>
-                    <line x1="76" y1="112" x2="152" y2="52"/>
-                    <line x1="152" y1="52" x2="196" y2="112"/>
-                    <line x1="76" y1="112" x2="152" y2="112"/>
-                    <line x1="196" y1="112" x2="244" y2="112"/>
-                    <path d="M128,52 Q152,30 182,42 L196,62 L152,67 Z" fill="rgba(0,200,184,0.1)" stroke="rgba(0,200,184,0.5)" stroke-width="1.5"/>
-                    <line x1="208" y1="58" x2="256" y2="46"/><line x1="256" y1="46" x2="259" y2="66"/>
-                    <line x1="214" y1="64" x2="244" y2="112"/>
-                    <circle cx="152" cy="88" r="9" fill="rgba(0,200,184,0.08)" stroke="rgba(0,200,184,0.3)" stroke-width="1"/>
-                    <line x1="2" y1="98" x2="38" y2="98" stroke="rgba(0,200,184,0.18)" stroke-width="1"/>
-                    <line x1="2" y1="106" x2="28" y2="106" stroke="rgba(0,200,184,0.12)" stroke-width="1"/>
-                    <line x1="2" y1="114" x2="18" y2="114" stroke="rgba(0,200,184,0.08)" stroke-width="1"/>
+                  <g fill="none" stroke="rgba(0,200,184,0.72)" stroke-width="2.2" filter="url(#glow)">
+                    <circle cx="82" cy="126" r="38" stroke-width="5" stroke="rgba(0,200,184,0.22)"/>
+                    <circle cx="82" cy="126" r="26"/>
+                    <circle cx="82" cy="126" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
+                    <circle cx="278" cy="126" r="38" stroke-width="5" stroke="rgba(0,200,184,0.22)"/>
+                    <circle cx="278" cy="126" r="26"/>
+                    <circle cx="278" cy="126" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
+                    <path d="M82 126 L165 58 L212 126 L278 126"/>
+                    <path d="M165 58 L205 46 L232 70 L182 78 Z" fill="rgba(0,200,184,0.08)"/>
+                    <path d="M148 62 L126 48 L145 46 L165 56"/>
+                    <path d="M230 70 L300 56 L306 92"/>
+                    <line x1="230" y1="70" x2="278" y2="126"/>
+                    <circle cx="176" cy="100" r="14"/>
+                    <circle cx="176" cy="100" r="5" fill="rgba(0,200,184,0.55)" stroke="none"/>
+                    <line x1="6" y1="94" x2="40" y2="94" stroke="rgba(0,200,184,0.2)" stroke-width="1"/>
+                    <line x1="6" y1="106" x2="28" y2="106" stroke="rgba(0,200,184,0.14)" stroke-width="1"/>
+                    <line x1="6" y1="118" x2="18" y2="118" stroke="rgba(0,200,184,0.1)" stroke-width="1"/>
                   </g>
-                  <style>#bikeSVG{animation:bikeFloat 3.5s ease-in-out infinite}@keyframes bikeFloat{0%,100%{transform:translateX(0) rotate(0deg)}25%{transform:translateX(4px) rotate(0.3deg)}75%{transform:translateX(-4px) rotate(-0.3deg)}}</style>
+                  <style>#bikeSVG{animation:bikeFloat 3.5s ease-in-out infinite}@keyframes bikeFloat{0%,100%{transform:translateX(0) rotate(0deg)}25%{transform:translateX(5px) rotate(0.4deg)}75%{transform:translateX(-5px) rotate(-0.4deg)}}</style>
                 </svg>
+
                 <!-- CAR SVG -->
                 <svg id="carSVG" viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="width:88%;display:none">
                   <defs><filter id="glow2"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
                   <g fill="none" stroke="rgba(0,200,184,0.65)" stroke-width="1.8" filter="url(#glow2)">
-                    <!-- Wheels -->
                     <circle cx="82" cy="118" r="22" stroke-width="3.5" stroke="rgba(0,200,184,0.35)"/>
                     <circle cx="82" cy="118" r="13"/>
                     <circle cx="82" cy="118" r="5" fill="rgba(0,200,184,0.5)" stroke="none"/>
                     <circle cx="238" cy="118" r="22" stroke-width="3.5" stroke="rgba(0,200,184,0.35)"/>
                     <circle cx="238" cy="118" r="13"/>
                     <circle cx="238" cy="118" r="5" fill="rgba(0,200,184,0.5)" stroke="none"/>
-                    <!-- Body -->
                     <path d="M40,118 L40,88 L80,88 L110,58 L210,58 L240,88 L280,88 L280,118 Z" stroke-width="2" fill="rgba(0,200,184,0.06)"/>
-                    <!-- Roof -->
                     <path d="M110,88 L120,62 L200,62 L210,88 Z" fill="rgba(0,200,184,0.1)" stroke="rgba(0,200,184,0.5)" stroke-width="1.5"/>
-                    <!-- Windows -->
                     <path d="M116,86 L124,66 L158,66 L158,86 Z" fill="rgba(0,200,184,0.08)" stroke="rgba(0,200,184,0.3)" stroke-width="1"/>
                     <path d="M164,86 L164,66 L198,66 L206,86 Z" fill="rgba(0,200,184,0.08)" stroke="rgba(0,200,184,0.3)" stroke-width="1"/>
-                    <!-- Headlights -->
                     <ellipse cx="272" cy="96" rx="6" ry="4" fill="rgba(0,200,184,0.3)" stroke="rgba(0,200,184,0.6)"/>
                     <ellipse cx="48" cy="96" rx="6" ry="4" fill="rgba(0,200,184,0.15)" stroke="rgba(0,200,184,0.4)"/>
-                    <!-- Speed lines -->
                     <line x1="2" y1="95" x2="32" y2="95" stroke="rgba(0,200,184,0.18)" stroke-width="1"/>
                     <line x1="2" y1="103" x2="22" y2="103" stroke="rgba(0,200,184,0.12)" stroke-width="1"/>
                     <line x1="2" y1="111" x2="14" y2="111" stroke="rgba(0,200,184,0.08)" stroke-width="1"/>
-                    <!-- Door line -->
                     <line x1="160" y1="62" x2="160" y2="88" stroke="rgba(0,200,184,0.25)" stroke-width="1"/>
-                    <!-- Underline -->
                     <line x1="40" y1="118" x2="60" y2="118" stroke="rgba(0,200,184,0.3)" stroke-width="1.5"/>
                     <line x1="104" y1="118" x2="216" y2="118" stroke="rgba(0,200,184,0.3)" stroke-width="1.5"/>
                     <line x1="260" y1="118" x2="280" y2="118" stroke="rgba(0,200,184,0.3)" stroke-width="1.5"/>
                   </g>
                   <style>#carSVG{animation:carFloat 3.5s ease-in-out infinite}@keyframes carFloat{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}</style>
                 </svg>
+
               </div>
             </div>
             <div class="card-type-badge" style="border-color:rgba(0,200,184,0.3);color:#00c8b8">🏍️ Drift</div>
@@ -359,7 +331,6 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
   </nav>
 </div>
 
-<!-- EXPAND OVERLAY -->
 <div class="card-expand-overlay" id="expandOverlay" onclick="closeMenu()">
   <div class="card-expand-panel" onclick="event.stopPropagation()" id="expandPanel">
     <div class="expand-handle"></div>
@@ -380,72 +351,34 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
 
 <script>
 const CARDS=[
-  {id:'personal', theme:'theme-personal', dot:'#c4b5fd', label:'Personal Card',  grad:'linear-gradient(135deg,#a78bfa,#c4b5fd)', panelBg:'#16102e', accentIcon:'color:#c4b5fd'},
-  {id:'work',     theme:'theme-work',     dot:'#9dc4aa', label:'Work Card',       grad:'linear-gradient(135deg,#6b9e7a,#9dc4aa)', panelBg:'#111e16', accentIcon:'color:#9dc4aa'},
-  {id:'business', theme:'theme-business', dot:'#a8c4e0', label:'Business Card',   grad:'linear-gradient(135deg,#7a9fcc,#a8c4e0)', panelBg:'#111c2a', accentIcon:'color:#a8c4e0'},
-  {id:'earn',     theme:'theme-earn',     dot:'#e0c070', label:'Earn Card',       grad:'linear-gradient(135deg,#c49a4a,#e0c070)', panelBg:'#1e1408', accentIcon:'color:#e0c070'},
-  {id:'drift',    theme:'theme-drift',    dot:'#00c8b8', label:'Drift Card',      grad:'linear-gradient(135deg,#00c8b8,#00a898)', panelBg:'#06100f', accentIcon:'color:#00c8b8'},
+  {id:'personal',theme:'theme-personal',dot:'#c4b5fd',label:'Personal Card', grad:'linear-gradient(135deg,#a78bfa,#c4b5fd)',panelBg:'#16102e'},
+  {id:'work',    theme:'theme-work',    dot:'#93c5fd',label:'Work Card',     grad:'linear-gradient(135deg,#60a5fa,#93c5fd)',panelBg:'#0a101a'},
+  {id:'business',theme:'theme-business',dot:'#86efac',label:'Business Card', grad:'linear-gradient(135deg,#4ade80,#86efac)',panelBg:'#0a100c'},
+  {id:'earn',    theme:'theme-earn',    dot:'#bbf7d0',label:'Earn Card',     grad:'linear-gradient(135deg,#4ade80,#bbf7d0)',panelBg:'#0d1d14'},
+  {id:'drift',   theme:'theme-drift',   dot:'#00c8b8',label:'Drift Card',    grad:'linear-gradient(135deg,#00c8b8,#00a898)',panelBg:'#06100f'},
 ];
-let cur=0, photoTarget=null, soundOn=localStorage.getItem('sound')!=='off', audioCtx=null, engineOn=false;
+let cur=0,photoTarget=null,soundOn=localStorage.getItem('sound')!=='off',audioCtx=null,engineOn=false;
 
 function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
 
-// SOUND FUNCTIONS — unique per card
 function playCuteSound(){
-  // Personal: soft cute chime (2 ascending bells)
-  try{const c=getCtx();
-    [660,880].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,c.currentTime+i*0.08);g.gain.linearRampToValueAtTime(0.12,c.currentTime+i*0.08+0.02);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+i*0.08+0.25);o.start(c.currentTime+i*0.08);o.stop(c.currentTime+i*0.08+0.25);});
-  }catch(e){}
+  try{const c=getCtx();[660,880].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,c.currentTime+i*0.08);g.gain.linearRampToValueAtTime(0.12,c.currentTime+i*0.08+0.02);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+i*0.08+0.25);o.start(c.currentTime+i*0.08);o.stop(c.currentTime+i*0.08+0.25);});}catch(e){}
 }
 function playShutterSound(){
-  // Work: camera shutter click
-  try{const c=getCtx();
-    const b=c.createBuffer(1,c.sampleRate*0.08,c.sampleRate),d=b.getChannelData(0);
-    for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.5;
-    const s=c.createBufferSource();s.buffer=b;
-    const f=c.createBiquadFilter();f.type='highpass';f.frequency.value=3000;
-    const g=c.createGain();g.gain.value=0.6;
-    s.connect(f);f.connect(g);g.connect(c.destination);s.start();
-  }catch(e){}
+  try{const c=getCtx();const b=c.createBuffer(1,c.sampleRate*0.08,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.5;const s=c.createBufferSource();s.buffer=b;const f=c.createBiquadFilter();f.type='highpass';f.frequency.value=3000;const g=c.createGain();g.gain.value=0.6;s.connect(f);f.connect(g);g.connect(c.destination);s.start();}catch(e){}
 }
 function playTypewriterSound(){
-  // Business: typewriter clack
-  try{const c=getCtx();
-    const b=c.createBuffer(1,c.sampleRate*0.05,c.sampleRate),d=b.getChannelData(0);
-    for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.7;
-    const s=c.createBufferSource();s.buffer=b;
-    const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1200;f.Q.value=1.5;
-    const g=c.createGain();g.gain.value=0.5;
-    s.connect(f);f.connect(g);g.connect(c.destination);s.start();
-  }catch(e){}
+  try{const c=getCtx();const b=c.createBuffer(1,c.sampleRate*0.05,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.7;const s=c.createBufferSource();s.buffer=b;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1200;f.Q.value=1.5;const g=c.createGain();g.gain.value=0.5;s.connect(f);f.connect(g);g.connect(c.destination);s.start();}catch(e){}
 }
 function playCoinSound(){
-  // Earn: coin clink
-  try{const c=getCtx();
-    [1200,1600,1000].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='triangle';o.frequency.setValueAtTime(f,c.currentTime+i*0.04);o.frequency.exponentialRampToValueAtTime(f*0.7,c.currentTime+i*0.04+0.15);g.gain.setValueAtTime(0.1,c.currentTime+i*0.04);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+i*0.04+0.18);o.start(c.currentTime+i*0.04);o.stop(c.currentTime+i*0.04+0.2);});
-  }catch(e){}
+  try{const c=getCtx();[1200,1600,1000].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='triangle';o.frequency.setValueAtTime(f,c.currentTime+i*0.04);o.frequency.exponentialRampToValueAtTime(f*0.7,c.currentTime+i*0.04+0.15);g.gain.setValueAtTime(0.1,c.currentTime+i*0.04);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+i*0.04+0.18);o.start(c.currentTime+i*0.04);o.stop(c.currentTime+i*0.04+0.2);});}catch(e){}
 }
 function playZoomSound(){
-  // Drift: engine zoom whoosh
-  try{const c=getCtx();
-    const o=c.createOscillator(),g=c.createGain(),dist=c.createWaveShaper();
-    const curve=new Float32Array(256);for(let i=0;i<256;i++)curve[i]=((i/128-1)*4)/(1+Math.abs((i/128-1)*4));
-    dist.curve=curve;
-    o.connect(dist);dist.connect(g);g.connect(c.destination);
-    o.type='sawtooth';
-    o.frequency.setValueAtTime(80,c.currentTime);
-    o.frequency.exponentialRampToValueAtTime(320,c.currentTime+0.25);
-    o.frequency.exponentialRampToValueAtTime(180,c.currentTime+0.4);
-    g.gain.setValueAtTime(0,c.currentTime);
-    g.gain.linearRampToValueAtTime(0.3,c.currentTime+0.05);
-    g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.42);
-    o.start();o.stop(c.currentTime+0.45);
-  }catch(e){}
+  try{const c=getCtx();const o=c.createOscillator(),g=c.createGain(),dist=c.createWaveShaper();const curve=new Float32Array(256);for(let i=0;i<256;i++)curve[i]=((i/128-1)*4)/(1+Math.abs((i/128-1)*4));dist.curve=curve;o.connect(dist);dist.connect(g);g.connect(c.destination);o.type='sawtooth';o.frequency.setValueAtTime(80,c.currentTime);o.frequency.exponentialRampToValueAtTime(320,c.currentTime+0.25);o.frequency.exponentialRampToValueAtTime(180,c.currentTime+0.4);g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(0.3,c.currentTime+0.05);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.42);o.start();o.stop(c.currentTime+0.45);}catch(e){}
 }
 
 const SOUNDS=[playCuteSound,playShutterSound,playTypewriterSound,playCoinSound,playZoomSound];
-
-function playCardSound(index){if(!soundOn)return;try{SOUNDS[index]();}catch(e){}}
+function playCardSound(i){if(!soundOn)return;try{SOUNDS[i]();}catch(e){}}
 
 function startEngine(){
   if(!soundOn){showToast('Enable sound first!');return;}
@@ -489,7 +422,6 @@ function updateTheme(i){
   document.getElementById('logoSpan').style.backgroundImage=c.grad;
   document.getElementById('navCenter').style.background=c.grad;
   document.getElementById('navCenter').style.boxShadow=`0 0 18px ${c.dot}55`;
-  // Update expand panel accent
   document.querySelectorAll('.expand-option i').forEach(el=>el.style.color=c.dot);
   document.getElementById('expandPanel').style.background=c.panelBg;
   document.querySelectorAll('.card-tab').forEach((t,j)=>{
@@ -503,7 +435,6 @@ function updateTheme(i){
   });
 }
 
-// SWIPE
 const track=document.getElementById('cardsTrack'),wrap=document.getElementById('trackWrap');
 let tx=0,ty=0,drag=false,mx=0,md=false;
 wrap.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;drag=false;track.style.transition='none';},{passive:true});
