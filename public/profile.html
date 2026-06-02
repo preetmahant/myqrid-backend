@@ -2,291 +2,688 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>myQRID Profile</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta name="description" content="Digital Identity — myQRID">
+<meta property="og:title" content="myQRID Profile">
+<meta property="og:description" content="One QR — Complete Digital Identity">
+<meta name="theme-color" content="#7c3aed">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',sans-serif;background:#0a0a0f;color:white;min-height:100vh}
-.bg{position:fixed;width:100%;height:100%;background:radial-gradient(circle at 20% 20%,#7c3aed55,transparent),radial-gradient(circle at 80% 60%,#ec489955,transparent),#0a0a0f;z-index:-1}
-.top{display:flex;justify-content:space-between;padding:15px;padding-top:calc(15px + env(safe-area-inset-top))}
-.icon{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;border:1px solid rgba(255,255,255,0.08)}
-.icon img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.icon i{color:rgba(255,255,255,0.7);font-size:16px}
-.profile{text-align:center;padding:0 20px}
-.avatar-wrap{position:relative;display:inline-block;margin-bottom:14px}
-.avatar{width:110px;height:110px;border-radius:50%;border:3px solid #7c3aed;object-fit:cover;display:block;box-shadow:0 0 30px rgba(124,58,237,0.4)}
-.avatar-placeholder{width:110px;height:110px;border-radius:50%;border:3px solid #7c3aed;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:700;color:#fff;box-shadow:0 0 30px rgba(124,58,237,0.4);margin:0 auto}
-.name{font-size:26px;font-weight:700;margin-bottom:6px}
-.bio{color:#aaa;font-size:14px;margin-bottom:4px;line-height:1.5}
-.username-tag{color:rgba(255,255,255,0.3);font-size:13px;margin-bottom:16px}
-.social{display:flex;justify-content:center;gap:12px;margin:15px 0;flex-wrap:wrap}
-.social a{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;color:white;text-decoration:none;border:1px solid rgba(255,255,255,0.08);transition:all 0.2s;font-size:18px}
-.social a:active{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.4)}
-.dashboard{display:flex;gap:10px;padding:15px;overflow-x:auto;scrollbar-width:none}
-.dashboard::-webkit-scrollbar{display:none}
-.card{min-width:130px;padding:14px;border-radius:16px;background:rgba(255,255,255,0.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-align:center;cursor:pointer;border:1px solid rgba(255,255,255,0.07);font-size:14px;font-weight:600;transition:all 0.2s;flex-shrink:0}
-.card:active{background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.3)}
-.links{padding:0 15px 15px}
-.link{display:flex;align-items:center;padding:16px;margin:10px 0;border-radius:16px;text-decoration:none;color:white;font-weight:600;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);transition:all 0.2s;gap:12px}
-.link:active{background:rgba(255,255,255,0.09)}
-.link i{font-size:18px;width:20px;text-align:center}
-.link-icon{width:36px;height:36px;border-radius:10px;background:rgba(124,58,237,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
-.whatsapp-link{background:linear-gradient(135deg,#25D366,#1ebe5d)!important;border-color:transparent!important}
-.save-wrap{padding:10px 15px 20px;text-align:center}
-.save-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:50px;background:rgba(255,255,255,0.06);color:white;border:1px solid rgba(255,255,255,0.12);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s}
-.save-btn:active{background:rgba(124,58,237,0.2)}
-.btn{display:block;text-align:center;padding:15px;margin:10px 15px;border-radius:16px;text-decoration:none;font-weight:600;font-size:15px}
-.primary{background:linear-gradient(135deg,#7c3aed,#ec4899);color:white}
-.secondary{background:rgba(255,255,255,0.05);color:white;border:1px solid rgba(255,255,255,0.08)}
-.footer{text-align:center;padding:20px;opacity:0.25;font-size:12px}
-.unclaimed{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;padding:40px 24px;text-align:center}
-.unclaimed-icon{font-size:64px;margin-bottom:24px;animation:float 3s ease-in-out infinite}
-.unclaimed-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:10px}
-.unclaimed-sub{color:rgba(255,255,255,0.4);font-size:15px;margin-bottom:32px;line-height:1.6}
-.activate-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;border-radius:16px;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 0 30px rgba(124,58,237,0.4)}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* ── LOADING STATE ── */
+.loading-screen{position:fixed;inset:0;background:#0a0a0f;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity 0.4s}
+.loading-screen.hide{opacity:0;pointer-events:none}
+.loading-logo{font-size:28px;font-weight:800;color:#fff;margin-bottom:16px}
+.loading-logo span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.loading-dots{display:flex;gap:6px}
+.loading-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);animation:ldot 1.2s ease-in-out infinite}
+.loading-dot:nth-child(2){animation-delay:0.2s}
+.loading-dot:nth-child(3){animation-delay:0.4s}
+@keyframes ldot{0%,80%,100%{transform:scale(0.8);background:rgba(255,255,255,0.2)}40%{transform:scale(1.1);background:#7c3aed}}
+
+/* ══════════════════════════════════════
+   STATE 1 — UNCLAIMED
+══════════════════════════════════════ */
+#state-unclaimed{display:none;min-height:100vh;background:linear-gradient(135deg,#0a0a1a,#1a0a2e);align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px 24px}
+.unc-icon{width:80px;height:80px;border-radius:50%;background:rgba(124,58,237,0.1);border:2px solid rgba(124,58,237,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:scanPulse 2s ease-in-out infinite}
+@keyframes scanPulse{0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,0.3)}50%{box-shadow:0 0 0 20px rgba(124,58,237,0)}}
+.unc-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
+.unc-sub{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:28px}
+.unc-url{font-size:13px;color:rgba(124,58,237,0.6);background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:6px 16px;display:inline-block;margin-bottom:28px}
+.btn-purple{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:14px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,0.35);transition:all 0.2s;text-decoration:none}
+.btn-purple:active{transform:scale(0.97)}
+
+/* ══════════════════════════════════════
+   STATE 2 — ACTIVE PROFILE
+══════════════════════════════════════ */
+#state-active{display:none;min-height:100vh;background:#f7f7f8;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.035) 39px,rgba(0,0,0,0.035) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.035) 39px,rgba(0,0,0,0.035) 40px)}
+.active-page{max-width:480px;margin:0 auto;padding-bottom:32px}
+
+/* COVER / HERO */
+.profile-hero{position:relative;height:220px;overflow:hidden;border-radius:0 0 28px 28px}
+.profile-cover{width:100%;height:100%;object-fit:cover;display:block;background:linear-gradient(135deg,#7c3aed,#ec4899)}
+.profile-cover-placeholder{width:100%;height:100%;background:linear-gradient(135deg,#4c1d95 0%,#7c3aed 50%,#ec4899 100%)}
+.profile-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.5) 100%)}
+.profile-share-btn{position:absolute;top:calc(14px + env(safe-area-inset-top));right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:13px}
+
+/* AVATAR */
+.profile-avatar-wrap{position:relative;z-index:2;display:flex;justify-content:center;margin-top:-48px;margin-bottom:10px}
+.profile-avatar{width:96px;height:96px;border-radius:50%;border:4px solid #fff;box-shadow:0 4px 20px rgba(0,0,0,0.15);background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:#fff;overflow:hidden;flex-shrink:0}
+.profile-avatar img{width:100%;height:100%;object-fit:cover}
+.verified-badge{position:absolute;bottom:2px;right:calc(50% - 60px);width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff}
+
+/* PROFILE INFO */
+.profile-info{text-align:center;padding:0 20px 14px}
+.profile-name{font-size:22px;font-weight:800;color:#111;margin-bottom:3px}
+.profile-username{font-size:13px;color:#888;margin-bottom:6px}
+.profile-bio{font-size:13px;color:#555;line-height:1.6;margin-bottom:10px}
+.profile-url-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:4px 12px;font-size:11px;color:#7c3aed;cursor:pointer}
+.profile-score{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:4px 12px;font-size:11px;color:#7c3aed;margin-left:6px}
+
+/* ACTION ROW — must be above fold */
+.action-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;padding:0 16px;margin-bottom:14px}
+.action-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 8px;background:#fff;border:1px solid #e9e9eb;border-radius:14px;cursor:pointer;transition:all 0.18s;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.action-btn:active{transform:scale(0.94);background:#f3f0ff}
+.action-btn-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.action-btn-label{font-size:10px;font-weight:600;color:#555;text-align:center}
+
+/* SOCIAL ROW */
+.social-strip{display:flex;gap:8px;padding:0 16px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.social-strip::-webkit-scrollbar{display:none}
+.soc-icon{width:38px;height:38px;border-radius:50%;background:#fff;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;cursor:pointer;transition:all 0.18s;box-shadow:0 1px 4px rgba(0,0,0,0.05);text-decoration:none}
+.soc-icon:active{transform:scale(0.9)}
+
+/* LINKS SECTION */
+.links-section{padding:0 16px;margin-bottom:14px}
+.links-section-title{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;padding:0 2px}
+.pub-link{display:flex;align-items:center;gap:12px;padding:14px;background:#fff;border:1px solid #e9e9eb;border-radius:16px;margin-bottom:8px;cursor:pointer;text-decoration:none;transition:all 0.18s;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.pub-link:active{background:#f3f0ff;border-color:rgba(124,58,237,0.2);transform:scale(0.99)}
+.pub-link-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pub-link-text{flex:1;min-width:0}
+.pub-link-title{font-size:14px;font-weight:600;color:#111}
+.pub-link-url{font-size:11px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.pub-link-arrow{color:#d1d5db;font-size:12px;flex-shrink:0}
+
+/* POWERED BY */
+.powered-by{text-align:center;padding:20px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.powered-logo{font-size:16px;font-weight:800;color:#111}
+.powered-logo span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.powered-tag{font-size:11px;color:#bbb}
+.powered-create{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:10px 20px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;color:#fff;font-size:12px;font-weight:600;text-decoration:none;box-shadow:0 4px 14px rgba(124,58,237,0.3)}
+
+/* ══════════════════════════════════════
+   STATE 3 — LOST MODE
+══════════════════════════════════════ */
+#state-lost{display:none;min-height:100vh;background:linear-gradient(135deg,#1a0008,#2d0010);align-items:flex-start;justify-content:center;flex-direction:column;padding:0}
+.lost-page{max-width:480px;margin:0 auto;width:100%;padding:calc(24px + env(safe-area-inset-top)) 20px 40px}
+.lost-header{text-align:center;margin-bottom:24px}
+@keyframes lostPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.7;transform:scale(1.05)}}
+.lost-warning-icon{width:80px;height:80px;border-radius:50%;background:rgba(255,59,92,0.15);border:2px solid rgba(255,59,92,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:32px;animation:lostPulse 1.8s ease-in-out infinite}
+.lost-title{font-size:26px;font-weight:900;color:#FF3B5C;letter-spacing:1px;margin-bottom:6px;text-shadow:0 0 20px rgba(255,59,92,0.4)}
+.lost-subtitle{font-size:14px;color:rgba(255,255,255,0.5);line-height:1.5}
+.lost-item-photo{width:100%;max-height:200px;object-fit:cover;border-radius:18px;margin-bottom:16px;border:2px solid rgba(255,59,92,0.2)}
+.lost-message-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,59,92,0.2);border-radius:16px;padding:16px;margin-bottom:16px}
+.lost-message-label{font-size:10px;font-weight:600;color:rgba(255,59,92,0.7);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.lost-message-text{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.6}
+.lost-reward{display:inline-flex;align-items:center;gap:8px;background:rgba(255,210,0,0.1);border:1px solid rgba(255,210,0,0.3);border-radius:12px;padding:8px 16px;margin-bottom:16px;font-size:14px;color:#FFD200;font-weight:700}
+.lost-actions{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.lost-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;border-radius:14px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
+.lost-btn:active{transform:scale(0.97)}
+.lost-btn-wa{background:linear-gradient(135deg,#075e54,#25D366);color:#fff}
+.lost-btn-call{background:linear-gradient(135deg,#1e40af,#3b82f6);color:#fff}
+.lost-btn-loc{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff}
+.found-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:14px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s}
+
+/* ══════════════════════════════════════
+   STATE 4 — EMERGENCY MODE
+══════════════════════════════════════ */
+#state-emergency{display:none;min-height:100vh;background:#0a0a0a;flex-direction:column}
+.emg-page{max-width:480px;margin:0 auto;width:100%}
+.emg-header{background:#FF3B5C;padding:calc(16px + env(safe-area-inset-top)) 20px 16px;text-align:center}
+.emg-header-icon{font-size:28px;margin-bottom:6px}
+.emg-header-title{font-size:18px;font-weight:900;color:#fff;letter-spacing:1px}
+.emg-header-sub{font-size:12px;color:rgba(255,255,255,0.8);margin-top:3px}
+@keyframes emgPulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.emg-header{animation:emgPulse 2s ease-in-out infinite}
+.emg-body{padding:16px 16px 40px}
+.emg-person{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:14px;margin-bottom:14px}
+.emg-avatar{width:60px;height:60px;border-radius:50%;background:rgba(255,59,92,0.2);border:2px solid rgba(255,59,92,0.4);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden}
+.emg-avatar img{width:100%;height:100%;object-fit:cover}
+.emg-person-name{font-size:18px;font-weight:800;color:#fff}
+.emg-person-age{font-size:13px;color:rgba(255,255,255,0.45);margin-top:2px}
+.emg-blood{background:rgba(255,59,92,0.1);border:1.5px solid rgba(255,59,92,0.35);border-radius:16px;padding:16px;margin-bottom:14px;text-align:center}
+.emg-blood-label{font-size:11px;font-weight:600;color:rgba(255,59,92,0.7);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.emg-blood-type{font-size:52px;font-weight:900;color:#FF3B5C;line-height:1;text-shadow:0 0 20px rgba(255,59,92,0.4)}
+.emg-section{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:14px;margin-bottom:10px}
+.emg-section-title{font-size:10px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px}
+.emg-tag{display:inline-block;background:rgba(255,59,92,0.12);border:1px solid rgba(255,59,92,0.25);border-radius:8px;padding:4px 10px;font-size:12px;color:#ff8a9e;margin:3px;font-weight:500}
+.emg-tag-safe{background:rgba(0,229,160,0.1);border-color:rgba(0,229,160,0.25);color:#00E5A0}
+.emg-contact{display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;margin-bottom:8px;text-decoration:none;cursor:pointer;transition:all 0.18s}
+.emg-contact:active{background:rgba(255,59,92,0.1)}
+.emg-contact-icon{width:42px;height:42px;border-radius:12px;background:rgba(255,59,92,0.15);border:1px solid rgba(255,59,92,0.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.emg-contact-info{flex:1}
+.emg-contact-name{font-size:14px;font-weight:700;color:#fff}
+.emg-contact-rel{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
+.emg-contact-phone{font-size:13px;color:#FF3B5C;font-weight:600;margin-top:2px}
+.emg-call-btn{padding:5px 14px;background:rgba(255,59,92,0.15);border:1px solid rgba(255,59,92,0.3);border-radius:8px;color:#FF3B5C;font-size:12px;font-weight:700;flex-shrink:0}
+.emg-doctor{padding:10px 0 0}
+.emg-doctor-row{display:flex;gap:8px;align-items:flex-start}
+.emg-doctor-icon{font-size:16px;color:rgba(255,255,255,0.3);margin-top:2px;flex-shrink:0}
+.emg-doctor-text{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5}
+.emg-hospital{font-weight:600;color:rgba(255,255,255,0.8)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp 0.5s ease forwards}
+.fade-up-d1{animation-delay:0.05s;opacity:0}
+.fade-up-d2{animation-delay:0.1s;opacity:0}
+.fade-up-d3{animation-delay:0.15s;opacity:0}
+.fade-up-d4{animation-delay:0.2s;opacity:0}
+.fade-up-d5{animation-delay:0.25s;opacity:0}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,0.2)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
-<div class="bg"></div>
-
-<!-- TOP BAR -->
-<div class="top">
-  <div class="icon" id="topLeft">
-    <i class="fas fa-hexagon"></i>
-  </div>
-  <div class="icon" onclick="shareProfile()">
-    <i class="fas fa-share-nodes"></i>
-  </div>
-</div>
 
 <!-- LOADING -->
-<div id="loadingState" style="text-align:center;padding:60px 20px;color:rgba(255,255,255,0.3)">
-  <div style="font-size:32px;margin-bottom:12px;animation:float 2s ease-in-out infinite">⬡</div>
-  <div>Loading profile...</div>
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-logo">my<span>QRID</span></div>
+  <div class="loading-dots">
+    <div class="loading-dot"></div>
+    <div class="loading-dot"></div>
+    <div class="loading-dot"></div>
+  </div>
 </div>
 
-<!-- PROFILE CONTENT -->
-<div id="profileContent" style="display:none">
+<!-- STATE 1: UNCLAIMED -->
+<div id="state-unclaimed" style="display:none;min-height:100vh;background:linear-gradient(135deg,#0a0a1a,#1a0a2e);display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px 24px">
+  <div class="unc-icon"><i class="fas fa-qrcode" style="font-size:28px;color:#a78bfa"></i></div>
+  <div class="unc-title">This myQRID doesn't exist yet</div>
+  <div class="unc-sub">The profile <strong id="unc-username" style="color:#a78bfa">@username</strong> hasn't been created yet.<br>Be the first to claim this identity.</div>
+  <div class="unc-url" id="unc-url">myqrid.in/username</div>
+  <a href="/signup.html" class="btn-purple"><i class="fas fa-sparkles"></i> Create Your myQRID</a>
+  <p style="font-size:11px;color:rgba(255,255,255,0.2);margin-top:16px">No payment required · Free to create</p>
+</div>
 
-  <!-- PROFILE -->
-  <div class="profile">
-    <div class="avatar-wrap">
-      <div class="avatar-placeholder" id="avatarEl">P</div>
+<!-- STATE 2: ACTIVE -->
+<div id="state-active" style="display:none">
+  <div class="active-page">
+
+    <!-- HERO -->
+    <div class="profile-hero">
+      <div class="profile-cover-placeholder" id="coverEl"></div>
+      <div class="profile-hero-overlay"></div>
+      <div class="profile-share-btn" onclick="shareProfile()"><i class="fas fa-share-nodes"></i></div>
     </div>
-    <div class="name" id="nameEl">Loading...</div>
-    <div class="bio" id="bioEl"></div>
-    <div class="username-tag" id="usernameEl">@—</div>
 
-    <!-- SOCIAL ICONS — only show if linked -->
-    <div class="social" id="socialRow">
-      <a id="wa-icon" href="#" style="display:none"><i class="fab fa-whatsapp"></i></a>
-      <a id="insta-icon" href="#" style="display:none"><i class="fab fa-instagram"></i></a>
-      <a id="twitter-icon" href="#" style="display:none"><i class="fab fa-x-twitter"></i></a>
-      <a id="linkedin-icon" href="#" style="display:none"><i class="fab fa-linkedin"></i></a>
-      <a id="youtube-icon" href="#" style="display:none"><i class="fab fa-youtube"></i></a>
-      <a id="news-icon" href="#" style="display:none"><i class="fas fa-newspaper"></i></a>
+    <!-- AVATAR -->
+    <div class="profile-avatar-wrap">
+      <div class="profile-avatar" id="avatarEl">
+        <span id="avatarInitial">?</span>
+      </div>
+      <div class="verified-badge" id="verifiedBadge" style="display:none"><i class="fas fa-check" style="font-size:10px"></i></div>
     </div>
+
+    <!-- INFO -->
+    <div class="profile-info fade-up fade-up-d1">
+      <div class="profile-name" id="profileName">Loading...</div>
+      <div class="profile-username" id="profileUsername">@username</div>
+      <div class="profile-bio" id="profileBio" style="display:none"></div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-top:6px">
+        <div class="profile-url-chip" onclick="copyUrl()">
+          <i class="fas fa-link" style="font-size:10px"></i>
+          myqrid.in/<span id="urlUsername">—</span>
+        </div>
+        <div class="profile-score" id="scoreChip" style="display:none">
+          <i class="fas fa-star" style="font-size:10px"></i>
+          <span id="scoreVal">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTION ROW — above fold always -->
+    <div class="action-row fade-up fade-up-d2" id="actionRow">
+      <div class="action-btn" id="callBtn" style="display:none" onclick="doCall()">
+        <div class="action-btn-icon" style="background:#dbeafe"><i class="fas fa-phone" style="color:#2563eb"></i></div>
+        <div class="action-btn-label">Call</div>
+      </div>
+      <div class="action-btn" id="waBtn" style="display:none" onclick="doWhatsApp()">
+        <div class="action-btn-icon" style="background:#dcfce7"><i class="fab fa-whatsapp" style="color:#16a34a"></i></div>
+        <div class="action-btn-label">WhatsApp</div>
+      </div>
+      <div class="action-btn" onclick="saveContact()">
+        <div class="action-btn-icon" style="background:#f3e8ff"><i class="fas fa-address-card" style="color:#7c3aed"></i></div>
+        <div class="action-btn-label">Save</div>
+      </div>
+      <div class="action-btn" onclick="shareProfile()">
+        <div class="action-btn-icon" style="background:#fce7f3"><i class="fas fa-share-nodes" style="color:#ec4899"></i></div>
+        <div class="action-btn-label">Share</div>
+      </div>
+    </div>
+
+    <!-- SOCIAL ICONS -->
+    <div class="social-strip fade-up fade-up-d3" id="socialStrip"></div>
+
+    <!-- LINKS -->
+    <div class="links-section fade-up fade-up-d4" id="linksSection" style="display:none">
+      <div class="links-section-title">Links</div>
+      <div id="linksList"></div>
+    </div>
+
+    <!-- POWERED BY -->
+    <div class="powered-by fade-up fade-up-d5">
+      <div class="powered-logo">my<span>QRID</span></div>
+      <div class="powered-tag">Digital Identity · One QR · Infinite Possibilities</div>
+      <a href="/signup.html" class="powered-create">
+        <i class="fas fa-plus-circle"></i> Create your myQRID
+      </a>
+    </div>
+
   </div>
+</div>
 
-  <!-- DASHBOARD SCROLL CARDS -->
-  <div class="dashboard">
-    <div class="card" onclick="openShop()">🛍 Products</div>
-    <div class="card" onclick="openInsights()">📊 Insights</div>
-    <div class="card" onclick="openSettings()">⚙️ Settings</div>
-    <div class="card" onclick="copyURL()">🔗 Copy URL</div>
-  </div>
-
-  <!-- LINKTREE STYLE STRIPS -->
-  <div class="links" id="linksSection"></div>
-
-  <!-- WHATSAPP STRIP (if phone exists) -->
-  <div id="waStrip" style="display:none;padding:0 15px">
-    <a id="waStripLink" href="#" class="link whatsapp-link">
-      <i class="fab fa-whatsapp"></i>
-      <span>Chat on WhatsApp</span>
-    </a>
-  </div>
-
-  <!-- SAVE CONTACT -->
-  <div class="save-wrap">
-    <button class="save-btn" onclick="saveContact()">
-      <i class="fas fa-address-card"></i> Save Contact
+<!-- STATE 3: LOST -->
+<div id="state-lost" style="display:none;min-height:100vh;background:linear-gradient(135deg,#1a0008,#2d0010)">
+  <div class="lost-page">
+    <div class="lost-header fade-up">
+      <div class="lost-warning-icon">🚨</div>
+      <div class="lost-title">THIS ITEM IS LOST</div>
+      <div class="lost-subtitle" id="lostSubtitle">Please help return this item to its owner</div>
+    </div>
+    <img id="lostPhoto" style="display:none" class="lost-item-photo fade-up fade-up-d1" src="" alt="Lost item">
+    <div class="lost-message-card fade-up fade-up-d2" id="lostMsgCard" style="display:none">
+      <div class="lost-message-label">Message from owner</div>
+      <div class="lost-message-text" id="lostMsg"></div>
+    </div>
+    <div id="lostReward" style="display:none;text-align:center;margin-bottom:16px" class="fade-up fade-up-d2">
+      <div class="lost-reward"><i class="fas fa-gift"></i> <span id="lostRewardText">Reward offered</span></div>
+    </div>
+    <div class="lost-actions fade-up fade-up-d3">
+      <button class="lost-btn lost-btn-wa" id="lostWaBtn" onclick="lostWhatsApp()">
+        <i class="fab fa-whatsapp" style="font-size:18px"></i> WhatsApp Owner
+      </button>
+      <button class="lost-btn lost-btn-call" id="lostCallBtn" onclick="lostCall()">
+        <i class="fas fa-phone" style="font-size:16px"></i> Call Owner
+      </button>
+      <button class="lost-btn lost-btn-loc" onclick="shareLocation()">
+        <i class="fas fa-map-marker-alt" style="font-size:16px"></i> Share My Location
+      </button>
+    </div>
+    <button class="found-btn fade-up fade-up-d4" onclick="markFound()">
+      <i class="fas fa-check-circle"></i> I Found It — Notify Owner
     </button>
-  </div>
-
-  <!-- CTA -->
-  <a href="/claim.html" class="btn primary">
-    <i class="fas fa-qrcode"></i> Get Your myQRID
-  </a>
-  <a href="/login.html" class="btn secondary">
-    <i class="fas fa-sign-in-alt"></i> Login / Sign Up
-  </a>
-
-  <div class="footer">Powered by myQRID</div>
-</div>
-
-<!-- UNCLAIMED STATE -->
-<div id="unclaimedState" style="display:none">
-  <div class="unclaimed">
-    <div class="unclaimed-icon">⬡</div>
-    <div class="unclaimed-title">This myQRID hasn't been activated yet</div>
-    <div class="unclaimed-sub">Scan a myQRID tag to activate your digital identity and share your world in one tap.</div>
-    <a href="/claim.html" class="activate-btn">
-      <i class="fas fa-qrcode"></i> Activate This Identity
-    </a>
+    <div class="powered-by" style="margin-top:20px">
+      <div class="powered-logo" style="color:#fff">my<span>QRID</span></div>
+      <div class="powered-tag" style="color:rgba(255,255,255,0.2)">Smart Recovery System</div>
+    </div>
   </div>
 </div>
+
+<!-- STATE 4: EMERGENCY -->
+<div id="state-emergency" style="display:none;min-height:100vh;background:#0a0a0a">
+  <div class="emg-page">
+    <div class="emg-header">
+      <div class="emg-header-icon">⚕️</div>
+      <div class="emg-header-title">EMERGENCY INFORMATION</div>
+      <div class="emg-header-sub">This person may need immediate medical assistance</div>
+    </div>
+    <div class="emg-body">
+
+      <!-- PERSON -->
+      <div class="emg-person fade-up">
+        <div class="emg-avatar" id="emgAvatar"><span id="emgInitial">?</span></div>
+        <div>
+          <div class="emg-person-name" id="emgName">Loading...</div>
+          <div class="emg-person-age" id="emgAge"></div>
+        </div>
+      </div>
+
+      <!-- BLOOD GROUP -->
+      <div class="emg-blood fade-up fade-up-d1" id="emgBloodCard" style="display:none">
+        <div class="emg-blood-label">Blood Group</div>
+        <div class="emg-blood-type" id="emgBloodType">—</div>
+      </div>
+
+      <!-- ALLERGIES -->
+      <div class="emg-section fade-up fade-up-d2" id="emgAllergyCard" style="display:none">
+        <div class="emg-section-title">⚠️ Allergies</div>
+        <div id="emgAllergies"></div>
+      </div>
+
+      <!-- MEDICATIONS -->
+      <div class="emg-section fade-up fade-up-d2" id="emgMedCard" style="display:none">
+        <div class="emg-section-title">💊 Current Medications</div>
+        <div id="emgMeds"></div>
+      </div>
+
+      <!-- CONDITIONS -->
+      <div class="emg-section fade-up fade-up-d2" id="emgCondCard" style="display:none">
+        <div class="emg-section-title">🏥 Medical Conditions</div>
+        <div id="emgConds"></div>
+      </div>
+
+      <!-- EMERGENCY CONTACTS -->
+      <div class="emg-section fade-up fade-up-d3" id="emgContactsCard" style="display:none">
+        <div class="emg-section-title">📞 Emergency Contacts</div>
+        <div id="emgContacts"></div>
+      </div>
+
+      <!-- DOCTOR -->
+      <div class="emg-section fade-up fade-up-d4" id="emgDoctorCard" style="display:none">
+        <div class="emg-section-title">👨‍⚕️ Doctor / Hospital</div>
+        <div class="emg-doctor" id="emgDoctorInfo"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-const API = 'https://myqrid-backend.myqrid.workers.dev';
-let profileData = {};
+const API='https://myqrid-backend.myqrid.workers.dev';
+let profileData=null;
 
-function getUsernameFromURL() {
-  const parts = window.location.pathname.split('/').filter(Boolean);
-  return parts[parts.length - 1] || null;
+/* ── GET USERNAME FROM URL ── */
+function getUsername(){
+  const path=window.location.pathname;
+  // Supports /profile/username and /username
+  const parts=path.split('/').filter(Boolean);
+  if(parts[0]==='profile')return parts[1]||null;
+  return parts[0]||null;
 }
 
-function copyURL() {
-  navigator.clipboard.writeText(window.location.href);
-  alert('URL copied!');
-}
+/* ── LOAD PROFILE ── */
+async function loadProfile(){
+  const username=getUsername();
+  if(!username){showState('unclaimed');setUnclaimed('unknown');return;}
 
-function openShop() { alert('Products coming soon!'); }
-function openInsights() { alert('Insights coming soon!'); }
-function openSettings() {
-  const token = localStorage.getItem('token');
-  window.location.href = token ? '/dashboard.html' : '/login.html';
-}
+  try{
+    const res=await fetch(`${API}/profile/${username}`);
+    const data=await res.json();
 
-async function shareProfile() {
-  const url = window.location.href;
-  if (navigator.share) {
-    navigator.share({ title: (profileData.display_name || 'myQRID') + ' — myQRID', url });
-  } else {
-    await navigator.clipboard.writeText(url);
-    alert('Link copied!');
+    if(!res.ok||!data.success||!data.profile){
+      showState('unclaimed');setUnclaimed(username);return;
+    }
+
+    profileData=data.profile;
+
+    /* Determine which state to show */
+    if(profileData.emergency_mode){
+      showState('emergency');renderEmergency();
+    }else if(profileData.lost_mode){
+      showState('lost');renderLost();
+    }else{
+      showState('active');renderActive();
+    }
+
+  }catch(e){
+    /* Network error — try localStorage if own profile */
+    const own=localStorage.getItem('username');
+    if(own&&own===username){
+      renderFromLocal(username);
+    }else{
+      showState('unclaimed');setUnclaimed(username||'unknown');
+    }
   }
 }
 
-function saveContact() {
-  if (!profileData.display_name) return;
-  const vcard = [
-    'BEGIN:VCARD',
-    'VERSION:3.0',
-    'FN:' + profileData.display_name,
-    profileData.phone ? 'TEL:' + profileData.phone : '',
-    'URL:' + window.location.href,
-    'NOTE:myQRID Profile',
-    'END:VCARD'
-  ].filter(Boolean).join('\n');
-  const blob = new Blob([vcard], { type: 'text/vcard' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = (profileData.username || 'contact') + '.vcf';
-  a.click();
+/* ── RENDER FROM LOCALSTORAGE (fallback) ── */
+function renderFromLocal(username){
+  profileData={
+    username,
+    name:localStorage.getItem('name')||username,
+    bio:localStorage.getItem('bio')||'',
+    phone:localStorage.getItem('phone')||'',
+    email:localStorage.getItem('email')||'',
+    avatar:localStorage.getItem('avatar_personal')||'',
+    verified:false,
+    links:[],
+    socials:{},
+    lost_mode:false,
+    emergency_mode:false,
+  };
+  showState('active');renderActive();
 }
 
-async function loadProfile() {
-  const username = getUsernameFromURL();
-  if (!username || username === 'profile') {
-    document.getElementById('loadingState').style.display = 'none';
-    document.getElementById('unclaimedState').style.display = 'block';
-    return;
+/* ── SHOW STATE ── */
+function showState(state){
+  document.getElementById('loadingScreen').classList.add('hide');
+  ['unclaimed','active','lost','emergency'].forEach(s=>{
+    const el=document.getElementById('state-'+s);
+    if(el)el.style.display=s===state?(s==='active'?'block':'flex'):'none';
+  });
+}
+
+/* ── SET UNCLAIMED ── */
+function setUnclaimed(username){
+  document.getElementById('unc-username').textContent='@'+username;
+  document.getElementById('unc-url').textContent='myqrid.in/'+username;
+  document.title='myQRID — @'+username;
+}
+
+/* ── RENDER ACTIVE ── */
+function renderActive(){
+  const p=profileData;
+  document.title=(p.name||p.username)+' — myQRID';
+
+  /* Avatar */
+  const avEl=document.getElementById('avatarEl');
+  if(p.avatar){
+    avEl.innerHTML=`<img src="${esc(p.avatar)}" alt="${esc(p.name)}">`;
+  }else{
+    document.getElementById('avatarInitial').textContent=(p.name||p.username||'?')[0].toUpperCase();
   }
 
-  document.title = '@' + username + ' — myQRID';
+  /* Info */
+  document.getElementById('profileName').textContent=p.name||p.username;
+  document.getElementById('profileUsername').textContent='@'+(p.username||'');
+  document.getElementById('urlUsername').textContent=p.username||'';
+  if(p.bio){const b=document.getElementById('profileBio');b.textContent=p.bio;b.style.display='block';}
 
-  try {
-    const res = await fetch(API + '/profile/' + username);
-    const data = await res.json();
-    document.getElementById('loadingState').style.display = 'none';
+  /* Verified */
+  if(p.verified)document.getElementById('verifiedBadge').style.display='flex';
 
-    if (!data.success || !data.claimed) {
-      document.getElementById('unclaimedState').style.display = 'block';
-      return;
-    }
+  /* Score */
+  if(p.trust_score){
+    document.getElementById('scoreVal').textContent=p.trust_score;
+    document.getElementById('scoreChip').style.display='flex';
+  }
 
-    profileData = data;
-    document.getElementById('profileContent').style.display = 'block';
-    document.title = (data.display_name || username) + ' — myQRID';
+  /* Action buttons */
+  if(p.phone){
+    document.getElementById('callBtn').style.display='flex';
+    document.getElementById('waBtn').style.display='flex';
+  }
 
-    // Avatar
-    const initial = (data.display_name || username)[0].toUpperCase();
-    const avatarEl = document.getElementById('avatarEl');
-    if (data.avatar) {
-      avatarEl.outerHTML = `<img class="avatar" src="${data.avatar}" alt="${initial}" id="avatarEl">`;
-    } else {
-      avatarEl.textContent = initial;
+  /* Social icons */
+  const socials=p.socials||{};
+  const socOrder=[
+    {key:'whatsapp',icon:'fab fa-whatsapp',color:'#25D366',fn:(v)=>`https://wa.me/${v.replace(/\D/g,'')}`},
+    {key:'instagram',icon:'fab fa-instagram',color:'#e1306c',fn:(v)=>`https://instagram.com/${v.replace('@','')}`},
+    {key:'twitter',icon:'fab fa-x-twitter',color:'#111',fn:(v)=>`https://x.com/${v.replace('@','')}`},
+    {key:'youtube',icon:'fab fa-youtube',color:'#FF0000',fn:(v)=>v.startsWith('http')?v:`https://youtube.com/${v}`},
+    {key:'linkedin',icon:'fab fa-linkedin',color:'#0a66c2',fn:(v)=>v.startsWith('http')?v:`https://linkedin.com/in/${v}`},
+    {key:'facebook',icon:'fab fa-facebook',color:'#1877f2',fn:(v)=>v.startsWith('http')?v:`https://facebook.com/${v}`},
+    {key:'telegram',icon:'fab fa-telegram',color:'#2aabee',fn:(v)=>`https://t.me/${v.replace('@','')}`},
+    {key:'github',icon:'fab fa-github',color:'#111',fn:(v)=>v.startsWith('http')?v:`https://github.com/${v}`},
+  ];
+  const strip=document.getElementById('socialStrip');
+  strip.innerHTML='';
+  socOrder.forEach(s=>{
+    if(socials[s.key]){
+      const a=document.createElement('a');
+      a.href=s.fn(socials[s.key]);a.target='_blank';a.rel='noopener';
+      a.className='soc-icon';
+      a.innerHTML=`<i class="${s.icon}" style="color:${s.color}"></i>`;
+      strip.appendChild(a);
     }
+  });
 
-    // Info
-    document.getElementById('nameEl').textContent = data.display_name || username;
-    document.getElementById('bioEl').textContent = data.bio || '';
-    document.getElementById('usernameEl').textContent = '@' + data.username;
+  /* Links */
+  const links=(p.links||[]).filter(l=>l.active!==false);
+  if(links.length>0){
+    const sec=document.getElementById('linksSection');
+    const list=document.getElementById('linksList');
+    sec.style.display='block';
+    list.innerHTML=links.map(link=>{
+      const iconMap={
+        whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',youtube:'fab fa-youtube',
+        twitter:'fab fa-x-twitter',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',
+        telegram:'fab fa-telegram',github:'fab fa-github',spotify:'fab fa-spotify',
+        tiktok:'fab fa-tiktok',website:'fas fa-globe',portfolio:'fas fa-briefcase',
+        booking:'fas fa-calendar-check',payment:'fas fa-qrcode',call:'fas fa-phone',
+        email:'fas fa-envelope',maps:'fas fa-map-marker-alt',video:'fas fa-play-circle',
+        blog:'fas fa-pen-nib',resume:'fas fa-file-alt',
+      };
+      const icon=iconMap[link.icon]||'fas fa-link';
+      const color=link.color||'#7c3aed';
+      return `<a href="${esc(link.url)}" target="_blank" rel="noopener" class="pub-link" onclick="trackClick('${link.id}')">
+        <div class="pub-link-icon" style="background:${color}15"><i class="${icon}" style="color:${color}"></i></div>
+        <div class="pub-link-text">
+          <div class="pub-link-title">${esc(link.title)}</div>
+        </div>
+        <i class="fas fa-arrow-right pub-link-arrow"></i>
+      </a>`;
+    }).join('');
+  }
 
-    // Social icons — only show if user has linked them
-    const socials = data.socials || {};
-    if (socials.whatsapp || data.phone) {
-      const phone = (socials.whatsapp || data.phone).replace(/\s/g, '');
-      const el = document.getElementById('wa-icon');
-      el.href = 'https://wa.me/' + phone;
-      el.style.display = 'flex';
-      // WhatsApp strip
-      document.getElementById('waStrip').style.display = 'block';
-      document.getElementById('waStripLink').href = 'https://wa.me/' + phone;
-    }
-    if (socials.instagram) {
-      const el = document.getElementById('insta-icon');
-      el.href = 'https://instagram.com/' + socials.instagram;
-      el.style.display = 'flex';
-    }
-    if (socials.twitter) {
-      const el = document.getElementById('twitter-icon');
-      el.href = 'https://twitter.com/' + socials.twitter;
-      el.style.display = 'flex';
-    }
-    if (socials.linkedin) {
-      const el = document.getElementById('linkedin-icon');
-      el.href = 'https://linkedin.com/in/' + socials.linkedin;
-      el.style.display = 'flex';
-    }
-    if (socials.youtube) {
-      const el = document.getElementById('youtube-icon');
-      el.href = socials.youtube;
-      el.style.display = 'flex';
-    }
+  /* Cover gradient based on card theme */
+  const coverEl=document.getElementById('coverEl');
+  const themeGrads={
+    personal:'linear-gradient(135deg,#4c1d95,#7c3aed,#ec4899)',
+    work:'linear-gradient(135deg,#1e3a5f,#2563eb,#93c5fd)',
+    business:'linear-gradient(135deg,#1a1a1a,#374151,#e5e7eb)',
+    earn:'linear-gradient(135deg,#064e3b,#059669,#bbf7d0)',
+    drift:'linear-gradient(135deg,#000,#050a0a,#00c8b8)',
+  };
+  coverEl.style.background=themeGrads[p.primary_card||'personal']||themeGrads.personal;
+}
 
-    // Linktree style link strips
-    const container = document.getElementById('linksSection');
-    if (data.links && data.links.length) {
-      data.links.forEach(link => {
-        const a = document.createElement('a');
-        a.className = 'link';
-        a.href = link.url || '#';
-        a.target = '_blank';
-        a.innerHTML = `<div class="link-icon">${link.icon || '🔗'}</div><span>${link.title || link.url}</span>`;
-        container.appendChild(a);
-      });
-    }
+/* ── RENDER LOST ── */
+function renderLost(){
+  const p=profileData;
+  const lost=p.lost_data||{};
+  document.title='LOST — '+( p.name||p.username)+' — myQRID';
+  document.getElementById('lostSubtitle').textContent='Please help return '+(p.item_name||'this item')+' to its owner';
+  if(lost.photo){const img=document.getElementById('lostPhoto');img.src=lost.photo;img.style.display='block';}
+  if(lost.message){const mc=document.getElementById('lostMsgCard');mc.style.display='block';document.getElementById('lostMsg').textContent=lost.message;}
+  if(lost.reward){const rc=document.getElementById('lostReward');rc.style.display='block';document.getElementById('lostRewardText').textContent='Reward: '+lost.reward;}
+  window._lostPhone=p.phone||'';
+  window._lostName=p.name||'Owner';
+}
 
-    // Call strip
-    if (data.phone) {
-      const callEl = document.createElement('div');
-      callEl.style.padding = '0 15px';
-      callEl.innerHTML = `<a href="tel:${data.phone}" class="link"><i class="fas fa-phone"></i><span>Call ${data.display_name}</span></a>`;
-      container.appendChild(callEl);
-    }
+function lostWhatsApp(){
+  const ph=(window._lostPhone||'').replace(/\D/g,'');
+  if(!ph){showToast('Contact not available');return;}
+  window.open('https://wa.me/'+ph+'?text=Hi, I found your lost item!','_blank');
+}
+function lostCall(){
+  const ph=window._lostPhone||'';
+  if(!ph){showToast('Contact not available');return;}
+  window.location.href='tel:'+ph;
+}
+function shareLocation(){
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(pos=>{
+      const url=`https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+      const ph=(window._lostPhone||'').replace(/\D/g,'');
+      if(ph)window.open('https://wa.me/'+ph+'?text=I found your item! My location: '+url,'_blank');
+      else{navigator.clipboard.writeText(url);showToast('Location copied!');}
+    },()=>showToast('Location access denied'));
+  }else showToast('Location not supported');
+}
+function markFound(){
+  const username=getUsername();
+  if(username){
+    fetch(`${API}/lost/found`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,finder_time:new Date().toISOString()})}).catch(()=>{});
+  }
+  showToast('✅ Owner notified! Thank you!');
+}
 
-  } catch(e) {
-    document.getElementById('loadingState').style.display = 'none';
-    document.getElementById('unclaimedState').style.display = 'block';
+/* ── RENDER EMERGENCY ── */
+function renderEmergency(){
+  const p=profileData;
+  const emg=p.emergency||{};
+  document.title='EMERGENCY — '+(p.name||p.username)+' — myQRID';
+
+  /* Person */
+  const avEl=document.getElementById('emgAvatar');
+  if(p.avatar){avEl.innerHTML=`<img src="${esc(p.avatar)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}
+  else{document.getElementById('emgInitial').textContent=(p.name||p.username||'?')[0].toUpperCase();}
+  document.getElementById('emgName').textContent=p.name||p.username;
+  if(emg.age||emg.dob)document.getElementById('emgAge').textContent=(emg.age?emg.age+' years old':'')+(emg.dob?' · DOB: '+emg.dob:'');
+
+  /* Blood group */
+  if(emg.blood_group){
+    document.getElementById('emgBloodCard').style.display='block';
+    document.getElementById('emgBloodType').textContent=emg.blood_group;
+  }
+
+  /* Allergies */
+  if(emg.allergies&&emg.allergies.length){
+    document.getElementById('emgAllergyCard').style.display='block';
+    document.getElementById('emgAllergies').innerHTML=emg.allergies.map(a=>`<span class="emg-tag">${esc(a)}</span>`).join('');
+  }
+
+  /* Medications */
+  if(emg.medications&&emg.medications.length){
+    document.getElementById('emgMedCard').style.display='block';
+    document.getElementById('emgMeds').innerHTML=emg.medications.map(m=>`<span class="emg-tag emg-tag-safe">${esc(m)}</span>`).join('');
+  }
+
+  /* Conditions */
+  if(emg.conditions&&emg.conditions.length){
+    document.getElementById('emgCondCard').style.display='block';
+    document.getElementById('emgConds').innerHTML=emg.conditions.map(c=>`<span class="emg-tag">${esc(c)}</span>`).join('');
+  }
+
+  /* Emergency contacts */
+  const contacts=emg.contacts||[];
+  if(contacts.length){
+    document.getElementById('emgContactsCard').style.display='block';
+    document.getElementById('emgContacts').innerHTML=contacts.map(c=>`
+      <div class="emg-contact" onclick="callEmergency('${esc(c.phone||'')}')">
+        <div class="emg-contact-icon">📞</div>
+        <div class="emg-contact-info">
+          <div class="emg-contact-name">${esc(c.name||'Contact')}</div>
+          <div class="emg-contact-rel">${esc(c.relation||'')}</div>
+          <div class="emg-contact-phone">${esc(c.phone||'')}</div>
+        </div>
+        <div class="emg-call-btn">TAP TO CALL</div>
+      </div>`).join('');
+  }
+
+  /* Doctor */
+  if(emg.doctor||emg.hospital){
+    document.getElementById('emgDoctorCard').style.display='block';
+    let html='';
+    if(emg.doctor)html+=`<div class="emg-doctor-row"><span class="emg-doctor-icon">👨‍⚕️</span><span class="emg-doctor-text">Dr. <span class="emg-hospital">${esc(emg.doctor)}</span>${emg.doctor_phone?` · ${esc(emg.doctor_phone)}`:''}</span></div>`;
+    if(emg.hospital)html+=`<div class="emg-doctor-row" style="margin-top:8px"><span class="emg-doctor-icon">🏥</span><span class="emg-doctor-text">Preferred: <span class="emg-hospital">${esc(emg.hospital)}</span></span></div>`;
+    document.getElementById('emgDoctorInfo').innerHTML=html;
   }
 }
 
-loadProfile();
+function callEmergency(phone){if(phone)window.location.href='tel:'+phone;}
+
+/* ── PROFILE ACTIONS ── */
+function doCall(){if(profileData&&profileData.phone)window.location.href='tel:'+profileData.phone;}
+function doWhatsApp(){
+  if(profileData&&profileData.phone){
+    const ph=profileData.phone.replace(/\D/g,'');
+    window.open('https://wa.me/'+ph,'_blank');
+  }
+}
+function shareProfile(){
+  const url=window.location.href;
+  const name=profileData?profileData.name:'this profile';
+  if(navigator.share)navigator.share({title:name+' — myQRID',url});
+  else{navigator.clipboard.writeText(url);showToast('Link copied!');}
+}
+function copyUrl(){navigator.clipboard.writeText(window.location.href);showToast('Link copied!');}
+function saveContact(){
+  if(!profileData)return;
+  const p=profileData;
+  const v=`BEGIN:VCARD\nVERSION:3.0\nFN:${p.name||''}\nTEL:${p.phone||''}\nEMAIL:${p.email||''}\nURL:https://myqrid.in/${p.username||''}\nNOTE:myQRID Digital Identity\nEND:VCARD`;
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));a.download=(p.username||'contact')+'.vcf';a.click();showToast('Contact saved!');
+}
+async function trackClick(linkId){
+  try{await fetch(`${API}/links/click`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({linkId,username:profileData?.username})});}catch(e){}
+}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+/* INIT */
+window.addEventListener('load',()=>{
+  setTimeout(loadProfile,400);
+});
 </script>
 </body>
 </html>
