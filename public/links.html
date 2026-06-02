@@ -8,155 +8,214 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f5f5f7}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f7f7f8}
+body{background-color:#f7f7f8;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.038) 39px,rgba(0,0,0,0.038) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.038) 39px,rgba(0,0,0,0.038) 40px)}
 
-/* GEOMETRIC STRIPED BACKGROUND */
-body{background-color:#f5f5f7;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.04) 39px,rgba(0,0,0,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.04) 39px,rgba(0,0,0,0.04) 40px)}
-
-.page{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:#f5f5f7;position:relative}
-.page::before{content:'';position:fixed;inset:0;max-width:480px;margin:0 auto;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.035) 39px,rgba(0,0,0,0.035) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.035) 39px,rgba(0,0,0,0.035) 40px);pointer-events:none;z-index:0}
+.page{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:90px;position:relative}
 
 /* TOPBAR */
-.topbar{position:sticky;top:0;z-index:50;background:rgba(245,245,247,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:14px 20px;padding-top:calc(14px + env(safe-area-inset-top))}
-.back-btn{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
+.back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
 .topbar-title{font-size:16px;font-weight:700;color:#111}
-.save-btn{padding:8px 18px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(124,58,237,0.3)}
+.save-btn{padding:7px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(124,58,237,0.25)}
 .save-btn:disabled{opacity:0.5;cursor:not-allowed}
 
-/* PROFILE SECTION */
-.profile-section{position:relative;z-index:1;padding:20px 20px 14px;text-align:center;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);margin:12px 16px;border-radius:20px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
-.profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;border:3px solid rgba(124,58,237,0.25);box-shadow:0 4px 16px rgba(124,58,237,0.25);margin:0 auto 10px;overflow:hidden;cursor:pointer}
-.profile-avatar img{width:100%;height:100%;object-fit:cover}
-.profile-name{font-size:20px;font-weight:800;color:#111;margin-bottom:3px}
-.profile-bio-wrap{display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;margin-bottom:8px}
-.profile-bio{font-size:13px;color:#666}
-.profile-bio-icon{font-size:10px;color:#bbb}
-.profile-url{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:4px 12px;font-size:12px;color:#7c3aed;font-weight:500}
+/* PROFILE CARD */
+.profile-card{background:#fff;border:1px solid #e9e9eb;border-radius:18px;margin:12px 16px;padding:18px 16px 14px;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
+.profile-top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.p-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;cursor:pointer;border:2px solid rgba(124,58,237,0.2)}
+.p-avatar img{width:100%;height:100%;object-fit:cover}
+.p-info{flex:1;min-width:0}
+.p-name{font-size:16px;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-bio-row{display:flex;align-items:center;gap:5px;cursor:pointer;margin-top:2px}
+.p-bio{font-size:12px;color:#888}
+.p-bio-icon{font-size:9px;color:#ccc}
+.p-url{display:inline-flex;align-items:center;gap:5px;background:#f3f0ff;border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:3px 10px;font-size:11px;color:#7c3aed;font-weight:500;cursor:pointer}
+.p-url-copy{margin-left:2px;font-size:10px;color:#a78bfa;cursor:pointer}
 
-/* SOCIAL ROW */
-.social-row{position:relative;z-index:1;display:flex;justify-content:center;gap:8px;padding:0 20px 14px;flex-wrap:wrap}
-.social-chip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:8px 10px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.08);transition:all 0.2s;min-width:50px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
-.social-chip:active{transform:scale(0.95)}
-.social-chip.linked{background:#fff;border-color:rgba(124,58,237,0.25);box-shadow:0 2px 8px rgba(124,58,237,0.12)}
-.social-chip i{font-size:17px;color:#ccc}
-.social-chip.linked i{color:var(--sc,#7c3aed)}
-.social-chip span{font-size:9px;color:#aaa;font-weight:500}
-.social-chip.linked span{color:#888}
+/* SOCIAL CHIPS */
+.social-row{display:flex;gap:6px;flex-wrap:wrap;padding:0 4px}
+.soc-chip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:7px 8px;border-radius:10px;background:#f9f9fb;border:1px solid #e9e9eb;transition:all 0.18s;min-width:46px}
+.soc-chip:active{transform:scale(0.94)}
+.soc-chip.linked{background:#f3f0ff;border-color:rgba(124,58,237,0.25)}
+.soc-chip i{font-size:16px;color:#ccc}
+.soc-chip.linked i{color:var(--sc,#7c3aed)}
+.soc-chip span{font-size:9px;color:#bbb;font-weight:500}
+.soc-chip.linked span{color:#999}
 
 /* SPARK BANNER */
-.spark-banner{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:16px;margin:0 16px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
-.spark-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.spark-info{flex:1}
-.spark-name{font-size:13px;font-weight:700;color:#111}
-.spark-sub{font-size:11px;color:#888;margin-top:1px}
-.spark-bar-wrap{height:3px;background:#eee;border-radius:2px;margin-top:6px;overflow:hidden}
-.spark-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.3s}
-.spark-count{font-size:10px;color:#aaa;margin-top:3px}
-.spark-upgrade{padding:6px 12px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;cursor:pointer;white-space:nowrap}
+.spark-banner{background:#fff;border:1px solid #e9e9eb;border-radius:14px;margin:10px 16px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+.spark-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.spark-info{flex:1;min-width:0}
+.spark-name{font-size:12px;font-weight:700;color:#111}
+.spark-sub{font-size:10px;color:#aaa;margin-top:1px}
+.spark-bar-wrap{height:3px;background:#f0f0f0;border-radius:2px;margin-top:5px;overflow:hidden}
+.spark-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.35s}
+.spark-cnt{font-size:9px;color:#bbb;margin-top:2px}
+.spark-up{padding:5px 11px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;font-size:11px;font-weight:700;color:#fff;cursor:pointer;flex-shrink:0}
 
-/* LINKS SECTION */
-.links-section{position:relative;z-index:1;padding:0 16px;margin-bottom:6px}
-.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.section-lbl{font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.6px}
-.link-count-badge{font-size:11px;color:#bbb}
-.empty-state{text-align:center;padding:28px 20px;color:#bbb;font-size:14px;background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,0.06)}
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:8px}
+.sec-lbl{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px}
+.sec-cnt{font-size:11px;color:#ccc}
+
+/* ADD BUTTON */
+.add-main-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 16px 12px;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:14px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.3);transition:all 0.2s;width:calc(100% - 32px)}
+.add-main-btn:active{transform:scale(0.98);opacity:0.92}
+
+/* LINKS LIST */
+.links-wrap{padding:0 16px}
 
 /* LINK STRIP — Linktree style */
-.link-item{display:flex;align-items:center;background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:16px;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.05);transition:all 0.2s;position:relative}
-.link-item.hidden-link{opacity:0.5}
-.link-drag-handle{padding:0 8px 0 12px;color:#ccc;font-size:14px;cursor:grab;flex-shrink:0;touch-action:none}
-.link-drag-handle:active{cursor:grabbing}
-.link-color-bar{width:5px;min-height:64px;flex-shrink:0;border-radius:0}
-.link-main{display:flex;align-items:center;gap:10px;padding:12px 10px;flex:1;min-width:0;cursor:pointer}
-.link-platform-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.link-text{flex:1;min-width:0}
-.link-title-wrap{display:flex;align-items:center;gap:6px}
-.link-title{font-size:14px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.link-title-input{font-size:14px;font-weight:600;color:#111;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;padding:0}
-.link-url-text{font-size:11px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
-.link-clicks{font-size:10px;color:#bbb;margin-top:2px;display:flex;align-items:center;gap:3px}
-.link-actions{display:flex;align-items:center;gap:3px;padding:0 8px;flex-shrink:0}
-.link-action{width:30px;height:30px;border-radius:8px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#bbb;font-size:12px;transition:all 0.2s}
-.link-action:active{background:#f5f5f7;color:#555}
-.link-action.active-like{color:#ef4444}
-.link-action.active-show{color:#22c55e}
-/* TOGGLE */
-.vis-toggle{width:38px;height:22px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
-.vis-toggle.on{background:#22c55e}
-.vis-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
-.vis-toggle.on::after{transform:translateX(16px)}
+.link-card{background:#fff;border:1px solid #e9e9eb;border-radius:16px;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,0.04);transition:box-shadow 0.2s}
+.link-card:active{box-shadow:0 3px 12px rgba(0,0,0,0.1)}
+.link-card.hidden-card{opacity:0.5}
+.link-card-top{display:flex;align-items:center;gap:0;padding:13px 12px 10px}
+.lc-drag{color:#d1d5db;font-size:13px;cursor:grab;padding:0 8px 0 0;flex-shrink:0}
+.lc-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-right:10px}
+.lc-text{flex:1;min-width:0}
+.lc-title-row{display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.lc-title{font-size:14px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.lc-title-input{font-size:14px;font-weight:600;color:#111;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;border-bottom:1.5px solid #7c3aed;padding-bottom:1px}
+.lc-edit-icon{font-size:10px;color:#ccc;cursor:pointer;flex-shrink:0;padding:2px}
+.lc-url-row{display:flex;align-items:center;gap:5px}
+.lc-url{font-size:11px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.lc-url-input{font-size:11px;color:#888;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;border-bottom:1px solid #e5e7eb;padding-bottom:1px}
+.lc-url-edit{font-size:9px;color:#d1d5db;cursor:pointer;flex-shrink:0}
+.lc-right{display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:8px}
+.lc-share-btn{width:28px;height:28px;border-radius:7px;background:#f9f9fb;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#aaa;font-size:11px}
+.lc-toggle{width:40px;height:22px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
+.lc-toggle.on{background:#7c3aed}
+.lc-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.lc-toggle.on::after{transform:translateX(18px)}
 
-/* ADD LINK SECTION */
-.add-section{position:relative;z-index:1;padding:0 16px;margin-bottom:6px}
-.add-section-lbl{font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px}
-.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.preset-strip{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;cursor:pointer;transition:all 0.2s;border:none;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600}
-.preset-strip:active{transform:scale(0.97);opacity:0.9}
-.preset-strip i{font-size:16px;flex-shrink:0}
-.preset-custom{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:14px;background:#fff;border:1.5px dashed rgba(124,58,237,0.3);color:#7c3aed;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;width:100%;margin-top:4px;font-family:'Inter',sans-serif}
-.preset-custom:active{background:rgba(124,58,237,0.05)}
+/* LINK BOTTOM BAR */
+.link-btm{display:flex;align-items:center;gap:0;padding:6px 12px 10px;border-top:1px solid #f5f5f7}
+.lbtm-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;border-radius:8px;background:transparent;border:none;cursor:pointer;color:#bbb;font-size:11px;font-family:'Inter',sans-serif;transition:all 0.18s}
+.lbtm-btn:active{background:#f5f5f7;color:#555}
+.lbtm-btn i{font-size:13px}
+.lbtm-btn.liked{color:#ef4444}
+.lbtm-btn.pinned{color:#f59e0b}
+.lbtm-sep{width:1px;height:18px;background:#f0f0f0;margin:0 2px;flex-shrink:0}
+.lbtm-clicks{margin-left:auto;font-size:10px;color:#ccc;display:flex;align-items:center;gap:3px;padding:0 4px}
+.lbtm-del{margin-left:4px;color:#fca5a5!important}
+.lbtm-del:active{color:#ef4444!important}
 
-/* UPGRADE FOOTER */
-.upgrade-footer{position:relative;z-index:1;margin:16px 16px 8px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
-.upgrade-footer-top{padding:16px 16px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.06),rgba(236,72,153,0.04))}
-.upgrade-title{font-size:15px;font-weight:800;color:#111;margin-bottom:4px}
-.upgrade-sub{font-size:12px;color:#888;line-height:1.5;margin-bottom:12px}
-.upgrade-features{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.upgrade-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:#555}
+/* THUMBNAIL PREVIEW */
+.link-thumb{width:100%;height:120px;object-fit:cover;display:block;border-radius:0}
+.link-thumb-add{display:flex;align-items:center;justify-content:center;gap:6px;height:80px;border-top:1px solid #f5f5f7;background:#fafafa;cursor:pointer;color:#bbb;font-size:12px;font-weight:500}
+.link-thumb-add i{font-size:16px}
+
+/* COLLECTION */
+.collection-card{background:#fff;border:1.5px dashed #e5e7eb;border-radius:16px;margin-bottom:8px;overflow:hidden}
+.col-header{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid #f5f5f7}
+.col-drag{color:#d1d5db;font-size:13px;cursor:grab;flex-shrink:0}
+.col-icon{font-size:14px;color:#888}
+.col-title-input{flex:1;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#111;background:transparent}
+.col-title-input::placeholder{color:#ccc}
+.col-actions{display:flex;gap:6px;margin-left:auto}
+.col-btn{width:28px;height:28px;border-radius:7px;background:#f9f9fb;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#aaa;font-size:11px}
+.col-toggle{width:40px;height:22px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s}
+.col-toggle.on{background:#7c3aed}
+.col-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.col-toggle.on::after{transform:translateX(18px)}
+.col-links{padding:6px 10px 10px}
+.col-add-link{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f9f9fb;border:1px dashed #e5e7eb;cursor:pointer;color:#bbb;font-size:12px;font-weight:500;margin-top:6px;transition:all 0.18s}
+.col-add-link:active{background:#f3f0ff;color:#7c3aed;border-color:rgba(124,58,237,0.3)}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:28px 20px;color:#bbb;font-size:14px;background:#fff;border-radius:16px;border:1px solid #e9e9eb}
+
+/* ADD COLLECTION BTN */
+.add-col-btn{display:flex;align-items:center;gap:8px;padding:11px 14px;margin:0 16px 8px;background:#fff;border:1.5px dashed #d1d5db;border-radius:14px;cursor:pointer;color:#888;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all 0.18s;width:calc(100% - 32px)}
+.add-col-btn:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3);color:#7c3aed}
+
+/* UPGRADE SECTION */
+.upgrade-section{margin:16px 16px 8px;background:#fff;border:1px solid #e9e9eb;border-radius:20px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.upgrade-hdr{padding:18px 18px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(236,72,153,0.03))}
+.upgrade-hdr-title{font-size:16px;font-weight:800;color:#111;margin-bottom:4px}
+.upgrade-hdr-sub{font-size:12px;color:#888;line-height:1.6;margin-bottom:14px}
+.upgrade-feats{display:flex;flex-direction:column;gap:7px;margin-bottom:0}
+.upgrade-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:#444}
 .upgrade-feat i{color:#7c3aed;font-size:11px;flex-shrink:0}
-.upgrade-plans{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 16px}
-.upgrade-plan-btn{padding:11px 10px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s}
-.upgrade-plan-btn:active{transform:scale(0.97)}
-.btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,0.3)}
-.btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 12px rgba(5,150,105,0.3)}
+.upgrade-plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 18px 18px}
+.uplan-btn{padding:13px 10px;border:none;border-radius:13px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all 0.2s}
+.uplan-btn:active{transform:scale(0.97)}
+.uplan-sub{font-size:10px;font-weight:400;opacity:0.8}
+.btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 14px rgba(124,58,237,0.3)}
+.btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 14px rgba(5,150,105,0.25)}
+.upgrade-note{text-align:center;font-size:11px;color:#bbb;padding:0 18px 14px}
 
-/* MYQRID FOOTER LOGO */
-.myqrid-footer{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 20px 24px}
-.myqrid-footer-logo{display:flex;align-items:center;gap:8px}
-.footer-qr-logo{width:28px;height:28px}
-.footer-brand{font-size:16px;font-weight:800;color:#111}
-.footer-brand span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+/* MYQRID FOOTER */
+.myqrid-footer{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 20px 20px}
+.footer-logo-text{font-size:18px;font-weight:800;color:#111}
+.footer-logo-text span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .footer-tagline{font-size:11px;color:#bbb;text-align:center}
 
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-top:1px solid rgba(0,0,0,0.08);display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,0.06)}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#bbb;font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;transition:color 0.2s}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.05)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;transition:color 0.2s}
 .nav-item.active{color:#7c3aed}
 .nav-icon{font-size:20px;line-height:1}
 .nav-center-btn{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
 
-/* MODALS */
+/* ADD MODAL — Linktree style */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
-.modal-overlay.open{background:rgba(0,0,0,0.5);pointer-events:all}
-.modal-panel{background:#fff;border-radius:28px 28px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto}
+.modal-overlay.open{background:rgba(0,0,0,0.45);pointer-events:all}
+.modal-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);max-height:90vh;overflow:hidden;display:flex;flex-direction:column}
 .modal-overlay.open .modal-panel{transform:translateY(0)}
-.modal-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:0 auto 16px}
-.modal-title{font-size:17px;font-weight:800;color:#111;margin-bottom:16px}
-.form-field{margin-bottom:14px}
-.form-label{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px}
-.form-input{width:100%;padding:13px 16px;background:#f9f9fb;border:1.5px solid #e5e7eb;border-radius:12px;color:#111;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border 0.2s}
-.form-input:focus{border-color:#7c3aed;background:#fff}
-.form-input::placeholder{color:#bbb}
-.modal-save-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.3);margin-top:4px}
-.modal-save-btn:active{transform:scale(0.98)}
-.modal-cancel-btn{width:100%;padding:12px;background:transparent;border:1.5px solid #e5e7eb;border-radius:13px;color:#888;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
+.modal-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:14px auto 0}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 12px}
+.modal-hdr-title{font-size:18px;font-weight:800;color:#111}
+.modal-close{width:30px;height:30px;border-radius:50%;background:#f5f5f7;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#888;font-size:13px}
 
-/* COLOR PICKER */
-.color-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.col-swatch{width:30px;height:30px;border-radius:8px;cursor:pointer;border:2.5px solid transparent;transition:all 0.2s}
-.col-swatch.sel{border-color:#111;transform:scale(1.15)}
+/* SEARCH BAR */
+.add-search-wrap{padding:0 16px 12px}
+.add-search{display:flex;align-items:center;gap:10px;background:#f5f5f7;border:1.5px solid #e9e9eb;border-radius:12px;padding:11px 14px}
+.add-search i{color:#bbb;font-size:14px;flex-shrink:0}
+.add-search input{flex:1;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#111}
+.add-search input::placeholder{color:#bbb}
 
-/* LINK TYPE GRID */
-.type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.type-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 6px;background:#f9f9fb;border:1.5px solid #e5e7eb;border-radius:12px;cursor:pointer;transition:all 0.2s}
-.type-item:active,.type-item.sel{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.4)}
-.type-item-icon{font-size:20px;line-height:1}
-.type-item-name{font-size:10px;font-weight:500;color:#888;text-align:center}
+/* CATEGORY TABS */
+.cat-tabs{display:flex;gap:6px;padding:0 16px 12px;overflow-x:auto;scrollbar-width:none}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-tab{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid #e9e9eb;color:#888;background:#fff;transition:all 0.18s;white-space:nowrap}
+.cat-tab.active{background:#7c3aed;border-color:#7c3aed;color:#fff}
 
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+/* TYPE GRID */
+.type-scroll{flex:1;overflow-y:auto;padding:0 16px 20px}
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.type-card{display:flex;align-items:center;gap:12px;padding:13px 14px;background:#f9f9fb;border:1.5px solid #e9e9eb;border-radius:13px;cursor:pointer;transition:all 0.18s}
+.type-card:active{background:#f3f0ff;border-color:rgba(124,58,237,0.4);transform:scale(0.97)}
+.type-card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.type-card-text{flex:1;min-width:0}
+.type-card-name{font-size:13px;font-weight:600;color:#111}
+.type-card-desc{font-size:10px;color:#aaa;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* LINK FORM MODAL */
+.form-modal-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:85vh;overflow-y:auto}
+.modal-overlay.open .form-modal-panel{transform:translateY(0)}
+.f-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px}
+.f-input{width:100%;padding:12px 14px;background:#f9f9fb;border:1.5px solid #e9e9eb;border-radius:12px;color:#111;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border 0.2s;margin-bottom:13px}
+.f-input:focus{border-color:#7c3aed;background:#fff}
+.f-input::placeholder{color:#ccc}
+.f-save-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.25);margin-top:4px}
+.f-save-btn:active{transform:scale(0.98)}
+.f-cancel-btn{width:100%;padding:12px;background:transparent;border:1.5px solid #e9e9eb;border-radius:13px;color:#888;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
+
+/* COLOR SWATCHES */
+.color-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.cswatch{width:28px;height:28px;border-radius:7px;cursor:pointer;border:2.5px solid transparent;transition:all 0.18s}
+.cswatch.sel{border-color:#111;transform:scale(1.18)}
+
+/* SOCIAL MODAL */
+.soc-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom))}
+.modal-overlay.open .soc-panel{transform:translateY(0)}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.18)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.link-in{animation:slideUp 0.3s ease forwards}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.lc-in{animation:slideUp 0.28s ease forwards}
 </style>
 </head>
 <body>
@@ -165,34 +224,37 @@ body{background-color:#f5f5f7;background-image:repeating-linear-gradient(0deg,tr
   <!-- TOPBAR -->
   <div class="topbar">
     <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
-    <div class="topbar-title">My Links</div>
+    <div class="topbar-title">Links</div>
     <button class="save-btn" id="saveAllBtn" onclick="saveAllLinks()">Save</button>
   </div>
 
-  <!-- PROFILE -->
-  <div class="profile-section">
-    <div class="profile-avatar" id="headerAvatar" onclick="document.getElementById('avatarInput').click()">P</div>
-    <div class="profile-name" id="headerName">Your Name</div>
-    <div class="profile-bio-wrap" onclick="editBio()">
-      <span class="profile-bio" id="bioText">Add your bio</span>
-      <i class="fas fa-pen profile-bio-icon"></i>
+  <!-- PROFILE CARD -->
+  <div class="profile-card">
+    <div class="profile-top">
+      <div class="p-avatar" id="pAvatar" onclick="document.getElementById('avatarInput').click()">P</div>
+      <div class="p-info">
+        <div class="p-name" id="pName">Your Name</div>
+        <div class="p-bio-row" onclick="editBio()">
+          <span class="p-bio" id="pBio">Add your bio</span>
+          <i class="fas fa-pen p-bio-icon"></i>
+        </div>
+        <div class="p-url" onclick="copyProfileUrl()">
+          myqrid.in/<span id="pUsername">—</span>
+          <i class="fas fa-copy p-url-copy"></i>
+        </div>
+      </div>
     </div>
-    <div class="profile-url">
-      <i class="fas fa-link" style="font-size:10px"></i>
-      myqrid.in/<span id="headerUsername">—</span>
+    <!-- SOCIAL -->
+    <div class="social-row">
+      <div class="soc-chip" data-s="whatsapp" style="--sc:#25D366" onclick="editSoc('whatsapp')"><i class="fab fa-whatsapp"></i><span>WA</span></div>
+      <div class="soc-chip" data-s="instagram" style="--sc:#e1306c" onclick="editSoc('instagram')"><i class="fab fa-instagram"></i><span>IG</span></div>
+      <div class="soc-chip" data-s="twitter" style="--sc:#111" onclick="editSoc('twitter')"><i class="fab fa-x-twitter"></i><span>X</span></div>
+      <div class="soc-chip" data-s="youtube" style="--sc:#FF0000" onclick="editSoc('youtube')"><i class="fab fa-youtube"></i><span>YT</span></div>
+      <div class="soc-chip" data-s="linkedin" style="--sc:#0a66c2" onclick="editSoc('linkedin')"><i class="fab fa-linkedin"></i><span>LI</span></div>
+      <div class="soc-chip" data-s="facebook" style="--sc:#1877f2" onclick="editSoc('facebook')"><i class="fab fa-facebook"></i><span>FB</span></div>
+      <div class="soc-chip" data-s="telegram" style="--sc:#2aabee" onclick="editSoc('telegram')"><i class="fab fa-telegram"></i><span>TG</span></div>
+      <div class="soc-chip" data-s="snapchat" style="--sc:#f59e0b" onclick="editSoc('snapchat')"><i class="fab fa-snapchat"></i><span>SC</span></div>
     </div>
-  </div>
-
-  <!-- SOCIAL ICONS -->
-  <div class="social-row">
-    <div class="social-chip" data-social="whatsapp" style="--sc:#25D366" onclick="editSocial('whatsapp')"><i class="fab fa-whatsapp"></i><span>WA</span></div>
-    <div class="social-chip" data-social="instagram" style="--sc:#e1306c" onclick="editSocial('instagram')"><i class="fab fa-instagram"></i><span>Insta</span></div>
-    <div class="social-chip" data-social="twitter" style="--sc:#111" onclick="editSocial('twitter')"><i class="fab fa-x-twitter"></i><span>X</span></div>
-    <div class="social-chip" data-social="youtube" style="--sc:#FF0000" onclick="editSocial('youtube')"><i class="fab fa-youtube"></i><span>YT</span></div>
-    <div class="social-chip" data-social="linkedin" style="--sc:#0a66c2" onclick="editSocial('linkedin')"><i class="fab fa-linkedin"></i><span>LI</span></div>
-    <div class="social-chip" data-social="facebook" style="--sc:#1877f2" onclick="editSocial('facebook')"><i class="fab fa-facebook"></i><span>FB</span></div>
-    <div class="social-chip" data-social="telegram" style="--sc:#2aabee" onclick="editSocial('telegram')"><i class="fab fa-telegram"></i><span>TG</span></div>
-    <div class="social-chip" data-social="snapchat" style="--sc:#f59e0b" onclick="editSocial('snapchat')"><i class="fab fa-snapchat"></i><span>SC</span></div>
   </div>
 
   <!-- SPARK BANNER -->
@@ -202,79 +264,64 @@ body{background-color:#f5f5f7;background-image:repeating-linear-gradient(0deg,tr
       <div class="spark-name">myQRID Spark</div>
       <div class="spark-sub">No payment · No card · Always yours</div>
       <div class="spark-bar-wrap"><div class="spark-bar" id="sparkBar" style="width:0%"></div></div>
-      <div class="spark-count" id="sparkCount">0 / 18 links</div>
+      <div class="spark-cnt" id="sparkCnt">0 / 18 links</div>
     </div>
-    <div class="spark-upgrade" onclick="openUpgrade()">Upgrade ↑</div>
+    <div class="spark-up" onclick="openUpgrade()">Upgrade ↑</div>
   </div>
+
+  <!-- ADD BUTTON -->
+  <button class="add-main-btn" onclick="openAddModal()">
+    <i class="fas fa-plus"></i> Add
+  </button>
 
   <!-- YOUR LINKS -->
-  <div class="links-section">
-    <div class="section-hdr">
-      <div class="section-lbl">Your Links</div>
-      <div class="link-count-badge" id="linkCountBadge">0 links</div>
-    </div>
-    <div id="linksList">
-      <div class="empty-state">
-        <div style="font-size:28px;margin-bottom:8px">🔗</div>
-        Add your first link below
-      </div>
+  <div class="sec-hdr">
+    <div class="sec-lbl">Your Links</div>
+    <div class="sec-cnt" id="secCnt">0 links</div>
+  </div>
+
+  <div class="links-wrap" id="linksWrap">
+    <div class="empty-state" id="emptyState">
+      <div style="font-size:26px;margin-bottom:6px">🔗</div>
+      Tap <strong>+ Add</strong> to create your first link
     </div>
   </div>
 
-  <!-- ADD LINKS — 18 PRESET STRIPS -->
-  <div class="add-section">
-    <div class="add-section-lbl">Add Links</div>
-    <div class="preset-grid" id="presetGrid"></div>
-    <div class="preset-custom" onclick="openCustomModal()">
-      <i class="fas fa-plus-circle"></i> Add Custom Link
-    </div>
-  </div>
+  <!-- ADD COLLECTION -->
+  <button class="add-col-btn" onclick="addCollection()">
+    <i class="fas fa-layer-group"></i> Add Collection
+  </button>
 
-  <!-- UPGRADE FOOTER -->
-  <div class="upgrade-footer">
-    <div class="upgrade-footer-top">
-      <div class="upgrade-title">Unlock Full Analytics & More</div>
-      <div class="upgrade-sub">See who viewed your links, when and where — plus unlimited links, custom themes and creator tools.</div>
-      <div class="upgrade-features">
-        <div class="upgrade-feat"><i class="fas fa-chart-line"></i> Full scan analytics + location map</div>
+  <!-- UPGRADE SECTION -->
+  <div class="upgrade-section">
+    <div class="upgrade-hdr">
+      <div class="upgrade-hdr-title">Unlock Full Analytics & More</div>
+      <div class="upgrade-hdr-sub">See who viewed your links, when and where — plus unlimited links, Ea₹n tools and creator features.</div>
+      <div class="upgrade-feats">
+        <div class="upgrade-feat"><i class="fas fa-chart-line"></i> Full scan analytics with location map</div>
         <div class="upgrade-feat"><i class="fas fa-infinity"></i> Unlimited links, cards & identity modes</div>
         <div class="upgrade-feat"><i class="fas fa-indian-rupee-sign"></i> Ea₹n — paid consultations & bookings</div>
         <div class="upgrade-feat"><i class="fas fa-shield-alt"></i> Family Shield — protect everyone you love</div>
         <div class="upgrade-feat"><i class="fas fa-palette"></i> Custom QR design, themes & branding</div>
-        <div class="upgrade-feat"><i class="fas fa-certificate"></i> Verified identity badge</div>
+        <div class="upgrade-feat"><i class="fas fa-certificate"></i> Priority verified badge</div>
       </div>
     </div>
     <div class="upgrade-plans">
-      <button class="upgrade-plan-btn btn-blaze" onclick="showToast('myQRID Blaze — coming soon!')">⚡ Blaze</button>
-      <button class="upgrade-plan-btn btn-shield" onclick="showToast('Family Shield — coming soon!')">🛡️ Family Shield</button>
+      <button class="uplan-btn btn-blaze" onclick="showToast('myQRID Blaze — coming soon!')">
+        <span>⚡ myQRID Blaze</span>
+        <span class="uplan-sub">For creators & builders</span>
+      </button>
+      <button class="uplan-btn btn-shield" onclick="showToast('Family Shield — coming soon!')">
+        <span>🛡️ Family Shield</span>
+        <span class="uplan-sub">For your whole family</span>
+      </button>
     </div>
+    <div class="upgrade-note">No hidden charges · Cancel anytime · Powered by myQRID</div>
   </div>
 
-  <!-- MYQRID FOOTER LOGO -->
+  <!-- MYQRID FOOTER -->
   <div class="myqrid-footer">
-    <div class="myqrid-footer-logo">
-      <!-- Gradient QR Logo SVG -->
-      <svg class="footer-qr-logo" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="qrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#7c3aed"/>
-            <stop offset="100%" style="stop-color:#ec4899"/>
-          </linearGradient>
-        </defs>
-        <rect width="28" height="28" rx="6" fill="url(#qrGrad)"/>
-        <rect x="4" y="4" width="8" height="8" rx="1.5" fill="none" stroke="white" stroke-width="1.5"/>
-        <rect x="6" y="6" width="4" height="4" rx="0.5" fill="white"/>
-        <rect x="16" y="4" width="8" height="8" rx="1.5" fill="none" stroke="white" stroke-width="1.5"/>
-        <rect x="18" y="6" width="4" height="4" rx="0.5" fill="white"/>
-        <rect x="4" y="16" width="8" height="8" rx="1.5" fill="none" stroke="white" stroke-width="1.5"/>
-        <rect x="6" y="18" width="4" height="4" rx="0.5" fill="white"/>
-        <rect x="16" y="16" width="3" height="3" rx="0.5" fill="white"/>
-        <rect x="21" y="16" width="3" height="3" rx="0.5" fill="white"/>
-        <rect x="16" y="21" width="3" height="3" rx="0.5" fill="white"/>
-        <rect x="21" y="21" width="3" height="3" rx="0.5" fill="white"/>
-      </svg>
-      <div class="footer-brand">my<span>QRID</span></div>
-    </div>
+    <div class="footer-logo-text">my<span>QRID</span></div>
     <div class="footer-tagline">Your Digital Identity · One QR · Infinite Possibilities</div>
   </div>
 
@@ -291,89 +338,101 @@ body{background-color:#f5f5f7;background-image:repeating-linear-gradient(0deg,tr
   <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
 </nav>
 
-<!-- ADD LINK MODAL -->
+<!-- ADD MODAL — Linktree style -->
 <div class="modal-overlay" id="addModal" onclick="if(event.target===this)closeAddModal()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
-    <div class="modal-title" id="addModalTitle">Add Link</div>
-    <div class="form-field">
-      <div class="form-label">Title</div>
-      <input class="form-input" type="text" id="linkTitle" placeholder="e.g. My Portfolio">
+    <div class="modal-hdr">
+      <div class="modal-hdr-title">Add</div>
+      <button class="modal-close" onclick="closeAddModal()"><i class="fas fa-times"></i></button>
     </div>
-    <div class="form-field">
-      <div class="form-label" id="urlLabel">URL</div>
-      <input class="form-input" type="text" id="linkUrl" placeholder="https://...">
+    <!-- SEARCH -->
+    <div class="add-search-wrap">
+      <div class="add-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="addSearchInput" placeholder="Paste or search a link" oninput="filterTypes(this.value)" autocomplete="off">
+      </div>
     </div>
-    <div class="form-label">Strip Color</div>
-    <div class="color-row" id="colorRow"></div>
-    <button class="modal-save-btn" onclick="saveLink()">Add Link</button>
-    <button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button>
+    <!-- CATEGORY TABS -->
+    <div class="cat-tabs" id="catTabs">
+      <div class="cat-tab active" onclick="setCategory('all',this)">All</div>
+      <div class="cat-tab" onclick="setCategory('social',this)">Social</div>
+      <div class="cat-tab" onclick="setCategory('creator',this)">Creator</div>
+      <div class="cat-tab" onclick="setCategory('business',this)">Business</div>
+      <div class="cat-tab" onclick="setCategory('contact',this)">Contact</div>
+      <div class="cat-tab" onclick="setCategory('utility',this)">Utility</div>
+    </div>
+    <!-- TYPE GRID -->
+    <div class="type-scroll">
+      <div class="type-grid" id="typeGrid"></div>
+    </div>
   </div>
 </div>
 
-<!-- CUSTOM LINK TYPE MODAL -->
-<div class="modal-overlay" id="typeModal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="modal-panel" onclick="event.stopPropagation()">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Choose Link Type</div>
-    <div class="type-grid" id="typeGrid"></div>
-    <button class="modal-cancel-btn" onclick="document.getElementById('typeModal').classList.remove('open')">Cancel</button>
+<!-- LINK FORM MODAL -->
+<div class="modal-overlay" id="formModal" onclick="if(event.target===this)closeFormModal()">
+  <div class="form-modal-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle" style="margin-bottom:14px"></div>
+    <div id="formModalTitle" style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Add Link</div>
+    <div class="f-label">Title</div>
+    <input class="f-input" type="text" id="fTitle" placeholder="e.g. My Portfolio">
+    <div class="f-label" id="fUrlLabel">URL</div>
+    <input class="f-input" type="text" id="fUrl" placeholder="https://...">
+    <div class="f-label">Strip Color</div>
+    <div class="color-row" id="colorRow"></div>
+    <button class="f-save-btn" onclick="saveLink()">Add Link</button>
+    <button class="f-cancel-btn" onclick="closeFormModal()">Cancel</button>
   </div>
 </div>
 
 <!-- SOCIAL MODAL -->
-<div class="modal-overlay" id="socialModal" onclick="closeSocialModal()">
-  <div class="modal-panel" onclick="event.stopPropagation()">
-    <div class="modal-handle"></div>
-    <div class="modal-title" id="socialModalTitle">Link Account</div>
-    <div class="form-field">
-      <div class="form-label" id="socialModalLabel">Handle</div>
-      <input class="form-input" type="text" id="socialInput" placeholder="">
-    </div>
-    <button class="modal-save-btn" onclick="saveSocial()">Save</button>
-    <button class="modal-cancel-btn" onclick="closeSocialModal()">Cancel</button>
+<div class="modal-overlay" id="socModal" onclick="closeSocModal()">
+  <div class="soc-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle" style="margin-bottom:14px"></div>
+    <div id="socTitle" style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Link Account</div>
+    <div class="f-label" id="socLabel">Handle</div>
+    <input class="f-input" type="text" id="socInput" placeholder="">
+    <button class="f-save-btn" onclick="saveSoc()">Save</button>
+    <button class="f-cancel-btn" onclick="closeSocModal()">Cancel</button>
   </div>
 </div>
 
 <!-- BIO MODAL -->
 <div class="modal-overlay" id="bioModal" onclick="closeBioModal()">
-  <div class="modal-panel" onclick="event.stopPropagation()">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Edit Bio</div>
-    <div class="form-field">
-      <div class="form-label">Your Bio</div>
-      <textarea class="form-input" id="bioInput" rows="3" placeholder="Tell people who you are..." style="resize:none;line-height:1.5"></textarea>
-    </div>
-    <button class="modal-save-btn" onclick="saveBio()">Save</button>
-    <button class="modal-cancel-btn" onclick="closeBioModal()">Cancel</button>
+  <div class="soc-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle" style="margin-bottom:14px"></div>
+    <div style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Edit Bio</div>
+    <div class="f-label">Your Bio</div>
+    <textarea class="f-input" id="bioInput" rows="3" placeholder="Tell people who you are..." style="resize:none;line-height:1.5"></textarea>
+    <button class="f-save-btn" onclick="saveBio()">Save</button>
+    <button class="f-cancel-btn" onclick="closeBioModal()">Cancel</button>
   </div>
 </div>
 
 <!-- UPGRADE MODAL -->
 <div class="modal-overlay" id="upgradeModal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="modal-panel" onclick="event.stopPropagation()">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Level Up Your Identity</div>
-    <p style="font-size:13px;color:#888;margin-bottom:16px;line-height:1.6">You're on <strong style="color:#7c3aed">myQRID Spark</strong>. No payment needed, ever. But when you're ready for more —</p>
-    <div style="background:linear-gradient(135deg,rgba(124,58,237,0.06),rgba(236,72,153,0.04));border:1px solid rgba(124,58,237,0.15);border-radius:16px;padding:16px;margin-bottom:10px">
-      <div style="font-size:15px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px">⚡ myQRID Blaze</div>
-      <div style="font-size:12px;color:#888;margin-bottom:10px">For creators, professionals & builders</div>
+  <div class="soc-panel" onclick="event.stopPropagation()" style="padding-bottom:calc(24px + env(safe-area-inset-bottom))">
+    <div class="modal-handle" style="margin-bottom:14px"></div>
+    <div style="font-size:18px;font-weight:800;color:#111;margin-bottom:4px">Level Up Your Identity</div>
+    <p style="font-size:13px;color:#888;line-height:1.6;margin-bottom:16px">You're on <strong style="color:#7c3aed">myQRID Spark</strong>. When you're ready for more —</p>
+    <div style="background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(236,72,153,0.03));border:1px solid rgba(124,58,237,0.15);border-radius:16px;padding:16px;margin-bottom:10px">
+      <div style="font-size:15px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3px">⚡ myQRID Blaze</div>
+      <div style="font-size:11px;color:#888;margin-bottom:10px">For creators, professionals & builders</div>
       <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
-        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Unlimited links & identity cards</div>
-        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Full analytics with scan map</div>
-        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Ea₹n — paid consultations</div>
-        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Custom QR design & themes</div>
+        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Unlimited links & identity cards</div>
+        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Full analytics with scan map</div>
+        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Ea₹n — paid consultations</div>
+        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Custom QR design & themes</div>
       </div>
-      <button class="modal-save-btn" onclick="showToast('Blaze coming soon!')">Get myQRID Blaze →</button>
+      <button class="f-save-btn" onclick="showToast('Blaze coming soon!')">Get myQRID Blaze →</button>
     </div>
-    <div style="background:#f9f9fb;border:1px solid #e5e7eb;border-radius:16px;padding:16px">
-      <div style="font-size:15px;font-weight:800;color:#059669;margin-bottom:4px">🛡️ myQRID Family Shield</div>
-      <div style="font-size:12px;color:#888;margin-bottom:10px">For families who care about each other</div>
+    <div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:16px;padding:16px">
+      <div style="font-size:15px;font-weight:800;color:#059669;margin-bottom:3px">🛡️ myQRID Family Shield</div>
+      <div style="font-size:11px;color:#888;margin-bottom:10px">For families who care</div>
       <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
-        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Up to 6 family profiles</div>
-        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Kids, elderly & pet Care cards</div>
-        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Emergency SOS & medical info</div>
-        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Lost & found for whole family</div>
+        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Up to 6 family profiles</div>
+        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Kids, elderly & pet Care cards</div>
+        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Emergency SOS & medical info</div>
       </div>
       <button style="width:100%;padding:12px;background:linear-gradient(135deg,#059669,#10b981);border:none;border-radius:12px;color:#fff;font-family:Inter;font-size:14px;font-weight:700;cursor:pointer" onclick="showToast('Family Shield coming soon!')">Get Family Shield →</button>
     </div>
@@ -381,247 +440,361 @@ body{background-color:#f5f5f7;background-image:repeating-linear-gradient(0deg,tr
   </div>
 </div>
 
-<input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)">
+<input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatar(event)">
+<input type="file" id="thumbInput" accept="image/*" style="display:none" onchange="handleThumb(event)">
 <div class="toast" id="toast"></div>
 
 <script>
 const API='https://myqrid-backend.myqrid.workers.dev';
 const SPARK_LIMIT=18;
-let links=[],editingId=null,selectedColor='#7c3aed',currentSocial=null,socials={},currentPreset=null;
+let links=[],collections=[],editingId=null,thumbTarget=null,currentSoc=null,socials={},selColor='#7c3aed',currentType=null,curCategory='all',searchQ='';
 
-const STRIP_COLORS=[
-  {hex:'#7c3aed',label:'Purple'},
-  {hex:'#ec4899',label:'Pink'},
-  {hex:'#2563eb',label:'Blue'},
-  {hex:'#059669',label:'Green'},
-  {hex:'#ea580c',label:'Orange'},
-  {hex:'#0d9488',label:'Teal'},
-  {hex:'#4338ca',label:'Indigo'},
-  {hex:'#be123c',label:'Rose'},
-  {hex:'#075985',label:'Sky'},
-  {hex:'#064e3b',label:'Emerald'},
-  {hex:'#1e1b4b',label:'Dark'},
-  {hex:'#374151',label:'Slate'},
+const COLORS=[
+  {h:'#7c3aed'},{h:'#ec4899'},{h:'#2563eb'},{h:'#059669'},
+  {h:'#ea580c'},{h:'#0d9488'},{h:'#4338ca'},{h:'#be123c'},
+  {h:'#075985'},{h:'#064e3b'},{h:'#1e1b4b'},{h:'#374151'},
 ];
 
-const PRESETS=[
-  {id:'whatsapp', label:'WhatsApp',   icon:'fab fa-whatsapp', color:'#075e54', urlLabel:'Phone (+91...)', placeholder:'919876543210'},
-  {id:'instagram',label:'Instagram',  icon:'fab fa-instagram',color:'#c2185b', urlLabel:'@handle',       placeholder:'@yourusername'},
-  {id:'youtube',  label:'YouTube',    icon:'fab fa-youtube',  color:'#c62828', urlLabel:'Channel URL',   placeholder:'youtube.com/c/...'},
-  {id:'linkedin', label:'LinkedIn',   icon:'fab fa-linkedin', color:'#0277bd', urlLabel:'Profile URL',   placeholder:'linkedin.com/in/...'},
-  {id:'twitter',  label:'X / Twitter',icon:'fab fa-x-twitter',color:'#111',    urlLabel:'@handle',       placeholder:'@yourusername'},
-  {id:'facebook', label:'Facebook',   icon:'fab fa-facebook', color:'#1565c0', urlLabel:'Profile URL',   placeholder:'facebook.com/...'},
-  {id:'telegram', label:'Telegram',   icon:'fab fa-telegram', color:'#0277bd', urlLabel:'@handle',       placeholder:'@yourusername'},
-  {id:'github',   label:'GitHub',     icon:'fab fa-github',   color:'#212121', urlLabel:'GitHub URL',    placeholder:'github.com/...'},
-  {id:'spotify',  label:'Spotify',    icon:'fab fa-spotify',  color:'#1b5e20', urlLabel:'Profile URL',   placeholder:'open.spotify.com/...'},
-  {id:'website',  label:'Website',    icon:'fas fa-globe',    color:'#4338ca', urlLabel:'Website URL',   placeholder:'https://...'},
-  {id:'portfolio',label:'Portfolio',  icon:'fas fa-briefcase',color:'#7c3aed', urlLabel:'Portfolio URL', placeholder:'https://...'},
-  {id:'resume',   label:'Resume',     icon:'fas fa-file-alt', color:'#0e7490', urlLabel:'Resume URL',    placeholder:'drive.google.com/...'},
-  {id:'booking',  label:'Book Me',    icon:'fas fa-calendar-check',color:'#0d9488',urlLabel:'Booking URL',placeholder:'calendly.com/...'},
-  {id:'payment',  label:'Pay Me',     icon:'fas fa-qrcode',   color:'#065f46', urlLabel:'UPI / Link',    placeholder:'upi://pay?pa=...'},
-  {id:'maps',     label:'Location',   icon:'fas fa-map-marker-alt',color:'#b91c1c',urlLabel:'Maps URL',  placeholder:'maps.app.goo.gl/...'},
-  {id:'blog',     label:'Blog',       icon:'fas fa-pen-nib',  color:'#92400e', urlLabel:'Blog URL',      placeholder:'medium.com/@...'},
-  {id:'call',     label:'Call Me',    icon:'fas fa-phone',    color:'#166534', urlLabel:'Phone Number',  placeholder:'+91XXXXXXXXXX'},
-  {id:'email',    label:'Email',      icon:'fas fa-envelope', color:'#1e40af', urlLabel:'Email',         placeholder:'you@email.com'},
+const TYPES=[
+  {id:'whatsapp', cat:'social',   name:'WhatsApp',   desc:'Chat directly',         icon:'fab fa-whatsapp', color:'#075e54', urlLabel:'Phone (+91...)',  ph:'919876543210'},
+  {id:'instagram',cat:'social',   name:'Instagram',  desc:'Your Instagram profile', icon:'fab fa-instagram',color:'#c2185b', urlLabel:'@handle',         ph:'@yourusername'},
+  {id:'youtube',  cat:'social',   name:'YouTube',    desc:'Share your channel',     icon:'fab fa-youtube',  color:'#c62828', urlLabel:'Channel URL',     ph:'youtube.com/c/...'},
+  {id:'twitter',  cat:'social',   name:'X / Twitter',desc:'Your X profile',         icon:'fab fa-x-twitter',color:'#111',    urlLabel:'@handle',         ph:'@yourusername'},
+  {id:'facebook', cat:'social',   name:'Facebook',   desc:'Facebook profile/page',  icon:'fab fa-facebook', color:'#1565c0', urlLabel:'Profile URL',     ph:'facebook.com/...'},
+  {id:'linkedin', cat:'social',   name:'LinkedIn',   desc:'Professional network',   icon:'fab fa-linkedin', color:'#0277bd', urlLabel:'Profile URL',     ph:'linkedin.com/in/...'},
+  {id:'telegram', cat:'social',   name:'Telegram',   desc:'Telegram channel',       icon:'fab fa-telegram', color:'#0277bd', urlLabel:'@handle',         ph:'@username'},
+  {id:'snapchat', cat:'social',   name:'Snapchat',   desc:'Snapchat profile',       icon:'fab fa-snapchat', color:'#92400e', urlLabel:'Username',        ph:'yourusername'},
+  {id:'tiktok',   cat:'social',   name:'TikTok',     desc:'TikTok profile',         icon:'fab fa-tiktok',   color:'#111',    urlLabel:'@handle',         ph:'@yourusername'},
+  {id:'pinterest',cat:'social',   name:'Pinterest',  desc:'Pinterest profile',      icon:'fab fa-pinterest',color:'#be123c', urlLabel:'Profile URL',     ph:'pinterest.com/...'},
+  {id:'spotify',  cat:'creator',  name:'Spotify',    desc:'Music & podcasts',       icon:'fab fa-spotify',  color:'#1b5e20', urlLabel:'Profile URL',     ph:'open.spotify.com/...'},
+  {id:'github',   cat:'creator',  name:'GitHub',     desc:'Code repositories',      icon:'fab fa-github',   color:'#212121', urlLabel:'GitHub URL',      ph:'github.com/...'},
+  {id:'behance',  cat:'creator',  name:'Behance',    desc:'Design portfolio',       icon:'fab fa-behance',  color:'#1769ff', urlLabel:'Behance URL',     ph:'behance.net/...'},
+  {id:'dribbble', cat:'creator',  name:'Dribbble',   desc:'Design shots',           icon:'fab fa-dribbble', color:'#be185d', urlLabel:'Dribbble URL',    ph:'dribbble.com/...'},
+  {id:'medium',   cat:'creator',  name:'Blog/Medium',desc:'Your articles',          icon:'fab fa-medium',   color:'#111',    urlLabel:'Blog URL',        ph:'medium.com/@...'},
+  {id:'video',    cat:'creator',  name:'Video',      desc:'Latest video',           icon:'fas fa-play-circle',color:'#831843',urlLabel:'Video URL',      ph:'youtube.com/watch?v=...'},
+  {id:'podcast',  cat:'creator',  name:'Podcast',    desc:'Your podcast',           icon:'fas fa-microphone',color:'#7c3aed',urlLabel:'Podcast URL',     ph:'podcasts.apple.com/...'},
+  {id:'website',  cat:'business', name:'Website',    desc:'Your main site',         icon:'fas fa-globe',    color:'#4338ca', urlLabel:'Website URL',     ph:'https://...'},
+  {id:'portfolio',cat:'business', name:'Portfolio',  desc:'Work portfolio',         icon:'fas fa-briefcase',color:'#7c3aed', urlLabel:'Portfolio URL',   ph:'https://...'},
+  {id:'booking',  cat:'business', name:'Book Me',    desc:'Appointment booking',    icon:'fas fa-calendar-check',color:'#0d9488',urlLabel:'Booking URL',ph:'calendly.com/...'},
+  {id:'consult',  cat:'business', name:'Consult',    desc:'Paid consultation',      icon:'fas fa-comment-dollar',color:'#ea580c',urlLabel:'Link',        ph:'https://...'},
+  {id:'catalogue',cat:'business', name:'Catalogue',  desc:'Products & services',    icon:'fas fa-shopping-bag',color:'#be185d',urlLabel:'Catalogue URL', ph:'https://...'},
+  {id:'resume',   cat:'business', name:'Resume',     desc:'CV / Resume',            icon:'fas fa-file-alt', color:'#0e7490', urlLabel:'Resume URL',      ph:'drive.google.com/...'},
+  {id:'payment',  cat:'business', name:'Pay Me',     desc:'UPI / payment link',     icon:'fas fa-qrcode',   color:'#065f46', urlLabel:'UPI / Link',      ph:'upi://pay?pa=...'},
+  {id:'maps',     cat:'utility',  name:'Location',   desc:'Google Maps location',   icon:'fas fa-map-marker-alt',color:'#b91c1c',urlLabel:'Maps URL',    ph:'maps.app.goo.gl/...'},
+  {id:'call',     cat:'contact',  name:'Call Me',    desc:'Phone number',           icon:'fas fa-phone',    color:'#166534', urlLabel:'Phone Number',    ph:'+91XXXXXXXXXX'},
+  {id:'email',    cat:'contact',  name:'Email',      desc:'Email address',          icon:'fas fa-envelope', color:'#1e40af', urlLabel:'Email',           ph:'you@email.com'},
+  {id:'whatsapp_chat',cat:'contact',name:'WA Chat',  desc:'WhatsApp message link',  icon:'fab fa-whatsapp', color:'#075e54', urlLabel:'Phone (+91...)',  ph:'919876543210'},
+  {id:'custom',   cat:'utility',  name:'Custom Link',desc:'Any URL',                icon:'fas fa-link',     color:'#374151', urlLabel:'URL',             ph:'https://...'},
 ];
 
-const ALL_TYPES=[...PRESETS,
-  {id:'video',  label:'Video',   icon:'fas fa-play-circle',  color:'#831843',urlLabel:'Video URL',   placeholder:'youtube.com/watch?v=...'},
-  {id:'behance',label:'Behance', icon:'fab fa-behance',      color:'#1769ff',urlLabel:'Behance URL', placeholder:'behance.net/...'},
-  {id:'consult',label:'Consult', icon:'fas fa-comment-dollar',color:'#ea580c',urlLabel:'Consult URL',placeholder:'https://...'},
-  {id:'custom', label:'Custom',  icon:'fas fa-link',          color:'#374151',urlLabel:'URL',         placeholder:'https://...'},
-];
-
-const SOCIAL_CFG={
-  whatsapp:{label:'WhatsApp',   inputLabel:'Phone (+91...)',  placeholder:'919876543210'},
-  instagram:{label:'Instagram', inputLabel:'Username (no @)', placeholder:'yourusername'},
-  twitter:{label:'X / Twitter', inputLabel:'Username (no @)', placeholder:'yourusername'},
-  youtube:{label:'YouTube',     inputLabel:'Channel URL',     placeholder:'youtube.com/c/...'},
-  linkedin:{label:'LinkedIn',   inputLabel:'Profile URL',     placeholder:'linkedin.com/in/...'},
-  facebook:{label:'Facebook',   inputLabel:'Profile URL',     placeholder:'facebook.com/...'},
-  telegram:{label:'Telegram',   inputLabel:'Username (no @)', placeholder:'yourusername'},
-  snapchat:{label:'Snapchat',   inputLabel:'Username',        placeholder:'yourusername'},
+const SOC_CFG={
+  whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210'},
+  instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername'},
+  twitter:{label:'X / Twitter',lbl:'Username (no @)',ph:'yourusername'},
+  youtube:{label:'YouTube',lbl:'Channel URL',ph:'youtube.com/c/...'},
+  linkedin:{label:'LinkedIn',lbl:'Profile URL',ph:'linkedin.com/in/...'},
+  facebook:{label:'Facebook',lbl:'Profile URL',ph:'facebook.com/...'},
+  telegram:{label:'Telegram',lbl:'Username (no @)',ph:'yourusername'},
+  snapchat:{label:'Snapchat',lbl:'Username',ph:'yourusername'},
 };
 
-function buildPresetGrid(){
-  document.getElementById('presetGrid').innerHTML=PRESETS.map(p=>`
-    <div class="preset-strip" style="background:${p.color}" onclick="openPresetModal('${p.id}')">
-      <i class="${p.icon}"></i>${p.label}
+/* ── URL AUTO-DETECT ── */
+function detectType(url){
+  const u=url.toLowerCase();
+  if(u.includes('instagram.com')||u.includes('instagr.am'))return 'instagram';
+  if(u.includes('wa.me')||u.includes('whatsapp.com'))return 'whatsapp';
+  if(u.includes('youtube.com')||u.includes('youtu.be'))return 'youtube';
+  if(u.includes('twitter.com')||u.includes('x.com'))return 'twitter';
+  if(u.includes('linkedin.com'))return 'linkedin';
+  if(u.includes('facebook.com')||u.includes('fb.com'))return 'facebook';
+  if(u.includes('telegram.me')||u.includes('t.me'))return 'telegram';
+  if(u.includes('tiktok.com'))return 'tiktok';
+  if(u.includes('spotify.com'))return 'spotify';
+  if(u.includes('github.com'))return 'github';
+  if(u.includes('behance.net'))return 'behance';
+  if(u.includes('dribbble.com'))return 'dribbble';
+  if(u.includes('medium.com'))return 'medium';
+  if(u.includes('maps.google')||u.includes('maps.app.goo'))return 'maps';
+  if(u.startsWith('mailto:'))return 'email';
+  if(u.startsWith('tel:'))return 'call';
+  return null;
+}
+
+/* ── SEARCH + FILTER ── */
+function filterTypes(q){
+  searchQ=q.trim().toLowerCase();
+  if(searchQ.length>5){const detected=detectType(q);if(detected){openFormForType(detected,q);document.getElementById('addSearchInput').value='';return;}}
+  renderTypeGrid();
+}
+
+function setCategory(cat,el){
+  curCategory=cat;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderTypeGrid();
+}
+
+function renderTypeGrid(){
+  const grid=document.getElementById('typeGrid');
+  let filtered=TYPES;
+  if(curCategory!=='all')filtered=filtered.filter(t=>t.cat===curCategory);
+  if(searchQ)filtered=filtered.filter(t=>t.name.toLowerCase().includes(searchQ)||t.desc.toLowerCase().includes(searchQ));
+  grid.innerHTML=filtered.map(t=>`
+    <div class="type-card" onclick="openFormForType('${t.id}')">
+      <div class="type-card-icon" style="background:${t.color}18"><i class="${t.icon}" style="color:${t.color}"></i></div>
+      <div class="type-card-text">
+        <div class="type-card-name">${t.name}</div>
+        <div class="type-card-desc">${t.desc}</div>
+      </div>
     </div>`).join('');
+}
+
+function openFormForType(id,prefillUrl){
+  const type=TYPES.find(t=>t.id===id);if(!type)return;
+  currentType=type;editingId=null;
+  selColor=type.color;
+  document.getElementById('formModalTitle').textContent='Add '+type.name;
+  document.getElementById('fUrlLabel').textContent=type.urlLabel;
+  document.getElementById('fUrl').placeholder=type.ph;
+  document.getElementById('fTitle').value=type.name;
+  document.getElementById('fUrl').value=prefillUrl||'';
+  buildColorRow();
+  document.getElementById('addModal').classList.remove('open');
+  document.getElementById('formModal').classList.add('open');
+  setTimeout(()=>document.getElementById('fUrl').focus(),420);
 }
 
 function buildColorRow(){
-  document.getElementById('colorRow').innerHTML=STRIP_COLORS.map(c=>`
-    <div class="col-swatch ${c.hex===selectedColor?'sel':''}" style="background:${c.hex}" onclick="pickColor('${c.hex}')" title="${c.label}"></div>`).join('');
+  document.getElementById('colorRow').innerHTML=COLORS.map(c=>`
+    <div class="cswatch ${c.h===selColor?'sel':''}" style="background:${c.h}" onclick="pickColor('${c.h}')"></div>`).join('');
 }
 
-function pickColor(hex){
-  selectedColor=hex;
-  document.querySelectorAll('.col-swatch').forEach(el=>{
-    el.classList.toggle('sel',el.style.background===hex||el.style.backgroundColor===hex);
+function pickColor(h){
+  selColor=h;
+  document.querySelectorAll('.cswatch').forEach(el=>{
+    el.classList.toggle('sel',el.style.background===h||el.style.backgroundColor===h);
   });
 }
 
-function buildTypeGrid(){
-  document.getElementById('typeGrid').innerHTML=ALL_TYPES.map(t=>`
-    <div class="type-item" onclick="selectTypeAndOpen('${t.id}')">
-      <div class="type-item-icon"><i class="${t.icon}" style="color:${t.color}"></i></div>
-      <div class="type-item-name">${t.label}</div>
-    </div>`).join('');
-}
-
-function openPresetModal(id){
+function openAddModal(){
   if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Upgrade to Blaze for unlimited links!');return;}
-  const preset=PRESETS.find(p=>p.id===id);if(!preset)return;
-  currentPreset=preset;editingId=null;
-  selectedColor=preset.color;
-  document.getElementById('addModalTitle').textContent='Add '+preset.label;
-  document.getElementById('urlLabel').textContent=preset.urlLabel;
-  document.getElementById('linkUrl').placeholder=preset.placeholder;
-  document.getElementById('linkTitle').value=preset.label;
-  document.getElementById('linkUrl').value='';
-  buildColorRow();
+  curCategory='all';searchQ='';
+  document.getElementById('addSearchInput').value='';
+  document.querySelectorAll('.cat-tab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  renderTypeGrid();
   document.getElementById('addModal').classList.add('open');
-  setTimeout(()=>document.getElementById('linkUrl').focus(),420);
 }
-
-function openCustomModal(){
-  if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Upgrade to Blaze for unlimited links!');return;}
-  buildTypeGrid();
-  document.getElementById('typeModal').classList.add('open');
-}
-
-function selectTypeAndOpen(id){
-  document.getElementById('typeModal').classList.remove('open');
-  const type=ALL_TYPES.find(t=>t.id===id)||ALL_TYPES[ALL_TYPES.length-1];
-  currentPreset=type;editingId=null;
-  selectedColor=type.color;
-  document.getElementById('addModalTitle').textContent='Add '+type.label;
-  document.getElementById('urlLabel').textContent=type.urlLabel;
-  document.getElementById('linkUrl').placeholder=type.placeholder;
-  document.getElementById('linkTitle').value=type.label;
-  document.getElementById('linkUrl').value='';
-  buildColorRow();
-  setTimeout(()=>{document.getElementById('addModal').classList.add('open');setTimeout(()=>document.getElementById('linkUrl').focus(),420);},200);
-}
-
-function closeAddModal(){document.getElementById('addModal').classList.remove('open');editingId=null;currentPreset=null;}
+function closeAddModal(){document.getElementById('addModal').classList.remove('open');}
+function closeFormModal(){document.getElementById('formModal').classList.remove('open');editingId=null;currentType=null;}
 
 function saveLink(){
-  const title=document.getElementById('linkTitle').value.trim();
-  const url=document.getElementById('linkUrl').value.trim();
+  const title=document.getElementById('fTitle').value.trim();
+  const url=document.getElementById('fUrl').value.trim();
   if(!title){showToast('Please enter a title');return;}
   if(!url){showToast('Please enter a URL');return;}
   let finalUrl=url;
-  const tid=currentPreset?currentPreset.id:'custom';
-  if(tid==='whatsapp'&&!url.startsWith('http'))finalUrl='https://wa.me/'+url.replace(/\D/g,'');
+  const tid=currentType?currentType.id:'custom';
+  if((tid==='whatsapp'||tid==='whatsapp_chat')&&!url.startsWith('http'))finalUrl='https://wa.me/'+url.replace(/\D/g,'');
   else if(tid==='email'&&!url.startsWith('mailto'))finalUrl='mailto:'+url;
   else if(tid==='call'&&!url.startsWith('tel'))finalUrl='tel:'+url.replace(/\s/g,'');
   else if(!url.startsWith('http')&&!url.startsWith('mailto')&&!url.startsWith('tel')&&!url.startsWith('upi'))finalUrl='https://'+url;
   if(editingId){
-    links=links.map(l=>l.id===editingId?{...l,title,url:finalUrl,icon:tid,color:selectedColor}:l);
+    links=links.map(l=>l.id===editingId?{...l,title,url:finalUrl,icon:tid,color:selColor}:l);
     showToast('Updated!');
   }else{
-    links.push({id:Date.now().toString(),title,url:finalUrl,icon:tid,color:selectedColor,active:true,likes:0,clicks:0});
+    links.push({id:Date.now().toString(),title,url:finalUrl,icon:tid,color:selColor,active:true,likes:0,clicks:0,pinned:false,thumb:null});
     showToast('✅ Link added!');
   }
-  closeAddModal();renderLinks();
+  closeFormModal();renderLinks();
 }
 
+/* ── RENDER LINKS ── */
 function renderLinks(){
   const active=links.filter(l=>!l._del);
-  const el=document.getElementById('linksList');
-  if(active.length===0){
-    el.innerHTML=`<div class="empty-state"><div style="font-size:28px;margin-bottom:8px">🔗</div>Add your first link below</div>`;
-    updateSpark(0);return;
-  }
-  el.innerHTML=active.map(link=>{
-    const type=ALL_TYPES.find(t=>t.id===link.icon)||ALL_TYPES[ALL_TYPES.length-1];
-    const iconColor=link.color||type.color||'#7c3aed';
-    return `<div class="link-item link-in ${!link.active?'hidden-link':''}" id="link-${link.id}">
-      <div class="link-color-bar" style="background:${iconColor};min-height:100%"></div>
-      <div class="link-drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></div>
-      <div class="link-main" onclick="window.open('${esc(link.url)}','_blank')">
-        <div class="link-platform-icon" style="background:${iconColor}18">
-          <i class="${type.icon}" style="color:${iconColor}"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title-wrap">
-            <div class="link-title" id="lt-${link.id}">${esc(link.title)}</div>
+  const wrap=document.getElementById('linksWrap');
+  const empty=document.getElementById('emptyState');
+  if(active.length===0){wrap.innerHTML='';wrap.appendChild(empty);empty.style.display='block';updateSpark(0);return;}
+  empty.style.display='none';
+  wrap.innerHTML=active.map(link=>{
+    const type=TYPES.find(t=>t.id===link.icon)||TYPES[TYPES.length-1];
+    const ic=link.color||type.color;
+    return `<div class="link-card lc-in ${!link.active?'hidden-card':''}" id="lc-${link.id}">
+      ${link.thumb?`<img class="link-thumb" src="${esc(link.thumb)}" alt="">`:''}
+      <div class="link-card-top">
+        <div class="lc-drag"><i class="fas fa-grip-vertical"></i></div>
+        <div class="lc-icon" style="background:${ic}15"><i class="${type.icon}" style="color:${ic}"></i></div>
+        <div class="lc-text">
+          <div class="lc-title-row">
+            <div class="lc-title" id="lct-${link.id}">${esc(link.title)}</div>
+            <span class="lc-edit-icon" onclick="inlineEditTitle('${link.id}')"><i class="fas fa-pen"></i></span>
           </div>
-          <div class="link-url-text">${esc(link.url)}</div>
-          <div class="link-clicks"><i class="fas fa-mouse-pointer" style="font-size:9px"></i>${link.clicks||0} clicks</div>
+          <div class="lc-url-row">
+            <div class="lc-url" id="lcu-${link.id}">${esc(link.url)}</div>
+            <span class="lc-url-edit" onclick="inlineEditUrl('${link.id}')"><i class="fas fa-pen"></i></span>
+          </div>
+        </div>
+        <div class="lc-right">
+          <div class="lc-share-btn" onclick="shareSingleLink('${link.id}')"><i class="fas fa-share"></i></div>
+          <button class="lc-toggle ${link.active?'on':''}" onclick="toggleLink('${link.id}')"></button>
         </div>
       </div>
-      <div class="link-actions">
-        <button class="link-action ${(link.likes||0)>0?'active-like':''}" onclick="likeLink('${link.id}')" title="Like">
+      <div class="link-btm">
+        <button class="lbtm-btn ${link.thumb?'pinned':''}" onclick="triggerThumb('${link.id}')" title="Add image">
+          <i class="fas fa-image"></i>
+        </button>
+        <div class="lbtm-sep"></div>
+        <button class="lbtm-btn ${link.pinned?'pinned':''}" onclick="pinLink('${link.id}')" title="${link.pinned?'Unpin':'Pin'}">
+          <i class="fas fa-thumbtack"></i>
+        </button>
+        <div class="lbtm-sep"></div>
+        <button class="lbtm-btn ${(link.likes||0)>0?'liked':''}" onclick="likeLink('${link.id}')" title="Like">
           <i class="fas fa-heart"></i>
         </button>
-        <button class="link-action ${link.active?'active-show':''}" title="${link.active?'Visible to visitors':'Hidden'}">
-          <button class="vis-toggle ${link.active?'on':''}" onclick="toggleLink('${link.id}')" title="${link.active?'Hide from visitors':'Show to visitors'}"></button>
-        </button>
-        <button class="link-action" onclick="editLink('${link.id}')" title="Edit"><i class="fas fa-pen"></i></button>
-        <button class="link-action" onclick="deleteLink('${link.id}')" title="Delete" style="color:#fca5a5"><i class="fas fa-trash-alt"></i></button>
+        <div class="lbtm-sep"></div>
+        <button class="lbtm-btn" onclick="editLink('${link.id}')" title="Edit"><i class="fas fa-pen"></i></button>
+        <div class="lbtm-clicks"><i class="fas fa-mouse-pointer"></i>${link.clicks||0}</div>
+        <button class="lbtm-btn lbtm-del" onclick="deleteLink('${link.id}')" title="Delete"><i class="fas fa-trash-alt"></i></button>
       </div>
     </div>`;
   }).join('');
   updateSpark(active.length);
-  document.getElementById('linkCountBadge').textContent=active.length+' link'+(active.length!==1?'s':'');
+  document.getElementById('secCnt').textContent=active.length+' link'+(active.length!==1?'s':'');
 }
 
-function updateSpark(count){
-  document.getElementById('sparkBar').style.width=Math.min(count/SPARK_LIMIT*100,100)+'%';
-  document.getElementById('sparkCount').textContent=count+' / '+SPARK_LIMIT+' links';
+function inlineEditTitle(id){
+  const el=document.getElementById('lct-'+id);if(!el)return;
+  const cur=el.textContent;
+  el.outerHTML=`<input class="lc-title-input" id="lct-${id}" value="${esc(cur)}" onblur="saveInlineTitle('${id}')" onkeydown="if(event.key==='Enter')this.blur()">`;
+  document.getElementById('lct-'+id).focus();
 }
 
-function likeLink(id){links=links.map(l=>l.id===id?{...l,likes:(l.likes||0)>0?0:1}:l);renderLinks();}
+function saveInlineTitle(id){
+  const el=document.getElementById('lct-'+id);if(!el)return;
+  const val=el.value.trim()||'Untitled';
+  links=links.map(l=>l.id===id?{...l,title:val}:l);
+  el.outerHTML=`<div class="lc-title" id="lct-${id}">${esc(val)}</div>`;
+}
+
+function inlineEditUrl(id){
+  const el=document.getElementById('lcu-'+id);if(!el)return;
+  const cur=el.textContent;
+  el.outerHTML=`<input class="lc-url-input" id="lcu-${id}" value="${esc(cur)}" onblur="saveInlineUrl('${id}')" onkeydown="if(event.key==='Enter')this.blur()">`;
+  document.getElementById('lcu-'+id).focus();
+}
+
+function saveInlineUrl(id){
+  const el=document.getElementById('lcu-'+id);if(!el)return;
+  const val=el.value.trim();
+  links=links.map(l=>l.id===id?{...l,url:val}:l);
+  el.outerHTML=`<div class="lc-url" id="lcu-${id}">${esc(val)}</div>`;
+}
+
+function updateSpark(n){
+  document.getElementById('sparkBar').style.width=Math.min(n/SPARK_LIMIT*100,100)+'%';
+  document.getElementById('sparkCnt').textContent=n+' / '+SPARK_LIMIT+' links';
+}
+
 function toggleLink(id){links=links.map(l=>l.id===id?{...l,active:!l.active}:l);renderLinks();}
+function pinLink(id){links=links.map(l=>l.id===id?{...l,pinned:!l.pinned}:l);renderLinks();}
+function likeLink(id){links=links.map(l=>l.id===id?{...l,likes:(l.likes||0)>0?0:1}:l);renderLinks();}
+function shareSingleLink(id){const l=links.find(x=>x.id===id);if(!l)return;if(navigator.share)navigator.share({title:l.title,url:l.url});else{navigator.clipboard.writeText(l.url);showToast('Link copied!');}}
+
 function deleteLink(id){
-  const el=document.getElementById('link-'+id);
-  if(el){el.style.opacity='0';el.style.transform='translateX(40px)';el.style.transition='all 0.22s';setTimeout(()=>{links=links.map(l=>l.id===id?{...l,_del:true}:l);renderLinks();},230);}
+  const el=document.getElementById('lc-'+id);
+  if(el){el.style.opacity='0';el.style.transform='translateX(40px)';el.style.transition='all 0.22s';setTimeout(()=>{links=links.map(l=>l.id===id?{...l,_del:true}:l);renderLinks();},240);}
 }
+
 function editLink(id){
   const link=links.find(l=>l.id===id);if(!link)return;
   editingId=id;
-  currentPreset=ALL_TYPES.find(t=>t.id===link.icon)||ALL_TYPES[ALL_TYPES.length-1];
-  selectedColor=link.color||currentPreset.color;
-  document.getElementById('addModalTitle').textContent='Edit Link';
-  document.getElementById('urlLabel').textContent=currentPreset.urlLabel;
-  document.getElementById('linkUrl').placeholder=currentPreset.placeholder;
-  document.getElementById('linkTitle').value=link.title;
-  document.getElementById('linkUrl').value=link.url;
+  const type=TYPES.find(t=>t.id===link.icon)||TYPES[TYPES.length-1];
+  currentType=type;selColor=link.color||type.color;
+  document.getElementById('formModalTitle').textContent='Edit Link';
+  document.getElementById('fUrlLabel').textContent=type.urlLabel;
+  document.getElementById('fUrl').placeholder=type.ph;
+  document.getElementById('fTitle').value=link.title;
+  document.getElementById('fUrl').value=link.url;
   buildColorRow();
-  document.getElementById('addModal').classList.add('open');
+  document.getElementById('formModal').classList.add('open');
 }
 
+function triggerThumb(id){thumbTarget=id;document.getElementById('thumbInput').click();}
+function handleThumb(e){
+  const f=e.target.files[0];if(!f||!thumbTarget)return;
+  const r=new FileReader();
+  r.onload=ev=>{links=links.map(l=>l.id===thumbTarget?{...l,thumb:ev.target.result}:l);renderLinks();};
+  r.readAsDataURL(f);
+}
+
+/* ── COLLECTIONS ── */
+let colIdCtr=0;
+function addCollection(){
+  const id='col_'+(++colIdCtr);
+  collections.push({id,title:'',active:true,linkIds:[]});
+  renderCollections();
+}
+
+function renderCollections(){
+  // Append collection cards after links-wrap
+  let cw=document.getElementById('colsWrap');
+  if(!cw){cw=document.createElement('div');cw.id='colsWrap';cw.style.padding='0 16px';document.querySelector('.add-col-btn').before(cw);}
+  cw.innerHTML=collections.map(col=>`
+    <div class="collection-card" id="col-${col.id}">
+      <div class="col-header">
+        <div class="col-drag"><i class="fas fa-grip-vertical"></i></div>
+        <i class="fas fa-layer-group col-icon"></i>
+        <input class="col-title-input" placeholder="Collection title" value="${esc(col.title)}" onchange="updateColTitle('${col.id}',this.value)">
+        <div class="col-actions">
+          <div class="col-btn" onclick="deleteCollection('${col.id}')"><i class="fas fa-trash-alt"></i></div>
+          <button class="col-toggle ${col.active?'on':''}" onclick="toggleCollection('${col.id}')"></button>
+        </div>
+      </div>
+      <div class="col-links" id="cl-${col.id}">
+        <div style="text-align:center;padding:10px;color:#ccc;font-size:12px">No links in this collection</div>
+        <div class="col-add-link" onclick="showToast('Drag links here — coming soon!')">
+          <i class="fas fa-plus"></i> Add link
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function updateColTitle(id,val){collections=collections.map(c=>c.id===id?{...c,title:val}:c);}
+function toggleCollection(id){collections=collections.map(c=>c.id===id?{...c,active:!c.active}:c);renderCollections();}
+function deleteCollection(id){collections=collections.filter(c=>c.id!==id);renderCollections();}
+
+/* ── SOCIAL ── */
+function editSoc(id){
+  currentSoc=id;const cfg=SOC_CFG[id];if(!cfg)return;
+  document.getElementById('socTitle').textContent='Link '+cfg.label;
+  document.getElementById('socLabel').textContent=cfg.lbl;
+  document.getElementById('socInput').placeholder=cfg.ph;
+  document.getElementById('socInput').value=socials[id]||'';
+  document.getElementById('socModal').classList.add('open');
+}
+function closeSocModal(){document.getElementById('socModal').classList.remove('open');}
+function saveSoc(){
+  const val=document.getElementById('socInput').value.trim();
+  socials[currentSoc]=val;
+  const chip=document.querySelector(`.soc-chip[data-s="${currentSoc}"]`);
+  if(chip)chip.classList.toggle('linked',!!val);
+  closeSocModal();showToast(val?'✅ Linked!':'Removed');
+}
+
+/* ── BIO ── */
+function editBio(){document.getElementById('bioInput').value=document.getElementById('pBio').textContent||'';document.getElementById('bioModal').classList.add('open');}
+function closeBioModal(){document.getElementById('bioModal').classList.remove('open');}
+function saveBio(){const v=document.getElementById('bioInput').value.trim();document.getElementById('pBio').textContent=v||'Add your bio';closeBioModal();showToast('Bio updated!');}
+
+/* ── UPGRADE ── */
 function openUpgrade(){document.getElementById('upgradeModal').classList.add('open');}
 
-function editSocial(id){
-  currentSocial=id;const cfg=SOCIAL_CFG[id];if(!cfg)return;
-  document.getElementById('socialModalTitle').textContent='Link '+cfg.label;
-  document.getElementById('socialModalLabel').textContent=cfg.inputLabel;
-  document.getElementById('socialInput').placeholder=cfg.placeholder;
-  document.getElementById('socialInput').value=socials[id]||'';
-  document.getElementById('socialModal').classList.add('open');
-}
-function closeSocialModal(){document.getElementById('socialModal').classList.remove('open');}
-function saveSocial(){
-  const val=document.getElementById('socialInput').value.trim();
-  socials[currentSocial]=val;
-  const chip=document.querySelector(`.social-chip[data-social="${currentSocial}"]`);
-  if(chip)chip.classList.toggle('linked',!!val);
-  closeSocialModal();showToast(val?'✅ Linked!':'Removed');
-}
-function editBio(){document.getElementById('bioInput').value=document.getElementById('bioText').textContent||'';document.getElementById('bioModal').classList.add('open');}
-function closeBioModal(){document.getElementById('bioModal').classList.remove('open');}
-function saveBio(){const bio=document.getElementById('bioInput').value.trim();document.getElementById('bioText').textContent=bio||'Add your bio';closeBioModal();showToast('Bio updated!');}
-
+/* ── SAVE ALL ── */
 async function saveAllLinks(){
   const btn=document.getElementById('saveAllBtn');btn.disabled=true;btn.textContent='Saving...';
   const token=localStorage.getItem('token');
   if(!token){showToast('Please login first');btn.disabled=false;btn.textContent='Save';return;}
   try{
-    const toSave=links.filter(l=>!l._del).map(({id,title,url,icon,active,color,likes,clicks})=>({id,title,url,icon,active,color:color||'#7c3aed',likes:likes||0,clicks:clicks||0}));
+    const toSave=links.filter(l=>!l._del).map(({id,title,url,icon,active,color,likes,clicks,pinned})=>({id,title,url,icon,active,color:color||'#7c3aed',likes:likes||0,clicks:clicks||0,pinned:!!pinned}));
     const res=await fetch(API+'/links/reorder',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({links:toSave})});
     const data=await res.json();
     if(data.success)showToast('✅ Saved!');else showToast('Error: '+(data.error||'Failed'));
@@ -629,33 +802,21 @@ async function saveAllLinks(){
   btn.disabled=false;btn.textContent='Save';
 }
 
-function shareProfile(){
-  const u=localStorage.getItem('username'),url='https://myqrid.in/'+u;
-  if(navigator.share)navigator.share({title:'My myQRID',url});
-  else{navigator.clipboard.writeText(url);showToast('Link copied!');}
-}
-
-function handleAvatarUpload(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{const el=document.getElementById('headerAvatar');el.style.background='none';el.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;};
-  r.readAsDataURL(f);
-}
-
+/* ── HELPERS ── */
+function copyProfileUrl(){const u=localStorage.getItem('username')||'—';navigator.clipboard.writeText('https://myqrid.in/'+u);showToast('URL copied!');}
+function shareProfile(){const u=localStorage.getItem('username'),url='https://myqrid.in/'+u;if(navigator.share)navigator.share({title:'My myQRID',url});else{navigator.clipboard.writeText(url);showToast('Link copied!');}}
+function handleAvatar(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const el=document.getElementById('pAvatar');el.style.background='none';el.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;};r.readAsDataURL(f);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
-async function loadLinks(){
+/* ── LOAD ── */
+async function loadData(){
   const name=localStorage.getItem('name')||'';
   const username=localStorage.getItem('username')||'';
-  if(name){
-    const el=document.getElementById('headerAvatar');
-    if(el&&!el.querySelector('img'))el.textContent=name[0].toUpperCase();
-    document.getElementById('headerName').textContent=name;
-  }
-  if(username)document.getElementById('headerUsername').textContent=username;
+  if(name){const el=document.getElementById('pAvatar');if(el&&!el.querySelector('img'))el.textContent=name[0].toUpperCase();document.getElementById('pName').textContent=name;}
+  if(username)document.getElementById('pUsername').textContent=username;
   const saved=localStorage.getItem('avatar_personal');
-  if(saved){const el=document.getElementById('headerAvatar');el.style.background='none';el.innerHTML=`<img src="${saved}" style="width:100%;height:100%;object-fit:cover">`;}
+  if(saved){const el=document.getElementById('pAvatar');el.style.background='none';el.innerHTML=`<img src="${saved}" style="width:100%;height:100%;object-fit:cover">`;}
   const token=localStorage.getItem('token');if(!token){renderLinks();return;}
   try{
     const res=await fetch(API+'/links',{headers:{'Authorization':'Bearer '+token}});
@@ -667,14 +828,14 @@ async function loadLinks(){
     const data=await res.json();
     if(data.success){
       socials=data.profile.socials||{};
-      Object.keys(socials).forEach(k=>{if(socials[k]){const c=document.querySelector(`.social-chip[data-social="${k}"]`);if(c)c.classList.add('linked');}});
-      if(data.profile.bio)document.getElementById('bioText').textContent=data.profile.bio;
+      Object.keys(socials).forEach(k=>{if(socials[k]){const c=document.querySelector(`.soc-chip[data-s="${k}"]`);if(c)c.classList.add('linked');}});
+      if(data.profile.bio)document.getElementById('pBio').textContent=data.profile.bio;
     }
   }catch(e){}
   renderLinks();
 }
 
-buildPresetGrid();loadLinks();
+loadData();
 </script>
 </body>
 </html>
