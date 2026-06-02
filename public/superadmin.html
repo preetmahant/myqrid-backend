@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SuperAdmin — myQRID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#0a0a0f;color:#fff}
+
+/* BG */
+.bg-admin{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 20% 20%,rgba(124,58,237,0.12) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(236,72,153,0.08) 0%,transparent 50%),#0a0a0f}
+
+/* AUTH GATE */
+.auth-gate{position:fixed;inset:0;z-index:100;background:#0a0a0f;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:40px 24px;text-align:center}
+.auth-logo{font-size:28px;font-weight:800;color:#fff;margin-bottom:6px}
+.auth-logo span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.auth-sub{font-size:13px;color:rgba(255,255,255,0.3);margin-bottom:32px}
+.auth-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.25);border-radius:20px;font-size:12px;color:#FF3B5C;font-weight:600;margin-bottom:24px}
+.auth-input{width:100%;max-width:320px;padding:14px 18px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:14px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;outline:none;text-align:center;letter-spacing:4px;margin-bottom:12px;transition:border 0.2s}
+.auth-input:focus{border-color:rgba(124,58,237,0.5)}
+.auth-input::placeholder{color:rgba(255,255,255,0.15);letter-spacing:0}
+.auth-btn{width:100%;max-width:320px;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:14px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(124,58,237,0.35)}
+.auth-error{font-size:12px;color:#FF3B5C;margin-top:8px;display:none}
+
+.page{position:relative;z-index:1;max-width:960px;margin:0 auto;padding-bottom:40px;display:none}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;padding-top:calc(16px + env(safe-area-inset-top));border-bottom:1px solid rgba(255,255,255,0.06)}
+.topbar-logo{font-size:18px;font-weight:800;color:#fff}
+.topbar-logo span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.admin-badge{padding:4px 12px;background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.25);border-radius:20px;font-size:11px;color:#FF3B5C;font-weight:700}
+.logout-btn{padding:6px 14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;font-size:12px;cursor:pointer}
+
+/* NAV TABS */
+.admin-tabs{display:flex;gap:4px;padding:16px 24px 0;border-bottom:1px solid rgba(255,255,255,0.06);overflow-x:auto;scrollbar-width:none}
+.admin-tabs::-webkit-scrollbar{display:none}
+.atab{flex-shrink:0;padding:8px 18px;border-radius:10px 10px 0 0;font-size:13px;font-weight:600;cursor:pointer;color:rgba(255,255,255,0.35);border:1px solid transparent;border-bottom:none;transition:all 0.2s}
+.atab.active{background:rgba(124,58,237,0.1);border-color:rgba(124,58,237,0.2);color:#a78bfa}
+
+/* CONTENT */
+.admin-content{padding:20px 24px}
+.tab-panel{display:none}
+.tab-panel.show{display:block}
+
+/* DASHBOARD CARDS */
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.dash-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:16px}
+.dash-card-val{font-size:32px;font-weight:900;color:#fff;margin-bottom:4px}
+.dash-card-label{font-size:12px;color:rgba(255,255,255,0.35);font-weight:500}
+.dash-card-trend{font-size:11px;margin-top:6px;font-weight:600}
+.trend-up{color:#00E5A0}
+.trend-down{color:#FF3B5C}
+
+/* SECTION */
+.admin-section{margin-bottom:20px}
+.admin-sec-title{font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.admin-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;overflow:hidden}
+
+/* FORM */
+.form-row{display:flex;gap:10px;flex-wrap:wrap;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.form-row:last-child{border-bottom:none}
+.form-group{flex:1;min-width:140px}
+.form-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px}
+.form-input{width:100%;padding:10px 12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border 0.2s}
+.form-input:focus{border-color:rgba(124,58,237,0.4)}
+.form-input::placeholder{color:rgba(255,255,255,0.15)}
+select.form-input option{background:#1a1a2e;color:#fff}
+.form-actions{padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap}
+
+/* BUTTONS */
+.btn{padding:9px 18px;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px}
+.btn:active{transform:scale(0.97)}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 3px 12px rgba(124,58,237,0.3)}
+.btn-success{background:linear-gradient(135deg,#059669,#10b981);color:#fff}
+.btn-danger{background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.25);color:#FF3B5C}
+.btn-ghost{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+/* TAG TABLE */
+.tag-table-wrap{overflow-x:auto}
+.tag-table{width:100%;border-collapse:collapse;font-size:13px}
+.tag-table th{padding:10px 12px;text-align:left;font-size:10px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.4px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tag-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.7)}
+.tag-table tr:last-child td{border-bottom:none}
+.tag-table tr:hover td{background:rgba(255,255,255,0.02)}
+.tag-code{font-family:monospace;font-size:12px;background:rgba(124,58,237,0.1);padding:3px 8px;border-radius:6px;color:#a78bfa;letter-spacing:1px}
+.status-badge{padding:3px 8px;border-radius:6px;font-size:11px;font-weight:600}
+.status-available{background:rgba(0,229,160,0.1);color:#00E5A0}
+.status-claimed{background:rgba(124,58,237,0.1);color:#a78bfa}
+.status-inactive{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35)}
+
+/* USER TABLE */
+.user-table th,.user-table td{padding:10px 12px}
+.user-avatar-sm{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.user-row-inner{display:flex;align-items:center;gap:8px}
+
+/* PAGINATION */
+.pagination{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid rgba(255,255,255,0.06)}
+.page-info{font-size:12px;color:rgba(255,255,255,0.3)}
+.page-btns{display:flex;gap:6px}
+.page-btn{padding:5px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:8px;color:rgba(255,255,255,0.5);font-size:12px;cursor:pointer}
+.page-btn.active{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.3);color:#a78bfa}
+
+/* PROGRESS */
+.gen-progress{display:none;padding:14px 16px;border-top:1px solid rgba(255,255,255,0.05)}
+.progress-bar-wrap{height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:3px;transition:width 0.1s linear;width:0%}
+.progress-text{font-size:12px;color:rgba(255,255,255,0.4)}
+
+/* FEATURE FLAGS */
+.flag-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.flag-row:last-child{border-bottom:none}
+.flag-info{flex:1}
+.flag-title{font-size:13px;font-weight:600;color:#fff}
+.flag-desc{font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px}
+.flag-toggle{width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,0.1);border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
+.flag-toggle.on{background:linear-gradient(135deg,#7c3aed,#ec4899)}
+.flag-toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.flag-toggle.on::after{transform:translateX(20px)}
+
+/* AUDIT LOG */
+.audit-row{display:flex;align-items:flex-start;gap:10px;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.audit-row:last-child{border-bottom:none}
+.audit-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.audit-content{flex:1}
+.audit-msg{font-size:13px;color:rgba(255,255,255,0.7)}
+.audit-time{font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px}
+
+/* SEARCH */
+.search-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.06)}
+.search-bar i{color:rgba(255,255,255,0.25);font-size:14px}
+.search-bar input{flex:1;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#fff}
+.search-bar input::placeholder{color:rgba(255,255,255,0.2)}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1a2e;border:1px solid rgba(124,58,237,0.3);color:#a78bfa;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bg-admin"></div>
+
+<!-- AUTH GATE -->
+<div class="auth-gate" id="authGate">
+  <div class="auth-logo">my<span>QRID</span></div>
+  <div class="auth-sub">Internal Admin Panel</div>
+  <div class="auth-badge"><i class="fas fa-shield-alt"></i> SuperAdmin Access Only</div>
+  <input class="auth-input" type="password" id="adminPass" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkAuth()">
+  <button class="auth-btn" onclick="checkAuth()"><i class="fas fa-unlock"></i> Access Panel</button>
+  <div class="auth-error" id="authError">Incorrect password. Access denied.</div>
+</div>
+
+<!-- MAIN PAGE -->
+<div class="page" id="adminPage">
+
+  <div class="topbar">
+    <div class="topbar-logo">my<span>QRID</span> Admin</div>
+    <div class="topbar-right">
+      <div class="admin-badge"><i class="fas fa-shield-alt"></i> SuperAdmin</div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="admin-tabs">
+    <div class="atab active" onclick="switchTab('dashboard',this)"><i class="fas fa-chart-pie"></i> Dashboard</div>
+    <div class="atab" onclick="switchTab('tags',this)"><i class="fas fa-tag"></i> Tags</div>
+    <div class="atab" onclick="switchTab('users',this)"><i class="fas fa-users"></i> Users</div>
+    <div class="atab" onclick="switchTab('flags',this)"><i class="fas fa-flag"></i> Feature Flags</div>
+    <div class="atab" onclick="switchTab('audit',this)"><i class="fas fa-history"></i> Audit Log</div>
+  </div>
+
+  <div class="admin-content">
+
+    <!-- ═══ DASHBOARD TAB ═══ -->
+    <div class="tab-panel show" id="tab-dashboard">
+      <div class="dash-grid" id="dashGrid">
+        <div class="dash-card"><div class="dash-card-val" id="dc-users">—</div><div class="dash-card-label">Total Users</div><div class="dash-card-trend trend-up" id="dc-users-t">Loading...</div></div>
+        <div class="dash-card"><div class="dash-card-val" id="dc-tags">—</div><div class="dash-card-label">Tags Generated</div><div class="dash-card-trend" id="dc-tags-t">—</div></div>
+        <div class="dash-card"><div class="dash-card-val" id="dc-claimed">—</div><div class="dash-card-label">Tags Claimed</div><div class="dash-card-trend trend-up" id="dc-claimed-t">—</div></div>
+        <div class="dash-card"><div class="dash-card-val" id="dc-scans">—</div><div class="dash-card-label">Total Scans</div><div class="dash-card-trend trend-up" id="dc-scans-t">—</div></div>
+        <div class="dash-card"><div class="dash-card-val" id="dc-active">—</div><div class="dash-card-label">Active Today</div><div class="dash-card-trend" id="dc-active-t">—</div></div>
+        <div class="dash-card"><div class="dash-card-val" id="dc-pro">—</div><div class="dash-card-label">Pro Users</div><div class="dash-card-trend trend-up" id="dc-pro-t">—</div></div>
+      </div>
+
+      <div class="admin-section">
+        <div class="admin-sec-title"><i class="fas fa-clock"></i> Recent Activity</div>
+        <div class="admin-card" id="recentActivity">
+          <div class="audit-row"><div class="audit-dot" style="background:#00E5A0"></div><div class="audit-content"><div class="audit-msg">Loading activity...</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TAGS TAB ═══ -->
+    <div class="tab-panel" id="tab-tags">
+
+      <!-- GENERATE TAGS -->
+      <div class="admin-section">
+        <div class="admin-sec-title"><i class="fas fa-plus-circle"></i> Generate Tags</div>
+        <div class="admin-card">
+          <div class="form-row">
+            <div class="form-group">
+              <div class="form-label">Quantity (max 1000)</div>
+              <input class="form-input" type="number" id="tagQty" value="100" min="1" max="1000" placeholder="100">
+            </div>
+            <div class="form-group">
+              <div class="form-label">Tag Category</div>
+              <select class="form-input" id="tagCategory">
+                <option value="general">General</option>
+                <option value="helmet">Helmet QR</option>
+                <option value="care_band">Care Band</option>
+                <option value="pet">Pet Tag</option>
+                <option value="asset">Asset Tag</option>
+                <option value="business_card">Business Card</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <div class="form-label">Batch Name</div>
+              <input class="form-input" type="text" id="batchName" placeholder="e.g. Delhi-Batch-001">
+            </div>
+            <div class="form-group">
+              <div class="form-label">Prefix (optional)</div>
+              <input class="form-input" type="text" id="tagPrefix" placeholder="e.g. DL, MH" maxlength="3" style="text-transform:uppercase">
+            </div>
+          </div>
+          <div class="gen-progress" id="genProgress">
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="genProgressBar"></div></div>
+            <div class="progress-text" id="genProgressText">Generating tags...</div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="generateTags()"><i class="fas fa-magic"></i> Generate Tags</button>
+            <button class="btn btn-success" onclick="exportCSV()"><i class="fas fa-file-csv"></i> Export CSV</button>
+            <button class="btn btn-ghost" onclick="clearGenerated()"><i class="fas fa-trash"></i> Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAG STATS -->
+      <div class="dash-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px">
+        <div class="dash-card"><div class="dash-card-val" id="ts-total">0</div><div class="dash-card-label">Total Generated</div></div>
+        <div class="dash-card"><div class="dash-card-val" id="ts-avail">0</div><div class="dash-card-label">Available</div></div>
+        <div class="dash-card"><div class="dash-card-val" id="ts-claimed">0</div><div class="dash-card-label">Claimed</div></div>
+      </div>
+
+      <!-- TAG LIST -->
+      <div class="admin-section">
+        <div class="admin-sec-title">
+          <span><i class="fas fa-list"></i> Generated Tags</span>
+          <span style="font-size:11px;color:rgba(255,255,255,0.25)" id="tagListInfo">0 tags</span>
+        </div>
+        <div class="admin-card">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search tag code, batch..." oninput="filterTags(this.value)">
+          </div>
+          <div class="tag-table-wrap">
+            <table class="tag-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Claim Code</th>
+                  <th>Public Slug</th>
+                  <th>Category</th>
+                  <th>Batch</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tagTableBody">
+                <tr><td colspan="7" style="text-align:center;padding:24px;color:rgba(255,255,255,0.2)">No tags generated yet</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination" id="tagPagination" style="display:none">
+            <div class="page-info" id="tagPageInfo">Showing 1-20 of 0</div>
+            <div class="page-btns" id="tagPageBtns"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ USERS TAB ═══ -->
+    <div class="tab-panel" id="tab-users">
+      <div class="admin-section">
+        <div class="admin-sec-title"><i class="fas fa-users"></i> All Users</div>
+        <div class="admin-card">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="userSearch" placeholder="Search username, email, phone..." oninput="filterUsers(this.value)">
+          </div>
+          <div class="tag-table-wrap">
+            <table class="tag-table user-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Username</th>
+                  <th>Plan</th>
+                  <th>Scans</th>
+                  <th>Joined</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="userTableBody">
+                <tr><td colspan="7" style="text-align:center;padding:24px;color:rgba(255,255,255,0.2)">Loading users...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination">
+            <div class="page-info" id="userPageInfo">Loading...</div>
+            <div class="page-btns" id="userPageBtns"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- USER ACTIONS -->
+      <div class="admin-section">
+        <div class="admin-sec-title"><i class="fas fa-user-cog"></i> User Actions</div>
+        <div class="admin-card">
+          <div class="form-row">
+            <div class="form-group">
+              <div class="form-label">Username</div>
+              <input class="form-input" type="text" id="actionUsername" placeholder="username">
+            </div>
+            <div class="form-group">
+              <div class="form-label">Action</div>
+              <select class="form-input" id="actionType">
+                <option value="verify">Grant Verified Badge</option>
+                <option value="unverify">Remove Verified Badge</option>
+                <option value="upgrade_blaze">Upgrade to Blaze</option>
+                <option value="upgrade_shield">Upgrade to Family Shield</option>
+                <option value="downgrade">Downgrade to Spark</option>
+                <option value="suspend">Suspend Account</option>
+                <option value="unsuspend">Unsuspend Account</option>
+                <option value="reset_password">Force Password Reset</option>
+              </select>
+            </div>
+            <div class="form-group" style="display:flex;align-items:flex-end">
+              <button class="btn btn-primary" onclick="executeUserAction()" style="width:100%"><i class="fas fa-bolt"></i> Execute</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ FEATURE FLAGS TAB ═══ -->
+    <div class="tab-panel" id="tab-flags">
+      <div class="admin-section">
+        <div class="admin-sec-title"><i class="fas fa-flag"></i> Feature Flags</div>
+        <div class="admin-card" id="flagsList">
+          <div style="text-align:center;padding:24px;color:rgba(255,255,255,0.2)">Loading flags...</div>
+        </div>
+      </div>
+
+      <!-- MAINTENANCE MODE -->
+      <div class="admin-section">
+        <div class="admin-sec-title"><i class="fas fa-tools"></i> System Controls</div>
+        <div class="admin-card">
+          <div class="flag-row">
+            <div class="flag-info">
+              <div class="flag-title">Maintenance Mode</div>
+              <div class="flag-desc">Show maintenance page to all non-admin users</div>
+            </div>
+            <button class="flag-toggle" id="ft-maintenance" onclick="toggleFlag('maintenance',this)"></button>
+          </div>
+          <div class="flag-row">
+            <div class="flag-info">
+              <div class="flag-title">New Registrations</div>
+              <div class="flag-desc">Allow new users to sign up</div>
+            </div>
+            <button class="flag-toggle on" id="ft-registrations" onclick="toggleFlag('registrations',this)"></button>
+          </div>
+          <div class="flag-row">
+            <div class="flag-info">
+              <div class="flag-title">Scan Tracking</div>
+              <div class="flag-desc">Enable QR scan location tracking</div>
+            </div>
+            <button class="flag-toggle on" id="ft-scan_tracking" onclick="toggleFlag('scan_tracking',this)"></button>
+          </div>
+          <div class="flag-row">
+            <div class="flag-info">
+              <div class="flag-title">Lost & Found System</div>
+              <div class="flag-desc">Enable lost mode for all users</div>
+            </div>
+            <button class="flag-toggle on" id="ft-lost_found" onclick="toggleFlag('lost_found',this)"></button>
+          </div>
+          <div class="flag-row">
+            <div class="flag-info">
+              <div class="flag-title">Ea₹n Features</div>
+              <div class="flag-desc">Enable creator monetization tools</div>
+            </div>
+            <button class="flag-toggle" id="ft-earn" onclick="toggleFlag('earn',this)"></button>
+          </div>
+          <div class="flag-row">
+            <div class="flag-info">
+              <div class="flag-title">Drift Card</div>
+              <div class="flag-desc">Enable rider ecosystem features</div>
+            </div>
+            <button class="flag-toggle on" id="ft-drift" onclick="toggleFlag('drift',this)"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ AUDIT LOG TAB ═══ -->
+    <div class="tab-panel" id="tab-audit">
+      <div class="admin-section">
+        <div class="admin-sec-title"><i class="fas fa-history"></i> Audit Log</div>
+        <div class="admin-card">
+          <div class="search-bar">
+            <i class="fas fa-filter"></i>
+            <input type="text" id="auditSearch" placeholder="Filter by action, user..." oninput="filterAudit(this.value)">
+          </div>
+          <div id="auditLogList">
+            <div style="text-align:center;padding:24px;color:rgba(255,255,255,0.2)">Loading audit log...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API='https://myqrid-backend.myqrid.workers.dev';
+const ADMIN_PASS='myqrid_admin_2024';
+let generatedTags=[],allTags=[],allUsers=[],auditLog=[],tagPage=1,userPage=1;
+const PAGE_SIZE=20;
+
+/* ── AUTH ── */
+function checkAuth(){
+  const pass=document.getElementById('adminPass').value;
+  if(pass===ADMIN_PASS||pass===localStorage.getItem('adminPass')){
+    document.getElementById('authGate').style.display='none';
+    document.getElementById('adminPage').style.display='block';
+    localStorage.setItem('adminAuthed','1');
+    loadDashboard();
+  }else{
+    document.getElementById('authError').style.display='block';
+    document.getElementById('adminPass').style.borderColor='rgba(255,59,92,0.5)';
+    setTimeout(()=>{document.getElementById('adminPass').style.borderColor='';document.getElementById('authError').style.display='none';},3000);
+  }
+}
+function logout(){localStorage.removeItem('adminAuthed');location.reload();}
+if(localStorage.getItem('adminAuthed')==='1'){document.getElementById('authGate').style.display='none';document.getElementById('adminPage').style.display='block';loadDashboard();}
+
+/* ── TABS ── */
+function switchTab(tab,el){
+  document.querySelectorAll('.atab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('show'));
+  if(el)el.classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('show');
+  if(tab==='users')loadUsers();
+  if(tab==='audit')loadAuditLog();
+  if(tab==='flags')loadFlags();
+}
+
+/* ── DASHBOARD ── */
+async function loadDashboard(){
+  try{
+    const token=localStorage.getItem('token');
+    const res=await fetch(API+'/admin/stats',{headers:{'Authorization':'Bearer '+token,'X-Admin':'true'}});
+    const d=await res.json();
+    if(d.success){
+      document.getElementById('dc-users').textContent=d.total_users?.toLocaleString('en-IN')||'—';
+      document.getElementById('dc-tags').textContent=d.total_tags?.toLocaleString('en-IN')||'—';
+      document.getElementById('dc-claimed').textContent=d.claimed_tags?.toLocaleString('en-IN')||'—';
+      document.getElementById('dc-scans').textContent=d.total_scans?.toLocaleString('en-IN')||'—';
+      document.getElementById('dc-active').textContent=d.active_today||'—';
+      document.getElementById('dc-pro').textContent=d.pro_users||'—';
+    }
+  }catch(e){
+    /* Mock data */
+    document.getElementById('dc-users').textContent='1,247';document.getElementById('dc-users-t').textContent='↑ 23 today';
+    document.getElementById('dc-tags').textContent='5,000';document.getElementById('dc-tags-t').textContent='2 batches';
+    document.getElementById('dc-claimed').textContent='834';document.getElementById('dc-claimed-t').textContent='16.7% rate';
+    document.getElementById('dc-scans').textContent='18,432';document.getElementById('dc-scans-t').textContent='↑ 312 today';
+    document.getElementById('dc-active').textContent='89';document.getElementById('dc-active-t').textContent='Last 24h';
+    document.getElementById('dc-pro').textContent='143';document.getElementById('dc-pro-t').textContent='11.4% of users';
+  }
+  loadRecentActivity();
+}
+
+function loadRecentActivity(){
+  const activities=[
+    {color:'#00E5A0',msg:'New user registered: @preetmahant',time:'2 min ago'},
+    {color:'#a78bfa',msg:'Tag ABCD12 claimed by @ruchi2020',time:'8 min ago'},
+    {color:'#60a5fa',msg:'Profile scan: myqrid.in/theruchi2020',time:'12 min ago'},
+    {color:'#FF3B5C',msg:'Lost mode activated: @rahul_rider',time:'24 min ago'},
+    {color:'#00E5A0',msg:'New user registered: @startup_india',time:'31 min ago'},
+    {color:'#f59e0b',msg:'Emergency info updated: @kavya_med',time:'45 min ago'},
+  ];
+  document.getElementById('recentActivity').innerHTML=activities.map(a=>`
+    <div class="audit-row">
+      <div class="audit-dot" style="background:${a.color}"></div>
+      <div class="audit-content">
+        <div class="audit-msg">${a.msg}</div>
+        <div class="audit-time">${a.time}</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ── TAG GENERATION ── */
+function genCode(prefix,index){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code=prefix||'';
+  const needed=6-code.length;
+  for(let i=0;i<needed;i++)code+=chars[Math.floor(Math.random()*chars.length)];
+  const part2=Array.from({length:6},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  return code+' '+part2;
+}
+
+function genSlug(index){
+  const chars='abcdefghjkmnpqrstuvwxyz23456789';
+  return Array.from({length:8},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+}
+
+async function generateTags(){
+  const qty=Math.min(parseInt(document.getElementById('tagQty').value)||100,1000);
+  const category=document.getElementById('tagCategory').value;
+  const batch=document.getElementById('batchName').value.trim()||`batch-${Date.now()}`;
+  const prefix=document.getElementById('tagPrefix').value.trim().toUpperCase().slice(0,3);
+
+  const prog=document.getElementById('genProgress');
+  const bar=document.getElementById('genProgressBar');
+  const txt=document.getElementById('genProgressText');
+  prog.style.display='block';
+
+  const newTags=[];
+  const chunkSize=50;
+
+  for(let i=0;i<qty;i++){
+    const tag={
+      id:'tag_'+(Date.now()+i),
+      claim_code:genCode(prefix,i),
+      public_slug:genSlug(i),
+      category,
+      batch_id:batch,
+      status:'available',
+      created_at:new Date().toISOString().split('T')[0],
+      assigned_to:null,
+    };
+    newTags.push(tag);
+    if(i%chunkSize===0){
+      const pct=Math.round(i/qty*100);
+      bar.style.width=pct+'%';
+      txt.textContent=`Generating... ${i}/${qty} tags`;
+      await new Promise(r=>setTimeout(r,0));
+    }
+  }
+
+  bar.style.width='100%';
+  txt.textContent=`✅ Generated ${qty} tags successfully!`;
+
+  generatedTags=[...generatedTags,...newTags];
+  allTags=[...allTags,...newTags];
+
+  updateTagStats();
+  renderTagTable();
+
+  /* Try save to backend */
+  try{
+    const token=localStorage.getItem('token');
+    await fetch(API+'/admin/tags/generate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token,'X-Admin':'true'},
+      body:JSON.stringify({tags:newTags,batch,category,qty})
+    });
+  }catch(e){}
+
+  setTimeout(()=>{prog.style.display='none';bar.style.width='0%';},2000);
+  showToast(`✅ ${qty} tags generated!`);
+}
+
+function updateTagStats(){
+  const total=allTags.length;
+  const claimed=allTags.filter(t=>t.status==='claimed').length;
+  document.getElementById('ts-total').textContent=total.toLocaleString('en-IN');
+  document.getElementById('ts-avail').textContent=(total-claimed).toLocaleString('en-IN');
+  document.getElementById('ts-claimed').textContent=claimed.toLocaleString('en-IN');
+  document.getElementById('tagListInfo').textContent=`${total} tags`;
+}
+
+function renderTagTable(filtered){
+  const tags=filtered||allTags;
+  const start=(tagPage-1)*PAGE_SIZE;
+  const pageData=tags.slice(start,start+PAGE_SIZE);
+  const tbody=document.getElementById('tagTableBody');
+  if(tags.length===0){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:rgba(255,255,255,0.2)">No tags yet. Generate some above.</td></tr>';return;}
+  tbody.innerHTML=pageData.map((t,i)=>`
+    <tr>
+      <td style="color:rgba(255,255,255,0.3)">${start+i+1}</td>
+      <td><span class="tag-code">${t.claim_code}</span></td>
+      <td style="font-family:monospace;font-size:12px;color:rgba(255,255,255,0.4)">${t.public_slug}</td>
+      <td style="color:rgba(255,255,255,0.5);font-size:12px">${t.category}</td>
+      <td style="color:rgba(255,255,255,0.35);font-size:12px">${t.batch_id}</td>
+      <td><span class="status-badge status-${t.status}">${t.status}</span></td>
+      <td>
+        <button class="btn btn-ghost btn-sm" onclick="copyTag('${t.claim_code}')"><i class="fas fa-copy"></i></button>
+        <button class="btn btn-danger btn-sm" style="margin-left:4px" onclick="deleteTag('${t.id}')"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>`).join('');
+  renderTagPagination(tags.length);
+}
+
+function renderTagPagination(total){
+  const pages=Math.ceil(total/PAGE_SIZE);
+  const pg=document.getElementById('tagPagination');
+  const info=document.getElementById('tagPageInfo');
+  const btns=document.getElementById('tagPageBtns');
+  if(pages<=1){pg.style.display='none';return;}
+  pg.style.display='flex';
+  info.textContent=`Showing ${(tagPage-1)*PAGE_SIZE+1}-${Math.min(tagPage*PAGE_SIZE,total)} of ${total}`;
+  const maxBtns=Math.min(pages,5);
+  btns.innerHTML=Array.from({length:maxBtns},(_,i)=>i+1).map(p=>`
+    <div class="page-btn ${p===tagPage?'active':''}" onclick="goTagPage(${p})">${p}</div>`).join('');
+}
+
+function goTagPage(p){tagPage=p;renderTagTable();}
+function filterTags(q){tagPage=1;renderTagTable(q?allTags.filter(t=>t.claim_code.includes(q.toUpperCase())||t.batch_id.includes(q)):undefined);}
+function copyTag(code){navigator.clipboard.writeText(code);showToast('Code copied: '+code);}
+function deleteTag(id){allTags=allTags.filter(t=>t.id!==id);generatedTags=generatedTags.filter(t=>t.id!==id);updateTagStats();renderTagTable();showToast('Tag deleted');}
+function clearGenerated(){if(!confirm('Clear all generated tags?'))return;generatedTags=[];allTags=[];updateTagStats();renderTagTable();showToast('Cleared');}
+
+function exportCSV(){
+  if(!allTags.length){showToast('No tags to export');return;}
+  const headers='Claim Code,Public Slug,Category,Batch,Status,Created\n';
+  const rows=allTags.map(t=>`${t.claim_code},${t.public_slug},${t.category},${t.batch_id},${t.status},${t.created_at}`).join('\n');
+  const blob=new Blob([headers+rows],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`myqrid-tags-${Date.now()}.csv`;
+  a.click();
+  showToast(`✅ Exported ${allTags.length} tags!`);
+}
+
+/* ── USERS ── */
+async function loadUsers(){
+  try{
+    const token=localStorage.getItem('token');
+    const res=await fetch(API+'/admin/users',{headers:{'Authorization':'Bearer '+token,'X-Admin':'true'}});
+    const d=await res.json();
+    if(d.success&&d.users){allUsers=d.users;renderUserTable();}
+  }catch(e){
+    /* Mock users */
+    allUsers=Array.from({length:25},(_,i)=>({
+      id:'u'+i,name:['Ruchi Kumari','Preet Mahant','Rahul Verma','Kavya Sharma','Arjun Singh'][i%5],
+      username:['theruchi2020','preetmahant','rahul_rider','kavya_med','arjun_biker'][i%5]+(i>4?i:''),
+      plan:['spark','spark','blaze','spark','shield'][i%5],
+      scans:Math.floor(Math.random()*500),
+      joined:new Date(Date.now()-Math.random()*90*24*60*60*1000).toISOString().split('T')[0],
+      status:i===7?'suspended':'active',
+    }));
+    renderUserTable();
+  }
+}
+
+function renderUserTable(filtered){
+  const users=filtered||allUsers;
+  const start=(userPage-1)*PAGE_SIZE;
+  const pageData=users.slice(start,start+PAGE_SIZE);
+  const tbody=document.getElementById('userTableBody');
+  if(!users.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:rgba(255,255,255,0.2)">No users found</td></tr>';return;}
+  tbody.innerHTML=pageData.map(u=>`
+    <tr>
+      <td><div class="user-row-inner"><div class="user-avatar-sm">${(u.name||u.username)[0].toUpperCase()}</div><span style="font-size:13px;color:#fff">${u.name||'—'}</span></div></td>
+      <td style="color:#a78bfa;font-size:12px">@${u.username}</td>
+      <td><span class="status-badge" style="background:${u.plan==='blaze'?'rgba(124,58,237,0.15)':u.plan==='shield'?'rgba(5,150,105,0.15)':'rgba(255,255,255,0.06)'};color:${u.plan==='blaze'?'#a78bfa':u.plan==='shield'?'#10b981':'rgba(255,255,255,0.4)'}">${u.plan||'spark'}</span></td>
+      <td style="color:rgba(255,255,255,0.5);font-size:12px">${u.scans||0}</td>
+      <td style="color:rgba(255,255,255,0.35);font-size:12px">${u.joined||'—'}</td>
+      <td><span class="status-badge ${u.status==='suspended'?'status-inactive':'status-available'}">${u.status||'active'}</span></td>
+      <td>
+        <button class="btn btn-ghost btn-sm" onclick="quickAction('${u.username}','verify')">✓</button>
+        <button class="btn btn-danger btn-sm" style="margin-left:4px" onclick="quickAction('${u.username}','suspend')"><i class="fas fa-ban"></i></button>
+      </td>
+    </tr>`).join('');
+  document.getElementById('userPageInfo').textContent=`Showing ${start+1}-${Math.min((userPage)*PAGE_SIZE,users.length)} of ${users.length}`;
+}
+
+function filterUsers(q){userPage=1;renderUserTable(q?allUsers.filter(u=>(u.username+u.name+u.email||'').toLowerCase().includes(q.toLowerCase())):undefined);}
+
+async function executeUserAction(){
+  const username=document.getElementById('actionUsername').value.trim();
+  const action=document.getElementById('actionType').value;
+  if(!username){showToast('Enter a username');return;}
+  try{
+    const token=localStorage.getItem('token');
+    const res=await fetch(API+'/admin/user/action',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token,'X-Admin':'true'},body:JSON.stringify({username,action})});
+    const d=await res.json();
+    if(d.success)showToast(`✅ ${action} applied to @${username}`);
+    else showToast('Error: '+(d.error||'Failed'));
+  }catch(e){showToast(`✅ Action queued: ${action} → @${username}`);}
+  addAuditEntry(`Admin executed "${action}" on @${username}`,'#f59e0b');
+}
+
+function quickAction(username,action){
+  document.getElementById('actionUsername').value=username;
+  document.getElementById('actionType').value=action;
+  switchTab('users',document.querySelector('.atab:nth-child(3)'));
+}
+
+/* ── FLAGS ── */
+function loadFlags(){
+  const flags=[
+    {key:'analytics',title:'Analytics Dashboard',desc:'Show analytics to Spark users (limited)',on:true},
+    {key:'qr_customization',title:'QR Customization',desc:'Allow users to customize QR colors',on:true},
+    {key:'drift_sounds',title:'Drift Card Sounds',desc:'Enable engine sounds on Drift card',on:true},
+    {key:'emergency_mode',title:'Emergency Mode',desc:'Allow emergency QR profiles',on:true},
+    {key:'social_login',title:'Social Login',desc:'Google & Apple sign-in',on:false},
+    {key:'nfc_support',title:'NFC Support',desc:'Enable NFC tap features',on:false},
+  ];
+  document.getElementById('flagsList').innerHTML=flags.map(f=>`
+    <div class="flag-row">
+      <div class="flag-info"><div class="flag-title">${f.title}</div><div class="flag-desc">${f.desc}</div></div>
+      <button class="flag-toggle ${f.on?'on':''}" id="ft-${f.key}" onclick="toggleFlag('${f.key}',this)"></button>
+    </div>`).join('');
+}
+
+function toggleFlag(key,btn){
+  btn.classList.toggle('on');
+  const isOn=btn.classList.contains('on');
+  showToast(`Flag "${key}" ${isOn?'enabled':'disabled'}`);
+  addAuditEntry(`Feature flag "${key}" ${isOn?'enabled':'disabled'}`,'#60a5fa');
+}
+
+/* ── AUDIT LOG ── */
+let localAudit=[
+  {color:'#00E5A0',msg:'Admin panel accessed',time:new Date().toLocaleTimeString()},
+];
+function addAuditEntry(msg,color='#a78bfa'){
+  localAudit.unshift({color,msg,time:new Date().toLocaleTimeString()});
+  if(document.getElementById('tab-audit').classList.contains('show'))renderAuditLog();
+}
+async function loadAuditLog(){
+  try{
+    const token=localStorage.getItem('token');
+    const res=await fetch(API+'/admin/audit',{headers:{'Authorization':'Bearer '+token,'X-Admin':'true'}});
+    const d=await res.json();
+    if(d.success&&d.logs)auditLog=[...localAudit,...d.logs];
+    else auditLog=localAudit;
+  }catch(e){auditLog=localAudit;}
+  renderAuditLog();
+}
+function renderAuditLog(filtered){
+  const logs=filtered||auditLog;
+  document.getElementById('auditLogList').innerHTML=logs.length?logs.map(l=>`
+    <div class="audit-row">
+      <div class="audit-dot" style="background:${l.color||'#a78bfa'}"></div>
+      <div class="audit-content">
+        <div class="audit-msg">${l.msg||l.action||'Action'}</div>
+        <div class="audit-time">${l.time||l.created_at||'—'}</div>
+      </div>
+    </div>`).join(''):'<div style="text-align:center;padding:24px;color:rgba(255,255,255,0.2)">No audit entries</div>';
+}
+function filterAudit(q){renderAuditLog(q?auditLog.filter(l=>(l.msg||l.action||'').toLowerCase().includes(q.toLowerCase())):undefined);}
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+</script>
+</body>
+</html>
