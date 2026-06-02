@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Drift — myQRID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#050505;color:#fff;overflow-x:hidden}
+
+/* BG */
+.bg-drift{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 20% 20%,rgba(0,200,184,0.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(109,61,245,0.1) 0%,transparent 50%),#050505}
+.page{position:relative;z-index:1;max-width:480px;margin:0 auto;padding-bottom:100px}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;padding-top:calc(14px + env(safe-area-inset-top))}
+.back-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.6);font-size:13px}
+.topbar-title{font-size:16px;font-weight:700;color:#00c8b8;letter-spacing:1px}
+.save-btn{padding:7px 16px;background:linear-gradient(135deg,#00c8b8,#006858);border:none;border-radius:20px;color:#000;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 10px rgba(0,200,184,0.35)}
+.save-btn:disabled{opacity:0.5}
+
+/* RIDER HERO */
+.rider-hero{margin:0 16px 16px;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(145deg,#000,#050a0a,#001a12);border:1px solid rgba(0,200,184,0.15);box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+.rider-hero-bg{height:180px;position:relative;overflow:hidden;cursor:pointer}
+.rider-cover{width:100%;height:100%;object-fit:cover;display:block}
+.rider-cover-placeholder{width:100%;height:100%;background:linear-gradient(145deg,#000,#0a1a15,#001a10);display:flex;align-items:center;justify-content:center}
+.rider-cover-icon{font-size:60px;opacity:0.08}
+.rider-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.85) 100%)}
+.rider-edit-cover{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);border:1px solid rgba(0,200,184,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#00c8b8;font-size:11px}
+.rider-bottom{padding:14px 16px 16px;position:relative}
+.rider-avatar-row{display:flex;align-items:flex-end;gap:12px;margin-top:-36px;margin-bottom:10px}
+.rider-avatar{width:72px;height:72px;border-radius:50%;border:3px solid rgba(0,200,184,0.4);background:rgba(0,200,184,0.1);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#00c8b8;overflow:hidden;cursor:pointer;flex-shrink:0;box-shadow:0 0 20px rgba(0,200,184,0.2)}
+.rider-avatar img{width:100%;height:100%;object-fit:cover}
+.rider-badge-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2px}
+.rider-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.4px}
+.badge-drift{background:rgba(0,200,184,0.1);border:1px solid rgba(0,200,184,0.25);color:#00c8b8}
+.badge-verified{background:rgba(109,61,245,0.15);border:1px solid rgba(109,61,245,0.3);color:#a78bfa}
+.badge-rider{background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.25);color:#FF3B5C}
+.rider-name{font-size:22px;font-weight:900;color:#00c8b8;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.rider-tagline{font-size:12px;color:rgba(0,200,184,0.45);margin-bottom:12px}
+.rider-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.rider-stat{text-align:center;background:rgba(0,200,184,0.04);border:1px solid rgba(0,200,184,0.1);border-radius:12px;padding:10px 8px}
+.rider-stat-val{font-size:18px;font-weight:800;color:#00c8b8}
+.rider-stat-label{font-size:10px;color:rgba(0,200,184,0.4);margin-top:2px;font-weight:500}
+
+/* SECTION */
+.section{margin:0 16px 12px}
+.sec-title{font-size:11px;font-weight:700;color:rgba(0,200,184,0.5);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.sec-card{background:rgba(0,200,184,0.03);border:1px solid rgba(0,200,184,0.1);border-radius:16px;overflow:hidden}
+
+/* VEHICLE TABS */
+.vehicle-tabs-row{display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid rgba(0,200,184,0.08)}
+.vtab{flex:1;padding:8px;border-radius:10px;border:1px solid rgba(0,200,184,0.12);background:transparent;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:rgba(0,200,184,0.4);cursor:pointer;transition:all 0.2s;text-align:center}
+.vtab.on{background:rgba(0,200,184,0.1);color:#00c8b8;border-color:rgba(0,200,184,0.3);box-shadow:0 0 12px rgba(0,200,184,0.1)}
+
+/* FIELD */
+.drift-field{padding:11px 14px;border-bottom:1px solid rgba(0,200,184,0.06);display:flex;align-items:center;gap:12px}
+.drift-field:last-child{border-bottom:none}
+.df-icon{width:30px;height:30px;border-radius:8px;background:rgba(0,200,184,0.06);border:1px solid rgba(0,200,184,0.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;color:#00c8b8}
+.df-info{flex:1;min-width:0}
+.df-label{font-size:10px;font-weight:600;color:rgba(0,200,184,0.4);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px}
+.df-input{width:100%;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;color:#fff;background:transparent}
+.df-input::placeholder{color:rgba(255,255,255,0.15)}
+
+/* VEHICLE SVG CARD */
+.vehicle-preview{padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.vsv-wrap{width:100%;max-width:340px}
+.vehicle-panel{display:none}
+.vehicle-panel.show{display:block}
+
+/* BLOOD GROUP */
+.blood-mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:12px 14px}
+.blood-mini{padding:10px 4px;border-radius:10px;border:1px solid rgba(0,200,184,0.12);text-align:center;cursor:pointer;transition:all 0.18s;background:transparent}
+.blood-mini.sel{background:rgba(255,59,92,0.1);border-color:rgba(255,59,92,0.4)}
+.blood-mini-type{font-size:15px;font-weight:800;color:rgba(255,255,255,0.4)}
+.blood-mini.sel .blood-mini-type{color:#FF3B5C}
+
+/* EMERGENCY CONTACTS */
+.emg-contact-row{padding:11px 14px;border-bottom:1px solid rgba(0,200,184,0.06);display:flex;align-items:center;gap:10px}
+.emg-contact-row:last-child{border-bottom:none}
+.emg-num{width:24px;height:24px;border-radius:50%;background:rgba(255,59,92,0.1);border:1px solid rgba(255,59,92,0.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#FF3B5C;flex-shrink:0}
+.emg-inputs{flex:1;display:flex;gap:8px}
+.emg-inp{flex:1;border:none;outline:none;font-family:'Inter',sans-serif;font-size:13px;color:#fff;background:rgba(255,255,255,0.04);border-radius:8px;padding:7px 10px;border:1px solid rgba(255,255,255,0.06)}
+.emg-inp::placeholder{color:rgba(255,255,255,0.15);font-size:12px}
+
+/* ACHIEVEMENTS */
+.achieve-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px}
+.achieve-item{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px}
+.achieve-icon{font-size:22px;flex-shrink:0}
+.achieve-text{flex:1;min-width:0}
+.achieve-title{font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.achieve-sub{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px}
+.achieve-locked{opacity:0.3}
+
+/* TOGGLE */
+.drift-toggle{width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,0.1);border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
+.drift-toggle.on{background:#00c8b8}
+.drift-toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.drift-toggle.on::after{transform:translateX(20px)}
+
+/* PHOTO UPLOAD */
+.photo-upload{margin:10px 14px;border:1.5px dashed rgba(0,200,184,0.2);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s}
+.photo-upload:active{border-color:rgba(0,200,184,0.5)}
+.photo-ph{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;color:rgba(0,200,184,0.3);font-size:13px}
+.photo-ph i{font-size:20px}
+.photo-preview-img{width:100%;max-height:160px;object-fit:cover;display:none}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(5,5,5,0.95);backdrop-filter:blur(20px);border-top:1px solid rgba(0,200,184,0.1);display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,0.2);font-size:10px;font-weight:500;padding:4px 0;cursor:pointer}
+.nav-item.active{color:#00c8b8}
+.nav-icon{font-size:20px;line-height:1}
+.nav-ctr{width:50px;height:50px;background:linear-gradient(135deg,#00c8b8,#006858);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(0,200,184,0.4)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp 0.4s ease forwards}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bg-drift"></div>
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
+    <div class="topbar-title">🏁 DRIFT</div>
+    <button class="save-btn" id="saveBtn" onclick="saveAll()">Save</button>
+  </div>
+
+  <!-- RIDER HERO -->
+  <div class="rider-hero fade-up">
+    <div class="rider-hero-bg" onclick="document.getElementById('coverInput').click()">
+      <div class="rider-cover-placeholder" id="coverPlaceholder">
+        <div class="rider-cover-icon">🏍</div>
+      </div>
+      <img id="coverImg" class="rider-cover" style="display:none" src="" alt="">
+      <div class="rider-hero-overlay"></div>
+      <div class="rider-edit-cover"><i class="fas fa-camera"></i></div>
+    </div>
+    <div class="rider-bottom">
+      <div class="rider-avatar-row">
+        <div class="rider-avatar" id="riderAvatar" onclick="document.getElementById('avatarInput').click()">
+          <span id="riderInitial">R</span>
+        </div>
+        <div class="rider-badge-row">
+          <div class="rider-badge badge-drift"><i class="fas fa-flag-checkered"></i> DRIFT</div>
+          <div class="rider-badge badge-verified" id="verBadge" style="display:none"><i class="fas fa-check"></i> Verified</div>
+        </div>
+      </div>
+      <input class="df-input" type="text" id="riderName" placeholder="YOUR RIDER NAME" style="font-size:20px;font-weight:900;color:#00c8b8;letter-spacing:2px;text-transform:uppercase;padding:0;margin-bottom:4px">
+      <input class="df-input" type="text" id="riderTagline" placeholder="Your ride tagline..." style="font-size:12px;color:rgba(0,200,184,0.5);padding:0;margin-bottom:14px">
+      <div class="rider-stats-row">
+        <div class="rider-stat"><div class="rider-stat-val" id="statRides">0</div><div class="rider-stat-label">Rides</div></div>
+        <div class="rider-stat"><div class="rider-stat-val" id="statKm">0</div><div class="rider-stat-label">KM</div></div>
+        <div class="rider-stat"><div class="rider-stat-val" id="statScans">0</div><div class="rider-stat-label">Scans</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VEHICLE SECTION -->
+  <div class="section fade-up">
+    <div class="sec-title"><i class="fas fa-motorcycle"></i> My Ride</div>
+    <div class="sec-card">
+      <div class="vehicle-tabs-row">
+        <button class="vtab on" id="vt-bike" onclick="showVehicle('bike')">🏍 Bike</button>
+        <button class="vtab" id="vt-car" onclick="showVehicle('car')">🚗 Car</button>
+        <button class="vtab" id="vt-both" onclick="showVehicle('both')">Both</button>
+      </div>
+
+      <!-- BIKE PANEL -->
+      <div class="vehicle-panel show" id="panel-bike">
+        <div class="vehicle-preview">
+          <div class="vsv-wrap">
+            <svg viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+              <defs><filter id="gDrift"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+              <g fill="none" stroke="rgba(0,200,184,0.72)" stroke-width="2.2" filter="url(#gDrift)">
+                <circle cx="82" cy="130" r="38" stroke-width="5" stroke="rgba(0,200,184,0.2)"/>
+                <circle cx="82" cy="130" r="26"/><circle cx="82" cy="130" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
+                <circle cx="278" cy="130" r="38" stroke-width="5" stroke="rgba(0,200,184,0.2)"/>
+                <circle cx="278" cy="130" r="26"/><circle cx="278" cy="130" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
+                <path d="M82 130 L162 60 L210 130 L278 130"/>
+                <path d="M162 60 L202 48 L230 72 L180 80 Z" fill="rgba(0,200,184,0.08)"/>
+                <path d="M146 64 L124 50 L143 48 L162 58"/>
+                <path d="M228 72 L298 58 L304 94"/>
+                <line x1="228" y1="72" x2="278" y2="130"/>
+                <circle cx="174" cy="102" r="14"/><circle cx="174" cy="102" r="5" fill="rgba(0,200,184,0.55)" stroke="none"/>
+                <line x1="4" y1="96" x2="38" y2="96" stroke="rgba(0,200,184,0.18)" stroke-width="1"/>
+                <line x1="4" y1="108" x2="26" y2="108" stroke="rgba(0,200,184,0.12)" stroke-width="1"/>
+              </g>
+              <style>@keyframes bkD{0%,100%{transform:translateX(0) rotate(0deg)}25%{transform:translateX(5px) rotate(0.4deg)}75%{transform:translateX(-5px) rotate(-0.4deg)}}svg{animation:bkD 3.5s ease-in-out infinite}</style>
+            </svg>
+          </div>
+        </div>
+        <div class="drift-field">
+          <div class="df-icon"><i class="fas fa-motorcycle"></i></div>
+          <div class="df-info"><div class="df-label">Bike Name / Model</div><input class="df-input" type="text" id="bikeName" placeholder="e.g. Yamaha R15 V4, KTM Duke 390"></div>
+        </div>
+        <div class="drift-field">
+          <div class="df-icon"><i class="fas fa-id-card"></i></div>
+          <div class="df-info"><div class="df-label">Registration Number</div><input class="df-input" type="text" id="bikeReg" placeholder="e.g. UP32 AB 1234" style="text-transform:uppercase"></div>
+        </div>
+        <div class="drift-field">
+          <div class="df-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <div class="df-info"><div class="df-label">Engine CC</div><input class="df-input" type="text" id="bikeCC" placeholder="e.g. 390cc, 650cc"></div>
+        </div>
+        <div class="drift-field">
+          <div class="df-icon"><i class="fas fa-palette"></i></div>
+          <div class="df-info"><div class="df-label">Color</div><input class="df-input" type="text" id="bikeColor" placeholder="e.g. Matt Black, Racing Red"></div>
+        </div>
+        <div class="photo-upload" onclick="document.getElementById('bikePhotoInput').click()">
+          <img id="bikePhotoPreview" class="photo-preview-img" src="" alt="">
+          <div class="photo-ph" id="bikePh"><i class="fas fa-camera"></i> Add bike photo</div>
+        </div>
+      </div>
+
+      <!-- CAR PANEL -->
+      <div class="vehicle-panel" id="panel-car">
+        <div class="vehicle-preview">
+          <div class="vsv-wrap">
+            <svg viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+              <defs><filter id="gDriftC"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+              <g fill="none" stroke="rgba(0,200,184,0.7)" stroke-width="1.8" filter="url(#gDriftC)">
+                <circle cx="80" cy="102" r="24" stroke-width="4" stroke="rgba(0,200,184,0.28)"/>
+                <circle cx="80" cy="102" r="14"/><circle cx="80" cy="102" r="5" fill="rgba(0,200,184,0.5)" stroke="none"/>
+                <circle cx="280" cy="102" r="20" stroke-width="4" stroke="rgba(0,200,184,0.28)"/>
+                <circle cx="280" cy="102" r="11"/><circle cx="280" cy="102" r="4" fill="rgba(0,200,184,0.5)" stroke="none"/>
+                <path d="M58,102 L58,74 L98,68 L138,60 L222,57 L272,64 L302,74 L302,102" stroke-width="2" fill="rgba(0,200,184,0.05)"/>
+                <path d="M155,68 L165,44 L200,42 L210,66 Z" fill="rgba(0,200,184,0.12)" stroke="rgba(0,200,184,0.6)" stroke-width="1.5"/>
+                <path d="M292,82 L342,78 L344,90 L297,94"/>
+                <path d="M48,64 L12,56 L10,48 L50,54"/>
+                <path d="M161,56 Q182,46 202,56" stroke="rgba(0,200,184,0.4)" stroke-width="3" fill="none"/>
+                <path d="M138,68 L138,90 L222,90 L222,66" fill="rgba(0,200,184,0.06)" stroke="rgba(0,200,184,0.35)" stroke-width="1"/>
+                <line x1="2" y1="82" x2="32" y2="82" stroke="rgba(0,200,184,0.2)" stroke-width="1"/>
+                <path d="M58,102 L302,102" stroke-width="2.5"/>
+              </g>
+              <style>@keyframes carD{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}svg{animation:carD 2.5s ease-in-out infinite}</style>
+            </svg>
+          </div>
+        </div>
+        <div class="drift-field">
+          <div class="df-icon"><i class="fas fa-car"></i></div>
+          <div class="df-info"><div class="df-label">Car Name / Model</div><input class="df-input" type="text" id="carName" placeholder="e.g. BMW M4, Toyota Supra"></div>
+        </div>
+        <div class="drift-field">
+          <div class="df-icon"><i class="fas fa-id-card"></i></div>
+          <div class="df-info"><div class="df-label">Registration Number</div><input class="df-input" type="text" id="carReg" placeholder="e.g. MH01 XY 9999" style="text-transform:uppercase"></div>
+        </div>
+        <div class="drift-field">
+          <div class="df-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <div class="df-info"><div class="df-label">Engine</div><input class="df-input" type="text" id="carEngine" placeholder="e.g. 3.0L Twin Turbo"></div>
+        </div>
+        <div class="drift-field">
+          <div class="df-icon"><i class="fas fa-palette"></i></div>
+          <div class="df-info"><div class="df-label">Color</div><input class="df-input" type="text" id="carColor" placeholder="e.g. Alpine White, Midnight Blue"></div>
+        </div>
+        <div class="photo-upload" onclick="document.getElementById('carPhotoInput').click()">
+          <img id="carPhotoPreview" class="photo-preview-img" src="" alt="">
+          <div class="photo-ph" id="carPh"><i class="fas fa-camera"></i> Add car photo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIDER STATS (manual entry) -->
+  <div class="section fade-up">
+    <div class="sec-title"><i class="fas fa-chart-line"></i> Rider Stats</div>
+    <div class="sec-card">
+      <div class="drift-field">
+        <div class="df-icon"><i class="fas fa-road"></i></div>
+        <div class="df-info"><div class="df-label">Total KM Ridden</div><input class="df-input" type="number" id="totalKm" placeholder="e.g. 12000" onchange="updateStats()"></div>
+      </div>
+      <div class="drift-field">
+        <div class="df-icon"><i class="fas fa-flag-checkered"></i></div>
+        <div class="df-info"><div class="df-label">Total Rides</div><input class="df-input" type="number" id="totalRides" placeholder="e.g. 250" onchange="updateStats()"></div>
+      </div>
+      <div class="drift-field">
+        <div class="df-icon"><i class="fas fa-calendar"></i></div>
+        <div class="df-info"><div class="df-label">Riding Since</div><input class="df-input" type="text" id="ridingSince" placeholder="e.g. 2018, 5 years"></div>
+      </div>
+      <div class="drift-field">
+        <div class="df-icon"><i class="fas fa-mountain"></i></div>
+        <div class="df-info"><div class="df-label">Favourite Route</div><input class="df-input" type="text" id="favRoute" placeholder="e.g. Manali-Leh, Coorg Loop"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMERGENCY (Road Safety) -->
+  <div class="section fade-up">
+    <div class="sec-title"><i class="fas fa-heartbeat"></i> Road Safety Info</div>
+    <div class="sec-card">
+      <div class="drift-field" style="align-items:center">
+        <div class="df-icon"><i class="fas fa-heartbeat" style="color:#FF3B5C"></i></div>
+        <div class="df-info"><div class="df-label" style="margin:0;font-size:13px;font-weight:600;color:#fff">Show Emergency Info on Scan</div><div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px">Helmet QR shows blood group + contacts</div></div>
+        <button class="drift-toggle" id="emgToggle" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div style="padding:0 14px 12px;margin-top:2px">
+        <div class="df-label" style="margin-bottom:8px">Blood Group</div>
+        <div class="blood-mini-grid" id="bloodMiniGrid"></div>
+      </div>
+      <div style="padding:0 14px 12px">
+        <div class="df-label" style="margin-bottom:8px">Emergency Contacts</div>
+        <div class="emg-contact-row">
+          <div class="emg-num">1</div>
+          <div class="emg-inputs">
+            <input class="emg-inp" type="text" id="ec1name" placeholder="Name">
+            <input class="emg-inp" type="tel" id="ec1phone" placeholder="+91...">
+          </div>
+        </div>
+        <div class="emg-contact-row">
+          <div class="emg-num">2</div>
+          <div class="emg-inputs">
+            <input class="emg-inp" type="text" id="ec2name" placeholder="Name">
+            <input class="emg-inp" type="tel" id="ec2phone" placeholder="+91...">
+          </div>
+        </div>
+      </div>
+      <div class="drift-field">
+        <div class="df-icon"><i class="fas fa-allergies" style="color:#FF3B5C"></i></div>
+        <div class="df-info"><div class="df-label">Allergies (if any)</div><input class="df-input" type="text" id="driftAllergies" placeholder="e.g. Penicillin, None"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENTS -->
+  <div class="section fade-up">
+    <div class="sec-title"><i class="fas fa-trophy"></i> Achievements</div>
+    <div class="sec-card">
+      <div class="achieve-grid" id="achieveGrid"></div>
+    </div>
+  </div>
+
+  <!-- DRIFT PREFERENCES -->
+  <div class="section fade-up">
+    <div class="sec-title"><i class="fas fa-sliders-h"></i> Preferences</div>
+    <div class="sec-card">
+      <div class="drift-field" style="align-items:center">
+        <div class="df-icon"><i class="fas fa-users"></i></div>
+        <div class="df-info"><div class="df-label" style="margin:0;font-size:13px;font-weight:600;color:#fff">Open to Ride Buddies</div><div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px">Allow riders to connect with you</div></div>
+        <button class="drift-toggle on" id="buddyToggle" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div class="drift-field" style="align-items:center">
+        <div class="df-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <div class="df-info"><div class="df-label" style="margin:0;font-size:13px;font-weight:600;color:#fff">Share Ride Stories</div><div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px">Post trip photos on profile</div></div>
+        <button class="drift-toggle on" id="storiesToggle" onclick="this.classList.toggle('on')"></button>
+      </div>
+      <div class="drift-field">
+        <div class="df-icon"><i class="fas fa-user-shield"></i></div>
+        <div class="df-info"><div class="df-label">Riding Style</div>
+          <select class="df-input" id="ridingStyle" style="cursor:pointer">
+            <option value="">Select style</option>
+            <option>Tourer</option><option>Sport Rider</option><option>Off-Road</option>
+            <option>Daily Commuter</option><option>Track Day</option><option>Cruiser</option>
+          </select>
+        </div>
+      </div>
+      <div class="drift-field">
+        <div class="df-icon"><i class="fas fa-hard-hat"></i></div>
+        <div class="df-info"><div class="df-label">Helmet Brand</div><input class="df-input" type="text" id="helmetBrand" placeholder="e.g. AGV, Shoei, Arai, LS2"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+  <a href="/links.html" class="nav-item"><span class="nav-icon">🔗</span><span>Links</span></a>
+  <a href="/cards.html" class="nav-item" style="flex:none;width:60px">
+    <div class="nav-ctr"><i class="fas fa-id-card" style="color:#000;font-size:18px"></i></div>
+  </a>
+  <a href="/drift.html" class="nav-item active"><span class="nav-icon">🏍</span><span>Drift</span></a>
+  <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+</nav>
+
+<input type="file" id="coverInput" accept="image/*" style="display:none" onchange="handleCover(event)">
+<input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatar(event)">
+<input type="file" id="bikePhotoInput" accept="image/*" style="display:none" onchange="handleVehiclePhoto(event,'bike')">
+<input type="file" id="carPhotoInput" accept="image/*" style="display:none" onchange="handleVehiclePhoto(event,'car')">
+<div class="toast" id="toast"></div>
+
+<script>
+const API='https://myqrid-backend.myqrid.workers.dev';
+const BLOODS=['A+','A-','B+','B-','AB+','AB-','O+','O-'];
+let selBlood=null,curVehicle='bike';
+
+const ACHIEVEMENTS=[
+  {icon:'🏍',title:'First Ride',sub:'Complete your profile',locked:false},
+  {icon:'🛣️',title:'1000 KM Club',sub:'Ride 1000+ kilometers',locked:true},
+  {icon:'🏔️',title:'Mountain Pass',sub:'Ride a mountain route',locked:true},
+  {icon:'🌙',title:'Night Rider',sub:'Complete a night ride',locked:true},
+  {icon:'⛽',title:'Full Tank',sub:'Long distance tourer',locked:true},
+  {icon:'🏁',title:'Track Day',sub:'Hit the race track',locked:true},
+];
+
+function buildBloodGrid(){
+  document.getElementById('bloodMiniGrid').innerHTML=BLOODS.map(b=>`
+    <div class="blood-mini ${selBlood===b?'sel':''}" onclick="selBloodType('${b}')">
+      <div class="blood-mini-type">${b}</div>
+    </div>`).join('');
+}
+function selBloodType(b){selBlood=b;buildBloodGrid();}
+
+function buildAchievements(){
+  document.getElementById('achieveGrid').innerHTML=ACHIEVEMENTS.map(a=>`
+    <div class="achieve-item ${a.locked?'achieve-locked':''}">
+      <div class="achieve-icon">${a.icon}</div>
+      <div class="achieve-text">
+        <div class="achieve-title">${a.title}</div>
+        <div class="achieve-sub">${a.locked?'🔒 '+a.sub:a.sub}</div>
+      </div>
+    </div>`).join('');
+}
+
+function showVehicle(type){
+  curVehicle=type;
+  ['bike','car','both'].forEach(t=>{
+    document.getElementById('vt-'+t).classList.toggle('on',t===type);
+    if(t!=='both'){
+      const panel=document.getElementById('panel-'+t);
+      if(panel)panel.classList.toggle('show',type==='both'||type===t);
+    }
+  });
+}
+
+function updateStats(){
+  const km=document.getElementById('totalKm').value;
+  const rides=document.getElementById('totalRides').value;
+  if(km)document.getElementById('statKm').textContent=parseInt(km).toLocaleString('en-IN');
+  if(rides)document.getElementById('statRides').textContent=rides;
+}
+
+function handleCover(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=ev=>{
+    const img=document.getElementById('coverImg');
+    const ph=document.getElementById('coverPlaceholder');
+    img.src=ev.target.result;img.style.display='block';ph.style.display='none';
+    localStorage.setItem('drift_cover',ev.target.result);
+  };r.readAsDataURL(f);
+}
+
+function handleAvatar(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=ev=>{
+    const av=document.getElementById('riderAvatar');
+    av.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;
+    localStorage.setItem('avatar_drift',ev.target.result);
+  };r.readAsDataURL(f);
+}
+
+function handleVehiclePhoto(e,type){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=ev=>{
+    const img=document.getElementById(type+'PhotoPreview');
+    const ph=document.getElementById(type+'Ph');
+    img.src=ev.target.result;img.style.display='block';
+    if(ph)ph.style.display='none';
+    localStorage.setItem('drift_'+type+'_photo',ev.target.result);
+  };r.readAsDataURL(f);
+}
+
+async function saveAll(){
+  const btn=document.getElementById('saveBtn');btn.disabled=true;btn.textContent='Saving...';
+  const token=localStorage.getItem('token');
+  const payload={
+    drift:{
+      rider_name:document.getElementById('riderName').value.trim(),
+      tagline:document.getElementById('riderTagline').value.trim(),
+      vehicle_type:curVehicle,
+      bike:{name:document.getElementById('bikeName').value.trim(),reg:document.getElementById('bikeReg').value.trim(),cc:document.getElementById('bikeCC').value.trim(),color:document.getElementById('bikeColor').value.trim()},
+      car:{name:document.getElementById('carName').value.trim(),reg:document.getElementById('carReg').value.trim(),engine:document.getElementById('carEngine').value.trim(),color:document.getElementById('carColor').value.trim()},
+      total_km:document.getElementById('totalKm').value||0,
+      total_rides:document.getElementById('totalRides').value||0,
+      riding_since:document.getElementById('ridingSince').value.trim(),
+      fav_route:document.getElementById('favRoute').value.trim(),
+      riding_style:document.getElementById('ridingStyle').value,
+      helmet_brand:document.getElementById('helmetBrand').value.trim(),
+      emergency:{
+        show:document.getElementById('emgToggle').classList.contains('on'),
+        blood_group:selBlood,
+        allergies:document.getElementById('driftAllergies').value.trim(),
+        contacts:[
+          {name:document.getElementById('ec1name').value.trim(),phone:document.getElementById('ec1phone').value.trim()},
+          {name:document.getElementById('ec2name').value.trim(),phone:document.getElementById('ec2phone').value.trim()},
+        ],
+      },
+      preferences:{
+        buddy:document.getElementById('buddyToggle').classList.contains('on'),
+        stories:document.getElementById('storiesToggle').classList.contains('on'),
+      },
+    }
+  };
+  localStorage.setItem('drift_data',JSON.stringify(payload));
+  if(token){
+    try{
+      const res=await fetch(API+'/profile/update',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify(payload)});
+      const d=await res.json();
+      if(d.success)showToast('🏁 Drift profile saved!');
+      else showToast('Error: '+(d.error||'Failed'));
+    }catch(e){showToast('Saved locally');}
+  }else{showToast('✅ Saved locally');}
+  btn.disabled=false;btn.textContent='Save';
+}
+
+async function loadData(){
+  const name=localStorage.getItem('name')||'';
+  if(name){document.getElementById('riderName').value=name.toUpperCase();document.getElementById('riderInitial').textContent=name[0].toUpperCase();}
+  const av=localStorage.getItem('avatar_drift')||localStorage.getItem('avatar_personal');
+  if(av){const avel=document.getElementById('riderAvatar');avel.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;}
+  const cover=localStorage.getItem('drift_cover');
+  if(cover){const ci=document.getElementById('coverImg');ci.src=cover;ci.style.display='block';document.getElementById('coverPlaceholder').style.display='none';}
+  ['bike','car'].forEach(type=>{
+    const p=localStorage.getItem('drift_'+type+'_photo');
+    if(p){const img=document.getElementById(type+'PhotoPreview');img.src=p;img.style.display='block';const ph=document.getElementById(type+'Ph');if(ph)ph.style.display='none';}
+  });
+  const token=localStorage.getItem('token');
+  let data=null;
+  if(token){try{const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});const d=await res.json();if(d.success)data=d.profile;}catch(e){}}
+  const local=localStorage.getItem('drift_data');
+  if(!data&&local)try{data=JSON.parse(local);}catch(e){}
+  if(data&&data.drift){
+    const dr=data.drift;
+    if(dr.rider_name)document.getElementById('riderName').value=dr.rider_name;
+    if(dr.tagline)document.getElementById('riderTagline').value=dr.tagline;
+    if(dr.vehicle_type)showVehicle(dr.vehicle_type);
+    if(dr.bike){document.getElementById('bikeName').value=dr.bike.name||'';document.getElementById('bikeReg').value=dr.bike.reg||'';document.getElementById('bikeCC').value=dr.bike.cc||'';document.getElementById('bikeColor').value=dr.bike.color||'';}
+    if(dr.car){document.getElementById('carName').value=dr.car.name||'';document.getElementById('carReg').value=dr.car.reg||'';document.getElementById('carEngine').value=dr.car.engine||'';document.getElementById('carColor').value=dr.car.color||'';}
+    if(dr.total_km){document.getElementById('totalKm').value=dr.total_km;document.getElementById('statKm').textContent=parseInt(dr.total_km).toLocaleString('en-IN');}
+    if(dr.total_rides){document.getElementById('totalRides').value=dr.total_rides;document.getElementById('statRides').textContent=dr.total_rides;}
+    if(dr.riding_since)document.getElementById('ridingSince').value=dr.riding_since;
+    if(dr.fav_route)document.getElementById('favRoute').value=dr.fav_route;
+    if(dr.riding_style)document.getElementById('ridingStyle').value=dr.riding_style;
+    if(dr.helmet_brand)document.getElementById('helmetBrand').value=dr.helmet_brand;
+    if(dr.emergency){
+      if(dr.emergency.show)document.getElementById('emgToggle').classList.add('on');
+      if(dr.emergency.blood_group){selBlood=dr.emergency.blood_group;}
+      if(dr.emergency.allergies)document.getElementById('driftAllergies').value=dr.emergency.allergies;
+      if(dr.emergency.contacts&&dr.emergency.contacts[0]){document.getElementById('ec1name').value=dr.emergency.contacts[0].name||'';document.getElementById('ec1phone').value=dr.emergency.contacts[0].phone||'';}
+      if(dr.emergency.contacts&&dr.emergency.contacts[1]){document.getElementById('ec2name').value=dr.emergency.contacts[1].name||'';document.getElementById('ec2phone').value=dr.emergency.contacts[1].phone||'';}
+    }
+    if(dr.preferences){
+      if(dr.preferences.buddy===false)document.getElementById('buddyToggle').classList.remove('on');
+      if(dr.preferences.stories===false)document.getElementById('storiesToggle').classList.remove('on');
+    }
+  }
+  buildBloodGrid();buildAchievements();
+  const scans=data?.scan_count||0;document.getElementById('statScans').textContent=scans;
+}
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+loadData();
+</script>
+</body>
+</html>
