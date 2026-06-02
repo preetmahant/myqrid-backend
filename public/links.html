@@ -8,224 +8,291 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f7f7f8}
-body{background-color:#f7f7f8;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.038) 39px,rgba(0,0,0,0.038) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.038) 39px,rgba(0,0,0,0.038) 40px)}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111}
+
+/* ── CARD-TYPE BACKGROUNDS ── */
+body.card-personal{background:#f3f0ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(124,58,237,0.04) 39px,rgba(124,58,237,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(124,58,237,0.04) 39px,rgba(124,58,237,0.04) 40px),linear-gradient(135deg,#f3f0ff 0%,#fff 50%,#ede9fe 100%)}
+body.card-work{background:#eff6ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(96,165,250,0.05) 39px,rgba(96,165,250,0.05) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(96,165,250,0.05) 39px,rgba(96,165,250,0.05) 40px),linear-gradient(135deg,#eff6ff 0%,#fff 50%,#dbeafe 100%)}
+body.card-business{background:#f5f5f5;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.04) 39px,rgba(0,0,0,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.04) 39px,rgba(0,0,0,0.04) 40px),linear-gradient(135deg,#e5e7eb 0%,#fff 50%,#f3f4f6 100%)}
+body.card-earn{background:#f0fdf4;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(74,222,128,0.05) 39px,rgba(74,222,128,0.05) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(74,222,128,0.05) 39px,rgba(74,222,128,0.05) 40px),linear-gradient(135deg,#f0fdf4 0%,#fff 50%,#ede9fe 100%)}
+body.card-drift{background:#0a0a0f;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,200,184,0.06) 39px,rgba(0,200,184,0.06) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,200,184,0.06) 39px,rgba(0,200,184,0.06) 40px)}
+
+/* ── LINK STRIP FILL COLORS per card type ── */
+/* Personal — lightest green fill */
+body.card-personal .link-card{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border-color:rgba(74,222,128,0.2)}
+body.card-personal .lc-title{color:#111}
+body.card-personal .lc-url{color:#6b7280}
+/* Work — light blue #60a5fa/#93c5fd mix */
+body.card-work .link-card{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border-color:rgba(96,165,250,0.2)}
+/* Business — light coffee with dark grey */
+body.card-business .link-card{background:linear-gradient(135deg,#fdf8f0 0%,#e5e7eb 100%);border-color:rgba(107,114,128,0.2)}
+/* Earn — light green #4ade80/#bbf7d0 */
+body.card-earn .link-card{background:linear-gradient(135deg,#f0fdf4 0%,#bbf7d0 100%);border-color:rgba(74,222,128,0.3)}
+/* Drift — dark neon */
+body.card-drift .link-card{background:linear-gradient(135deg,#0a0f0a 0%,#001a15 100%);border-color:rgba(0,200,184,0.2)}
+body.card-drift .lc-title{color:#00c8b8}
+body.card-drift .lc-url{color:rgba(0,200,184,0.5)}
+body.card-drift .lbtm-btn{color:rgba(0,200,184,0.4)}
+body.card-drift .topbar{background:rgba(10,10,15,0.94);border-bottom-color:rgba(0,200,184,0.1)}
+body.card-drift .topbar-title{color:#00c8b8}
+body.card-drift .back-btn{background:rgba(0,200,184,0.08);border-color:rgba(0,200,184,0.2);color:#00c8b8}
+body.card-drift .profile-card{background:rgba(0,20,15,0.8);border-color:rgba(0,200,184,0.15)}
+body.card-drift .p-name{color:#00c8b8}
+body.card-drift .p-bio{color:rgba(0,200,184,0.5)}
+body.card-drift .spark-banner{background:rgba(0,20,15,0.8);border-color:rgba(0,200,184,0.15)}
+body.card-drift .spark-name{color:#00c8b8}
+body.card-drift .spark-sub{color:rgba(0,200,184,0.4)}
+body.card-drift .add-main-btn{background:linear-gradient(135deg,#00c8b8,#006858)}
+body.card-drift .sec-lbl{color:rgba(0,200,184,0.4)}
+body.card-drift .lbtm-sep{background:rgba(0,200,184,0.1)}
 
 .page{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:90px;position:relative}
 
-/* TOPBAR */
-.topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
+/* ── TOPBAR ── */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
 .back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
 .topbar-title{font-size:16px;font-weight:700;color:#111}
 .save-btn{padding:7px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(124,58,237,0.25)}
 .save-btn:disabled{opacity:0.5;cursor:not-allowed}
 
-/* PROFILE CARD */
-.profile-card{background:#fff;border:1px solid #e9e9eb;border-radius:18px;margin:12px 16px;padding:18px 16px 14px;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
+/* ── PROFILE CARD ── */
+.profile-card{background:rgba(255,255,255,0.85);border:1px solid rgba(0,0,0,0.07);border-radius:18px;margin:12px 16px;padding:16px 16px 14px;box-shadow:0 1px 8px rgba(0,0,0,0.05);backdrop-filter:blur(10px)}
 .profile-top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
-.p-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;cursor:pointer;border:2px solid rgba(124,58,237,0.2)}
+.p-avatar{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;cursor:pointer;border:2px solid rgba(124,58,237,0.2)}
 .p-avatar img{width:100%;height:100%;object-fit:cover}
 .p-info{flex:1;min-width:0}
-.p-name{font-size:16px;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-name{font-size:15px;font-weight:700;color:#111}
 .p-bio-row{display:flex;align-items:center;gap:5px;cursor:pointer;margin-top:2px}
 .p-bio{font-size:12px;color:#888}
 .p-bio-icon{font-size:9px;color:#ccc}
-.p-url{display:inline-flex;align-items:center;gap:5px;background:#f3f0ff;border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:3px 10px;font-size:11px;color:#7c3aed;font-weight:500;cursor:pointer}
-.p-url-copy{margin-left:2px;font-size:10px;color:#a78bfa;cursor:pointer}
+.p-url{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:3px 10px;font-size:11px;color:#7c3aed;font-weight:500;cursor:pointer;margin-top:5px}
 
-/* SOCIAL CHIPS */
-.social-row{display:flex;gap:6px;flex-wrap:wrap;padding:0 4px}
-.soc-chip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:7px 8px;border-radius:10px;background:#f9f9fb;border:1px solid #e9e9eb;transition:all 0.18s;min-width:46px}
-.soc-chip:active{transform:scale(0.94)}
-.soc-chip.linked{background:#f3f0ff;border-color:rgba(124,58,237,0.25)}
-.soc-chip i{font-size:16px;color:#ccc}
+/* ── SOCIAL CHIPS ── */
+.social-row{display:flex;gap:5px;flex-wrap:wrap}
+.soc-chip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,0.6);border:1px solid rgba(0,0,0,0.07);transition:all 0.18s;min-width:44px}
+.soc-chip:active{transform:scale(0.93)}
+.soc-chip.linked{background:rgba(124,58,237,0.06);border-color:rgba(124,58,237,0.2)}
+.soc-chip i{font-size:15px;color:#ccc}
 .soc-chip.linked i{color:var(--sc,#7c3aed)}
 .soc-chip span{font-size:9px;color:#bbb;font-weight:500}
-.soc-chip.linked span{color:#999}
 
-/* SPARK BANNER */
-.spark-banner{background:#fff;border:1px solid #e9e9eb;border-radius:14px;margin:10px 16px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
-.spark-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.spark-info{flex:1;min-width:0}
-.spark-name{font-size:12px;font-weight:700;color:#111}
-.spark-sub{font-size:10px;color:#aaa;margin-top:1px}
-.spark-bar-wrap{height:3px;background:#f0f0f0;border-radius:2px;margin-top:5px;overflow:hidden}
+/* ── SPARK PLAN — collapsed ── */
+.spark-collapsed{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.85);border:1px solid rgba(0,0,0,0.07);border-radius:14px;margin:8px 16px;cursor:pointer;backdrop-filter:blur(8px)}
+.spark-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);flex-shrink:0}
+.spark-collapsed-text{flex:1;font-size:12px;color:#888}
+.spark-collapsed-text strong{color:#111;font-weight:600}
+.spark-collapsed-bar{width:60px;height:3px;background:#eee;border-radius:2px;overflow:hidden;flex-shrink:0}
+.spark-collapsed-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.3s}
+.spark-chevron{color:#ccc;font-size:10px;flex-shrink:0}
+
+/* SPARK EXPANDED */
+.spark-expanded{display:none;background:rgba(255,255,255,0.85);border:1px solid rgba(0,0,0,0.07);border-radius:14px;margin:0 16px 8px;padding:14px;backdrop-filter:blur(8px)}
+.spark-expanded.open{display:block}
+.spark-exp-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.spark-exp-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.spark-exp-info{flex:1}
+.spark-exp-name{font-size:13px;font-weight:700;color:#111}
+.spark-exp-sub{font-size:11px;color:#aaa;margin-top:1px}
+.spark-bar-wrap{height:4px;background:#f0f0f0;border-radius:2px;margin-top:6px;overflow:hidden}
 .spark-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.35s}
-.spark-cnt{font-size:9px;color:#bbb;margin-top:2px}
-.spark-up{padding:5px 11px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;font-size:11px;font-weight:700;color:#fff;cursor:pointer;flex-shrink:0}
+.spark-cnt{font-size:10px;color:#bbb;margin-top:3px}
+.spark-up-btn{padding:6px 14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;margin-top:10px;font-family:'Inter',sans-serif}
 
-/* SECTION HEADER */
+/* ── ADD BUTTON ── */
+.add-main-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 16px 12px;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:14px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.28);transition:all 0.2s;width:calc(100% - 32px)}
+.add-main-btn:active{transform:scale(0.98)}
+
+/* ── SECTION HEADER ── */
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:8px}
 .sec-lbl{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px}
 .sec-cnt{font-size:11px;color:#ccc}
 
-/* ADD BUTTON */
-.add-main-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 16px 12px;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:14px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.3);transition:all 0.2s;width:calc(100% - 32px)}
-.add-main-btn:active{transform:scale(0.98);opacity:0.92}
-
-/* LINKS LIST */
+/* ── LINKS WRAP ── */
 .links-wrap{padding:0 16px}
 
-/* LINK STRIP — Linktree style */
-.link-card{background:#fff;border:1px solid #e9e9eb;border-radius:16px;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,0.04);transition:box-shadow 0.2s}
-.link-card:active{box-shadow:0 3px 12px rgba(0,0,0,0.1)}
+/* ── LINK CARD — Linktree style ── */
+.link-card{background:#fff;border:1px solid #e9e9eb;border-radius:16px;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.04);transition:box-shadow 0.2s}
 .link-card.hidden-card{opacity:0.5}
-.link-card-top{display:flex;align-items:center;gap:0;padding:13px 12px 10px}
+.link-card-top{display:flex;align-items:center;padding:12px 12px 8px}
 .lc-drag{color:#d1d5db;font-size:13px;cursor:grab;padding:0 8px 0 0;flex-shrink:0}
 .lc-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-right:10px}
 .lc-text{flex:1;min-width:0}
-.lc-title-row{display:flex;align-items:center;gap:6px;margin-bottom:2px}
-.lc-title{font-size:14px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.lc-title-row{display:flex;align-items:center;gap:5px;margin-bottom:2px}
+.lc-title{font-size:14px;font-weight:600;color:#111;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lc-title-input{font-size:14px;font-weight:600;color:#111;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;border-bottom:1.5px solid #7c3aed;padding-bottom:1px}
-.lc-edit-icon{font-size:10px;color:#ccc;cursor:pointer;flex-shrink:0;padding:2px}
+.lc-edit{font-size:10px;color:#d1d5db;cursor:pointer;flex-shrink:0}
 .lc-url-row{display:flex;align-items:center;gap:5px}
-.lc-url{font-size:11px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
-.lc-url-input{font-size:11px;color:#888;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;border-bottom:1px solid #e5e7eb;padding-bottom:1px}
+.lc-url{font-size:11px;color:#aaa;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lc-url-input{font-size:11px;color:#666;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;border-bottom:1px solid #e5e7eb;padding-bottom:1px}
 .lc-url-edit{font-size:9px;color:#d1d5db;cursor:pointer;flex-shrink:0}
-.lc-right{display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:8px}
-.lc-share-btn{width:28px;height:28px;border-radius:7px;background:#f9f9fb;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#aaa;font-size:11px}
+.lc-right{display:flex;align-items:center;gap:6px;margin-left:8px;flex-shrink:0}
+.lc-share{width:28px;height:28px;border-radius:7px;background:#f9f9fb;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#aaa;font-size:11px}
 .lc-toggle{width:40px;height:22px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
 .lc-toggle.on{background:#7c3aed}
 .lc-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
 .lc-toggle.on::after{transform:translateX(18px)}
 
 /* LINK BOTTOM BAR */
-.link-btm{display:flex;align-items:center;gap:0;padding:6px 12px 10px;border-top:1px solid #f5f5f7}
-.lbtm-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;border-radius:8px;background:transparent;border:none;cursor:pointer;color:#bbb;font-size:11px;font-family:'Inter',sans-serif;transition:all 0.18s}
+.link-btm{display:flex;align-items:center;padding:5px 10px 9px;border-top:1px solid rgba(0,0,0,0.04)}
+.lbtm-btn{display:flex;align-items:center;gap:4px;padding:5px 7px;border-radius:7px;background:transparent;border:none;cursor:pointer;color:#ccc;font-size:11px;font-family:'Inter',sans-serif;transition:all 0.18s}
 .lbtm-btn:active{background:#f5f5f7;color:#555}
 .lbtm-btn i{font-size:13px}
 .lbtm-btn.liked{color:#ef4444}
 .lbtm-btn.pinned{color:#f59e0b}
-.lbtm-sep{width:1px;height:18px;background:#f0f0f0;margin:0 2px;flex-shrink:0}
+.lbtm-sep{width:1px;height:16px;background:#f0f0f0;flex-shrink:0;margin:0 1px}
 .lbtm-clicks{margin-left:auto;font-size:10px;color:#ccc;display:flex;align-items:center;gap:3px;padding:0 4px}
-.lbtm-del{margin-left:4px;color:#fca5a5!important}
-.lbtm-del:active{color:#ef4444!important}
+.lbtm-del{color:#fca5a5!important}
+.lbtm-del:active{color:#ef4444!important;background:rgba(239,68,68,0.05)!important}
+.link-thumb{width:100%;max-height:140px;object-fit:cover;display:block}
 
-/* THUMBNAIL PREVIEW */
-.link-thumb{width:100%;height:120px;object-fit:cover;display:block;border-radius:0}
-.link-thumb-add{display:flex;align-items:center;justify-content:center;gap:6px;height:80px;border-top:1px solid #f5f5f7;background:#fafafa;cursor:pointer;color:#bbb;font-size:12px;font-weight:500}
-.link-thumb-add i{font-size:16px}
-
-/* COLLECTION */
-.collection-card{background:#fff;border:1.5px dashed #e5e7eb;border-radius:16px;margin-bottom:8px;overflow:hidden}
-.col-header{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid #f5f5f7}
+/* ── COLLECTION ── */
+.col-card{background:rgba(255,255,255,0.7);border:1.5px dashed #d1d5db;border-radius:16px;margin-bottom:8px;overflow:hidden;backdrop-filter:blur(8px)}
+.col-header{display:flex;align-items:center;gap:8px;padding:11px 12px;border-bottom:1px solid rgba(0,0,0,0.04)}
 .col-drag{color:#d1d5db;font-size:13px;cursor:grab;flex-shrink:0}
-.col-icon{font-size:14px;color:#888}
+.col-icon{color:#aaa;font-size:13px;flex-shrink:0}
 .col-title-input{flex:1;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#111;background:transparent}
 .col-title-input::placeholder{color:#ccc}
-.col-actions{display:flex;gap:6px;margin-left:auto}
-.col-btn{width:28px;height:28px;border-radius:7px;background:#f9f9fb;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#aaa;font-size:11px}
-.col-toggle{width:40px;height:22px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s}
-.col-toggle.on{background:#7c3aed}
-.col-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
-.col-toggle.on::after{transform:translateX(18px)}
-.col-links{padding:6px 10px 10px}
-.col-add-link{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;background:#f9f9fb;border:1px dashed #e5e7eb;cursor:pointer;color:#bbb;font-size:12px;font-weight:500;margin-top:6px;transition:all 0.18s}
-.col-add-link:active{background:#f3f0ff;color:#7c3aed;border-color:rgba(124,58,237,0.3)}
+.col-layout-btn{padding:4px 10px;border-radius:8px;background:#f5f5f7;border:1px solid #e9e9eb;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#888;cursor:pointer}
+.col-del-btn{width:28px;height:28px;border-radius:7px;background:#fff5f5;border:1px solid #fecaca;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fca5a5;font-size:11px}
+.col-vis-toggle{width:38px;height:20px;border-radius:10px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
+.col-vis-toggle.on{background:#7c3aed}
+.col-vis-toggle::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 2px rgba(0,0,0,0.12)}
+.col-vis-toggle.on::after{transform:translateX(18px)}
+.col-body{padding:8px 10px 10px}
+.col-empty{text-align:center;padding:12px;color:#ccc;font-size:12px}
+.col-add-link{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;border-radius:10px;background:#fafafa;border:1px dashed #e5e7eb;cursor:pointer;color:#bbb;font-size:12px;font-weight:500;margin-top:6px;transition:all 0.18s;font-family:'Inter',sans-serif;width:100%}
+.col-add-link:active{background:rgba(124,58,237,0.05);color:#7c3aed;border-color:rgba(124,58,237,0.3)}
 
-/* EMPTY STATE */
-.empty-state{text-align:center;padding:28px 20px;color:#bbb;font-size:14px;background:#fff;border-radius:16px;border:1px solid #e9e9eb}
+/* LAYOUT PICKER */
+.layout-picker{display:flex;gap:8px;padding:10px 12px;background:#fafafa;border-top:1px solid #f0f0f0}
+.layout-opt{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px;border-radius:10px;border:1.5px solid #e9e9eb;cursor:pointer;background:#fff;transition:all 0.18s;flex:1}
+.layout-opt.active{border-color:#7c3aed;background:rgba(124,58,237,0.05)}
+.layout-opt i{font-size:16px;color:#bbb}
+.layout-opt.active i{color:#7c3aed}
+.layout-opt span{font-size:10px;color:#aaa;font-weight:500}
+.layout-opt.active span{color:#7c3aed}
 
-/* ADD COLLECTION BTN */
-.add-col-btn{display:flex;align-items:center;gap:8px;padding:11px 14px;margin:0 16px 8px;background:#fff;border:1.5px dashed #d1d5db;border-radius:14px;cursor:pointer;color:#888;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all 0.18s;width:calc(100% - 32px)}
-.add-col-btn:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3);color:#7c3aed}
+/* ── ADD COLLECTION BTN ── */
+.add-col-btn{display:flex;align-items:center;gap:8px;padding:11px 14px;margin:0 16px 10px;background:rgba(255,255,255,0.7);border:1.5px dashed #d1d5db;border-radius:14px;cursor:pointer;color:#888;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all 0.18s;width:calc(100% - 32px);backdrop-filter:blur(8px)}
+.add-col-btn:active{background:rgba(124,58,237,0.05);border-color:rgba(124,58,237,0.3);color:#7c3aed}
 
-/* UPGRADE SECTION */
-.upgrade-section{margin:16px 16px 8px;background:#fff;border:1px solid #e9e9eb;border-radius:20px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.upgrade-hdr{padding:18px 18px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(236,72,153,0.03))}
-.upgrade-hdr-title{font-size:16px;font-weight:800;color:#111;margin-bottom:4px}
-.upgrade-hdr-sub{font-size:12px;color:#888;line-height:1.6;margin-bottom:14px}
-.upgrade-feats{display:flex;flex-direction:column;gap:7px;margin-bottom:0}
-.upgrade-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:#444}
-.upgrade-feat i{color:#7c3aed;font-size:11px;flex-shrink:0}
-.upgrade-plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 18px 18px}
+/* ── UNLOCK SECTION — collapsed ── */
+.unlock-collapsed{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.85);border:1px solid rgba(124,58,237,0.15);border-radius:14px;margin:8px 16px;cursor:pointer;backdrop-filter:blur(8px)}
+.unlock-collapsed-icon{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.unlock-collapsed-text{flex:1}
+.unlock-collapsed-title{font-size:13px;font-weight:700;color:#111}
+.unlock-collapsed-sub{font-size:11px;color:#aaa;margin-top:1px}
+.unlock-chevron{color:#ccc;font-size:10px}
+
+/* UNLOCK EXPANDED */
+.unlock-expanded{display:none;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:18px;margin:0 16px 10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
+.unlock-expanded.open{display:block}
+.unlock-hdr{padding:16px 18px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.04),rgba(236,72,153,0.03))}
+.unlock-title{font-size:15px;font-weight:800;color:#111;margin-bottom:4px}
+.unlock-sub{font-size:12px;color:#888;line-height:1.6;margin-bottom:12px}
+.unlock-feats{display:flex;flex-direction:column;gap:6px}
+.unlock-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:#444}
+.unlock-feat i{color:#7c3aed;font-size:11px;flex-shrink:0}
+.unlock-plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 18px 16px}
 .uplan-btn{padding:13px 10px;border:none;border-radius:13px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all 0.2s}
 .uplan-btn:active{transform:scale(0.97)}
 .uplan-sub{font-size:10px;font-weight:400;opacity:0.8}
-.btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 14px rgba(124,58,237,0.3)}
-.btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 14px rgba(5,150,105,0.25)}
-.upgrade-note{text-align:center;font-size:11px;color:#bbb;padding:0 18px 14px}
+.btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,0.28)}
+.btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 12px rgba(5,150,105,0.22)}
+.unlock-note{text-align:center;font-size:11px;color:#bbb;padding:0 18px 14px}
 
-/* MYQRID FOOTER */
+/* ── FOOTER ── */
 .myqrid-footer{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 20px 20px}
-.footer-logo-text{font-size:18px;font-weight:800;color:#111}
-.footer-logo-text span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.footer-tagline{font-size:11px;color:#bbb;text-align:center}
+.footer-brand{font-size:18px;font-weight:800;color:#111}
+.footer-brand span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.footer-tag{font-size:11px;color:#bbb;text-align:center}
 
-/* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.05)}
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.04)}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;transition:color 0.2s}
 .nav-item.active{color:#7c3aed}
 .nav-icon{font-size:20px;line-height:1}
 .nav-center-btn{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
 
-/* ADD MODAL — Linktree style */
+/* ── ADD MODAL — Linktree split layout ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
-.modal-overlay.open{background:rgba(0,0,0,0.45);pointer-events:all}
-.modal-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);max-height:90vh;overflow:hidden;display:flex;flex-direction:column}
-.modal-overlay.open .modal-panel{transform:translateY(0)}
-.modal-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:14px auto 0}
-.modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 12px}
-.modal-hdr-title{font-size:18px;font-weight:800;color:#111}
-.modal-close{width:30px;height:30px;border-radius:50%;background:#f5f5f7;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#888;font-size:13px}
+.modal-overlay.open{background:rgba(0,0,0,0.4);pointer-events:all}
 
-/* SEARCH BAR */
-.add-search-wrap{padding:0 16px 12px}
-.add-search{display:flex;align-items:center;gap:10px;background:#f5f5f7;border:1.5px solid #e9e9eb;border-radius:12px;padding:11px 14px}
-.add-search i{color:#bbb;font-size:14px;flex-shrink:0}
-.add-search input{flex:1;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#111}
-.add-search input::placeholder{color:#bbb}
+/* ADD MODAL — full height split */
+.add-modal-panel{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);height:88vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-overlay.open .add-modal-panel{transform:translateY(0)}
+.add-modal-top{padding:14px 20px 0;flex-shrink:0}
+.add-modal-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:0 auto 12px}
+.add-modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.add-modal-title{font-size:20px;font-weight:800;color:#111}
+.add-modal-close{width:30px;height:30px;border-radius:50%;background:#f5f5f7;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#888;font-size:14px}
+.add-search-bar{display:flex;align-items:center;gap:10px;background:#f5f5f7;border:1.5px solid #e9e9eb;border-radius:14px;padding:11px 14px;margin-bottom:12px}
+.add-search-bar i{color:#bbb;font-size:14px;flex-shrink:0}
+.add-search-bar input{flex:1;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#111}
+.add-search-bar input::placeholder{color:#bbb}
 
-/* CATEGORY TABS */
-.cat-tabs{display:flex;gap:6px;padding:0 16px 12px;overflow-x:auto;scrollbar-width:none}
-.cat-tabs::-webkit-scrollbar{display:none}
-.cat-tab{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid #e9e9eb;color:#888;background:#fff;transition:all 0.18s;white-space:nowrap}
-.cat-tab.active{background:#7c3aed;border-color:#7c3aed;color:#fff}
+/* TOP 4 TILES */
+.add-top-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 20px 12px;flex-shrink:0}
+.add-tile{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;background:#f9f9fb;border:1.5px solid #e9e9eb;border-radius:13px;cursor:pointer;transition:all 0.18s}
+.add-tile:active{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.4);transform:scale(0.96)}
+.add-tile-icon{font-size:22px}
+.add-tile-name{font-size:11px;font-weight:600;color:#888}
 
-/* TYPE GRID */
-.type-scroll{flex:1;overflow-y:auto;padding:0 16px 20px}
-.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.type-card{display:flex;align-items:center;gap:12px;padding:13px 14px;background:#f9f9fb;border:1.5px solid #e9e9eb;border-radius:13px;cursor:pointer;transition:all 0.18s}
-.type-card:active{background:#f3f0ff;border-color:rgba(124,58,237,0.4);transform:scale(0.97)}
-.type-card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.type-card-text{flex:1;min-width:0}
-.type-card-name{font-size:13px;font-weight:600;color:#111}
-.type-card-desc{font-size:10px;color:#aaa;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* SPLIT BODY */
+.add-split{display:flex;flex:1;overflow:hidden;border-top:1px solid #f0f0f0}
+.add-left{width:140px;flex-shrink:0;border-right:1px solid #f0f0f0;overflow-y:auto;padding:8px 0}
+.add-left::-webkit-scrollbar{display:none}
+.add-cat-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;transition:all 0.18s;color:#666;font-size:13px;font-weight:500}
+.add-cat-item:active,.add-cat-item.active{background:#f5f5f7;color:#111;font-weight:600}
+.add-cat-item i{font-size:14px;color:#bbb;width:16px;flex-shrink:0}
+.add-cat-item.active i{color:#7c3aed}
+.add-right{flex:1;overflow-y:auto;padding:12px 16px}
+.add-right::-webkit-scrollbar{display:none}
+.add-section-title{font-size:15px;font-weight:800;color:#111;margin-bottom:10px}
+.add-sub-title{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.4px;margin:10px 0 6px}
+.add-type-row{display:flex;align-items:center;gap:12px;padding:11px 12px;background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;cursor:pointer;transition:all 0.18s;margin-bottom:7px}
+.add-type-row:active{background:rgba(124,58,237,0.07);border-color:rgba(124,58,237,0.3);transform:scale(0.98)}
+.add-type-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.add-type-text{flex:1;min-width:0}
+.add-type-name{font-size:13px;font-weight:600;color:#111}
+.add-type-desc{font-size:11px;color:#aaa;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.add-type-arrow{color:#d1d5db;font-size:11px;flex-shrink:0}
 
-/* LINK FORM MODAL */
-.form-modal-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:85vh;overflow-y:auto}
+/* FORM MODAL */
+.form-modal-panel{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:85vh;overflow-y:auto}
 .modal-overlay.open .form-modal-panel{transform:translateY(0)}
 .f-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px}
 .f-input{width:100%;padding:12px 14px;background:#f9f9fb;border:1.5px solid #e9e9eb;border-radius:12px;color:#111;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border 0.2s;margin-bottom:13px}
 .f-input:focus{border-color:#7c3aed;background:#fff}
 .f-input::placeholder{color:#ccc}
-.f-save-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.25);margin-top:4px}
-.f-save-btn:active{transform:scale(0.98)}
-.f-cancel-btn{width:100%;padding:12px;background:transparent;border:1.5px solid #e9e9eb;border-radius:13px;color:#888;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
-
-/* COLOR SWATCHES */
+.f-save{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(124,58,237,0.24);margin-top:2px}
+.f-save:active{transform:scale(0.98)}
+.f-cancel{width:100%;padding:12px;background:transparent;border:1.5px solid #e9e9eb;border-radius:13px;color:#888;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
 .color-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
-.cswatch{width:28px;height:28px;border-radius:7px;cursor:pointer;border:2.5px solid transparent;transition:all 0.18s}
-.cswatch.sel{border-color:#111;transform:scale(1.18)}
+.csw{width:28px;height:28px;border-radius:7px;cursor:pointer;border:2.5px solid transparent;transition:all 0.18s}
+.csw.sel{border-color:#111;transform:scale(1.18)}
 
-/* SOCIAL MODAL */
-.soc-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom))}
-.modal-overlay.open .soc-panel{transform:translateY(0)}
+/* SIMPLE PANELS */
+.simple-panel{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:80vh;overflow-y:auto}
+.modal-overlay.open .simple-panel{transform:translateY(0)}
 
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.18)}
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:24px;color:#bbb;font-size:14px;background:rgba(255,255,255,0.6);border-radius:14px;border:1px solid rgba(0,0,0,0.06);backdrop-filter:blur(8px)}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,0.18)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.lc-in{animation:slideUp 0.28s ease forwards}
+@keyframes lcIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.lc-in{animation:lcIn 0.28s ease forwards}
 </style>
 </head>
-<body>
+<body class="card-personal">
 <div class="page">
 
   <!-- TOPBAR -->
   <div class="topbar">
     <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
     <div class="topbar-title">Links</div>
-    <button class="save-btn" id="saveAllBtn" onclick="saveAllLinks()">Save</button>
+    <button class="save-btn" id="saveBtn" onclick="saveAllLinks()">Save</button>
   </div>
 
   <!-- PROFILE CARD -->
@@ -238,13 +305,12 @@ body{background-color:#f7f7f8;background-image:repeating-linear-gradient(0deg,tr
           <span class="p-bio" id="pBio">Add your bio</span>
           <i class="fas fa-pen p-bio-icon"></i>
         </div>
-        <div class="p-url" onclick="copyProfileUrl()">
-          myqrid.in/<span id="pUsername">—</span>
-          <i class="fas fa-copy p-url-copy"></i>
+        <div class="p-url" onclick="copyUrl()">
+          myqrid.in/<span id="pUser">—</span>
+          <i class="fas fa-copy" style="font-size:10px"></i>
         </div>
       </div>
     </div>
-    <!-- SOCIAL -->
     <div class="social-row">
       <div class="soc-chip" data-s="whatsapp" style="--sc:#25D366" onclick="editSoc('whatsapp')"><i class="fab fa-whatsapp"></i><span>WA</span></div>
       <div class="soc-chip" data-s="instagram" style="--sc:#e1306c" onclick="editSoc('instagram')"><i class="fab fa-instagram"></i><span>IG</span></div>
@@ -257,56 +323,77 @@ body{background-color:#f7f7f8;background-image:repeating-linear-gradient(0deg,tr
     </div>
   </div>
 
-  <!-- SPARK BANNER -->
-  <div class="spark-banner">
-    <div class="spark-icon">⚡</div>
-    <div class="spark-info">
-      <div class="spark-name">myQRID Spark</div>
-      <div class="spark-sub">No payment · No card · Always yours</div>
-      <div class="spark-bar-wrap"><div class="spark-bar" id="sparkBar" style="width:0%"></div></div>
-      <div class="spark-cnt" id="sparkCnt">0 / 18 links</div>
-    </div>
-    <div class="spark-up" onclick="openUpgrade()">Upgrade ↑</div>
-  </div>
-
   <!-- ADD BUTTON -->
   <button class="add-main-btn" onclick="openAddModal()">
     <i class="fas fa-plus"></i> Add
   </button>
 
-  <!-- YOUR LINKS -->
+  <!-- SECTION HEADER -->
   <div class="sec-hdr">
     <div class="sec-lbl">Your Links</div>
     <div class="sec-cnt" id="secCnt">0 links</div>
   </div>
 
+  <!-- LINKS -->
   <div class="links-wrap" id="linksWrap">
     <div class="empty-state" id="emptyState">
-      <div style="font-size:26px;margin-bottom:6px">🔗</div>
+      <div style="font-size:24px;margin-bottom:6px">🔗</div>
       Tap <strong>+ Add</strong> to create your first link
     </div>
   </div>
+
+  <!-- COLLECTIONS WRAP -->
+  <div id="colsWrap" style="padding:0 16px"></div>
 
   <!-- ADD COLLECTION -->
   <button class="add-col-btn" onclick="addCollection()">
     <i class="fas fa-layer-group"></i> Add Collection
   </button>
 
-  <!-- UPGRADE SECTION -->
-  <div class="upgrade-section">
-    <div class="upgrade-hdr">
-      <div class="upgrade-hdr-title">Unlock Full Analytics & More</div>
-      <div class="upgrade-hdr-sub">See who viewed your links, when and where — plus unlimited links, Ea₹n tools and creator features.</div>
-      <div class="upgrade-feats">
-        <div class="upgrade-feat"><i class="fas fa-chart-line"></i> Full scan analytics with location map</div>
-        <div class="upgrade-feat"><i class="fas fa-infinity"></i> Unlimited links, cards & identity modes</div>
-        <div class="upgrade-feat"><i class="fas fa-indian-rupee-sign"></i> Ea₹n — paid consultations & bookings</div>
-        <div class="upgrade-feat"><i class="fas fa-shield-alt"></i> Family Shield — protect everyone you love</div>
-        <div class="upgrade-feat"><i class="fas fa-palette"></i> Custom QR design, themes & branding</div>
-        <div class="upgrade-feat"><i class="fas fa-certificate"></i> Priority verified badge</div>
+  <!-- SPARK PLAN — collapsed by default -->
+  <div class="spark-collapsed" id="sparkCollapsed" onclick="toggleSpark()">
+    <div class="spark-dot"></div>
+    <div class="spark-collapsed-text"><strong>myQRID Spark</strong> · No payment · No card</div>
+    <div class="spark-collapsed-bar"><div class="spark-collapsed-fill" id="sparkFill" style="width:0%"></div></div>
+    <div class="spark-cnt" id="sparkCntSmall" style="font-size:10px;color:#bbb;margin-left:4px">0/18</div>
+    <i class="fas fa-chevron-down spark-chevron" id="sparkChevron"></i>
+  </div>
+  <div class="spark-expanded" id="sparkExpanded">
+    <div class="spark-exp-row">
+      <div class="spark-exp-icon">⚡</div>
+      <div class="spark-exp-info">
+        <div class="spark-exp-name">myQRID Spark</div>
+        <div class="spark-exp-sub">No payment · No card · Always yours</div>
+        <div class="spark-bar-wrap"><div class="spark-bar" id="sparkBar" style="width:0%"></div></div>
+        <div class="spark-cnt" id="sparkCnt">0 / 18 links</div>
       </div>
     </div>
-    <div class="upgrade-plans">
+    <button class="spark-up-btn" onclick="toggleUnlock()">Upgrade to Blaze or Family Shield ↑</button>
+  </div>
+
+  <!-- UNLOCK — collapsed by default -->
+  <div class="unlock-collapsed" id="unlockCollapsed" onclick="toggleUnlock()">
+    <div class="unlock-collapsed-icon">🚀</div>
+    <div class="unlock-collapsed-text">
+      <div class="unlock-collapsed-title">Unlock Full Potential</div>
+      <div class="unlock-collapsed-sub">Analytics, unlimited links & creator tools</div>
+    </div>
+    <i class="fas fa-chevron-down unlock-chevron" id="unlockChevron"></i>
+  </div>
+  <div class="unlock-expanded" id="unlockExpanded">
+    <div class="unlock-hdr">
+      <div class="unlock-title">Unlock Full Analytics & More</div>
+      <div class="unlock-sub">See who viewed your links, when and where — plus unlimited links, Ea₹n tools and creator features.</div>
+      <div class="unlock-feats">
+        <div class="unlock-feat"><i class="fas fa-chart-line"></i> Full scan analytics with location map</div>
+        <div class="unlock-feat"><i class="fas fa-infinity"></i> Unlimited links, cards & identity modes</div>
+        <div class="unlock-feat"><i class="fas fa-indian-rupee-sign"></i> Ea₹n — paid consultations & bookings</div>
+        <div class="unlock-feat"><i class="fas fa-shield-alt"></i> Family Shield — protect everyone you love</div>
+        <div class="unlock-feat"><i class="fas fa-palette"></i> Custom QR design, themes & branding</div>
+        <div class="unlock-feat"><i class="fas fa-certificate"></i> Priority verified badge</div>
+      </div>
+    </div>
+    <div class="unlock-plans">
       <button class="uplan-btn btn-blaze" onclick="showToast('myQRID Blaze — coming soon!')">
         <span>⚡ myQRID Blaze</span>
         <span class="uplan-sub">For creators & builders</span>
@@ -316,13 +403,13 @@ body{background-color:#f7f7f8;background-image:repeating-linear-gradient(0deg,tr
         <span class="uplan-sub">For your whole family</span>
       </button>
     </div>
-    <div class="upgrade-note">No hidden charges · Cancel anytime · Powered by myQRID</div>
+    <div class="unlock-note">No hidden charges · Cancel anytime · Powered by myQRID</div>
   </div>
 
-  <!-- MYQRID FOOTER -->
+  <!-- FOOTER -->
   <div class="myqrid-footer">
-    <div class="footer-logo-text">my<span>QRID</span></div>
-    <div class="footer-tagline">Your Digital Identity · One QR · Infinite Possibilities</div>
+    <div class="footer-brand">my<span>QRID</span></div>
+    <div class="footer-tag">Your Digital Identity · One QR · Infinite Possibilities</div>
   </div>
 
 </div>
@@ -338,105 +425,126 @@ body{background-color:#f7f7f8;background-image:repeating-linear-gradient(0deg,tr
   <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
 </nav>
 
-<!-- ADD MODAL — Linktree style -->
+<!-- ═══ ADD MODAL — Linktree split ═══ -->
 <div class="modal-overlay" id="addModal" onclick="if(event.target===this)closeAddModal()">
-  <div class="modal-panel" onclick="event.stopPropagation()">
-    <div class="modal-handle"></div>
-    <div class="modal-hdr">
-      <div class="modal-hdr-title">Add</div>
-      <button class="modal-close" onclick="closeAddModal()"><i class="fas fa-times"></i></button>
-    </div>
-    <!-- SEARCH -->
-    <div class="add-search-wrap">
-      <div class="add-search">
+  <div class="add-modal-panel" onclick="event.stopPropagation()">
+    <div class="add-modal-top">
+      <div class="add-modal-handle"></div>
+      <div class="add-modal-hdr">
+        <div class="add-modal-title">Add</div>
+        <button class="add-modal-close" onclick="closeAddModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="add-search-bar">
         <i class="fas fa-search"></i>
-        <input type="text" id="addSearchInput" placeholder="Paste or search a link" oninput="filterTypes(this.value)" autocomplete="off">
+        <input type="text" id="addSearch" placeholder="Paste or search a link" oninput="onAddSearch(this.value)" autocomplete="off">
       </div>
     </div>
-    <!-- CATEGORY TABS -->
-    <div class="cat-tabs" id="catTabs">
-      <div class="cat-tab active" onclick="setCategory('all',this)">All</div>
-      <div class="cat-tab" onclick="setCategory('social',this)">Social</div>
-      <div class="cat-tab" onclick="setCategory('creator',this)">Creator</div>
-      <div class="cat-tab" onclick="setCategory('business',this)">Business</div>
-      <div class="cat-tab" onclick="setCategory('contact',this)">Contact</div>
-      <div class="cat-tab" onclick="setCategory('utility',this)">Utility</div>
+    <!-- TOP 4 TILES -->
+    <div class="add-top-tiles">
+      <div class="add-tile" onclick="handleTile('collection')">
+        <div class="add-tile-icon">📦</div>
+        <div class="add-tile-name">Collection</div>
+      </div>
+      <div class="add-tile" onclick="handleTile('link')">
+        <div class="add-tile-icon">🔗</div>
+        <div class="add-tile-name">Link</div>
+      </div>
+      <div class="add-tile" onclick="handleTile('product')">
+        <div class="add-tile-icon">🏷️</div>
+        <div class="add-tile-name">Product</div>
+      </div>
+      <div class="add-tile" onclick="handleTile('form')">
+        <div class="add-tile-icon">📋</div>
+        <div class="add-tile-name">Form</div>
+      </div>
     </div>
-    <!-- TYPE GRID -->
-    <div class="type-scroll">
-      <div class="type-grid" id="typeGrid"></div>
+    <!-- SPLIT BODY -->
+    <div class="add-split">
+      <!-- LEFT CATEGORIES -->
+      <div class="add-left">
+        <div class="add-cat-item active" data-cat="suggested" onclick="setAddCat('suggested',this)">
+          <i class="fas fa-lightbulb"></i> Suggested
+        </div>
+        <div class="add-cat-item" data-cat="commerce" onclick="setAddCat('commerce',this)">
+          <i class="fas fa-store"></i> Commerce
+        </div>
+        <div class="add-cat-item" data-cat="social" onclick="setAddCat('social',this)">
+          <i class="fas fa-heart"></i> Social
+        </div>
+        <div class="add-cat-item" data-cat="media" onclick="setAddCat('media',this)">
+          <i class="fas fa-play-circle"></i> Media
+        </div>
+        <div class="add-cat-item" data-cat="contact" onclick="setAddCat('contact',this)">
+          <i class="fas fa-address-card"></i> Contact
+        </div>
+        <div class="add-cat-item" data-cat="events" onclick="setAddCat('events',this)">
+          <i class="fas fa-calendar"></i> Events
+        </div>
+        <div class="add-cat-item" data-cat="text" onclick="setAddCat('text',this)">
+          <i class="fas fa-font"></i> Text
+        </div>
+        <div class="add-cat-item" data-cat="all" onclick="setAddCat('all',this)">
+          <i class="fas fa-ellipsis-h"></i> View all
+        </div>
+      </div>
+      <!-- RIGHT CONTENT -->
+      <div class="add-right" id="addRight"></div>
     </div>
   </div>
 </div>
 
-<!-- LINK FORM MODAL -->
+<!-- ═══ FORM MODAL ═══ -->
 <div class="modal-overlay" id="formModal" onclick="if(event.target===this)closeFormModal()">
   <div class="form-modal-panel" onclick="event.stopPropagation()">
-    <div class="modal-handle" style="margin-bottom:14px"></div>
-    <div id="formModalTitle" style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Add Link</div>
+    <div class="add-modal-handle" style="margin-bottom:14px"></div>
+    <div id="fModalTitle" style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Add Link</div>
     <div class="f-label">Title</div>
     <input class="f-input" type="text" id="fTitle" placeholder="e.g. My Portfolio">
-    <div class="f-label" id="fUrlLabel">URL</div>
+    <div class="f-label" id="fUrlLbl">URL</div>
     <input class="f-input" type="text" id="fUrl" placeholder="https://...">
     <div class="f-label">Strip Color</div>
     <div class="color-row" id="colorRow"></div>
-    <button class="f-save-btn" onclick="saveLink()">Add Link</button>
-    <button class="f-cancel-btn" onclick="closeFormModal()">Cancel</button>
+    <button class="f-save" onclick="saveLink()">Add Link</button>
+    <button class="f-cancel" onclick="closeFormModal()">Cancel</button>
   </div>
 </div>
 
-<!-- SOCIAL MODAL -->
+<!-- ═══ SOCIAL MODAL ═══ -->
 <div class="modal-overlay" id="socModal" onclick="closeSocModal()">
-  <div class="soc-panel" onclick="event.stopPropagation()">
-    <div class="modal-handle" style="margin-bottom:14px"></div>
+  <div class="simple-panel" onclick="event.stopPropagation()">
+    <div class="add-modal-handle" style="margin-bottom:14px"></div>
     <div id="socTitle" style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Link Account</div>
-    <div class="f-label" id="socLabel">Handle</div>
-    <input class="f-input" type="text" id="socInput" placeholder="">
-    <button class="f-save-btn" onclick="saveSoc()">Save</button>
-    <button class="f-cancel-btn" onclick="closeSocModal()">Cancel</button>
+    <div class="f-label" id="socLbl">Handle</div>
+    <input class="f-input" type="text" id="socInput">
+    <button class="f-save" onclick="saveSoc()">Save</button>
+    <button class="f-cancel" onclick="closeSocModal()">Cancel</button>
   </div>
 </div>
 
-<!-- BIO MODAL -->
+<!-- ═══ BIO MODAL ═══ -->
 <div class="modal-overlay" id="bioModal" onclick="closeBioModal()">
-  <div class="soc-panel" onclick="event.stopPropagation()">
-    <div class="modal-handle" style="margin-bottom:14px"></div>
+  <div class="simple-panel" onclick="event.stopPropagation()">
+    <div class="add-modal-handle" style="margin-bottom:14px"></div>
     <div style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Edit Bio</div>
     <div class="f-label">Your Bio</div>
     <textarea class="f-input" id="bioInput" rows="3" placeholder="Tell people who you are..." style="resize:none;line-height:1.5"></textarea>
-    <button class="f-save-btn" onclick="saveBio()">Save</button>
-    <button class="f-cancel-btn" onclick="closeBioModal()">Cancel</button>
+    <button class="f-save" onclick="saveBio()">Save</button>
+    <button class="f-cancel" onclick="closeBioModal()">Cancel</button>
   </div>
 </div>
 
-<!-- UPGRADE MODAL -->
-<div class="modal-overlay" id="upgradeModal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="soc-panel" onclick="event.stopPropagation()" style="padding-bottom:calc(24px + env(safe-area-inset-bottom))">
-    <div class="modal-handle" style="margin-bottom:14px"></div>
-    <div style="font-size:18px;font-weight:800;color:#111;margin-bottom:4px">Level Up Your Identity</div>
-    <p style="font-size:13px;color:#888;line-height:1.6;margin-bottom:16px">You're on <strong style="color:#7c3aed">myQRID Spark</strong>. When you're ready for more —</p>
-    <div style="background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(236,72,153,0.03));border:1px solid rgba(124,58,237,0.15);border-radius:16px;padding:16px;margin-bottom:10px">
-      <div style="font-size:15px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3px">⚡ myQRID Blaze</div>
-      <div style="font-size:11px;color:#888;margin-bottom:10px">For creators, professionals & builders</div>
-      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
-        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Unlimited links & identity cards</div>
-        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Full analytics with scan map</div>
-        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Ea₹n — paid consultations</div>
-        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Custom QR design & themes</div>
-      </div>
-      <button class="f-save-btn" onclick="showToast('Blaze coming soon!')">Get myQRID Blaze →</button>
+<!-- ═══ COLLECTION LAYOUT MODAL ═══ -->
+<div class="modal-overlay" id="layoutModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="simple-panel" onclick="event.stopPropagation()">
+    <div class="add-modal-handle" style="margin-bottom:14px"></div>
+    <div style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Display as</div>
+    <div class="layout-picker" style="padding:0;background:transparent;border:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <div class="layout-opt active" onclick="setLayout('stack',this)"><i class="fas fa-bars"></i><span>Stack</span></div>
+      <div class="layout-opt" onclick="setLayout('grid',this)"><i class="fas fa-th"></i><span>Grid</span></div>
+      <div class="layout-opt" onclick="setLayout('carousel',this)"><i class="fas fa-film"></i><span>Carousel</span></div>
+      <div class="layout-opt" onclick="setLayout('showcase',this)"><i class="fas fa-expand"></i><span>Showcase</span></div>
     </div>
-    <div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:16px;padding:16px">
-      <div style="font-size:15px;font-weight:800;color:#059669;margin-bottom:3px">🛡️ myQRID Family Shield</div>
-      <div style="font-size:11px;color:#888;margin-bottom:10px">For families who care</div>
-      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
-        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Up to 6 family profiles</div>
-        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Kids, elderly & pet Care cards</div>
-        <div style="font-size:12px;color:#444;display:flex;align-items:center;gap:7px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Emergency SOS & medical info</div>
-      </div>
-      <button style="width:100%;padding:12px;background:linear-gradient(135deg,#059669,#10b981);border:none;border-radius:12px;color:#fff;font-family:Inter;font-size:14px;font-weight:700;cursor:pointer" onclick="showToast('Family Shield coming soon!')">Get Family Shield →</button>
-    </div>
-    <p style="text-align:center;font-size:11px;color:#bbb;margin-top:12px">No hidden charges · Cancel anytime</p>
+    <button class="f-save" onclick="document.getElementById('layoutModal').classList.remove('open')">Done</button>
   </div>
 </div>
 
@@ -447,213 +555,239 @@ body{background-color:#f7f7f8;background-image:repeating-linear-gradient(0deg,tr
 <script>
 const API='https://myqrid-backend.myqrid.workers.dev';
 const SPARK_LIMIT=18;
-let links=[],collections=[],editingId=null,thumbTarget=null,currentSoc=null,socials={},selColor='#7c3aed',currentType=null,curCategory='all',searchQ='';
+let links=[],collections=[],editingId=null,thumbTarget=null,curSoc=null,socials={},selColor='#7c3aed',curType=null,addCat='suggested',searchQ='',colIdCtr=0,curLayoutColId=null,sparkOpen=false,unlockOpen=false;
 
 const COLORS=[
   {h:'#7c3aed'},{h:'#ec4899'},{h:'#2563eb'},{h:'#059669'},
   {h:'#ea580c'},{h:'#0d9488'},{h:'#4338ca'},{h:'#be123c'},
-  {h:'#075985'},{h:'#064e3b'},{h:'#1e1b4b'},{h:'#374151'},
+  {h:'#075985'},{h:'#064e3b'},{h:'#374151'},{h:'#111827'},
 ];
 
-const TYPES=[
-  {id:'whatsapp', cat:'social',   name:'WhatsApp',   desc:'Chat directly',         icon:'fab fa-whatsapp', color:'#075e54', urlLabel:'Phone (+91...)',  ph:'919876543210'},
-  {id:'instagram',cat:'social',   name:'Instagram',  desc:'Your Instagram profile', icon:'fab fa-instagram',color:'#c2185b', urlLabel:'@handle',         ph:'@yourusername'},
-  {id:'youtube',  cat:'social',   name:'YouTube',    desc:'Share your channel',     icon:'fab fa-youtube',  color:'#c62828', urlLabel:'Channel URL',     ph:'youtube.com/c/...'},
-  {id:'twitter',  cat:'social',   name:'X / Twitter',desc:'Your X profile',         icon:'fab fa-x-twitter',color:'#111',    urlLabel:'@handle',         ph:'@yourusername'},
-  {id:'facebook', cat:'social',   name:'Facebook',   desc:'Facebook profile/page',  icon:'fab fa-facebook', color:'#1565c0', urlLabel:'Profile URL',     ph:'facebook.com/...'},
-  {id:'linkedin', cat:'social',   name:'LinkedIn',   desc:'Professional network',   icon:'fab fa-linkedin', color:'#0277bd', urlLabel:'Profile URL',     ph:'linkedin.com/in/...'},
-  {id:'telegram', cat:'social',   name:'Telegram',   desc:'Telegram channel',       icon:'fab fa-telegram', color:'#0277bd', urlLabel:'@handle',         ph:'@username'},
-  {id:'snapchat', cat:'social',   name:'Snapchat',   desc:'Snapchat profile',       icon:'fab fa-snapchat', color:'#92400e', urlLabel:'Username',        ph:'yourusername'},
-  {id:'tiktok',   cat:'social',   name:'TikTok',     desc:'TikTok profile',         icon:'fab fa-tiktok',   color:'#111',    urlLabel:'@handle',         ph:'@yourusername'},
-  {id:'pinterest',cat:'social',   name:'Pinterest',  desc:'Pinterest profile',      icon:'fab fa-pinterest',color:'#be123c', urlLabel:'Profile URL',     ph:'pinterest.com/...'},
-  {id:'spotify',  cat:'creator',  name:'Spotify',    desc:'Music & podcasts',       icon:'fab fa-spotify',  color:'#1b5e20', urlLabel:'Profile URL',     ph:'open.spotify.com/...'},
-  {id:'github',   cat:'creator',  name:'GitHub',     desc:'Code repositories',      icon:'fab fa-github',   color:'#212121', urlLabel:'GitHub URL',      ph:'github.com/...'},
-  {id:'behance',  cat:'creator',  name:'Behance',    desc:'Design portfolio',       icon:'fab fa-behance',  color:'#1769ff', urlLabel:'Behance URL',     ph:'behance.net/...'},
-  {id:'dribbble', cat:'creator',  name:'Dribbble',   desc:'Design shots',           icon:'fab fa-dribbble', color:'#be185d', urlLabel:'Dribbble URL',    ph:'dribbble.com/...'},
-  {id:'medium',   cat:'creator',  name:'Blog/Medium',desc:'Your articles',          icon:'fab fa-medium',   color:'#111',    urlLabel:'Blog URL',        ph:'medium.com/@...'},
-  {id:'video',    cat:'creator',  name:'Video',      desc:'Latest video',           icon:'fas fa-play-circle',color:'#831843',urlLabel:'Video URL',      ph:'youtube.com/watch?v=...'},
-  {id:'podcast',  cat:'creator',  name:'Podcast',    desc:'Your podcast',           icon:'fas fa-microphone',color:'#7c3aed',urlLabel:'Podcast URL',     ph:'podcasts.apple.com/...'},
-  {id:'website',  cat:'business', name:'Website',    desc:'Your main site',         icon:'fas fa-globe',    color:'#4338ca', urlLabel:'Website URL',     ph:'https://...'},
-  {id:'portfolio',cat:'business', name:'Portfolio',  desc:'Work portfolio',         icon:'fas fa-briefcase',color:'#7c3aed', urlLabel:'Portfolio URL',   ph:'https://...'},
-  {id:'booking',  cat:'business', name:'Book Me',    desc:'Appointment booking',    icon:'fas fa-calendar-check',color:'#0d9488',urlLabel:'Booking URL',ph:'calendly.com/...'},
-  {id:'consult',  cat:'business', name:'Consult',    desc:'Paid consultation',      icon:'fas fa-comment-dollar',color:'#ea580c',urlLabel:'Link',        ph:'https://...'},
-  {id:'catalogue',cat:'business', name:'Catalogue',  desc:'Products & services',    icon:'fas fa-shopping-bag',color:'#be185d',urlLabel:'Catalogue URL', ph:'https://...'},
-  {id:'resume',   cat:'business', name:'Resume',     desc:'CV / Resume',            icon:'fas fa-file-alt', color:'#0e7490', urlLabel:'Resume URL',      ph:'drive.google.com/...'},
-  {id:'payment',  cat:'business', name:'Pay Me',     desc:'UPI / payment link',     icon:'fas fa-qrcode',   color:'#065f46', urlLabel:'UPI / Link',      ph:'upi://pay?pa=...'},
-  {id:'maps',     cat:'utility',  name:'Location',   desc:'Google Maps location',   icon:'fas fa-map-marker-alt',color:'#b91c1c',urlLabel:'Maps URL',    ph:'maps.app.goo.gl/...'},
-  {id:'call',     cat:'contact',  name:'Call Me',    desc:'Phone number',           icon:'fas fa-phone',    color:'#166534', urlLabel:'Phone Number',    ph:'+91XXXXXXXXXX'},
-  {id:'email',    cat:'contact',  name:'Email',      desc:'Email address',          icon:'fas fa-envelope', color:'#1e40af', urlLabel:'Email',           ph:'you@email.com'},
-  {id:'whatsapp_chat',cat:'contact',name:'WA Chat',  desc:'WhatsApp message link',  icon:'fab fa-whatsapp', color:'#075e54', urlLabel:'Phone (+91...)',  ph:'919876543210'},
-  {id:'custom',   cat:'utility',  name:'Custom Link',desc:'Any URL',                icon:'fas fa-link',     color:'#374151', urlLabel:'URL',             ph:'https://...'},
-];
-
-const SOC_CFG={
-  whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210'},
-  instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername'},
-  twitter:{label:'X / Twitter',lbl:'Username (no @)',ph:'yourusername'},
-  youtube:{label:'YouTube',lbl:'Channel URL',ph:'youtube.com/c/...'},
-  linkedin:{label:'LinkedIn',lbl:'Profile URL',ph:'linkedin.com/in/...'},
-  facebook:{label:'Facebook',lbl:'Profile URL',ph:'facebook.com/...'},
-  telegram:{label:'Telegram',lbl:'Username (no @)',ph:'yourusername'},
-  snapchat:{label:'Snapchat',lbl:'Username',ph:'yourusername'},
+/* ── ALL LINK TYPES ── */
+const TYPES_DATA={
+  suggested:[
+    {id:'instagram',name:'Instagram',   desc:'Display your posts and reels',         icon:'fab fa-instagram', bg:'linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)',color:'#c2185b',urlLbl:'@handle',    ph:'@yourusername'},
+    {id:'tiktok',   name:'TikTok',      desc:'Share your TikToks directly',           icon:'fab fa-tiktok',    bg:'#000',                                           color:'#111',   urlLbl:'@handle',    ph:'@yourusername'},
+    {id:'youtube',  name:'YouTube',     desc:'Share your YouTube videos',             icon:'fab fa-youtube',   bg:'#ff0000',                                        color:'#c62828',urlLbl:'Channel URL', ph:'youtube.com/c/...'},
+    {id:'spotify',  name:'Spotify',     desc:'Your music & playlists',                icon:'fab fa-spotify',   bg:'#1db954',                                        color:'#1b5e20',urlLbl:'Profile URL', ph:'open.spotify.com/...'},
+    {id:'whatsapp', name:'WhatsApp',    desc:'Chat with you directly',                icon:'fab fa-whatsapp',  bg:'#25D366',                                        color:'#075e54',urlLbl:'Phone',       ph:'919876543210'},
+    {id:'website',  name:'Website',     desc:'Your main website',                     icon:'fas fa-globe',     bg:'#4338ca',                                        color:'#4338ca',urlLbl:'URL',         ph:'https://...'},
+  ],
+  commerce:[
+    {id:'booking',  name:'Coaching & Bookings',  desc:'Sell 1:1 sessions, consultations',    icon:'fas fa-calendar-check', bg:'#7c3aed', color:'#7c3aed', urlLbl:'Booking URL',  ph:'calendly.com/...'},
+    {id:'product',  name:'Digital Products',     desc:'Sell documents, PDFs, guides',        icon:'fas fa-cloud-upload-alt',bg:'#ea580c',color:'#ea580c', urlLbl:'Product URL',   ph:'https://...'},
+    {id:'course',   name:'Courses',              desc:'Sell online courses & lessons',        icon:'fas fa-graduation-cap',  bg:'#7c3aed',color:'#7c3aed', urlLbl:'Course URL',    ph:'https://...'},
+    {id:'affiliate',name:'Affiliate Products',   desc:'Share items you love or promote',      icon:'fas fa-tag',             bg:'#eab308',color:'#92400e', urlLbl:'Affiliate URL', ph:'https://...'},
+    {id:'payment',  name:'Pay Me',               desc:'UPI / payment link',                   icon:'fas fa-qrcode',          bg:'#059669',color:'#065f46', urlLbl:'UPI / Link',    ph:'upi://pay?pa=...'},
+    {id:'catalogue',name:'Catalogue',            desc:'Your products & services',             icon:'fas fa-shopping-bag',    bg:'#be185d',color:'#be185d', urlLbl:'Catalogue URL', ph:'https://...'},
+  ],
+  social:[
+    {id:'instagram',name:'Instagram',    desc:'Display up to 6 posts and reels',     icon:'fab fa-instagram', bg:'linear-gradient(135deg,#833ab4,#fd1d1d)', color:'#c2185b', urlLbl:'@handle',     ph:'@yourusername'},
+    {id:'tiktok',   name:'TikTok',       desc:'Share your TikToks directly',          icon:'fab fa-tiktok',    bg:'#000',                                   color:'#111',    urlLbl:'@handle',     ph:'@yourusername'},
+    {id:'tiktokprofile',name:'TikTok Profile',desc:'Share TikTok profile',            icon:'fab fa-tiktok',    bg:'#111',                                   color:'#111',    urlLbl:'Profile URL', ph:'tiktok.com/@...'},
+    {id:'twitter',  name:'X / Twitter', desc:'Select your own posts to display',     icon:'fab fa-x-twitter', bg:'#111',                                   color:'#111',    urlLbl:'@handle',     ph:'@yourusername'},
+    {id:'threads',  name:'Threads',      desc:'Connect your Threads audience',        icon:'fab fa-meta',      bg:'#111',                                   color:'#111',    urlLbl:'@handle',     ph:'@yourusername'},
+    {id:'facebook', name:'Facebook',     desc:'Facebook profile or page',             icon:'fab fa-facebook',  bg:'#1877f2',                                color:'#1565c0', urlLbl:'Profile URL', ph:'facebook.com/...'},
+    {id:'linkedin', name:'LinkedIn',     desc:'Professional network profile',         icon:'fab fa-linkedin',  bg:'#0a66c2',                                color:'#0277bd', urlLbl:'Profile URL', ph:'linkedin.com/in/...'},
+    {id:'pinterest',name:'Pinterest',    desc:'Your Pinterest boards',                icon:'fab fa-pinterest', bg:'#e60023',                                color:'#be123c', urlLbl:'Profile URL', ph:'pinterest.com/...'},
+    {id:'snapchat', name:'Snapchat',     desc:'Snapchat profile',                     icon:'fab fa-snapchat',  bg:'#fffc00',                                color:'#92400e', urlLbl:'Username',    ph:'yourusername'},
+    {id:'telegram', name:'Telegram',     desc:'Telegram channel or group',            icon:'fab fa-telegram',  bg:'#2aabee',                                color:'#0277bd', urlLbl:'@handle',     ph:'@username'},
+    {id:'whatsapp', name:'WhatsApp',     desc:'Chat directly via WhatsApp',           icon:'fab fa-whatsapp',  bg:'#25D366',                                color:'#075e54', urlLbl:'Phone',       ph:'919876543210'},
+    {id:'github',   name:'GitHub',       desc:'Code repositories',                    icon:'fab fa-github',    bg:'#212121',                                color:'#212121', urlLbl:'GitHub URL',  ph:'github.com/...'},
+  ],
+  media:[
+    {id:'video',    name:'Video',        desc:'Visitors watch without leaving',       icon:'fas fa-play-circle',    bg:'#eab308',color:'#92400e', urlLbl:'Video URL',   ph:'youtube.com/watch?v=...'},
+    {id:'youtube',  name:'YouTube',      desc:'Show YouTube video right here',        icon:'fab fa-youtube',        bg:'#ff0000',color:'#c62828', urlLbl:'YouTube URL', ph:'youtube.com/watch?v=...'},
+    {id:'tiktokv',  name:'TikTok Video', desc:'Highlight one of your TikToks',        icon:'fab fa-tiktok',         bg:'#111',   color:'#111',    urlLbl:'TikTok URL',  ph:'tiktok.com/@.../video/...'},
+    {id:'vimeo',    name:'Vimeo',        desc:'Share Vimeo videos right on your page',icon:'fab fa-vimeo-v',        bg:'#1ab7ea',color:'#0e7490', urlLbl:'Vimeo URL',   ph:'vimeo.com/...'},
+    {id:'spotify',  name:'Spotify',      desc:'Music, podcast or playlist',           icon:'fab fa-spotify',        bg:'#1db954',color:'#1b5e20', urlLbl:'Spotify URL', ph:'open.spotify.com/...'},
+    {id:'podcast',  name:'Podcast',      desc:'Your podcast episodes',                icon:'fas fa-microphone',     bg:'#7c3aed',color:'#7c3aed', urlLbl:'Podcast URL', ph:'podcasts.apple.com/...'},
+    {id:'blog',     name:'Blog / Article',desc:'Your articles and writing',           icon:'fas fa-pen-nib',        bg:'#92400e',color:'#92400e', urlLbl:'Blog URL',    ph:'medium.com/@...'},
+    {id:'pdf',      name:'PDF / Document',desc:'Share a document directly',           icon:'fas fa-file-pdf',       bg:'#e11d48',color:'#be123c', urlLbl:'PDF URL',     ph:'drive.google.com/...'},
+  ],
+  contact:[
+    {id:'form',     name:'Form',         desc:'Visitors send you contact details',    icon:'fas fa-clipboard-list', bg:'#7c3aed',color:'#7c3aed', urlLbl:'Form URL',     ph:'forms.gle/...'},
+    {id:'contactform',name:'Contact Form',desc:'Collect info with a custom form',     icon:'fas fa-comment-dots',   bg:'#4338ca',color:'#4338ca', urlLbl:'Form URL',     ph:'https://...'},
+    {id:'poll',     name:'Poll',         desc:'Engage audience with a simple poll',   icon:'fas fa-poll',           bg:'#e11d48',color:'#be123c', urlLbl:'Poll URL',     ph:'https://...'},
+    {id:'email_sub',name:'Email Signup', desc:'Collect emails for your audience',     icon:'fas fa-envelope',       bg:'#1e40af',color:'#1e40af', urlLbl:'Signup URL',   ph:'mailchimp.com/...'},
+    {id:'sms',      name:'SMS Signup',   desc:'Collect phone numbers from followers', icon:'fas fa-sms',            bg:'#059669',color:'#065f46', urlLbl:'SMS URL',      ph:'https://...'},
+    {id:'call',     name:'Call Me',      desc:'Direct phone call',                    icon:'fas fa-phone',          bg:'#166534',color:'#166534', urlLbl:'Phone',        ph:'+91XXXXXXXXXX'},
+    {id:'email',    name:'Email',        desc:'Direct email address',                 icon:'fas fa-at',             bg:'#1e40af',color:'#1e40af', urlLbl:'Email',        ph:'you@email.com'},
+  ],
+  events:[
+    {id:'events',   name:'Tour and Events',desc:'Promote your upcoming shows',        icon:'fas fa-ticket-alt',     bg:'#0ea5e9',color:'#075985', urlLbl:'Events URL',   ph:'https://...'},
+    {id:'seated',   name:'Seated',        desc:'Artist show ticketing platform',      icon:'fas fa-compact-disc',   bg:'#111',   color:'#111',    urlLbl:'Seated URL',   ph:'https://...'},
+    {id:'bandsintown',name:'Bands In Town',desc:'Promote upcoming shows',             icon:'fas fa-music',          bg:'#00b4b3',color:'#0d9488', urlLbl:'BIT URL',      ph:'https://...'},
+  ],
+  text:[
+    {id:'text_block',name:'Text',        desc:'Display custom text on your page',     icon:'fas fa-font',           bg:'#059669',color:'#065f46', urlLbl:'Text content', ph:'Type your text here...'},
+    {id:'header',   name:'Header',       desc:'Add a bold section header',            icon:'fas fa-heading',        bg:'#374151',color:'#374151', urlLbl:'Header text',  ph:'e.g. My Links'},
+  ],
 };
 
-/* ── URL AUTO-DETECT ── */
+TYPES_DATA.all=[
+  ...TYPES_DATA.commerce,
+  ...TYPES_DATA.social,
+  ...TYPES_DATA.media,
+  ...TYPES_DATA.contact,
+  ...TYPES_DATA.events,
+  ...TYPES_DATA.text,
+];
+
+/* ── ADD MODAL ── */
+function openAddModal(){
+  if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Upgrade to Blaze for unlimited links!');return;}
+  document.getElementById('addSearch').value='';searchQ='';
+  setAddCat('suggested',document.querySelector('.add-cat-item[data-cat="suggested"]'));
+  document.getElementById('addModal').classList.add('open');
+}
+function closeAddModal(){document.getElementById('addModal').classList.remove('open');}
+
+function setAddCat(cat,el){
+  addCat=cat;
+  document.querySelectorAll('.add-cat-item').forEach(i=>i.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderAddRight();
+}
+
+function onAddSearch(q){
+  searchQ=q.trim().toLowerCase();
+  if(q.length>6){
+    const det=detectType(q);
+    if(det){openFormForType(det,q);document.getElementById('addSearch').value='';closeAddModal();return;}
+  }
+  renderAddRight();
+}
+
+function renderAddRight(){
+  const right=document.getElementById('addRight');
+  let data=TYPES_DATA[addCat]||TYPES_DATA.suggested;
+  if(searchQ)data=TYPES_DATA.all.filter(t=>t.name.toLowerCase().includes(searchQ)||t.desc.toLowerCase().includes(searchQ));
+  const catLabel=addCat==='suggested'?'Suggested':addCat.charAt(0).toUpperCase()+addCat.slice(1);
+  right.innerHTML=`<div class="add-section-title">${searchQ?'Search Results':catLabel}</div>`+
+    data.map(t=>`
+      <div class="add-type-row" onclick="openFormForType('${t.id}')">
+        <div class="add-type-icon" style="background:${t.bg}"><i class="${t.icon}" style="color:#fff;font-size:17px"></i></div>
+        <div class="add-type-text">
+          <div class="add-type-name">${t.name}</div>
+          <div class="add-type-desc">${t.desc}</div>
+        </div>
+        <i class="fas fa-chevron-right add-type-arrow"></i>
+      </div>`).join('');
+}
+
+function handleTile(type){
+  if(type==='collection'){closeAddModal();addCollection();return;}
+  if(type==='link'){closeAddModal();openFormForType('website');return;}
+  if(type==='product'){closeAddModal();openFormForType('product');return;}
+  if(type==='form'){closeAddModal();openFormForType('form');return;}
+}
+
 function detectType(url){
   const u=url.toLowerCase();
-  if(u.includes('instagram.com')||u.includes('instagr.am'))return 'instagram';
+  if(u.includes('instagram.com'))return 'instagram';
   if(u.includes('wa.me')||u.includes('whatsapp.com'))return 'whatsapp';
   if(u.includes('youtube.com')||u.includes('youtu.be'))return 'youtube';
   if(u.includes('twitter.com')||u.includes('x.com'))return 'twitter';
   if(u.includes('linkedin.com'))return 'linkedin';
-  if(u.includes('facebook.com')||u.includes('fb.com'))return 'facebook';
+  if(u.includes('facebook.com'))return 'facebook';
   if(u.includes('telegram.me')||u.includes('t.me'))return 'telegram';
   if(u.includes('tiktok.com'))return 'tiktok';
   if(u.includes('spotify.com'))return 'spotify';
   if(u.includes('github.com'))return 'github';
-  if(u.includes('behance.net'))return 'behance';
-  if(u.includes('dribbble.com'))return 'dribbble';
-  if(u.includes('medium.com'))return 'medium';
-  if(u.includes('maps.google')||u.includes('maps.app.goo'))return 'maps';
   if(u.startsWith('mailto:'))return 'email';
   if(u.startsWith('tel:'))return 'call';
-  return null;
+  return 'website';
 }
 
-/* ── SEARCH + FILTER ── */
-function filterTypes(q){
-  searchQ=q.trim().toLowerCase();
-  if(searchQ.length>5){const detected=detectType(q);if(detected){openFormForType(detected,q);document.getElementById('addSearchInput').value='';return;}}
-  renderTypeGrid();
-}
-
-function setCategory(cat,el){
-  curCategory=cat;
-  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
-  if(el)el.classList.add('active');
-  renderTypeGrid();
-}
-
-function renderTypeGrid(){
-  const grid=document.getElementById('typeGrid');
-  let filtered=TYPES;
-  if(curCategory!=='all')filtered=filtered.filter(t=>t.cat===curCategory);
-  if(searchQ)filtered=filtered.filter(t=>t.name.toLowerCase().includes(searchQ)||t.desc.toLowerCase().includes(searchQ));
-  grid.innerHTML=filtered.map(t=>`
-    <div class="type-card" onclick="openFormForType('${t.id}')">
-      <div class="type-card-icon" style="background:${t.color}18"><i class="${t.icon}" style="color:${t.color}"></i></div>
-      <div class="type-card-text">
-        <div class="type-card-name">${t.name}</div>
-        <div class="type-card-desc">${t.desc}</div>
-      </div>
-    </div>`).join('');
-}
-
-function openFormForType(id,prefillUrl){
-  const type=TYPES.find(t=>t.id===id);if(!type)return;
-  currentType=type;editingId=null;
-  selColor=type.color;
-  document.getElementById('formModalTitle').textContent='Add '+type.name;
-  document.getElementById('fUrlLabel').textContent=type.urlLabel;
+function openFormForType(id,prefill){
+  let type=null;
+  for(const cat of Object.values(TYPES_DATA)){const f=cat.find(t=>t.id===id);if(f){type=f;break;}}
+  if(!type)type={id:'custom',name:'Custom Link',desc:'Any URL',icon:'fas fa-link',bg:'#374151',color:'#374151',urlLbl:'URL',ph:'https://'};
+  curType=type;editingId=null;selColor=type.color;
+  document.getElementById('fModalTitle').textContent='Add '+type.name;
+  document.getElementById('fUrlLbl').textContent=type.urlLbl;
   document.getElementById('fUrl').placeholder=type.ph;
   document.getElementById('fTitle').value=type.name;
-  document.getElementById('fUrl').value=prefillUrl||'';
+  document.getElementById('fUrl').value=prefill||'';
   buildColorRow();
-  document.getElementById('addModal').classList.remove('open');
+  closeAddModal();
   document.getElementById('formModal').classList.add('open');
   setTimeout(()=>document.getElementById('fUrl').focus(),420);
 }
 
 function buildColorRow(){
   document.getElementById('colorRow').innerHTML=COLORS.map(c=>`
-    <div class="cswatch ${c.h===selColor?'sel':''}" style="background:${c.h}" onclick="pickColor('${c.h}')"></div>`).join('');
+    <div class="csw ${c.h===selColor?'sel':''}" style="background:${c.h}" onclick="pickColor('${c.h}')"></div>`).join('');
 }
-
-function pickColor(h){
-  selColor=h;
-  document.querySelectorAll('.cswatch').forEach(el=>{
-    el.classList.toggle('sel',el.style.background===h||el.style.backgroundColor===h);
-  });
-}
-
-function openAddModal(){
-  if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Upgrade to Blaze for unlimited links!');return;}
-  curCategory='all';searchQ='';
-  document.getElementById('addSearchInput').value='';
-  document.querySelectorAll('.cat-tab').forEach((t,i)=>t.classList.toggle('active',i===0));
-  renderTypeGrid();
-  document.getElementById('addModal').classList.add('open');
-}
-function closeAddModal(){document.getElementById('addModal').classList.remove('open');}
-function closeFormModal(){document.getElementById('formModal').classList.remove('open');editingId=null;currentType=null;}
+function pickColor(h){selColor=h;document.querySelectorAll('.csw').forEach(el=>el.classList.toggle('sel',el.style.background===h||el.style.backgroundColor===h));}
+function closeFormModal(){document.getElementById('formModal').classList.remove('open');editingId=null;curType=null;}
 
 function saveLink(){
   const title=document.getElementById('fTitle').value.trim();
   const url=document.getElementById('fUrl').value.trim();
-  if(!title){showToast('Please enter a title');return;}
-  if(!url){showToast('Please enter a URL');return;}
-  let finalUrl=url;
-  const tid=currentType?currentType.id:'custom';
-  if((tid==='whatsapp'||tid==='whatsapp_chat')&&!url.startsWith('http'))finalUrl='https://wa.me/'+url.replace(/\D/g,'');
-  else if(tid==='email'&&!url.startsWith('mailto'))finalUrl='mailto:'+url;
-  else if(tid==='call'&&!url.startsWith('tel'))finalUrl='tel:'+url.replace(/\s/g,'');
-  else if(!url.startsWith('http')&&!url.startsWith('mailto')&&!url.startsWith('tel')&&!url.startsWith('upi'))finalUrl='https://'+url;
-  if(editingId){
-    links=links.map(l=>l.id===editingId?{...l,title,url:finalUrl,icon:tid,color:selColor}:l);
-    showToast('Updated!');
-  }else{
-    links.push({id:Date.now().toString(),title,url:finalUrl,icon:tid,color:selColor,active:true,likes:0,clicks:0,pinned:false,thumb:null});
-    showToast('✅ Link added!');
-  }
+  if(!title){showToast('Enter a title');return;}
+  if(!url){showToast('Enter a URL');return;}
+  let fu=url;
+  const tid=curType?curType.id:'website';
+  if(tid==='whatsapp'&&!url.startsWith('http'))fu='https://wa.me/'+url.replace(/\D/g,'');
+  else if(tid==='email'&&!url.startsWith('mailto'))fu='mailto:'+url;
+  else if(tid==='call'&&!url.startsWith('tel'))fu='tel:'+url.replace(/\s/g,'');
+  else if(!url.startsWith('http')&&!url.startsWith('mailto')&&!url.startsWith('tel')&&!url.startsWith('upi'))fu='https://'+url;
+  if(editingId){links=links.map(l=>l.id===editingId?{...l,title,url:fu,icon:tid,color:selColor}:l);showToast('Updated!');}
+  else{links.push({id:Date.now().toString(),title,url:fu,icon:tid,color:selColor,active:true,likes:0,clicks:0,pinned:false,thumb:null});showToast('✅ Link added!');}
   closeFormModal();renderLinks();
 }
 
 /* ── RENDER LINKS ── */
+function getTypeInfo(id){
+  for(const cat of Object.values(TYPES_DATA)){const f=cat.find(t=>t.id===id);if(f)return f;}
+  return {id:'website',icon:'fas fa-globe',bg:'#4338ca',color:'#4338ca'};
+}
+
 function renderLinks(){
   const active=links.filter(l=>!l._del);
   const wrap=document.getElementById('linksWrap');
   const empty=document.getElementById('emptyState');
-  if(active.length===0){wrap.innerHTML='';wrap.appendChild(empty);empty.style.display='block';updateSpark(0);return;}
+  if(active.length===0){
+    if(!wrap.contains(empty))wrap.appendChild(empty);
+    empty.style.display='block';updateSpark(0);
+    document.getElementById('secCnt').textContent='0 links';return;
+  }
   empty.style.display='none';
   wrap.innerHTML=active.map(link=>{
-    const type=TYPES.find(t=>t.id===link.icon)||TYPES[TYPES.length-1];
-    const ic=link.color||type.color;
+    const ti=getTypeInfo(link.icon);
+    const ic=link.color||ti.color;
     return `<div class="link-card lc-in ${!link.active?'hidden-card':''}" id="lc-${link.id}">
-      ${link.thumb?`<img class="link-thumb" src="${esc(link.thumb)}" alt="">`:''}
+      ${link.thumb?`<img class="link-thumb" src="${esc(link.thumb)}">`:''}
       <div class="link-card-top">
         <div class="lc-drag"><i class="fas fa-grip-vertical"></i></div>
-        <div class="lc-icon" style="background:${ic}15"><i class="${type.icon}" style="color:${ic}"></i></div>
+        <div class="lc-icon" style="background:${ic}18"><i class="${ti.icon}" style="color:${ic}"></i></div>
         <div class="lc-text">
           <div class="lc-title-row">
             <div class="lc-title" id="lct-${link.id}">${esc(link.title)}</div>
-            <span class="lc-edit-icon" onclick="inlineEditTitle('${link.id}')"><i class="fas fa-pen"></i></span>
+            <span class="lc-edit" onclick="inlineTitle('${link.id}')"><i class="fas fa-pen"></i></span>
           </div>
           <div class="lc-url-row">
             <div class="lc-url" id="lcu-${link.id}">${esc(link.url)}</div>
-            <span class="lc-url-edit" onclick="inlineEditUrl('${link.id}')"><i class="fas fa-pen"></i></span>
+            <span class="lc-url-edit" onclick="inlineUrl('${link.id}')"><i class="fas fa-pen"></i></span>
           </div>
         </div>
         <div class="lc-right">
-          <div class="lc-share-btn" onclick="shareSingleLink('${link.id}')"><i class="fas fa-share"></i></div>
+          <div class="lc-share" onclick="shareLink('${link.id}')"><i class="fas fa-share"></i></div>
           <button class="lc-toggle ${link.active?'on':''}" onclick="toggleLink('${link.id}')"></button>
         </div>
       </div>
       <div class="link-btm">
-        <button class="lbtm-btn ${link.thumb?'pinned':''}" onclick="triggerThumb('${link.id}')" title="Add image">
-          <i class="fas fa-image"></i>
-        </button>
+        <button class="lbtm-btn" onclick="trigThumb('${link.id}')" title="Add thumbnail"><i class="fas fa-image"></i></button>
         <div class="lbtm-sep"></div>
-        <button class="lbtm-btn ${link.pinned?'pinned':''}" onclick="pinLink('${link.id}')" title="${link.pinned?'Unpin':'Pin'}">
-          <i class="fas fa-thumbtack"></i>
-        </button>
+        <button class="lbtm-btn ${link.pinned?'pinned':''}" onclick="pinLink('${link.id}')" title="Pin"><i class="fas fa-thumbtack"></i></button>
         <div class="lbtm-sep"></div>
-        <button class="lbtm-btn ${(link.likes||0)>0?'liked':''}" onclick="likeLink('${link.id}')" title="Like">
-          <i class="fas fa-heart"></i>
-        </button>
+        <button class="lbtm-btn ${(link.likes||0)>0?'liked':''}" onclick="likeLink('${link.id}')" title="Like"><i class="fas fa-heart"></i></button>
         <div class="lbtm-sep"></div>
         <button class="lbtm-btn" onclick="editLink('${link.id}')" title="Edit"><i class="fas fa-pen"></i></button>
         <div class="lbtm-clicks"><i class="fas fa-mouse-pointer"></i>${link.clicks||0}</div>
-        <button class="lbtm-btn lbtm-del" onclick="deleteLink('${link.id}')" title="Delete"><i class="fas fa-trash-alt"></i></button>
+        <button class="lbtm-btn lbtm-del" onclick="delLink('${link.id}')" title="Delete"><i class="fas fa-trash-alt"></i></button>
       </div>
     </div>`;
   }).join('');
@@ -661,123 +795,138 @@ function renderLinks(){
   document.getElementById('secCnt').textContent=active.length+' link'+(active.length!==1?'s':'');
 }
 
-function inlineEditTitle(id){
+function updateSpark(n){
+  const pct=Math.min(n/SPARK_LIMIT*100,100)+'%';
+  document.getElementById('sparkBar').style.width=pct;
+  document.getElementById('sparkFill').style.width=pct;
+  document.getElementById('sparkCnt').textContent=n+' / '+SPARK_LIMIT+' links';
+  document.getElementById('sparkCntSmall').textContent=n+'/18';
+}
+
+function inlineTitle(id){
   const el=document.getElementById('lct-'+id);if(!el)return;
-  const cur=el.textContent;
-  el.outerHTML=`<input class="lc-title-input" id="lct-${id}" value="${esc(cur)}" onblur="saveInlineTitle('${id}')" onkeydown="if(event.key==='Enter')this.blur()">`;
+  const v=el.textContent;
+  el.outerHTML=`<input class="lc-title-input" id="lct-${id}" value="${esc(v)}" onblur="saveTitle('${id}')" onkeydown="if(event.key==='Enter')this.blur()">`;
   document.getElementById('lct-'+id).focus();
 }
-
-function saveInlineTitle(id){
+function saveTitle(id){
   const el=document.getElementById('lct-'+id);if(!el)return;
-  const val=el.value.trim()||'Untitled';
-  links=links.map(l=>l.id===id?{...l,title:val}:l);
-  el.outerHTML=`<div class="lc-title" id="lct-${id}">${esc(val)}</div>`;
+  const v=el.value.trim()||'Untitled';
+  links=links.map(l=>l.id===id?{...l,title:v}:l);
+  el.outerHTML=`<div class="lc-title" id="lct-${id}">${esc(v)}</div>`;
 }
-
-function inlineEditUrl(id){
+function inlineUrl(id){
   const el=document.getElementById('lcu-'+id);if(!el)return;
-  const cur=el.textContent;
-  el.outerHTML=`<input class="lc-url-input" id="lcu-${id}" value="${esc(cur)}" onblur="saveInlineUrl('${id}')" onkeydown="if(event.key==='Enter')this.blur()">`;
+  const v=el.textContent;
+  el.outerHTML=`<input class="lc-url-input" id="lcu-${id}" value="${esc(v)}" onblur="saveUrl('${id}')" onkeydown="if(event.key==='Enter')this.blur()">`;
   document.getElementById('lcu-'+id).focus();
 }
-
-function saveInlineUrl(id){
+function saveUrl(id){
   const el=document.getElementById('lcu-'+id);if(!el)return;
-  const val=el.value.trim();
-  links=links.map(l=>l.id===id?{...l,url:val}:l);
-  el.outerHTML=`<div class="lc-url" id="lcu-${id}">${esc(val)}</div>`;
-}
-
-function updateSpark(n){
-  document.getElementById('sparkBar').style.width=Math.min(n/SPARK_LIMIT*100,100)+'%';
-  document.getElementById('sparkCnt').textContent=n+' / '+SPARK_LIMIT+' links';
+  const v=el.value.trim();
+  links=links.map(l=>l.id===id?{...l,url:v}:l);
+  el.outerHTML=`<div class="lc-url" id="lcu-${id}">${esc(v)}</div>`;
 }
 
 function toggleLink(id){links=links.map(l=>l.id===id?{...l,active:!l.active}:l);renderLinks();}
 function pinLink(id){links=links.map(l=>l.id===id?{...l,pinned:!l.pinned}:l);renderLinks();}
 function likeLink(id){links=links.map(l=>l.id===id?{...l,likes:(l.likes||0)>0?0:1}:l);renderLinks();}
-function shareSingleLink(id){const l=links.find(x=>x.id===id);if(!l)return;if(navigator.share)navigator.share({title:l.title,url:l.url});else{navigator.clipboard.writeText(l.url);showToast('Link copied!');}}
-
-function deleteLink(id){
+function shareLink(id){const l=links.find(x=>x.id===id);if(!l)return;if(navigator.share)navigator.share({title:l.title,url:l.url});else{navigator.clipboard.writeText(l.url);showToast('Copied!');}}
+function delLink(id){
   const el=document.getElementById('lc-'+id);
   if(el){el.style.opacity='0';el.style.transform='translateX(40px)';el.style.transition='all 0.22s';setTimeout(()=>{links=links.map(l=>l.id===id?{...l,_del:true}:l);renderLinks();},240);}
 }
-
 function editLink(id){
   const link=links.find(l=>l.id===id);if(!link)return;
   editingId=id;
-  const type=TYPES.find(t=>t.id===link.icon)||TYPES[TYPES.length-1];
-  currentType=type;selColor=link.color||type.color;
-  document.getElementById('formModalTitle').textContent='Edit Link';
-  document.getElementById('fUrlLabel').textContent=type.urlLabel;
-  document.getElementById('fUrl').placeholder=type.ph;
+  const ti=getTypeInfo(link.icon);curType=ti;selColor=link.color||ti.color;
+  document.getElementById('fModalTitle').textContent='Edit Link';
+  document.getElementById('fUrlLbl').textContent=ti.urlLbl||'URL';
+  document.getElementById('fUrl').placeholder=ti.ph||'https://...';
   document.getElementById('fTitle').value=link.title;
   document.getElementById('fUrl').value=link.url;
   buildColorRow();
   document.getElementById('formModal').classList.add('open');
 }
-
-function triggerThumb(id){thumbTarget=id;document.getElementById('thumbInput').click();}
+function trigThumb(id){thumbTarget=id;document.getElementById('thumbInput').click();}
 function handleThumb(e){
   const f=e.target.files[0];if(!f||!thumbTarget)return;
-  const r=new FileReader();
-  r.onload=ev=>{links=links.map(l=>l.id===thumbTarget?{...l,thumb:ev.target.result}:l);renderLinks();};
-  r.readAsDataURL(f);
+  const r=new FileReader();r.onload=ev=>{links=links.map(l=>l.id===thumbTarget?{...l,thumb:ev.target.result}:l);renderLinks();};r.readAsDataURL(f);
 }
 
 /* ── COLLECTIONS ── */
-let colIdCtr=0;
 function addCollection(){
-  const id='col_'+(++colIdCtr);
-  collections.push({id,title:'',active:true,linkIds:[]});
-  renderCollections();
+  const id='col'+(++colIdCtr);
+  collections.push({id,title:'',active:true,layout:'stack',linkIds:[]});
+  renderCols();
 }
-
-function renderCollections(){
-  // Append collection cards after links-wrap
-  let cw=document.getElementById('colsWrap');
-  if(!cw){cw=document.createElement('div');cw.id='colsWrap';cw.style.padding='0 16px';document.querySelector('.add-col-btn').before(cw);}
-  cw.innerHTML=collections.map(col=>`
-    <div class="collection-card" id="col-${col.id}">
+function renderCols(){
+  const wrap=document.getElementById('colsWrap');
+  wrap.innerHTML=collections.map(col=>`
+    <div class="col-card" id="col-${col.id}">
       <div class="col-header">
         <div class="col-drag"><i class="fas fa-grip-vertical"></i></div>
         <i class="fas fa-layer-group col-icon"></i>
-        <input class="col-title-input" placeholder="Collection title" value="${esc(col.title)}" onchange="updateColTitle('${col.id}',this.value)">
-        <div class="col-actions">
-          <div class="col-btn" onclick="deleteCollection('${col.id}')"><i class="fas fa-trash-alt"></i></div>
-          <button class="col-toggle ${col.active?'on':''}" onclick="toggleCollection('${col.id}')"></button>
-        </div>
+        <input class="col-title-input" placeholder="Collection title" value="${esc(col.title)}" onchange="updColTitle('${col.id}',this.value)">
+        <button class="col-layout-btn" onclick="openLayout('${col.id}')"><i class="fas fa-th-large"></i> ${col.layout||'Stack'}</button>
+        <button class="col-del-btn" onclick="delCol('${col.id}')"><i class="fas fa-trash-alt"></i></button>
+        <button class="col-vis-toggle ${col.active?'on':''}" onclick="toggleCol('${col.id}')"></button>
       </div>
-      <div class="col-links" id="cl-${col.id}">
-        <div style="text-align:center;padding:10px;color:#ccc;font-size:12px">No links in this collection</div>
-        <div class="col-add-link" onclick="showToast('Drag links here — coming soon!')">
-          <i class="fas fa-plus"></i> Add link
-        </div>
+      <div class="col-body">
+        <div class="col-empty">No links in this collection</div>
+        <button class="col-add-link" onclick="showToast('Drag links here — coming soon!')"><i class="fas fa-plus"></i> Add link</button>
       </div>
     </div>`).join('');
 }
+function updColTitle(id,v){collections=collections.map(c=>c.id===id?{...c,title:v}:c);}
+function toggleCol(id){collections=collections.map(c=>c.id===id?{...c,active:!c.active}:c);renderCols();}
+function delCol(id){collections=collections.filter(c=>c.id!==id);renderCols();}
+function openLayout(id){curLayoutColId=id;document.getElementById('layoutModal').classList.add('open');}
+function setLayout(layout,el){
+  if(curLayoutColId)collections=collections.map(c=>c.id===curLayoutColId?{...c,layout}:c);
+  document.querySelectorAll('.layout-opt').forEach(o=>o.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderCols();
+}
 
-function updateColTitle(id,val){collections=collections.map(c=>c.id===id?{...c,title:val}:c);}
-function toggleCollection(id){collections=collections.map(c=>c.id===id?{...c,active:!c.active}:c);renderCollections();}
-function deleteCollection(id){collections=collections.filter(c=>c.id!==id);renderCollections();}
+/* ── SPARK & UNLOCK TOGGLES ── */
+function toggleSpark(){
+  sparkOpen=!sparkOpen;
+  document.getElementById('sparkExpanded').classList.toggle('open',sparkOpen);
+  document.getElementById('sparkChevron').style.transform=sparkOpen?'rotate(180deg)':'rotate(0)';
+}
+function toggleUnlock(){
+  unlockOpen=!unlockOpen;
+  document.getElementById('unlockExpanded').classList.toggle('open',unlockOpen);
+  document.getElementById('unlockChevron').style.transform=unlockOpen?'rotate(180deg)':'rotate(0)';
+}
 
 /* ── SOCIAL ── */
+const SOC_CFG={
+  whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210'},
+  instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername'},
+  twitter:{label:'X/Twitter',lbl:'Username (no @)',ph:'yourusername'},
+  youtube:{label:'YouTube',lbl:'Channel URL',ph:'youtube.com/c/...'},
+  linkedin:{label:'LinkedIn',lbl:'Profile URL',ph:'linkedin.com/in/...'},
+  facebook:{label:'Facebook',lbl:'Profile URL',ph:'facebook.com/...'},
+  telegram:{label:'Telegram',lbl:'Username (no @)',ph:'yourusername'},
+  snapchat:{label:'Snapchat',lbl:'Username',ph:'yourusername'},
+};
 function editSoc(id){
-  currentSoc=id;const cfg=SOC_CFG[id];if(!cfg)return;
-  document.getElementById('socTitle').textContent='Link '+cfg.label;
-  document.getElementById('socLabel').textContent=cfg.lbl;
-  document.getElementById('socInput').placeholder=cfg.ph;
+  curSoc=id;const c=SOC_CFG[id];if(!c)return;
+  document.getElementById('socTitle').textContent='Link '+c.label;
+  document.getElementById('socLbl').textContent=c.lbl;
+  document.getElementById('socInput').placeholder=c.ph;
   document.getElementById('socInput').value=socials[id]||'';
   document.getElementById('socModal').classList.add('open');
 }
 function closeSocModal(){document.getElementById('socModal').classList.remove('open');}
 function saveSoc(){
-  const val=document.getElementById('socInput').value.trim();
-  socials[currentSoc]=val;
-  const chip=document.querySelector(`.soc-chip[data-s="${currentSoc}"]`);
-  if(chip)chip.classList.toggle('linked',!!val);
-  closeSocModal();showToast(val?'✅ Linked!':'Removed');
+  const v=document.getElementById('socInput').value.trim();
+  socials[curSoc]=v;
+  const chip=document.querySelector(`.soc-chip[data-s="${curSoc}"]`);
+  if(chip)chip.classList.toggle('linked',!!v);
+  closeSocModal();showToast(v?'✅ Linked!':'Removed');
 }
 
 /* ── BIO ── */
@@ -785,54 +934,57 @@ function editBio(){document.getElementById('bioInput').value=document.getElement
 function closeBioModal(){document.getElementById('bioModal').classList.remove('open');}
 function saveBio(){const v=document.getElementById('bioInput').value.trim();document.getElementById('pBio').textContent=v||'Add your bio';closeBioModal();showToast('Bio updated!');}
 
-/* ── UPGRADE ── */
-function openUpgrade(){document.getElementById('upgradeModal').classList.add('open');}
+/* ── CARD TYPE THEME ── */
+function applyCardTheme(){
+  const cardType=localStorage.getItem('activeCard')||'personal';
+  const themeMap={personal:'card-personal',work:'card-work',business:'card-business',earn:'card-earn',drift:'card-drift'};
+  document.body.className=themeMap[cardType]||'card-personal';
+}
 
 /* ── SAVE ALL ── */
 async function saveAllLinks(){
-  const btn=document.getElementById('saveAllBtn');btn.disabled=true;btn.textContent='Saving...';
+  const btn=document.getElementById('saveBtn');btn.disabled=true;btn.textContent='Saving...';
   const token=localStorage.getItem('token');
   if(!token){showToast('Please login first');btn.disabled=false;btn.textContent='Save';return;}
   try{
     const toSave=links.filter(l=>!l._del).map(({id,title,url,icon,active,color,likes,clicks,pinned})=>({id,title,url,icon,active,color:color||'#7c3aed',likes:likes||0,clicks:clicks||0,pinned:!!pinned}));
     const res=await fetch(API+'/links/reorder',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({links:toSave})});
-    const data=await res.json();
-    if(data.success)showToast('✅ Saved!');else showToast('Error: '+(data.error||'Failed'));
+    const d=await res.json();
+    if(d.success)showToast('✅ Saved!');else showToast('Error: '+(d.error||'Failed'));
   }catch(e){showToast('Network error');}
   btn.disabled=false;btn.textContent='Save';
 }
 
-/* ── HELPERS ── */
-function copyProfileUrl(){const u=localStorage.getItem('username')||'—';navigator.clipboard.writeText('https://myqrid.in/'+u);showToast('URL copied!');}
+function copyUrl(){const u=localStorage.getItem('username')||'—';navigator.clipboard.writeText('https://myqrid.in/'+u);showToast('URL copied!');}
 function shareProfile(){const u=localStorage.getItem('username'),url='https://myqrid.in/'+u;if(navigator.share)navigator.share({title:'My myQRID',url});else{navigator.clipboard.writeText(url);showToast('Link copied!');}}
 function handleAvatar(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const el=document.getElementById('pAvatar');el.style.background='none';el.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;};r.readAsDataURL(f);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
-/* ── LOAD ── */
 async function loadData(){
+  applyCardTheme();
   const name=localStorage.getItem('name')||'';
   const username=localStorage.getItem('username')||'';
   if(name){const el=document.getElementById('pAvatar');if(el&&!el.querySelector('img'))el.textContent=name[0].toUpperCase();document.getElementById('pName').textContent=name;}
-  if(username)document.getElementById('pUsername').textContent=username;
+  if(username)document.getElementById('pUser').textContent=username;
   const saved=localStorage.getItem('avatar_personal');
   if(saved){const el=document.getElementById('pAvatar');el.style.background='none';el.innerHTML=`<img src="${saved}" style="width:100%;height:100%;object-fit:cover">`;}
-  const token=localStorage.getItem('token');if(!token){renderLinks();return;}
+  const token=localStorage.getItem('token');
+  if(!token){renderLinks();renderAddRight();return;}
   try{
     const res=await fetch(API+'/links',{headers:{'Authorization':'Bearer '+token}});
-    const data=await res.json();
-    if(data.success&&data.links)links=data.links;
+    const d=await res.json();if(d.success&&d.links)links=d.links;
   }catch(e){}
   try{
     const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
-    const data=await res.json();
-    if(data.success){
-      socials=data.profile.socials||{};
+    const d=await res.json();
+    if(d.success){
+      socials=d.profile.socials||{};
       Object.keys(socials).forEach(k=>{if(socials[k]){const c=document.querySelector(`.soc-chip[data-s="${k}"]`);if(c)c.classList.add('linked');}});
-      if(data.profile.bio)document.getElementById('pBio').textContent=data.profile.bio;
+      if(d.profile.bio)document.getElementById('pBio').textContent=d.profile.bio;
     }
   }catch(e){}
-  renderLinks();
+  renderLinks();renderAddRight();
 }
 
 loadData();
