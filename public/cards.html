@@ -9,17 +9,17 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif}
-body.theme-personal{background:#1a1025}
+body.theme-personal{background:#1a1a1a}
 body.theme-work{background:#07111f}
 body.theme-business{background:#0a100c}
 body.theme-earn{background:#0d1d14}
 body.theme-drift{background:#050505}
 .bg-layer{position:fixed;inset:0;z-index:0;transition:background 0.6s ease}
-body.theme-personal .bg-layer{background:radial-gradient(ellipse at 25% 15%,rgba(167,139,250,0.3) 0%,transparent 55%),radial-gradient(ellipse at 75% 80%,rgba(196,167,255,0.2) 0%,transparent 50%),#1a1025}
-body.theme-work .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(96,165,250,0.25) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(147,197,253,0.15) 0%,transparent 50%),#07111f}
-body.theme-business .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(74,222,128,0.2) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(134,239,172,0.15) 0%,transparent 50%),#0a100c}
-body.theme-earn .bg-layer{background:radial-gradient(ellipse at 25% 20%,rgba(74,222,128,0.2) 0%,transparent 50%),radial-gradient(ellipse at 75% 75%,rgba(187,247,208,0.12) 0%,transparent 50%),#0d1d14}
-body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,200,180,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(100,80,180,0.2) 0%,transparent 50%),#050505}
+body.theme-personal .bg-layer{background:radial-gradient(ellipse at 25% 15%,rgba(180,180,180,0.25) 0%,transparent 55%),radial-gradient(ellipse at 75% 80%,rgba(220,220,220,0.15) 0%,transparent 50%),#1a1a1a}
+body.theme-work .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(96,165,250,0.22) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(200,230,255,0.12) 0%,transparent 50%),#07111f}
+body.theme-business .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(74,222,128,0.18) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(200,255,220,0.1) 0%,transparent 50%),#0a100c}
+body.theme-earn .bg-layer{background:radial-gradient(ellipse at 25% 20%,rgba(74,222,128,0.18) 0%,transparent 50%),radial-gradient(ellipse at 75% 75%,rgba(200,255,220,0.1) 0%,transparent 50%),#0d1d14}
+body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,180,160,0.12) 0%,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(80,60,140,0.18) 0%,transparent 50%),#050505}
 .topbar{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top))}
 .topbar-logo{font-size:20px;font-weight:700;color:#fff}
 .topbar-right{display:flex;gap:8px}
@@ -52,30 +52,30 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
 .card-action-btn{flex:1;padding:10px;border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;border:none}
 .card-btn-ghost{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1)!important;color:rgba(255,255,255,0.7)}
 
-/* PERSONAL — soft lavender */
-.card-personal-photo{background:linear-gradient(145deg,#2d1f4a 0%,#3d2060 40%,#2a1840 100%)}
-.card-personal-body{background:linear-gradient(180deg,#231640 0%,#16102e 100%)}
-.card-personal-btn{background:linear-gradient(135deg,#a78bfa,#c4b5fd);color:#1a1025}
+/* PERSONAL — grey + white gradient */
+.card-personal-photo{background:linear-gradient(145deg,#2a2a2a 0%,#3a3a3a 35%,#4a4a4a 60%,#f0f0f0 100%)}
+.card-personal-body{background:linear-gradient(180deg,#252525 0%,#181818 100%)}
+.card-personal-btn{background:linear-gradient(135deg,#888,#fff);color:#111}
 
-/* WORK — premium business blue */
-.card-work-photo{background:linear-gradient(145deg,#182235 0%,#1e2d45 40%,#152030 100%)}
+/* WORK — blue + white gradient */
+.card-work-photo{background:linear-gradient(145deg,#0a1628 0%,#1a2d4a 35%,#2a4a6a 60%,#e8f4ff 100%)}
 .card-work-body{background:linear-gradient(180deg,#101726 0%,#0a101a 100%)}
-.card-work-btn{background:linear-gradient(135deg,#60a5fa,#93c5fd);color:#07111f}
+.card-work-btn{background:linear-gradient(135deg,#60a5fa,#e8f4ff);color:#07111f}
 
-/* BUSINESS — executive graphite green */
-.card-business-photo{background:linear-gradient(145deg,#122018 0%,#1b2e24 40%,#101914 100%)}
+/* BUSINESS — green + white gradient */
+.card-business-photo{background:linear-gradient(145deg,#0a1a0e 0%,#1a3020 35%,#2a4a30 60%,#e8ffe8 100%)}
 .card-business-body{background:linear-gradient(180deg,#121a15 0%,#0a100c 100%)}
-.card-business-btn{background:linear-gradient(135deg,#4ade80,#86efac);color:#07110b}
+.card-business-btn{background:linear-gradient(135deg,#4ade80,#e8ffe8);color:#07110b}
 
-/* EARN — luxury light green */
-.card-earn-photo{background:linear-gradient(145deg,#163222 0%,#1f4a31 40%,#102217 100%)}
+/* EARN — green + white gradient richer */
+.card-earn-photo{background:linear-gradient(145deg,#0a1a10 0%,#1a3a20 35%,#2a5a30 60%,#f0fff4 100%)}
 .card-earn-body{background:linear-gradient(180deg,#183625 0%,#0d1d14 100%)}
-.card-earn-btn{background:linear-gradient(135deg,#4ade80,#bbf7d0);color:#07110b}
+.card-earn-btn{background:linear-gradient(135deg,#4ade80,#f0fff4);color:#07110b}
 
-/* DRIFT — deep dark neon teal */
-.card-drift-photo{background:linear-gradient(145deg,#050a0a 0%,#091414 40%,#050a0a 100%)}
-.card-drift-body{background:linear-gradient(180deg,#080f0f 0%,#030808 100%)}
-.card-drift-btn{background:linear-gradient(135deg,#00c8b8,#00a898);color:#000}
+/* DRIFT — pure dark gradient only */
+.card-drift-photo{background:linear-gradient(145deg,#000000 0%,#080808 30%,#0a0f0a 60%,#050a05 100%)}
+.card-drift-body{background:linear-gradient(180deg,#060a06 0%,#020402 100%)}
+.card-drift-btn{background:linear-gradient(135deg,#00c8b8,#006858);color:#000}
 .card-drift-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,200,184,0.08);border:1px solid rgba(0,200,184,0.25);border-radius:8px;padding:4px 12px;font-size:11px;font-weight:700;color:#00c8b8;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px}
 
 .vehicle-display{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px}
@@ -83,20 +83,17 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
 .vehicle-tab{padding:4px 12px;border-radius:12px;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s;border:1px solid rgba(0,200,184,0.2);color:rgba(0,200,184,0.5);background:transparent}
 .vehicle-tab.active{background:rgba(0,200,184,0.12);color:#00c8b8;border-color:rgba(0,200,184,0.4)}
 .vehicle-svg-wrap{flex:1;display:flex;align-items:center;justify-content:center;width:100%}
-.engine-btn{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;background:rgba(0,0,0,0.6);border:2px solid rgba(0,200,184,0.4);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s}
-
+.engine-btn{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;background:rgba(0,0,0,0.7);border:2px solid rgba(0,200,184,0.5);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;z-index:5}
 .swipe-dots{display:flex;justify-content:center;gap:6px;padding:8px 0 6px}
 .swipe-dot{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,0.15);transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1)}
 .swipe-dot.active{width:20px}
-
 .bottom-nav{position:relative;z-index:10;background:rgba(8,8,12,0.92);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.06);display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom))}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,0.3);font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;transition:color 0.2s}
 .nav-icon{font-size:20px;line-height:1}
 .nav-center-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-top:-18px}
-
 .card-expand-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0);display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s ease}
 .card-expand-overlay.open{background:rgba(0,0,0,0.85);pointer-events:all}
-.card-expand-panel{background:#16102e;border-radius:28px 28px 0 0;width:100%;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:22px 22px calc(22px + env(safe-area-inset-bottom))}
+.card-expand-panel{background:#1a1a1a;border-radius:28px 28px 0 0;width:100%;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:22px 22px calc(22px + env(safe-area-inset-bottom))}
 .card-expand-overlay.open .card-expand-panel{transform:translateY(0)}
 .expand-handle{width:40px;height:4px;background:rgba(255,255,255,0.12);border-radius:2px;margin:0 auto 18px}
 .expand-title{font-size:11px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:14px}
@@ -105,14 +102,13 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
 .expand-option:active{background:rgba(255,255,255,0.08)}
 .expand-option-text{font-size:13px;font-weight:600;color:#fff}
 .expand-option-sub{font-size:11px;color:rgba(255,255,255,0.3);margin-top:2px}
-
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(167,139,250,0.12);border:1px solid rgba(167,139,250,0.25);color:#c4b5fd;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(100,100,100,0.2);border:1px solid rgba(200,200,200,0.2);color:#ddd;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .page{display:flex;flex-direction:column;height:100%;position:relative;z-index:1}
 @keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 .card-in{animation:cardIn 0.45s cubic-bezier(0.34,1.2,0.64,1) forwards}
-@keyframes enginePulse{0%,100%{box-shadow:0 0 15px rgba(0,200,184,0.3)}50%{box-shadow:0 0 35px rgba(0,200,184,0.7)}}
-.engine-on{animation:enginePulse 1.2s ease-in-out infinite}
+@keyframes enginePulse{0%,100%{box-shadow:0 0 15px rgba(0,200,184,0.4),0 0 30px rgba(0,200,184,0.2)}50%{box-shadow:0 0 40px rgba(0,200,184,0.9),0 0 80px rgba(0,200,184,0.4)}}
+.engine-on{animation:enginePulse 0.8s ease-in-out infinite!important}
 </style>
 </head>
 <body class="theme-personal">
@@ -120,7 +116,7 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
 <div class="page">
 
   <div class="topbar">
-    <div class="topbar-logo">my<span id="logoSpan" style="background:linear-gradient(135deg,#a78bfa,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
+    <div class="topbar-logo">my<span id="logoSpan" style="background:linear-gradient(135deg,#aaa,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
     <div class="topbar-right">
       <div class="icon-btn" id="soundBtn" onclick="toggleSound()">
         <i class="fas fa-volume-up" id="soundIcon"></i>
@@ -146,16 +142,16 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
         <div class="card-slide"><div class="id-card card-in" onclick="openCardMenu(0)">
           <div class="card-photo card-personal-photo">
             <div class="card-photo-placeholder" id="photo-personal"><div class="card-photo-initials" id="initials-personal">P</div></div>
-            <div class="card-type-badge" style="border-color:rgba(196,181,253,0.25)">✦ Personal</div>
+            <div class="card-type-badge" style="border-color:rgba(255,255,255,0.2)">✦ Personal</div>
             <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhoto('personal')"><i class="fas fa-camera"></i></div>
           </div>
-          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,22 C60,44 130,4 200,22 C270,40 340,8 400,22 L400,44 L0,44 Z" fill="#231640"/></svg></div>
+          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,22 C60,44 130,4 200,22 C270,40 340,8 400,22 L400,44 L0,44 Z" fill="#252525"/></svg></div>
           <div class="card-body card-personal-body">
             <div class="card-name" id="name-personal">Your Name</div>
             <div class="card-role" id="role-personal">Tap edit to set up your identity</div>
             <div class="card-contact-row">
-              <div class="card-contact-item"><i class="fas fa-phone" style="color:#c4b5fd;font-size:12px;flex-shrink:0"></i><span id="phone-personal">Add phone</span></div>
-              <div class="card-contact-item"><i class="fas fa-envelope" style="color:#c4b5fd;font-size:12px;flex-shrink:0"></i><span id="email-personal">Add email</span></div>
+              <div class="card-contact-item"><i class="fas fa-phone" style="color:#ccc;font-size:12px;flex-shrink:0"></i><span id="phone-personal">Add phone</span></div>
+              <div class="card-contact-item"><i class="fas fa-envelope" style="color:#ccc;font-size:12px;flex-shrink:0"></i><span id="email-personal">Add email</span></div>
             </div>
             <div class="card-actions">
               <button class="card-action-btn card-personal-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
@@ -236,77 +232,80 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
             <div class="vehicle-display">
               <div class="vehicle-tabs">
                 <div class="vehicle-tab active" id="bikeTab" onclick="event.stopPropagation();showVehicle('bike')">🏍 Bike</div>
-                <div class="vehicle-tab" id="carTab" onclick="event.stopPropagation();showVehicle('car')">🚗 Car</div>
+                <div class="vehicle-tab" id="carTab" onclick="event.stopPropagation();showVehicle('car')">🏎 F1 Car</div>
               </div>
               <div class="vehicle-svg-wrap">
-
-                <!-- UPGRADED BIKE SVG -->
+                <!-- BIKE SVG -->
                 <svg id="bikeSVG" viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg" style="width:90%">
-                  <defs><filter id="glow"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                  <defs><filter id="glow"><feGaussianBlur stdDeviation="2" result="cb"/><feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
                   <g fill="none" stroke="rgba(0,200,184,0.72)" stroke-width="2.2" filter="url(#glow)">
                     <circle cx="82" cy="126" r="38" stroke-width="5" stroke="rgba(0,200,184,0.22)"/>
-                    <circle cx="82" cy="126" r="26"/>
-                    <circle cx="82" cy="126" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
+                    <circle cx="82" cy="126" r="26"/><circle cx="82" cy="126" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
                     <circle cx="278" cy="126" r="38" stroke-width="5" stroke="rgba(0,200,184,0.22)"/>
-                    <circle cx="278" cy="126" r="26"/>
-                    <circle cx="278" cy="126" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
+                    <circle cx="278" cy="126" r="26"/><circle cx="278" cy="126" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
                     <path d="M82 126 L165 58 L212 126 L278 126"/>
                     <path d="M165 58 L205 46 L232 70 L182 78 Z" fill="rgba(0,200,184,0.08)"/>
                     <path d="M148 62 L126 48 L145 46 L165 56"/>
                     <path d="M230 70 L300 56 L306 92"/>
                     <line x1="230" y1="70" x2="278" y2="126"/>
-                    <circle cx="176" cy="100" r="14"/>
-                    <circle cx="176" cy="100" r="5" fill="rgba(0,200,184,0.55)" stroke="none"/>
+                    <circle cx="176" cy="100" r="14"/><circle cx="176" cy="100" r="5" fill="rgba(0,200,184,0.55)" stroke="none"/>
                     <line x1="6" y1="94" x2="40" y2="94" stroke="rgba(0,200,184,0.2)" stroke-width="1"/>
                     <line x1="6" y1="106" x2="28" y2="106" stroke="rgba(0,200,184,0.14)" stroke-width="1"/>
                     <line x1="6" y1="118" x2="18" y2="118" stroke="rgba(0,200,184,0.1)" stroke-width="1"/>
                   </g>
                   <style>#bikeSVG{animation:bikeFloat 3.5s ease-in-out infinite}@keyframes bikeFloat{0%,100%{transform:translateX(0) rotate(0deg)}25%{transform:translateX(5px) rotate(0.4deg)}75%{transform:translateX(-5px) rotate(-0.4deg)}}</style>
                 </svg>
-
-                <!-- CAR SVG -->
-                <svg id="carSVG" viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" style="width:88%;display:none">
-                  <defs><filter id="glow2"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-                  <g fill="none" stroke="rgba(0,200,184,0.65)" stroke-width="1.8" filter="url(#glow2)">
-                    <circle cx="82" cy="118" r="22" stroke-width="3.5" stroke="rgba(0,200,184,0.35)"/>
-                    <circle cx="82" cy="118" r="13"/>
-                    <circle cx="82" cy="118" r="5" fill="rgba(0,200,184,0.5)" stroke="none"/>
-                    <circle cx="238" cy="118" r="22" stroke-width="3.5" stroke="rgba(0,200,184,0.35)"/>
-                    <circle cx="238" cy="118" r="13"/>
-                    <circle cx="238" cy="118" r="5" fill="rgba(0,200,184,0.5)" stroke="none"/>
-                    <path d="M40,118 L40,88 L80,88 L110,58 L210,58 L240,88 L280,88 L280,118 Z" stroke-width="2" fill="rgba(0,200,184,0.06)"/>
-                    <path d="M110,88 L120,62 L200,62 L210,88 Z" fill="rgba(0,200,184,0.1)" stroke="rgba(0,200,184,0.5)" stroke-width="1.5"/>
-                    <path d="M116,86 L124,66 L158,66 L158,86 Z" fill="rgba(0,200,184,0.08)" stroke="rgba(0,200,184,0.3)" stroke-width="1"/>
-                    <path d="M164,86 L164,66 L198,66 L206,86 Z" fill="rgba(0,200,184,0.08)" stroke="rgba(0,200,184,0.3)" stroke-width="1"/>
-                    <ellipse cx="272" cy="96" rx="6" ry="4" fill="rgba(0,200,184,0.3)" stroke="rgba(0,200,184,0.6)"/>
-                    <ellipse cx="48" cy="96" rx="6" ry="4" fill="rgba(0,200,184,0.15)" stroke="rgba(0,200,184,0.4)"/>
-                    <line x1="2" y1="95" x2="32" y2="95" stroke="rgba(0,200,184,0.18)" stroke-width="1"/>
-                    <line x1="2" y1="103" x2="22" y2="103" stroke="rgba(0,200,184,0.12)" stroke-width="1"/>
-                    <line x1="2" y1="111" x2="14" y2="111" stroke="rgba(0,200,184,0.08)" stroke-width="1"/>
-                    <line x1="160" y1="62" x2="160" y2="88" stroke="rgba(0,200,184,0.25)" stroke-width="1"/>
-                    <line x1="40" y1="118" x2="60" y2="118" stroke="rgba(0,200,184,0.3)" stroke-width="1.5"/>
-                    <line x1="104" y1="118" x2="216" y2="118" stroke="rgba(0,200,184,0.3)" stroke-width="1.5"/>
-                    <line x1="260" y1="118" x2="280" y2="118" stroke="rgba(0,200,184,0.3)" stroke-width="1.5"/>
+                <!-- F1 CAR SVG -->
+                <svg id="carSVG" viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg" style="width:92%;display:none">
+                  <defs><filter id="glow2"><feGaussianBlur stdDeviation="2.5" result="cb"/><feMerge><feMergeNode in="cb"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+                  <g fill="none" stroke="rgba(0,200,184,0.7)" stroke-width="1.8" filter="url(#glow2)">
+                    <!-- rear wheel -->
+                    <circle cx="80" cy="100" r="24" stroke-width="4" stroke="rgba(0,200,184,0.3)"/>
+                    <circle cx="80" cy="100" r="14"/><circle cx="80" cy="100" r="5" fill="rgba(0,200,184,0.5)" stroke="none"/>
+                    <!-- front wheel -->
+                    <circle cx="280" cy="100" r="20" stroke-width="4" stroke="rgba(0,200,184,0.3)"/>
+                    <circle cx="280" cy="100" r="11"/><circle cx="280" cy="100" r="4" fill="rgba(0,200,184,0.5)" stroke="none"/>
+                    <!-- low F1 body -->
+                    <path d="M60,100 L60,72 L100,66 L140,58 L220,55 L270,62 L300,72 L300,100" stroke-width="2" fill="rgba(0,200,184,0.05)"/>
+                    <!-- cockpit -->
+                    <path d="M155,66 L165,42 L200,40 L210,64 Z" fill="rgba(0,200,184,0.12)" stroke="rgba(0,200,184,0.6)" stroke-width="1.5"/>
+                    <!-- front wing -->
+                    <path d="M290,80 L340,76 L342,88 L295,92"/>
+                    <!-- rear wing -->
+                    <path d="M50,62 L14,54 L12,46 L52,52"/>
+                    <line x1="22" y1="50" x2="22" y2="64"/>
+                    <!-- halo -->
+                    <path d="M163,54 Q182,44 200,54" stroke="rgba(0,200,184,0.4)" stroke-width="3" fill="none"/>
+                    <!-- sidepods -->
+                    <path d="M140,66 L140,88 L220,88 L220,64" fill="rgba(0,200,184,0.06)" stroke="rgba(0,200,184,0.4)" stroke-width="1"/>
+                    <!-- exhaust -->
+                    <line x1="58" y1="72" x2="40" y2="68" stroke="rgba(0,200,184,0.5)" stroke-width="2"/>
+                    <!-- speed lines -->
+                    <line x1="2" y1="80" x2="34" y2="80" stroke="rgba(0,200,184,0.22)" stroke-width="1"/>
+                    <line x1="2" y1="90" x2="22" y2="90" stroke="rgba(0,200,184,0.15)" stroke-width="1"/>
+                    <line x1="2" y1="100" x2="14" y2="100" stroke="rgba(0,200,184,0.1)" stroke-width="1"/>
+                    <!-- floor/diffuser -->
+                    <path d="M60,100 L300,100" stroke-width="2.5"/>
+                    <path d="M60,100 L50,108 L310,108 L300,100"/>
                   </g>
-                  <style>#carSVG{animation:carFloat 3.5s ease-in-out infinite}@keyframes carFloat{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}</style>
+                  <style>#carSVG{animation:f1Float 2.5s ease-in-out infinite}@keyframes f1Float{0%,100%{transform:translateX(0)}33%{transform:translateX(6px)}66%{transform:translateX(-3px)}}</style>
                 </svg>
-
               </div>
             </div>
-            <div class="card-type-badge" style="border-color:rgba(0,200,184,0.3);color:#00c8b8">🏍️ Drift</div>
+            <div class="card-type-badge" style="border-color:rgba(0,200,184,0.3);color:#00c8b8">🏁 Drift</div>
             <div class="card-edit-photo" onclick="event.stopPropagation();triggerPhoto('drift')" style="border-color:rgba(0,200,184,0.3)"><i class="fas fa-camera"></i></div>
             <div class="engine-btn" id="engineBtn" onclick="event.stopPropagation();startEngine()">
-              <i class="fas fa-power-off" style="color:#00c8b8;font-size:18px"></i>
+              <i class="fas fa-power-off" id="engineIcon" style="color:#00c8b8;font-size:18px"></i>
             </div>
           </div>
-          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,12 L80,28 L160,10 L240,30 L320,14 L400,24 L400,44 L0,44 Z" fill="#080f0f"/></svg></div>
+          <div class="card-wave"><svg viewBox="0 0 400 44" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,12 L80,28 L160,10 L240,30 L320,14 L400,24 L400,44 L0,44 Z" fill="#060a06"/></svg></div>
           <div class="card-body card-drift-body">
-            <div class="card-drift-badge"><i class="fas fa-bolt"></i> RIDER IDENTITY</div>
+            <div class="card-drift-badge"><i class="fas fa-flag-checkered"></i> RIDER IDENTITY</div>
             <div class="card-name" id="name-drift" style="color:#00c8b8;font-size:19px;letter-spacing:1.5px;text-transform:uppercase">YOUR RIDER NAME</div>
             <div class="card-role" id="bike-drift" style="color:rgba(0,200,184,0.45)">Set your machine</div>
             <div class="card-actions" style="margin-top:8px">
               <button class="card-action-btn card-drift-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share Ride</button>
-              <button class="card-action-btn card-btn-ghost" style="border-color:rgba(0,200,184,0.15)" onclick="event.stopPropagation();window.location.href='/drift.html'"><i class="fas fa-motorcycle"></i> Open</button>
+              <button class="card-action-btn card-btn-ghost" style="border-color:rgba(0,200,184,0.15)" onclick="event.stopPropagation();window.location.href='/drift.html'"><i class="fas fa-flag-checkered"></i> Open</button>
             </div>
           </div>
         </div></div>
@@ -315,7 +314,7 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
     </div>
 
     <div class="swipe-dots" id="swipeDots">
-      <div class="swipe-dot" style="background:#c4b5fd;width:20px"></div>
+      <div class="swipe-dot" style="background:#aaa;width:20px"></div>
       <div class="swipe-dot"></div><div class="swipe-dot"></div><div class="swipe-dot"></div><div class="swipe-dot"></div>
     </div>
   </div>
@@ -324,7 +323,7 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
     <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
     <a href="/links.html" class="nav-item"><span class="nav-icon">🔗</span><span>Links</span></a>
     <a href="/cards.html" class="nav-item" style="flex:none;width:64px">
-      <div class="nav-center-btn" id="navCenter" style="background:linear-gradient(135deg,#a78bfa,#c4b5fd);box-shadow:0 0 20px rgba(167,139,250,0.4)"><i class="fas fa-id-card" style="color:#1a1025;font-size:19px"></i></div>
+      <div class="nav-center-btn" id="navCenter" style="background:linear-gradient(135deg,#888,#fff);box-shadow:0 0 20px rgba(150,150,150,0.4)"><i class="fas fa-id-card" style="color:#111;font-size:19px"></i></div>
     </a>
     <a href="#" class="nav-item" onclick="shareCard()"><span class="nav-icon">📤</span><span>Share</span></a>
     <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
@@ -336,12 +335,12 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
     <div class="expand-handle"></div>
     <div class="expand-title" id="expandTitle">Personal Card</div>
     <div class="expand-options">
-      <div class="expand-option" onclick="window.location.href='/settings.html';closeMenu()"><i class="fas fa-pen" style="color:#c4b5fd;width:18px"></i><div><div class="expand-option-text">Edit Card</div><div class="expand-option-sub">Update your info</div></div></div>
-      <div class="expand-option" onclick="shareCard();closeMenu()"><i class="fas fa-share-nodes" style="color:#c4b5fd;width:18px"></i><div><div class="expand-option-text">Share Card</div><div class="expand-option-sub">WhatsApp, QR, Link</div></div></div>
-      <div class="expand-option" onclick="window.location.href='/share.html';closeMenu()"><i class="fas fa-qrcode" style="color:#c4b5fd;width:18px"></i><div><div class="expand-option-text">Download QR</div><div class="expand-option-sub">Print ready</div></div></div>
-      <div class="expand-option" onclick="viewProfile();closeMenu()"><i class="fas fa-eye" style="color:#c4b5fd;width:18px"></i><div><div class="expand-option-text">View Profile</div><div class="expand-option-sub">Public view</div></div></div>
-      <div class="expand-option" onclick="saveVCF();closeMenu()"><i class="fas fa-address-card" style="color:#c4b5fd;width:18px"></i><div><div class="expand-option-text">Save Contact</div><div class="expand-option-sub">Download VCF</div></div></div>
-      <div class="expand-option" onclick="showToast('Pro themes coming soon!');closeMenu()"><i class="fas fa-palette" style="color:#c4b5fd;width:18px"></i><div><div class="expand-option-text">Change Theme</div><div class="expand-option-sub">Pro feature</div></div></div>
+      <div class="expand-option" onclick="window.location.href='/settings.html';closeMenu()"><i class="fas fa-pen" style="color:#aaa;width:18px"></i><div><div class="expand-option-text">Edit Card</div><div class="expand-option-sub">Update your info</div></div></div>
+      <div class="expand-option" onclick="shareCard();closeMenu()"><i class="fas fa-share-nodes" style="color:#aaa;width:18px"></i><div><div class="expand-option-text">Share Card</div><div class="expand-option-sub">WhatsApp, QR, Link</div></div></div>
+      <div class="expand-option" onclick="window.location.href='/share.html';closeMenu()"><i class="fas fa-qrcode" style="color:#aaa;width:18px"></i><div><div class="expand-option-text">Download QR</div><div class="expand-option-sub">Print ready</div></div></div>
+      <div class="expand-option" onclick="viewProfile();closeMenu()"><i class="fas fa-eye" style="color:#aaa;width:18px"></i><div><div class="expand-option-text">View Profile</div><div class="expand-option-sub">Public view</div></div></div>
+      <div class="expand-option" onclick="saveVCF();closeMenu()"><i class="fas fa-address-card" style="color:#aaa;width:18px"></i><div><div class="expand-option-text">Save Contact</div><div class="expand-option-sub">Download VCF</div></div></div>
+      <div class="expand-option" onclick="showToast('Pro themes coming soon!');closeMenu()"><i class="fas fa-palette" style="color:#aaa;width:18px"></i><div><div class="expand-option-text">Change Theme</div><div class="expand-option-sub">Pro feature</div></div></div>
     </div>
   </div>
 </div>
@@ -351,56 +350,191 @@ body.theme-drift .bg-layer{background:radial-gradient(ellipse at 20% 20%,rgba(0,
 
 <script>
 const CARDS=[
-  {id:'personal',theme:'theme-personal',dot:'#c4b5fd',label:'Personal Card', grad:'linear-gradient(135deg,#a78bfa,#c4b5fd)',panelBg:'#16102e'},
-  {id:'work',    theme:'theme-work',    dot:'#93c5fd',label:'Work Card',     grad:'linear-gradient(135deg,#60a5fa,#93c5fd)',panelBg:'#0a101a'},
-  {id:'business',theme:'theme-business',dot:'#86efac',label:'Business Card', grad:'linear-gradient(135deg,#4ade80,#86efac)',panelBg:'#0a100c'},
-  {id:'earn',    theme:'theme-earn',    dot:'#bbf7d0',label:'Earn Card',     grad:'linear-gradient(135deg,#4ade80,#bbf7d0)',panelBg:'#0d1d14'},
-  {id:'drift',   theme:'theme-drift',   dot:'#00c8b8',label:'Drift Card',    grad:'linear-gradient(135deg,#00c8b8,#00a898)',panelBg:'#06100f'},
+  {id:'personal',theme:'theme-personal',dot:'#bbbbbb',label:'Personal Card', grad:'linear-gradient(135deg,#888,#fff)',      panelBg:'#1a1a1a'},
+  {id:'work',    theme:'theme-work',    dot:'#93c5fd',label:'Work Card',     grad:'linear-gradient(135deg,#60a5fa,#e8f4ff)',panelBg:'#0a101a'},
+  {id:'business',theme:'theme-business',dot:'#86efac',label:'Business Card', grad:'linear-gradient(135deg,#4ade80,#e8ffe8)',panelBg:'#0a100c'},
+  {id:'earn',    theme:'theme-earn',    dot:'#bbf7d0',label:'Earn Card',     grad:'linear-gradient(135deg,#4ade80,#f0fff4)',panelBg:'#0d1d14'},
+  {id:'drift',   theme:'theme-drift',   dot:'#00c8b8',label:'Drift Card',    grad:'linear-gradient(135deg,#00c8b8,#006858)',panelBg:'#060a06'},
 ];
-let cur=0,photoTarget=null,soundOn=localStorage.getItem('sound')!=='off',audioCtx=null,engineOn=false;
+let cur=0,photoTarget=null,soundOn=localStorage.getItem('sound')!=='off',audioCtx=null,engineOn=false,engineSrc=null;
 
 function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
 
-function playCuteSound(){
-  try{const c=getCtx();[660,880].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,c.currentTime+i*0.08);g.gain.linearRampToValueAtTime(0.12,c.currentTime+i*0.08+0.02);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+i*0.08+0.25);o.start(c.currentTime+i*0.08);o.stop(c.currentTime+i*0.08+0.25);});}catch(e){}
-}
-function playShutterSound(){
-  try{const c=getCtx();const b=c.createBuffer(1,c.sampleRate*0.08,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.5;const s=c.createBufferSource();s.buffer=b;const f=c.createBiquadFilter();f.type='highpass';f.frequency.value=3000;const g=c.createGain();g.gain.value=0.6;s.connect(f);f.connect(g);g.connect(c.destination);s.start();}catch(e){}
-}
+/* ── TYPEWRITER SOUND (Personal, Work, Business swipe) ── */
 function playTypewriterSound(){
-  try{const c=getCtx();const b=c.createBuffer(1,c.sampleRate*0.05,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.7;const s=c.createBufferSource();s.buffer=b;const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1200;f.Q.value=1.5;const g=c.createGain();g.gain.value=0.5;s.connect(f);f.connect(g);g.connect(c.destination);s.start();}catch(e){}
-}
-function playCoinSound(){
-  try{const c=getCtx();[1200,1600,1000].forEach((f,i)=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='triangle';o.frequency.setValueAtTime(f,c.currentTime+i*0.04);o.frequency.exponentialRampToValueAtTime(f*0.7,c.currentTime+i*0.04+0.15);g.gain.setValueAtTime(0.1,c.currentTime+i*0.04);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+i*0.04+0.18);o.start(c.currentTime+i*0.04);o.stop(c.currentTime+i*0.04+0.2);});}catch(e){}
-}
-function playZoomSound(){
-  try{const c=getCtx();const o=c.createOscillator(),g=c.createGain(),dist=c.createWaveShaper();const curve=new Float32Array(256);for(let i=0;i<256;i++)curve[i]=((i/128-1)*4)/(1+Math.abs((i/128-1)*4));dist.curve=curve;o.connect(dist);dist.connect(g);g.connect(c.destination);o.type='sawtooth';o.frequency.setValueAtTime(80,c.currentTime);o.frequency.exponentialRampToValueAtTime(320,c.currentTime+0.25);o.frequency.exponentialRampToValueAtTime(180,c.currentTime+0.4);g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(0.3,c.currentTime+0.05);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.42);o.start();o.stop(c.currentTime+0.45);}catch(e){}
+  try{
+    const c=getCtx();
+    for(let k=0;k<3;k++){
+      setTimeout(()=>{
+        const buf=c.createBuffer(1,c.sampleRate*0.04,c.sampleRate),d=buf.getChannelData(0);
+        for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.8;
+        const s=c.createBufferSource();s.buffer=buf;
+        const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1400+k*200;f.Q.value=2;
+        const g=c.createGain();g.gain.value=0.45;
+        s.connect(f);f.connect(g);g.connect(c.destination);s.start();
+      },k*55);
+    }
+  }catch(e){}
 }
 
-const SOUNDS=[playCuteSound,playShutterSound,playTypewriterSound,playCoinSound,playZoomSound];
-function playCardSound(i){if(!soundOn)return;try{SOUNDS[i]();}catch(e){}}
+/* ── CASH CALCULATOR MACHINE SOUND (Earn — 3 seconds) ── */
+function playCashCalculatorSound(){
+  try{
+    const c=getCtx();
+    const totalDur=3.0;
+    /* motor hum */
+    const motorO=c.createOscillator(),motorG=c.createGain();
+    motorO.type='sawtooth';motorO.frequency.value=55;
+    motorG.gain.setValueAtTime(0.08,c.currentTime);
+    motorG.gain.linearRampToValueAtTime(0.12,c.currentTime+0.2);
+    motorG.gain.setValueAtTime(0.12,c.currentTime+totalDur-0.3);
+    motorG.gain.linearRampToValueAtTime(0,c.currentTime+totalDur);
+    motorO.connect(motorG);motorG.connect(c.destination);
+    motorO.start();motorO.stop(c.currentTime+totalDur);
+    /* mechanical clicks rhythm — like paper feeding */
+    const clickTimes=[0,0.08,0.16,0.25,0.33,0.42,0.5,0.58,0.7,0.78,0.88,0.96,1.05,1.15,1.25,1.34,1.44,1.55,1.65,1.75,1.85,1.95,2.06,2.16,2.26,2.36,2.46,2.56,2.66,2.78,2.88];
+    clickTimes.forEach(t=>{
+      const buf=c.createBuffer(1,c.sampleRate*0.03,c.sampleRate),d=buf.getChannelData(0);
+      for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.7;
+      const s=c.createBufferSource();s.buffer=buf;
+      const hpf=c.createBiquadFilter();hpf.type='bandpass';hpf.frequency.value=1800+Math.random()*400;hpf.Q.value=1.8;
+      const g=c.createGain();g.gain.value=0.5;
+      s.connect(hpf);hpf.connect(g);g.connect(c.destination);
+      s.start(c.currentTime+t);
+    });
+    /* paper roll sound — white noise burst at end */
+    const noiseLen=c.sampleRate*0.4;
+    const nBuf=c.createBuffer(1,noiseLen,c.sampleRate),nd=nBuf.getChannelData(0);
+    for(let i=0;i<noiseLen;i++)nd[i]=(Math.random()*2-1)*0.15*(1-i/noiseLen);
+    const ns=c.createBufferSource();ns.buffer=nBuf;
+    const nlp=c.createBiquadFilter();nlp.type='bandpass';nlp.frequency.value=900;nlp.Q.value=0.8;
+    const ng=c.createGain();ng.gain.value=0.6;
+    ns.connect(nlp);nlp.connect(ng);ng.connect(c.destination);
+    ns.start(c.currentTime+2.6);
+    /* final beep — total printed */
+    const bo=c.createOscillator(),bg=c.createGain();
+    bo.type='sine';bo.frequency.value=880;
+    bg.gain.setValueAtTime(0,c.currentTime+2.88);
+    bg.gain.linearRampToValueAtTime(0.18,c.currentTime+2.9);
+    bg.gain.exponentialRampToValueAtTime(0.001,c.currentTime+3.0);
+    bo.connect(bg);bg.connect(c.destination);
+    bo.start(c.currentTime+2.88);bo.stop(c.currentTime+3.0);
+  }catch(e){}
+}
 
+/* ── DRIFT CARD SWIPE — F1 zoom pass (3 sec) ── */
+function playF1ZoomPass(){
+  try{
+    const c=getCtx();
+    /* Doppler — low rumble building, high zoom, fade */
+    const o1=c.createOscillator(),o2=c.createOscillator(),o3=c.createOscillator();
+    const dist=c.createWaveShaper();
+    const curve=new Float32Array(512);
+    for(let i=0;i<512;i++){const x=i/256-1;curve[i]=x<0?-Math.pow(-x,0.6):Math.pow(x,0.6);}
+    dist.curve=curve;
+    const masterG=c.createGain();masterG.gain.setValueAtTime(0,c.currentTime);
+    masterG.gain.linearRampToValueAtTime(0.5,c.currentTime+0.4);
+    masterG.gain.setValueAtTime(0.5,c.currentTime+1.5);
+    masterG.gain.linearRampToValueAtTime(0,c.currentTime+3.0);
+    [o1,o2,o3].forEach((o,i)=>{
+      o.type='sawtooth';
+      const baseFreq=[90,180,270][i];
+      const peakFreq=[320,640,960][i];
+      o.frequency.setValueAtTime(baseFreq,c.currentTime);
+      o.frequency.exponentialRampToValueAtTime(peakFreq,c.currentTime+1.2);
+      o.frequency.exponentialRampToValueAtTime(baseFreq*0.7,c.currentTime+3.0);
+      o.connect(dist);
+    });
+    dist.connect(masterG);masterG.connect(c.destination);
+    o1.start();o2.start();o3.start();
+    o1.stop(c.currentTime+3.0);o2.stop(c.currentTime+3.0);o3.stop(c.currentTime+3.0);
+    /* high-pitched turbo whine */
+    const turbo=c.createOscillator(),turboG=c.createGain();
+    turbo.type='sine';
+    turbo.frequency.setValueAtTime(2000,c.currentTime+0.2);
+    turbo.frequency.exponentialRampToValueAtTime(6000,c.currentTime+1.0);
+    turbo.frequency.exponentialRampToValueAtTime(1500,c.currentTime+3.0);
+    turboG.gain.setValueAtTime(0,c.currentTime+0.2);
+    turboG.gain.linearRampToValueAtTime(0.12,c.currentTime+0.5);
+    turboG.gain.exponentialRampToValueAtTime(0.001,c.currentTime+3.0);
+    turbo.connect(turboG);turboG.connect(c.destination);
+    turbo.start(c.currentTime+0.2);turbo.stop(c.currentTime+3.0);
+  }catch(e){}
+}
+
+/* ── ENGINE BUTTON — F1 standing start acceleration ── */
 function startEngine(){
   if(!soundOn){showToast('Enable sound first!');return;}
   try{
-    const c=getCtx(),btn=document.getElementById('engineBtn');
+    const c=getCtx(),btn=document.getElementById('engineBtn'),icon=document.getElementById('engineIcon');
     engineOn=!engineOn;
     if(engineOn){
-      btn.classList.add('engine-on');btn.style.background='rgba(0,200,184,0.15)';
-      const buf=c.createBuffer(1,c.sampleRate*3,c.sampleRate),d=buf.getChannelData(0);
-      for(let i=0;i<d.length;i++){const t=i/c.sampleRate;d[i]=(Math.sin(2*Math.PI*80*t)+Math.sin(2*Math.PI*160*t)*0.5+Math.sin(2*Math.PI*240*t)*0.25)*(Math.random()*0.1+0.3)*0.4;}
-      const src=c.createBufferSource();src.buffer=buf;src.loop=true;
-      const lp=c.createBiquadFilter();lp.type='lowpass';lp.frequency.value=350;
-      const gn=c.createGain();gn.gain.value=0.4;
-      src.connect(lp);lp.connect(gn);gn.connect(c.destination);src.start();
-      window._eng=src;showToast('🔥 Engine running!');
+      btn.classList.add('engine-on');btn.style.background='rgba(0,200,184,0.2)';
+      icon.style.color='#fff';
+      /* F1 standing start: idle → build → full throttle → cruise */
+      const o1=c.createOscillator(),o2=c.createOscillator(),o3=c.createOscillator();
+      const dist=c.createWaveShaper();
+      const curve=new Float32Array(512);
+      for(let i=0;i<512;i++){const x=i/256-1;curve[i]=x<0?-Math.pow(-x,0.5):Math.pow(x,0.5);}
+      dist.curve=curve;
+      const gn=c.createGain();
+      /* idle */
+      gn.gain.setValueAtTime(0,c.currentTime);
+      gn.gain.linearRampToValueAtTime(0.15,c.currentTime+0.3);
+      /* rev build */
+      gn.gain.linearRampToValueAtTime(0.45,c.currentTime+1.5);
+      /* full throttle burst */
+      gn.gain.linearRampToValueAtTime(0.6,c.currentTime+2.2);
+      /* cruise looping */
+      gn.gain.linearRampToValueAtTime(0.38,c.currentTime+3.5);
+      [o1,o2,o3].forEach((o,i)=>{
+        o.type='sawtooth';
+        const idleF=[100,200,300][i];
+        const peakF=[450,900,1350][i];
+        const cruiseF=[280,560,840][i];
+        o.frequency.setValueAtTime(idleF,c.currentTime);
+        o.frequency.exponentialRampToValueAtTime(idleF*1.5,c.currentTime+0.5);
+        o.frequency.exponentialRampToValueAtTime(peakF,c.currentTime+2.2);
+        o.frequency.exponentialRampToValueAtTime(cruiseF,c.currentTime+3.5);
+        o.connect(dist);
+      });
+      /* turbo whine overlay */
+      const tw=c.createOscillator(),twG=c.createGain();
+      tw.type='sine';
+      tw.frequency.setValueAtTime(1800,c.currentTime+0.5);
+      tw.frequency.exponentialRampToValueAtTime(5500,c.currentTime+2.2);
+      tw.frequency.exponentialRampToValueAtTime(3800,c.currentTime+3.5);
+      twG.gain.setValueAtTime(0,c.currentTime+0.5);
+      twG.gain.linearRampToValueAtTime(0.1,c.currentTime+1.2);
+      twG.gain.setValueAtTime(0.1,c.currentTime+10);
+      tw.connect(twG);twG.connect(c.destination);
+      tw.start(c.currentTime+0.5);
+      dist.connect(gn);gn.connect(c.destination);
+      o1.start();o2.start();o3.start();
+      window._engO=[o1,o2,o3,tw];window._engG=[gn,twG];
+      showToast('🏁 Engine ON — Full throttle!');
     }else{
-      btn.classList.remove('engine-on');btn.style.background='rgba(0,0,0,0.6)';
-      if(window._eng)try{window._eng.stop();}catch(e){}
+      btn.classList.remove('engine-on');btn.style.background='rgba(0,0,0,0.7)';
+      icon.style.color='#00c8b8';
+      if(window._engO){
+        const c2=getCtx();
+        window._engG.forEach(g=>{try{g.gain.linearRampToValueAtTime(0,c2.currentTime+0.4);}catch(e){}});
+        setTimeout(()=>{window._engO.forEach(o=>{try{o.stop();}catch(e){}});},450);
+      }
       showToast('Engine off');
     }
   }catch(e){showToast('Tap again');}
 }
+
+const SOUNDS=[
+  playTypewriterSound,   /* Personal */
+  playTypewriterSound,   /* Work */
+  playTypewriterSound,   /* Business */
+  playCashCalculatorSound, /* Earn */
+  playF1ZoomPass,        /* Drift */
+];
+
+function playCardSound(i){if(!soundOn)return;try{SOUNDS[i]();}catch(e){}}
 
 function showVehicle(type){
   document.getElementById('bikeSVG').style.display=type==='bike'?'block':'none';
@@ -422,17 +556,20 @@ function updateTheme(i){
   document.getElementById('logoSpan').style.backgroundImage=c.grad;
   document.getElementById('navCenter').style.background=c.grad;
   document.getElementById('navCenter').style.boxShadow=`0 0 18px ${c.dot}55`;
-  document.querySelectorAll('.expand-option i').forEach(el=>el.style.color=c.dot);
+  document.getElementById('navCenter').querySelector('i').style.color=i===0?'#111':'#fff';
+  document.querySelectorAll('.expand-option i[style*="color"]').forEach(el=>el.style.color=c.dot);
   document.getElementById('expandPanel').style.background=c.panelBg;
   document.querySelectorAll('.card-tab').forEach((t,j)=>{
     t.classList.toggle('active',j===i);
-    if(j===i){t.style.background=c.grad;t.style.border='none';t.style.color='#fff';t.style.boxShadow=`0 3px 12px ${c.dot}44`;}
+    if(j===i){t.style.background=c.grad;t.style.border='none';t.style.color=i===0?'#111':'#fff';t.style.boxShadow=`0 3px 12px ${c.dot}44`;}
     else{t.style.background='';t.style.border='';t.style.color='';t.style.boxShadow='';}
   });
   document.querySelectorAll('.swipe-dot').forEach((d,j)=>{
     d.style.background=j===i?c.dot:'rgba(255,255,255,0.15)';
     d.style.width=j===i?'20px':'6px';
   });
+  document.getElementById('toast').style.borderColor=`${c.dot}44`;
+  document.getElementById('toast').style.color=c.dot;
 }
 
 const track=document.getElementById('cardsTrack'),wrap=document.getElementById('trackWrap');
@@ -453,7 +590,7 @@ function viewProfile(){const u=localStorage.getItem('username');if(u)window.open
 function saveVCF(){const n=localStorage.getItem('name')||'',p=localStorage.getItem('phone')||'',e=localStorage.getItem('email')||'',u=localStorage.getItem('username')||'';const v=`BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL:${p}\nEMAIL:${e}\nURL:https://app.myqrid.in/profile/${u}\nNOTE:myQRID\nEND:VCARD`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));a.download=u+'.vcf';a.click();showToast('Contact saved!');}
 function triggerPhoto(t){photoTarget=t;document.getElementById('photoUpload').click();}
 function handlePhoto(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const c=document.getElementById('photo-'+photoTarget);c.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;display:block">`;localStorage.setItem('avatar_'+photoTarget,ev.target.result);showToast('Photo updated!');};r.readAsDataURL(f);}
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 function loadData(){
   const n=localStorage.getItem('name')||'',p=localStorage.getItem('phone')||'',em=localStorage.getItem('email')||'';
   if(n){['personal','work','business','earn'].forEach(id=>{const el=document.getElementById('name-'+id);if(el)el.textContent=n;const ii=document.getElementById('initials-'+id);if(ii)ii.textContent=n[0].toUpperCase();});const nd=document.getElementById('name-drift');if(nd)nd.textContent=n.toUpperCase();}
