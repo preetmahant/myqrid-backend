@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Analytics — myQRID</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#f7f7f8;color:#111}
+body{background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.032) 39px,rgba(0,0,0,0.032) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.032) 39px,rgba(0,0,0,0.032) 40px)}
+.page{max-width:480px;margin:0 auto;padding-bottom:100px}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
+.back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
+.topbar-title{font-size:16px;font-weight:700}
+.period-btn{padding:6px 14px;background:#fff;border:1px solid #e5e7eb;border-radius:20px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+
+/* HERO STATS */
+.hero-stats{margin:14px 16px;background:linear-gradient(135deg,#4c1d95,#7c3aed,#ec4899);border-radius:20px;padding:20px;box-shadow:0 8px 28px rgba(124,58,237,0.3);position:relative;overflow:hidden}
+.hero-stats::before{content:'';position:absolute;inset:0;background:linear-gradient(45deg,rgba(255,255,255,0.06),transparent);pointer-events:none}
+.hero-stats-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.hero-label{font-size:12px;font-weight:600;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.5px}
+.hero-period-badge{padding:4px 10px;background:rgba(255,255,255,0.15);border-radius:20px;font-size:11px;color:rgba(255,255,255,0.8);font-weight:600}
+.hero-total{font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:1;margin-bottom:4px}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.6)}
+.hero-change{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:4px 10px;background:rgba(255,255,255,0.12);border-radius:20px;font-size:12px;color:#fff;font-weight:600}
+.hero-change.up{background:rgba(0,229,160,0.2);color:#00E5A0}
+.hero-change.down{background:rgba(255,59,92,0.2);color:#FF3B5C}
+.hero-mini-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.hero-mini{background:rgba(255,255,255,0.1);border-radius:12px;padding:10px;text-align:center}
+.hero-mini-val{font-size:18px;font-weight:800;color:#fff}
+.hero-mini-label{font-size:10px;color:rgba(255,255,255,0.55);margin-top:2px}
+
+/* PERIOD TABS */
+.period-tabs{display:flex;gap:6px;padding:0 16px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.period-tabs::-webkit-scrollbar{display:none}
+.ptab{flex-shrink:0;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid #e9e9eb;color:#888;background:#fff;transition:all 0.18s;white-space:nowrap}
+.ptab.active{background:linear-gradient(135deg,#7c3aed,#ec4899);border-color:transparent;color:#fff;box-shadow:0 3px 10px rgba(124,58,237,0.3)}
+
+/* SECTION */
+.section{margin:0 16px 12px}
+.sec-title{font-size:12px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.sec-card{background:#fff;border:1px solid #e9e9eb;border-radius:16px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.04)}
+
+/* CHART WRAP */
+.chart-wrap{padding:14px;position:relative}
+.chart-wrap canvas{max-height:180px}
+
+/* PRO LOCK OVERLAY */
+.pro-lock{position:absolute;inset:0;background:rgba(247,247,248,0.88);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:16px;z-index:10}
+.pro-lock-icon{font-size:28px}
+.pro-lock-title{font-size:14px;font-weight:700;color:#111}
+.pro-lock-sub{font-size:12px;color:#888;text-align:center;padding:0 20px;line-height:1.5}
+.pro-lock-btn{padding:9px 20px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:4px;box-shadow:0 4px 14px rgba(124,58,237,0.3)}
+
+/* STAT ROWS */
+.stat-row{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid #f5f5f7}
+.stat-row:last-child{border-bottom:none}
+.stat-row-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.stat-row-label{flex:1;font-size:13px;font-weight:500;color:#555}
+.stat-row-val{font-size:14px;font-weight:700;color:#111}
+.stat-row-bar{flex:1;height:4px;background:#f0f0f0;border-radius:2px;overflow:hidden;margin:0 10px}
+.stat-row-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.6s ease}
+
+/* MAP */
+#scanMap{height:200px;border-radius:0;z-index:1}
+.map-lock-wrap{position:relative}
+
+/* TOP LINKS TABLE */
+.link-stat-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #f5f5f7}
+.link-stat-row:last-child{border-bottom:none}
+.link-stat-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.link-stat-title{flex:1;font-size:13px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link-stat-clicks{font-size:12px;color:#888;flex-shrink:0}
+.link-stat-trend{font-size:11px;font-weight:700;flex-shrink:0;margin-left:4px}
+.link-stat-trend.up{color:#00E5A0}
+.link-stat-trend.down{color:#FF3B5C}
+
+/* DEVICE SPLIT */
+.device-row{display:flex;gap:12px;padding:14px}
+.device-chart{flex:0 0 100px;height:100px}
+.device-legend{flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.device-item{display:flex;align-items:center;gap:8px}
+.device-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.device-label{font-size:12px;color:#555;flex:1}
+.device-pct{font-size:12px;font-weight:700;color:#111}
+
+/* UPGRADE STRIP */
+.upgrade-strip{margin:0 16px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(236,72,153,0.06));border:1px solid rgba(124,58,237,0.2);border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.upgrade-strip-icon{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.upgrade-strip-text{flex:1}
+.upgrade-strip-title{font-size:13px;font-weight:700;color:#111}
+.upgrade-strip-sub{font-size:11px;color:#888;margin-top:2px}
+.upgrade-strip-arrow{color:#7c3aed;font-size:14px}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.04)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0;cursor:pointer}
+.nav-item.active{color:#7c3aed}
+.nav-icon{font-size:20px;line-height:1}
+.nav-ctr{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp 0.4s ease forwards}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
+    <div class="topbar-title">Analytics</div>
+    <button class="period-btn" onclick="showToast('Period filter — coming soon!')"><i class="fas fa-calendar"></i> 7 Days</button>
+  </div>
+
+  <!-- HERO STATS -->
+  <div class="hero-stats fade-up">
+    <div class="hero-stats-top">
+      <div class="hero-label">Total QR Scans</div>
+      <div class="hero-period-badge" id="periodBadge">Last 7 Days</div>
+    </div>
+    <div class="hero-total" id="heroTotal">0</div>
+    <div class="hero-sub">profile views this period</div>
+    <div class="hero-change up" id="heroChange"><i class="fas fa-arrow-up"></i> 0% vs last period</div>
+    <div class="hero-mini-stats">
+      <div class="hero-mini"><div class="hero-mini-val" id="miniToday">0</div><div class="hero-mini-label">Today</div></div>
+      <div class="hero-mini"><div class="hero-mini-val" id="miniUnique">0</div><div class="hero-mini-label">Unique</div></div>
+      <div class="hero-mini"><div class="hero-mini-val" id="miniLinks">0</div><div class="hero-mini-label">Link Taps</div></div>
+    </div>
+  </div>
+
+  <!-- PERIOD TABS -->
+  <div class="period-tabs">
+    <div class="ptab active" onclick="setPeriod('7d',this)">7 Days</div>
+    <div class="ptab" onclick="setPeriod('30d',this)">30 Days</div>
+    <div class="ptab" onclick="setPeriod('90d',this)">3 Months</div>
+    <div class="ptab" onclick="setPeriod('all',this)">All Time</div>
+  </div>
+
+  <!-- SCAN TREND CHART -->
+  <div class="section fade-up">
+    <div class="sec-title"><span><i class="fas fa-chart-line"></i> Scan Trend</span></div>
+    <div class="sec-card">
+      <div class="chart-wrap">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCAN MAP -->
+  <div class="section fade-up">
+    <div class="sec-title">
+      <span><i class="fas fa-map-marked-alt"></i> Scan Locations</span>
+      <span style="font-size:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700">PRO</span>
+    </div>
+    <div class="sec-card map-lock-wrap">
+      <div id="scanMap"></div>
+      <div class="pro-lock" id="mapLock">
+        <div class="pro-lock-icon">🗺️</div>
+        <div class="pro-lock-title">Scan Location Map</div>
+        <div class="pro-lock-sub">See exactly where in the world your QR is being scanned — city, region & country.</div>
+        <button class="pro-lock-btn" onclick="showToast('Upgrade to Blaze for scan map!')">Unlock with Blaze ↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEVICE SPLIT -->
+  <div class="section fade-up">
+    <div class="sec-title"><span><i class="fas fa-mobile-alt"></i> Device Split</span></div>
+    <div class="sec-card">
+      <div class="device-row">
+        <div class="device-chart">
+          <canvas id="deviceChart"></canvas>
+        </div>
+        <div class="device-legend" id="deviceLegend"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP LINKS -->
+  <div class="section fade-up">
+    <div class="sec-title">
+      <span><i class="fas fa-link"></i> Top Links</span>
+      <span style="font-size:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700">PRO — Full</span>
+    </div>
+    <div class="sec-card" style="position:relative">
+      <div id="topLinksList"></div>
+      <div class="pro-lock" id="linksLock" style="display:none">
+        <div class="pro-lock-icon">🔗</div>
+        <div class="pro-lock-title">Link Analytics</div>
+        <div class="pro-lock-sub">See which links get the most taps and track performance over time.</div>
+        <button class="pro-lock-btn" onclick="showToast('Upgrade to Blaze!')">Unlock with Blaze ↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRAFFIC SOURCES -->
+  <div class="section fade-up">
+    <div class="sec-title">
+      <span><i class="fas fa-route"></i> Traffic Sources</span>
+      <span style="font-size:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700">PRO</span>
+    </div>
+    <div class="sec-card" style="position:relative">
+      <div class="stat-row"><div class="stat-row-icon" style="background:#dcfce7"><i class="fas fa-qrcode" style="color:#16a34a"></i></div><div class="stat-row-label">QR Code Scan</div><div class="stat-row-bar"><div class="stat-row-fill" id="src-qr" style="width:0%"></div></div><div class="stat-row-val" id="src-qr-val">—</div></div>
+      <div class="stat-row"><div class="stat-row-icon" style="background:#dbeafe"><i class="fas fa-link" style="color:#2563eb"></i></div><div class="stat-row-label">Direct Link</div><div class="stat-row-bar"><div class="stat-row-fill" id="src-link" style="width:0%"></div></div><div class="stat-row-val" id="src-link-val">—</div></div>
+      <div class="stat-row"><div class="stat-row-icon" style="background:#dcfce7"><i class="fab fa-whatsapp" style="color:#16a34a"></i></div><div class="stat-row-label">WhatsApp</div><div class="stat-row-bar"><div class="stat-row-fill" id="src-wa" style="width:0%"></div></div><div class="stat-row-val" id="src-wa-val">—</div></div>
+      <div class="stat-row"><div class="stat-row-icon" style="background:#fce7f3"><i class="fab fa-instagram" style="color:#e1306c"></i></div><div class="stat-row-label">Instagram</div><div class="stat-row-bar"><div class="stat-row-fill" id="src-ig" style="width:0%"></div></div><div class="stat-row-val" id="src-ig-val">—</div></div>
+      <div class="pro-lock" id="sourcesLock">
+        <div class="pro-lock-icon">📊</div>
+        <div class="pro-lock-title">Traffic Sources</div>
+        <div class="pro-lock-sub">Know exactly how people find your profile — QR scan, social, direct link.</div>
+        <button class="pro-lock-btn" onclick="showToast('Upgrade to Blaze!')">Unlock with Blaze ↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PEAK HOURS -->
+  <div class="section fade-up">
+    <div class="sec-title">
+      <span><i class="fas fa-clock"></i> Peak Hours</span>
+      <span style="font-size:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700">PRO</span>
+    </div>
+    <div class="sec-card" style="position:relative">
+      <div class="chart-wrap">
+        <canvas id="peakChart"></canvas>
+      </div>
+      <div class="pro-lock" id="peakLock">
+        <div class="pro-lock-icon">⏰</div>
+        <div class="pro-lock-title">Peak Hours</div>
+        <div class="pro-lock-sub">Discover when your audience is most active and optimize your sharing.</div>
+        <button class="pro-lock-btn" onclick="showToast('Upgrade to Blaze!')">Unlock with Blaze ↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPGRADE STRIP -->
+  <div class="upgrade-strip fade-up" onclick="showToast('myQRID Blaze — coming soon!')">
+    <div class="upgrade-strip-icon">⚡</div>
+    <div class="upgrade-strip-text">
+      <div class="upgrade-strip-title">Unlock Full Analytics with Blaze</div>
+      <div class="upgrade-strip-sub">Scan map · Traffic sources · Peak hours · Unlimited history</div>
+    </div>
+    <i class="fas fa-chevron-right upgrade-strip-arrow"></i>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+  <a href="/links.html" class="nav-item"><span class="nav-icon">🔗</span><span>Links</span></a>
+  <a href="/cards.html" class="nav-item" style="flex:none;width:60px">
+    <div class="nav-ctr"><i class="fas fa-id-card" style="color:#fff;font-size:18px"></i></div>
+  </a>
+  <a href="/analytics.html" class="nav-item active"><span class="nav-icon">📊</span><span>Stats</span></a>
+  <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API='https://myqrid-backend.myqrid.workers.dev';
+let trendChartInst=null,deviceChartInst=null,peakChartInst=null;
+let analyticsData=null;
+
+/* ── MOCK DATA for Spark plan (7 days) ── */
+function getMockData(period){
+  const multiplier={
+    '7d':1,'30d':4.2,'90d':11,'all':18
+  }[period]||1;
+  const base=Math.floor(Math.random()*80+20);
+  return{
+    total:Math.floor(base*multiplier),
+    today:Math.floor(Math.random()*15+3),
+    unique:Math.floor(base*multiplier*0.7),
+    link_taps:Math.floor(base*multiplier*0.4),
+    change:Math.floor(Math.random()*40-5),
+    trend:period==='7d'?
+      [4,8,6,12,9,15,11]:
+      Array.from({length:30},()=>Math.floor(Math.random()*20+2)),
+    labels:period==='7d'?
+      ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']:
+      Array.from({length:30},(_,i)=>(i+1).toString()),
+    devices:{mobile:68,desktop:22,tablet:10},
+    links:[
+      {title:'WhatsApp',icon:'fab fa-whatsapp',color:'#25D366',clicks:Math.floor(base*0.4)},
+      {title:'Instagram',icon:'fab fa-instagram',color:'#e1306c',clicks:Math.floor(base*0.25)},
+      {title:'Portfolio',icon:'fas fa-briefcase',color:'#7c3aed',clicks:Math.floor(base*0.18)},
+      {title:'YouTube',icon:'fab fa-youtube',color:'#FF0000',clicks:Math.floor(base*0.1)},
+      {title:'LinkedIn',icon:'fab fa-linkedin',color:'#0a66c2',clicks:Math.floor(base*0.07)},
+    ],
+    sources:{qr:65,link:20,wa:10,ig:5},
+  };
+}
+
+function setPeriod(period,el){
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  if(el)el.classList.add('active');
+  const labels={'7d':'Last 7 Days','30d':'Last 30 Days','90d':'Last 3 Months','all':'All Time'};
+  document.getElementById('periodBadge').textContent=labels[period]||'Last 7 Days';
+  const data=getMockData(period);
+  renderData(data);
+}
+
+function renderData(data){
+  /* Hero */
+  document.getElementById('heroTotal').textContent=data.total.toLocaleString('en-IN');
+  document.getElementById('miniToday').textContent=data.today;
+  document.getElementById('miniUnique').textContent=data.unique.toLocaleString('en-IN');
+  document.getElementById('miniLinks').textContent=data.link_taps.toLocaleString('en-IN');
+  const changeEl=document.getElementById('heroChange');
+  const isUp=data.change>=0;
+  changeEl.className='hero-change '+(isUp?'up':'down');
+  changeEl.innerHTML=`<i class="fas fa-arrow-${isUp?'up':'down'}"></i> ${Math.abs(data.change)}% vs last period`;
+
+  /* Trend Chart */
+  if(trendChartInst)trendChartInst.destroy();
+  const trendCtx=document.getElementById('trendChart').getContext('2d');
+  const gradient=trendCtx.createLinearGradient(0,0,0,180);
+  gradient.addColorStop(0,'rgba(124,58,237,0.3)');
+  gradient.addColorStop(1,'rgba(124,58,237,0)');
+  trendChartInst=new Chart(trendCtx,{
+    type:'line',
+    data:{
+      labels:data.labels,
+      datasets:[{
+        data:data.trend,
+        borderColor:'#7c3aed',
+        backgroundColor:gradient,
+        borderWidth:2.5,
+        fill:true,
+        tension:0.4,
+        pointRadius:3,
+        pointBackgroundColor:'#7c3aed',
+        pointBorderColor:'#fff',
+        pointBorderWidth:1.5,
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:true,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.parsed.y} scans`}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:10},color:'#aaa'}},
+        y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10},color:'#aaa'},beginAtZero:true}
+      }
+    }
+  });
+
+  /* Device Chart */
+  if(deviceChartInst)deviceChartInst.destroy();
+  const devCtx=document.getElementById('deviceChart').getContext('2d');
+  deviceChartInst=new Chart(devCtx,{
+    type:'doughnut',
+    data:{
+      labels:['Mobile','Desktop','Tablet'],
+      datasets:[{data:[data.devices.mobile,data.devices.desktop,data.devices.tablet],backgroundColor:['#7c3aed','#ec4899','#60a5fa'],borderWidth:0,hoverOffset:4}]
+    },
+    options:{responsive:true,cutout:'70%',plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed}%`}}}}
+  });
+  document.getElementById('deviceLegend').innerHTML=[
+    {label:'Mobile',color:'#7c3aed',pct:data.devices.mobile},
+    {label:'Desktop',color:'#ec4899',pct:data.devices.desktop},
+    {label:'Tablet',color:'#60a5fa',pct:data.devices.tablet},
+  ].map(d=>`<div class="device-item"><div class="device-dot" style="background:${d.color}"></div><div class="device-label">${d.label}</div><div class="device-pct">${d.pct}%</div></div>`).join('');
+
+  /* Top Links */
+  const maxClicks=data.links[0]?.clicks||1;
+  document.getElementById('topLinksList').innerHTML=data.links.map(l=>`
+    <div class="link-stat-row">
+      <div class="link-stat-icon" style="background:${l.color}15"><i class="${l.icon}" style="color:${l.color}"></i></div>
+      <div class="link-stat-title">${l.title}</div>
+      <div class="stat-row-bar" style="max-width:80px"><div class="stat-row-fill" style="width:${Math.round(l.clicks/maxClicks*100)}%"></div></div>
+      <div class="link-stat-clicks">${l.clicks} taps</div>
+    </div>`).join('');
+
+  /* Sources */
+  const total=Object.values(data.sources).reduce((a,b)=>a+b,0);
+  ['qr','link','wa','ig'].forEach(k=>{
+    const pct=Math.round(data.sources[k]/total*100);
+    const fill=document.getElementById('src-'+k);
+    const val=document.getElementById('src-'+k+'-val');
+    if(fill)fill.style.width=pct+'%';
+    if(val)val.textContent=pct+'%';
+  });
+
+  /* Peak Hours Chart */
+  if(peakChartInst)peakChartInst.destroy();
+  const peakCtx=document.getElementById('peakChart').getContext('2d');
+  const peakData=Array.from({length:24},(_,i)=>{
+    if(i>=9&&i<=12)return Math.floor(Math.random()*20+15);
+    if(i>=18&&i<=22)return Math.floor(Math.random()*25+10);
+    if(i>=0&&i<=6)return Math.floor(Math.random()*3);
+    return Math.floor(Math.random()*8+2);
+  });
+  peakChartInst=new Chart(peakCtx,{
+    type:'bar',
+    data:{
+      labels:Array.from({length:24},(_,i)=>i%3===0?`${i}h`:''),
+      datasets:[{data:peakData,backgroundColor:peakData.map(v=>v>15?'rgba(124,58,237,0.8)':'rgba(124,58,237,0.25)'),borderRadius:4,borderWidth:0}]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:true,
+      plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:9},color:'#aaa'}},y:{grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:9},color:'#aaa'},beginAtZero:true}}
+    }
+  });
+}
+
+/* ── INIT MAP (placeholder for Spark, real for Pro) ── */
+function initMap(){
+  try{
+    const map=L.map('scanMap',{zoomControl:false,attributionControl:false,dragging:false,scrollWheelZoom:false});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:12}).addTo(map);
+    map.setView([20.5937,78.9629],4);
+    /* Sample markers */
+    [[28.6139,77.2090],[19.0760,72.8777],[12.9716,77.5946],[22.5726,88.3639],[13.0827,80.2707]].forEach(([lat,lng])=>{
+      L.circleMarker([lat,lng],{radius:6,color:'#7c3aed',fillColor:'#7c3aed',fillOpacity:0.5,weight:2}).addTo(map);
+    });
+  }catch(e){}
+}
+
+async function loadAnalytics(){
+  const token=localStorage.getItem('token');
+  if(token){
+    try{
+      const res=await fetch(API+'/analytics',{headers:{'Authorization':'Bearer '+token}});
+      const d=await res.json();
+      if(d.success&&d.total_scans>0){
+        /* Real data available */
+        document.getElementById('heroTotal').textContent=d.total_scans;
+        document.getElementById('miniToday').textContent=d.today_scans||0;
+        return;
+      }
+    }catch(e){}
+  }
+  /* Show mock demo data */
+  renderData(getMockData('7d'));
+  initMap();
+}
+
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+loadAnalytics();
+</script>
+</body>
+</html>
