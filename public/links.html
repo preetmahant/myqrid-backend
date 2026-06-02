@@ -4,216 +4,278 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>My Links — myQRID</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#0a0a0f;color:#fff}
-.bg{position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(124,58,237,0.28),transparent 50%),radial-gradient(circle at 80% 70%,rgba(236,72,153,0.18),transparent 50%),#0a0a0f;z-index:0}
-.page{position:relative;z-index:1;max-width:480px;margin:0 auto;padding-bottom:90px}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f5f5f7}
+
+/* GEOMETRIC STRIPED BACKGROUND */
+body{background-color:#f5f5f7;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.04) 39px,rgba(0,0,0,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.04) 39px,rgba(0,0,0,0.04) 40px)}
+
+.page{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:100px;background:#f5f5f7;position:relative}
+.page::before{content:'';position:fixed;inset:0;max-width:480px;margin:0 auto;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.035) 39px,rgba(0,0,0,0.035) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.035) 39px,rgba(0,0,0,0.035) 40px);pointer-events:none;z-index:0}
 
 /* TOPBAR */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;padding-top:calc(15px + env(safe-area-inset-top))}
-.back-btn{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.6);font-size:14px}
-.topbar-title{font-size:17px;font-weight:700}
-.save-btn{padding:8px 18px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(245,245,247,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:14px 20px;padding-top:calc(14px + env(safe-area-inset-top))}
+.back-btn{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px;box-shadow:0 1px 4px rgba(0,0,0,0.08)}
+.topbar-title{font-size:16px;font-weight:700;color:#111}
+.save-btn{padding:8px 18px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 8px rgba(124,58,237,0.3)}
 .save-btn:disabled{opacity:0.5;cursor:not-allowed}
 
-/* PROFILE HEADER */
-.profile-header{padding:0 20px 14px;text-align:center}
-.profile-avatar{width:82px;height:82px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;border:3px solid rgba(124,58,237,0.4);box-shadow:0 0 20px rgba(124,58,237,0.35);margin:0 auto 10px;overflow:hidden;cursor:pointer}
+/* PROFILE SECTION */
+.profile-section{position:relative;z-index:1;padding:20px 20px 14px;text-align:center;background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);margin:12px 16px;border-radius:20px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#fff;border:3px solid rgba(124,58,237,0.25);box-shadow:0 4px 16px rgba(124,58,237,0.25);margin:0 auto 10px;overflow:hidden;cursor:pointer}
 .profile-avatar img{width:100%;height:100%;object-fit:cover}
-.profile-name{font-size:20px;font-weight:800;margin-bottom:3px}
-.profile-bio{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
-.profile-url{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);border-radius:20px;padding:4px 12px;font-size:12px;color:#a78bfa}
+.profile-name{font-size:20px;font-weight:800;color:#111;margin-bottom:3px}
+.profile-bio-wrap{display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;margin-bottom:8px}
+.profile-bio{font-size:13px;color:#666}
+.profile-bio-icon{font-size:10px;color:#bbb}
+.profile-url{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:4px 12px;font-size:12px;color:#7c3aed;font-weight:500}
 
-/* SOCIAL ICONS */
-.social-row{display:flex;justify-content:center;gap:7px;padding:0 20px 14px;flex-wrap:wrap}
-.social-chip{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:7px 9px;border-radius:11px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);transition:all 0.2s;min-width:48px}
-.social-chip:active{background:rgba(124,58,237,0.15)}
-.social-chip.linked{background:rgba(124,58,237,0.1);border-color:rgba(124,58,237,0.25)}
-.social-chip i{font-size:17px;color:rgba(255,255,255,0.3)}
-.social-chip.linked i{color:var(--sc,#a78bfa)}
-.social-chip span{font-size:9px;color:rgba(255,255,255,0.25);font-weight:500}
+/* SOCIAL ROW */
+.social-row{position:relative;z-index:1;display:flex;justify-content:center;gap:8px;padding:0 20px 14px;flex-wrap:wrap}
+.social-chip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:8px 10px;border-radius:12px;background:#fff;border:1px solid rgba(0,0,0,0.08);transition:all 0.2s;min-width:50px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.social-chip:active{transform:scale(0.95)}
+.social-chip.linked{background:#fff;border-color:rgba(124,58,237,0.25);box-shadow:0 2px 8px rgba(124,58,237,0.12)}
+.social-chip i{font-size:17px;color:#ccc}
+.social-chip.linked i{color:var(--sc,#7c3aed)}
+.social-chip span{font-size:9px;color:#aaa;font-weight:500}
+.social-chip.linked span{color:#888}
 
-/* SPARK PLAN BANNER */
-.plan-banner{display:flex;align-items:center;gap:12px;padding:13px 16px;background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(236,72,153,0.1));border:1px solid rgba(124,58,237,0.25);border-radius:16px;margin:0 16px 14px;cursor:pointer;position:relative;overflow:hidden}
-.plan-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,58,237,0.05),transparent);pointer-events:none}
-.plan-icon{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.plan-info{flex:1}
-.plan-name{font-size:13px;font-weight:700;color:#fff}
-.plan-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
-.plan-links-bar{display:flex;align-items:center;gap:8px;margin-top:6px}
-.plan-bar-wrap{flex:1;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden}
-.plan-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.3s}
-.plan-bar-label{font-size:10px;color:rgba(255,255,255,0.3);white-space:nowrap}
-.upgrade-chip{padding:5px 12px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;white-space:nowrap}
+/* SPARK BANNER */
+.spark-banner{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:12px 16px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:16px;margin:0 16px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.spark-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.spark-info{flex:1}
+.spark-name{font-size:13px;font-weight:700;color:#111}
+.spark-sub{font-size:11px;color:#888;margin-top:1px}
+.spark-bar-wrap{height:3px;background:#eee;border-radius:2px;margin-top:6px;overflow:hidden}
+.spark-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.3s}
+.spark-count{font-size:10px;color:#aaa;margin-top:3px}
+.spark-upgrade{padding:6px 12px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;cursor:pointer;white-space:nowrap}
 
-/* SECTION */
-.section{padding:0 16px;margin-bottom:10px}
-.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.section-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.6px}
-.link-count{font-size:11px;color:rgba(255,255,255,0.2)}
+/* LINKS SECTION */
+.links-section{position:relative;z-index:1;padding:0 16px;margin-bottom:6px}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.section-lbl{font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.6px}
+.link-count-badge{font-size:11px;color:#bbb}
+.empty-state{text-align:center;padding:28px 20px;color:#bbb;font-size:14px;background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,0.06)}
 
-/* ADD STRIP BTN */
-.add-link-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:13px;border-radius:14px;background:rgba(124,58,237,0.08);border:1.5px dashed rgba(124,58,237,0.3);color:#a78bfa;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;width:100%;margin-bottom:12px}
-.add-link-btn:active{background:rgba(124,58,237,0.15)}
+/* LINK STRIP — Linktree style */
+.link-item{display:flex;align-items:center;background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:16px;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,0.05);transition:all 0.2s;position:relative}
+.link-item.hidden-link{opacity:0.5}
+.link-drag-handle{padding:0 8px 0 12px;color:#ccc;font-size:14px;cursor:grab;flex-shrink:0;touch-action:none}
+.link-drag-handle:active{cursor:grabbing}
+.link-color-bar{width:5px;min-height:64px;flex-shrink:0;border-radius:0}
+.link-main{display:flex;align-items:center;gap:10px;padding:12px 10px;flex:1;min-width:0;cursor:pointer}
+.link-platform-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.link-text{flex:1;min-width:0}
+.link-title-wrap{display:flex;align-items:center;gap:6px}
+.link-title{font-size:14px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.link-title-input{font-size:14px;font-weight:600;color:#111;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;padding:0}
+.link-url-text{font-size:11px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.link-clicks{font-size:10px;color:#bbb;margin-top:2px;display:flex;align-items:center;gap:3px}
+.link-actions{display:flex;align-items:center;gap:3px;padding:0 8px;flex-shrink:0}
+.link-action{width:30px;height:30px;border-radius:8px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#bbb;font-size:12px;transition:all 0.2s}
+.link-action:active{background:#f5f5f7;color:#555}
+.link-action.active-like{color:#ef4444}
+.link-action.active-show{color:#22c55e}
+/* TOGGLE */
+.vis-toggle{width:38px;height:22px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
+.vis-toggle.on{background:#22c55e}
+.vis-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.vis-toggle.on::after{transform:translateX(16px)}
 
-/* PRE-GENERATED STRIP TEMPLATES */
-.template-scroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 0 12px;margin-bottom:4px}
-.template-scroll::-webkit-scrollbar{display:none}
-.template-chip{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;color:#fff;border:none}
-.template-chip:active{transform:scale(0.97)}
+/* ADD LINK SECTION */
+.add-section{position:relative;z-index:1;padding:0 16px;margin-bottom:6px}
+.add-section-lbl{font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px}
+.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.preset-strip{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;cursor:pointer;transition:all 0.2s;border:none;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600}
+.preset-strip:active{transform:scale(0.97);opacity:0.9}
+.preset-strip i{font-size:16px;flex-shrink:0}
+.preset-custom{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border-radius:14px;background:#fff;border:1.5px dashed rgba(124,58,237,0.3);color:#7c3aed;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s;width:100%;margin-top:4px;font-family:'Inter',sans-serif}
+.preset-custom:active{background:rgba(124,58,237,0.05)}
 
-/* LINK STRIPS — solid filled, premium */
-.link-item{display:flex;align-items:center;gap:0;border-radius:16px;margin-bottom:9px;overflow:hidden;position:relative;transition:all 0.2s}
-.link-item.hidden-link{opacity:0.4}
-.link-strip-main{display:flex;align-items:center;gap:12px;padding:14px 14px;flex:1;cursor:pointer;min-width:0}
-.link-strip-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:rgba(255,255,255,0.15)}
-.link-strip-text{flex:1;min-width:0}
-.link-strip-title{font-size:14px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.link-strip-url{font-size:11px;color:rgba(255,255,255,0.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
-.link-strip-right{display:flex;align-items:center;gap:2px;padding:0 10px 0 0;flex-shrink:0}
-.strip-action{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,0.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,0.7);font-size:11px;transition:all 0.2s}
-.strip-action:active{background:rgba(255,255,255,0.2)}
-.strip-action.liked{color:#FF3B5C}
-.strip-drag{cursor:grab;color:rgba(255,255,255,0.4);padding:0 4px;font-size:13px}
-
-/* STRIP COLORS — solid fills */
-.strip-purple{background:linear-gradient(135deg,#7c3aed,#9333ea)}
-.strip-pink{background:linear-gradient(135deg,#ec4899,#f43f5e)}
-.strip-green{background:linear-gradient(135deg,#059669,#10b981)}
-.strip-blue{background:linear-gradient(135deg,#2563eb,#0ea5e9)}
-.strip-orange{background:linear-gradient(135deg,#ea580c,#f97316)}
-.strip-teal{background:linear-gradient(135deg,#0d9488,#14b8a6)}
-.strip-indigo{background:linear-gradient(135deg,#4338ca,#6366f1)}
-.strip-rose{background:linear-gradient(135deg,#be185d,#ec4899)}
-.strip-dark{background:linear-gradient(135deg,#1e1e2e,#2d2d44)}
-.strip-whatsapp{background:linear-gradient(135deg,#075e54,#25D366)}
-.strip-linkedin{background:linear-gradient(135deg,#0077b5,#0a66c2)}
-.strip-youtube{background:linear-gradient(135deg,#cc0000,#ff0000)}
-.strip-twitter{background:linear-gradient(135deg,#14171a,#1da1f2)}
-.strip-instagram{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)}
-
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
-.modal-overlay.open{background:rgba(0,0,0,0.82);pointer-events:all}
-.modal-panel{background:#16102e;border-radius:28px 28px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto}
-.modal-overlay.open .modal-panel{transform:translateY(0)}
-.modal-handle{width:40px;height:4px;background:rgba(255,255,255,0.12);border-radius:2px;margin:0 auto 14px}
-.modal-title{font-size:16px;font-weight:700;margin-bottom:14px}
-.link-type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.link-type-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:11px 6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;cursor:pointer;transition:all 0.2s}
-.link-type-item:active,.link-type-item.selected{background:rgba(124,58,237,0.18);border-color:rgba(124,58,237,0.5)}
-.link-type-icon{font-size:20px;line-height:1}
-.link-type-name{font-size:10px;font-weight:500;color:rgba(255,255,255,0.45);text-align:center;line-height:1.2}
-
-/* COLOR PICKER */
-.color-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
-.color-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.color-swatch{width:32px;height:32px;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:all 0.2s;flex-shrink:0}
-.color-swatch.active{border-color:#fff;transform:scale(1.15)}
-
-.form-field{margin-bottom:13px}
-.form-label{font-size:11px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
-.form-input{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border 0.2s}
-.form-input:focus{border-color:rgba(124,58,237,0.5);background:rgba(124,58,237,0.05)}
-.form-input::placeholder{color:rgba(255,255,255,0.2)}
-.modal-save-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:4px}
-.modal-save-btn:active{transform:scale(0.98)}
-.modal-cancel-btn{width:100%;padding:12px;background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:13px;color:rgba(255,255,255,0.45);font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
-
-/* UPGRADE MODAL */
-.upgrade-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:16px;margin-bottom:10px}
-.upgrade-card.featured{background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(236,72,153,0.15));border-color:rgba(124,58,237,0.4)}
-.upgrade-plan-name{font-size:16px;font-weight:800;margin-bottom:4px}
-.upgrade-plan-price{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:10px}
+/* UPGRADE FOOTER */
+.upgrade-footer{position:relative;z-index:1;margin:16px 16px 8px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.upgrade-footer-top{padding:16px 16px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.06),rgba(236,72,153,0.04))}
+.upgrade-title{font-size:15px;font-weight:800;color:#111;margin-bottom:4px}
+.upgrade-sub{font-size:12px;color:#888;line-height:1.5;margin-bottom:12px}
 .upgrade-features{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.upgrade-feature{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,0.7)}
-.upgrade-feature i{color:#00E5A0;font-size:12px;flex-shrink:0}
-.upgrade-btn{width:100%;padding:12px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer}
-.upgrade-btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff}
-.upgrade-btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff}
+.upgrade-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:#555}
+.upgrade-feat i{color:#7c3aed;font-size:11px;flex-shrink:0}
+.upgrade-plans{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 16px 16px}
+.upgrade-plan-btn{padding:11px 10px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s}
+.upgrade-plan-btn:active{transform:scale(0.97)}
+.btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,0.3)}
+.btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 12px rgba(5,150,105,0.3)}
+
+/* MYQRID FOOTER LOGO */
+.myqrid-footer{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 20px 24px}
+.myqrid-footer-logo{display:flex;align-items:center;gap:8px}
+.footer-qr-logo{width:28px;height:28px}
+.footer-brand{font-size:16px;font-weight:800;color:#111}
+.footer-brand span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.footer-tagline{font-size:11px;color:#bbb;text-align:center}
 
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,0.07);display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:rgba(255,255,255,0.35);font-size:10px;font-weight:500;padding:4px 0;cursor:pointer}
-.nav-item.active{color:#a78bfa}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-top:1px solid rgba(0,0,0,0.08);display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 12px rgba(0,0,0,0.06)}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#bbb;font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;transition:color 0.2s}
+.nav-item.active{color:#7c3aed}
 .nav-icon{font-size:20px;line-height:1}
-.nav-center-btn{width:52px;height:52px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-top:-18px;box-shadow:0 0 20px rgba(124,58,237,0.5)}
+.nav-center-btn{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
 
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:#c4b5fd;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none}
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
+.modal-overlay.open{background:rgba(0,0,0,0.5);pointer-events:all}
+.modal-panel{background:#fff;border-radius:28px 28px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto}
+.modal-overlay.open .modal-panel{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:0 auto 16px}
+.modal-title{font-size:17px;font-weight:800;color:#111;margin-bottom:16px}
+.form-field{margin-bottom:14px}
+.form-label{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px}
+.form-input{width:100%;padding:13px 16px;background:#f9f9fb;border:1.5px solid #e5e7eb;border-radius:12px;color:#111;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border 0.2s}
+.form-input:focus{border-color:#7c3aed;background:#fff}
+.form-input::placeholder{color:#bbb}
+.modal-save-btn{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.3);margin-top:4px}
+.modal-save-btn:active{transform:scale(0.98)}
+.modal-cancel-btn{width:100%;padding:12px;background:transparent;border:1.5px solid #e5e7eb;border-radius:13px;color:#888;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
+
+/* COLOR PICKER */
+.color-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.col-swatch{width:30px;height:30px;border-radius:8px;cursor:pointer;border:2.5px solid transparent;transition:all 0.2s}
+.col-swatch.sel{border-color:#111;transform:scale(1.15)}
+
+/* LINK TYPE GRID */
+.type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.type-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 6px;background:#f9f9fb;border:1.5px solid #e5e7eb;border-radius:12px;cursor:pointer;transition:all 0.2s}
+.type-item:active,.type-item.sel{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.4)}
+.type-item-icon{font-size:20px;line-height:1}
+.type-item-name{font-size:10px;font-weight:500;color:#888;text-align:center}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .link-in{animation:slideUp 0.3s ease forwards}
 </style>
 </head>
 <body>
-<div class="bg"></div>
 <div class="page">
 
+  <!-- TOPBAR -->
   <div class="topbar">
     <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
     <div class="topbar-title">My Links</div>
     <button class="save-btn" id="saveAllBtn" onclick="saveAllLinks()">Save</button>
   </div>
 
-  <!-- PROFILE HEADER -->
-  <div class="profile-header">
+  <!-- PROFILE -->
+  <div class="profile-section">
     <div class="profile-avatar" id="headerAvatar" onclick="document.getElementById('avatarInput').click()">P</div>
     <div class="profile-name" id="headerName">Your Name</div>
-    <div class="profile-bio" id="headerBio" onclick="editBio()">
-      <span id="bioText">Add your bio</span>
-      <i class="fas fa-pen" style="font-size:10px;color:rgba(255,255,255,0.2)"></i>
+    <div class="profile-bio-wrap" onclick="editBio()">
+      <span class="profile-bio" id="bioText">Add your bio</span>
+      <i class="fas fa-pen profile-bio-icon"></i>
     </div>
-    <div class="profile-url"><i class="fas fa-link" style="font-size:10px"></i> app.myqrid.in/profile/<span id="headerUsername">—</span></div>
+    <div class="profile-url">
+      <i class="fas fa-link" style="font-size:10px"></i>
+      myqrid.in/<span id="headerUsername">—</span>
+    </div>
   </div>
 
   <!-- SOCIAL ICONS -->
   <div class="social-row">
     <div class="social-chip" data-social="whatsapp" style="--sc:#25D366" onclick="editSocial('whatsapp')"><i class="fab fa-whatsapp"></i><span>WA</span></div>
     <div class="social-chip" data-social="instagram" style="--sc:#e1306c" onclick="editSocial('instagram')"><i class="fab fa-instagram"></i><span>Insta</span></div>
-    <div class="social-chip" data-social="twitter" style="--sc:#fff" onclick="editSocial('twitter')"><i class="fab fa-x-twitter"></i><span>X</span></div>
+    <div class="social-chip" data-social="twitter" style="--sc:#111" onclick="editSocial('twitter')"><i class="fab fa-x-twitter"></i><span>X</span></div>
     <div class="social-chip" data-social="youtube" style="--sc:#FF0000" onclick="editSocial('youtube')"><i class="fab fa-youtube"></i><span>YT</span></div>
     <div class="social-chip" data-social="linkedin" style="--sc:#0a66c2" onclick="editSocial('linkedin')"><i class="fab fa-linkedin"></i><span>LI</span></div>
     <div class="social-chip" data-social="facebook" style="--sc:#1877f2" onclick="editSocial('facebook')"><i class="fab fa-facebook"></i><span>FB</span></div>
     <div class="social-chip" data-social="telegram" style="--sc:#2aabee" onclick="editSocial('telegram')"><i class="fab fa-telegram"></i><span>TG</span></div>
-    <div class="social-chip" data-social="snapchat" style="--sc:#fffc00" onclick="editSocial('snapchat')"><i class="fab fa-snapchat"></i><span>SC</span></div>
+    <div class="social-chip" data-social="snapchat" style="--sc:#f59e0b" onclick="editSocial('snapchat')"><i class="fab fa-snapchat"></i><span>SC</span></div>
   </div>
 
-  <!-- SPARK PLAN BANNER -->
-  <div class="plan-banner" onclick="openUpgrade()">
-    <div class="plan-icon">⚡</div>
-    <div class="plan-info">
-      <div class="plan-name">myQRID Spark — Active</div>
-      <div class="plan-sub">No payment · No card required · Always free</div>
-      <div class="plan-links-bar">
-        <div class="plan-bar-wrap"><div class="plan-bar" id="planBar" style="width:0%"></div></div>
-        <div class="plan-bar-label" id="planBarLabel">0/18 links</div>
+  <!-- SPARK BANNER -->
+  <div class="spark-banner">
+    <div class="spark-icon">⚡</div>
+    <div class="spark-info">
+      <div class="spark-name">myQRID Spark</div>
+      <div class="spark-sub">No payment · No card · Always yours</div>
+      <div class="spark-bar-wrap"><div class="spark-bar" id="sparkBar" style="width:0%"></div></div>
+      <div class="spark-count" id="sparkCount">0 / 18 links</div>
+    </div>
+    <div class="spark-upgrade" onclick="openUpgrade()">Upgrade ↑</div>
+  </div>
+
+  <!-- YOUR LINKS -->
+  <div class="links-section">
+    <div class="section-hdr">
+      <div class="section-lbl">Your Links</div>
+      <div class="link-count-badge" id="linkCountBadge">0 links</div>
+    </div>
+    <div id="linksList">
+      <div class="empty-state">
+        <div style="font-size:28px;margin-bottom:8px">🔗</div>
+        Add your first link below
       </div>
     </div>
-    <div class="upgrade-chip">Upgrade ↑</div>
   </div>
 
-  <!-- LINKS SECTION -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-label">Quick Add Strips</div>
-    </div>
-
-    <!-- PRE-GENERATED TEMPLATE STRIPS -->
-    <div class="template-scroll" id="templateStrips"></div>
-
-    <div class="section-header" style="margin-top:4px">
-      <div class="section-label">Your Links</div>
-      <div class="link-count" id="linkCount">0 links</div>
-    </div>
-
-    <div class="add-link-btn" onclick="openAddModal()">
+  <!-- ADD LINKS — 18 PRESET STRIPS -->
+  <div class="add-section">
+    <div class="add-section-lbl">Add Links</div>
+    <div class="preset-grid" id="presetGrid"></div>
+    <div class="preset-custom" onclick="openCustomModal()">
       <i class="fas fa-plus-circle"></i> Add Custom Link
     </div>
+  </div>
 
-    <div id="linksList"></div>
+  <!-- UPGRADE FOOTER -->
+  <div class="upgrade-footer">
+    <div class="upgrade-footer-top">
+      <div class="upgrade-title">Unlock Full Analytics & More</div>
+      <div class="upgrade-sub">See who viewed your links, when and where — plus unlimited links, custom themes and creator tools.</div>
+      <div class="upgrade-features">
+        <div class="upgrade-feat"><i class="fas fa-chart-line"></i> Full scan analytics + location map</div>
+        <div class="upgrade-feat"><i class="fas fa-infinity"></i> Unlimited links, cards & identity modes</div>
+        <div class="upgrade-feat"><i class="fas fa-indian-rupee-sign"></i> Ea₹n — paid consultations & bookings</div>
+        <div class="upgrade-feat"><i class="fas fa-shield-alt"></i> Family Shield — protect everyone you love</div>
+        <div class="upgrade-feat"><i class="fas fa-palette"></i> Custom QR design, themes & branding</div>
+        <div class="upgrade-feat"><i class="fas fa-certificate"></i> Verified identity badge</div>
+      </div>
+    </div>
+    <div class="upgrade-plans">
+      <button class="upgrade-plan-btn btn-blaze" onclick="showToast('myQRID Blaze — coming soon!')">⚡ Blaze</button>
+      <button class="upgrade-plan-btn btn-shield" onclick="showToast('Family Shield — coming soon!')">🛡️ Family Shield</button>
+    </div>
+  </div>
+
+  <!-- MYQRID FOOTER LOGO -->
+  <div class="myqrid-footer">
+    <div class="myqrid-footer-logo">
+      <!-- Gradient QR Logo SVG -->
+      <svg class="footer-qr-logo" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="qrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#7c3aed"/>
+            <stop offset="100%" style="stop-color:#ec4899"/>
+          </linearGradient>
+        </defs>
+        <rect width="28" height="28" rx="6" fill="url(#qrGrad)"/>
+        <rect x="4" y="4" width="8" height="8" rx="1.5" fill="none" stroke="white" stroke-width="1.5"/>
+        <rect x="6" y="6" width="4" height="4" rx="0.5" fill="white"/>
+        <rect x="16" y="4" width="8" height="8" rx="1.5" fill="none" stroke="white" stroke-width="1.5"/>
+        <rect x="18" y="6" width="4" height="4" rx="0.5" fill="white"/>
+        <rect x="4" y="16" width="8" height="8" rx="1.5" fill="none" stroke="white" stroke-width="1.5"/>
+        <rect x="6" y="18" width="4" height="4" rx="0.5" fill="white"/>
+        <rect x="16" y="16" width="3" height="3" rx="0.5" fill="white"/>
+        <rect x="21" y="16" width="3" height="3" rx="0.5" fill="white"/>
+        <rect x="16" y="21" width="3" height="3" rx="0.5" fill="white"/>
+        <rect x="21" y="21" width="3" height="3" rx="0.5" fill="white"/>
+      </svg>
+      <div class="footer-brand">my<span>QRID</span></div>
+    </div>
+    <div class="footer-tagline">Your Digital Identity · One QR · Infinite Possibilities</div>
   </div>
 
 </div>
@@ -222,47 +284,51 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#0a0a0f;col
 <nav class="bottom-nav">
   <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
   <a href="/links.html" class="nav-item active"><span class="nav-icon">🔗</span><span>Links</span></a>
-  <a href="/cards.html" class="nav-item" style="flex:none;width:64px">
-    <div class="nav-center-btn"><i class="fas fa-id-card" style="color:#fff;font-size:20px"></i></div>
+  <a href="/cards.html" class="nav-item" style="flex:none;width:60px">
+    <div class="nav-center-btn"><i class="fas fa-id-card" style="color:#fff;font-size:18px"></i></div>
   </a>
   <a href="#" class="nav-item" onclick="shareProfile()"><span class="nav-icon">📤</span><span>Share</span></a>
   <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
 </nav>
 
 <!-- ADD LINK MODAL -->
-<div class="modal-overlay" id="addModal" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="modal-overlay" id="addModal" onclick="if(event.target===this)closeAddModal()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
-    <div class="modal-title" id="modalTitle">Add New Link</div>
-    <div id="typeSection">
-      <div class="form-label" style="margin-bottom:10px">Choose Type</div>
-      <div class="link-type-grid" id="linkTypeGrid"></div>
+    <div class="modal-title" id="addModalTitle">Add Link</div>
+    <div class="form-field">
+      <div class="form-label">Title</div>
+      <input class="form-input" type="text" id="linkTitle" placeholder="e.g. My Portfolio">
     </div>
-    <div id="linkForm" style="display:none">
-      <div class="form-field">
-        <div class="form-label">Title</div>
-        <input class="form-input" type="text" id="linkTitle" placeholder="e.g. My Portfolio">
-      </div>
-      <div class="form-field">
-        <div class="form-label" id="urlLabel">URL</div>
-        <input class="form-input" type="text" id="linkUrl" placeholder="https://...">
-      </div>
-      <div class="color-label">Strip Color</div>
-      <div class="color-grid" id="colorGrid"></div>
-      <button class="modal-save-btn" onclick="saveLink()">Add Link</button>
-      <button class="modal-cancel-btn" onclick="resetModal()">← Change Type</button>
+    <div class="form-field">
+      <div class="form-label" id="urlLabel">URL</div>
+      <input class="form-input" type="text" id="linkUrl" placeholder="https://...">
     </div>
+    <div class="form-label">Strip Color</div>
+    <div class="color-row" id="colorRow"></div>
+    <button class="modal-save-btn" onclick="saveLink()">Add Link</button>
+    <button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- CUSTOM LINK TYPE MODAL -->
+<div class="modal-overlay" id="typeModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Choose Link Type</div>
+    <div class="type-grid" id="typeGrid"></div>
+    <button class="modal-cancel-btn" onclick="document.getElementById('typeModal').classList.remove('open')">Cancel</button>
   </div>
 </div>
 
 <!-- SOCIAL MODAL -->
 <div class="modal-overlay" id="socialModal" onclick="closeSocialModal()">
-  <div class="modal-panel" onclick="event.stopPropagation()" style="padding-bottom:calc(28px + env(safe-area-inset-bottom))">
+  <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
-    <div class="modal-title" id="socialModalTitle">Edit</div>
+    <div class="modal-title" id="socialModalTitle">Link Account</div>
     <div class="form-field">
       <div class="form-label" id="socialModalLabel">Handle</div>
-      <input class="form-input" type="text" id="socialInput">
+      <input class="form-input" type="text" id="socialInput" placeholder="">
     </div>
     <button class="modal-save-btn" onclick="saveSocial()">Save</button>
     <button class="modal-cancel-btn" onclick="closeSocialModal()">Cancel</button>
@@ -271,14 +337,14 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#0a0a0f;col
 
 <!-- BIO MODAL -->
 <div class="modal-overlay" id="bioModal" onclick="closeBioModal()">
-  <div class="modal-panel" onclick="event.stopPropagation()" style="padding-bottom:calc(28px + env(safe-area-inset-bottom))">
+  <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
     <div class="modal-title">Edit Bio</div>
     <div class="form-field">
-      <div class="form-label">Bio</div>
+      <div class="form-label">Your Bio</div>
       <textarea class="form-input" id="bioInput" rows="3" placeholder="Tell people who you are..." style="resize:none;line-height:1.5"></textarea>
     </div>
-    <button class="modal-save-btn" onclick="saveBio()">Save Bio</button>
+    <button class="modal-save-btn" onclick="saveBio()">Save</button>
     <button class="modal-cancel-btn" onclick="closeBioModal()">Cancel</button>
   </div>
 </div>
@@ -288,36 +354,30 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#0a0a0f;col
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
     <div class="modal-title">Level Up Your Identity</div>
-    <p style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:16px">You're on <strong style="color:#a78bfa">myQRID Spark</strong> — completely free, no card needed. Ready for more?</p>
-
-    <div class="upgrade-card featured">
-      <div class="upgrade-plan-name" style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">⚡ myQRID Blaze</div>
-      <div class="upgrade-plan-price">Unlock your full creator potential</div>
-      <div class="upgrade-features">
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Unlimited links</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> All 5 identity cards</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Full analytics & scan map</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Ea₹n — paid consultations</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Custom themes & QR design</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Priority verified badge</div>
+    <p style="font-size:13px;color:#888;margin-bottom:16px;line-height:1.6">You're on <strong style="color:#7c3aed">myQRID Spark</strong>. No payment needed, ever. But when you're ready for more —</p>
+    <div style="background:linear-gradient(135deg,rgba(124,58,237,0.06),rgba(236,72,153,0.04));border:1px solid rgba(124,58,237,0.15);border-radius:16px;padding:16px;margin-bottom:10px">
+      <div style="font-size:15px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px">⚡ myQRID Blaze</div>
+      <div style="font-size:12px;color:#888;margin-bottom:10px">For creators, professionals & builders</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
+        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Unlimited links & identity cards</div>
+        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Full analytics with scan map</div>
+        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Ea₹n — paid consultations</div>
+        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#7c3aed;font-size:10px"></i>Custom QR design & themes</div>
       </div>
-      <button class="upgrade-btn upgrade-btn-blaze" onclick="showToast('Blaze plan coming soon!')">Get myQRID Blaze →</button>
+      <button class="modal-save-btn" onclick="showToast('Blaze coming soon!')">Get myQRID Blaze →</button>
     </div>
-
-    <div class="upgrade-card" style="margin-top:10px">
-      <div class="upgrade-plan-name" style="color:#10b981">🛡️ myQRID Family Shield</div>
-      <div class="upgrade-plan-price">Protect everyone you love</div>
-      <div class="upgrade-features">
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Up to 6 family profiles</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Kids & elderly Care cards</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Emergency SOS system</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Lost & found for all members</div>
-        <div class="upgrade-feature"><i class="fas fa-check-circle"></i> Medical info for entire family</div>
+    <div style="background:#f9f9fb;border:1px solid #e5e7eb;border-radius:16px;padding:16px">
+      <div style="font-size:15px;font-weight:800;color:#059669;margin-bottom:4px">🛡️ myQRID Family Shield</div>
+      <div style="font-size:12px;color:#888;margin-bottom:10px">For families who care about each other</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px">
+        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Up to 6 family profiles</div>
+        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Kids, elderly & pet Care cards</div>
+        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Emergency SOS & medical info</div>
+        <div style="font-size:12px;color:#555;display:flex;align-items:center;gap:6px"><i class="fas fa-check" style="color:#059669;font-size:10px"></i>Lost & found for whole family</div>
       </div>
-      <button class="upgrade-btn upgrade-btn-shield" onclick="showToast('Family Shield coming soon!')">Get Family Shield →</button>
+      <button style="width:100%;padding:12px;background:linear-gradient(135deg,#059669,#10b981);border:none;border-radius:12px;color:#fff;font-family:Inter;font-size:14px;font-weight:700;cursor:pointer" onclick="showToast('Family Shield coming soon!')">Get Family Shield →</button>
     </div>
-
-    <p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.2);margin-top:14px">No hidden charges · Cancel anytime · Powered by myQRID</p>
+    <p style="text-align:center;font-size:11px;color:#bbb;margin-top:12px">No hidden charges · Cancel anytime</p>
   </div>
 </div>
 
@@ -327,144 +387,125 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;background:#0a0a0f;col
 <script>
 const API='https://myqrid-backend.myqrid.workers.dev';
 const SPARK_LIMIT=18;
-let links=[],selectedType=null,selectedColor='strip-purple',currentSocial=null,editingId=null,socials={};
+let links=[],editingId=null,selectedColor='#7c3aed',currentSocial=null,socials={},currentPreset=null;
 
 const STRIP_COLORS=[
-  {id:'strip-purple', bg:'linear-gradient(135deg,#7c3aed,#9333ea)',label:'Purple'},
-  {id:'strip-pink',   bg:'linear-gradient(135deg,#ec4899,#f43f5e)',label:'Pink'},
-  {id:'strip-blue',   bg:'linear-gradient(135deg,#2563eb,#0ea5e9)',label:'Blue'},
-  {id:'strip-green',  bg:'linear-gradient(135deg,#059669,#10b981)',label:'Green'},
-  {id:'strip-orange', bg:'linear-gradient(135deg,#ea580c,#f97316)',label:'Orange'},
-  {id:'strip-teal',   bg:'linear-gradient(135deg,#0d9488,#14b8a6)',label:'Teal'},
-  {id:'strip-indigo', bg:'linear-gradient(135deg,#4338ca,#6366f1)',label:'Indigo'},
-  {id:'strip-rose',   bg:'linear-gradient(135deg,#be185d,#ec4899)',label:'Rose'},
-  {id:'strip-dark',   bg:'linear-gradient(135deg,#1e1e2e,#2d2d44)',label:'Dark'},
-  {id:'strip-whatsapp',bg:'linear-gradient(135deg,#075e54,#25D366)',label:'WA'},
-  {id:'strip-linkedin',bg:'linear-gradient(135deg,#0077b5,#0a66c2)',label:'LI'},
-  {id:'strip-youtube', bg:'linear-gradient(135deg,#cc0000,#ff0000)',label:'YT'},
+  {hex:'#7c3aed',label:'Purple'},
+  {hex:'#ec4899',label:'Pink'},
+  {hex:'#2563eb',label:'Blue'},
+  {hex:'#059669',label:'Green'},
+  {hex:'#ea580c',label:'Orange'},
+  {hex:'#0d9488',label:'Teal'},
+  {hex:'#4338ca',label:'Indigo'},
+  {hex:'#be123c',label:'Rose'},
+  {hex:'#075985',label:'Sky'},
+  {hex:'#064e3b',label:'Emerald'},
+  {hex:'#1e1b4b',label:'Dark'},
+  {hex:'#374151',label:'Slate'},
 ];
 
-const TEMPLATE_STRIPS=[
-  {label:'WhatsApp',   icon:'fab fa-whatsapp', color:'strip-whatsapp', id:'whatsapp', urlLabel:'Phone (+91...)',  placeholder:'919876543210'},
-  {label:'Instagram',  icon:'fab fa-instagram',color:'strip-pink',     id:'instagram',urlLabel:'@handle',         placeholder:'@yourusername'},
-  {label:'YouTube',    icon:'fab fa-youtube',  color:'strip-youtube',  id:'youtube',  urlLabel:'Channel URL',     placeholder:'youtube.com/c/...'},
-  {label:'LinkedIn',   icon:'fab fa-linkedin', color:'strip-linkedin', id:'linkedin', urlLabel:'Profile URL',     placeholder:'linkedin.com/in/...'},
-  {label:'Portfolio',  icon:'fas fa-briefcase',color:'strip-purple',   id:'portfolio',urlLabel:'Portfolio URL',   placeholder:'https://...'},
-  {label:'Book Me',    icon:'fas fa-calendar-check',color:'strip-teal',id:'booking',  urlLabel:'Booking URL',     placeholder:'calendly.com/...'},
-  {label:'Pay Me',     icon:'fas fa-qrcode',   color:'strip-green',    id:'payment',  urlLabel:'UPI / Pay link',  placeholder:'upi://...'},
-  {label:'Resume',     icon:'fas fa-file-alt', color:'strip-indigo',   id:'resume',   urlLabel:'Resume URL',      placeholder:'drive.google.com/...'},
-  {label:'Location',   icon:'fas fa-map-marker-alt',color:'strip-rose',id:'maps',     urlLabel:'Maps URL',        placeholder:'maps.app.goo.gl/...'},
-  {label:'Blog',       icon:'fas fa-pen-nib',  color:'strip-orange',   id:'blog',     urlLabel:'Blog URL',        placeholder:'medium.com/@...'},
-  {label:'Call Me',    icon:'fas fa-phone',    color:'strip-blue',     id:'call',     urlLabel:'Phone Number',    placeholder:'+91XXXXXXXXXX'},
-  {label:'Website',    icon:'fas fa-globe',    color:'strip-purple',   id:'website',  urlLabel:'Website URL',     placeholder:'https://...'},
+const PRESETS=[
+  {id:'whatsapp', label:'WhatsApp',   icon:'fab fa-whatsapp', color:'#075e54', urlLabel:'Phone (+91...)', placeholder:'919876543210'},
+  {id:'instagram',label:'Instagram',  icon:'fab fa-instagram',color:'#c2185b', urlLabel:'@handle',       placeholder:'@yourusername'},
+  {id:'youtube',  label:'YouTube',    icon:'fab fa-youtube',  color:'#c62828', urlLabel:'Channel URL',   placeholder:'youtube.com/c/...'},
+  {id:'linkedin', label:'LinkedIn',   icon:'fab fa-linkedin', color:'#0277bd', urlLabel:'Profile URL',   placeholder:'linkedin.com/in/...'},
+  {id:'twitter',  label:'X / Twitter',icon:'fab fa-x-twitter',color:'#111',    urlLabel:'@handle',       placeholder:'@yourusername'},
+  {id:'facebook', label:'Facebook',   icon:'fab fa-facebook', color:'#1565c0', urlLabel:'Profile URL',   placeholder:'facebook.com/...'},
+  {id:'telegram', label:'Telegram',   icon:'fab fa-telegram', color:'#0277bd', urlLabel:'@handle',       placeholder:'@yourusername'},
+  {id:'github',   label:'GitHub',     icon:'fab fa-github',   color:'#212121', urlLabel:'GitHub URL',    placeholder:'github.com/...'},
+  {id:'spotify',  label:'Spotify',    icon:'fab fa-spotify',  color:'#1b5e20', urlLabel:'Profile URL',   placeholder:'open.spotify.com/...'},
+  {id:'website',  label:'Website',    icon:'fas fa-globe',    color:'#4338ca', urlLabel:'Website URL',   placeholder:'https://...'},
+  {id:'portfolio',label:'Portfolio',  icon:'fas fa-briefcase',color:'#7c3aed', urlLabel:'Portfolio URL', placeholder:'https://...'},
+  {id:'resume',   label:'Resume',     icon:'fas fa-file-alt', color:'#0e7490', urlLabel:'Resume URL',    placeholder:'drive.google.com/...'},
+  {id:'booking',  label:'Book Me',    icon:'fas fa-calendar-check',color:'#0d9488',urlLabel:'Booking URL',placeholder:'calendly.com/...'},
+  {id:'payment',  label:'Pay Me',     icon:'fas fa-qrcode',   color:'#065f46', urlLabel:'UPI / Link',    placeholder:'upi://pay?pa=...'},
+  {id:'maps',     label:'Location',   icon:'fas fa-map-marker-alt',color:'#b91c1c',urlLabel:'Maps URL',  placeholder:'maps.app.goo.gl/...'},
+  {id:'blog',     label:'Blog',       icon:'fas fa-pen-nib',  color:'#92400e', urlLabel:'Blog URL',      placeholder:'medium.com/@...'},
+  {id:'call',     label:'Call Me',    icon:'fas fa-phone',    color:'#166534', urlLabel:'Phone Number',  placeholder:'+91XXXXXXXXXX'},
+  {id:'email',    label:'Email',      icon:'fas fa-envelope', color:'#1e40af', urlLabel:'Email',         placeholder:'you@email.com'},
 ];
 
-const LINK_TYPES=[
-  {id:'whatsapp', label:'WhatsApp',  icon:'<i class="fab fa-whatsapp" style="color:#25D366"></i>',  urlLabel:'Phone',      placeholder:'91XXXXXXXXXX'},
-  {id:'instagram',label:'Instagram', icon:'<i class="fab fa-instagram" style="color:#e1306c"></i>', urlLabel:'Handle',     placeholder:'@username'},
-  {id:'youtube',  label:'YouTube',   icon:'<i class="fab fa-youtube" style="color:#FF0000"></i>',   urlLabel:'Channel URL',placeholder:'youtube.com/c/...'},
-  {id:'twitter',  label:'X/Twitter', icon:'<i class="fab fa-x-twitter"></i>',                       urlLabel:'Handle',     placeholder:'@username'},
-  {id:'linkedin', label:'LinkedIn',  icon:'<i class="fab fa-linkedin" style="color:#0a66c2"></i>',  urlLabel:'Profile URL',placeholder:'linkedin.com/in/...'},
-  {id:'telegram', label:'Telegram',  icon:'<i class="fab fa-telegram" style="color:#2aabee"></i>',  urlLabel:'Handle',     placeholder:'@username'},
-  {id:'spotify',  label:'Spotify',   icon:'<i class="fab fa-spotify" style="color:#1db954"></i>',   urlLabel:'Profile URL',placeholder:'open.spotify.com/...'},
-  {id:'github',   label:'GitHub',    icon:'<i class="fab fa-github"></i>',                          urlLabel:'GitHub URL', placeholder:'github.com/...'},
-  {id:'website',  label:'Website',   icon:'<i class="fas fa-globe" style="color:#a78bfa"></i>',     urlLabel:'Website URL',placeholder:'https://...'},
-  {id:'portfolio',label:'Portfolio', icon:'<i class="fas fa-briefcase" style="color:#a78bfa"></i>', urlLabel:'Portfolio',  placeholder:'https://...'},
-  {id:'resume',   label:'Resume',    icon:'<i class="fas fa-file-alt" style="color:#67e8f9"></i>',  urlLabel:'Resume URL', placeholder:'drive.google.com/...'},
-  {id:'booking',  label:'Book Me',   icon:'<i class="fas fa-calendar-check" style="color:#fb923c"></i>',urlLabel:'Booking URL',placeholder:'calendly.com/...'},
-  {id:'consult',  label:'Consult',   icon:'<i class="fas fa-comment-dollar" style="color:#fb923c"></i>',urlLabel:'Consult URL',placeholder:'https://...'},
-  {id:'catalogue',label:'Products',  icon:'<i class="fas fa-shopping-bag" style="color:#f472b6"></i>',urlLabel:'Products URL',placeholder:'https://...'},
-  {id:'payment',  label:'Pay Me',    icon:'<i class="fas fa-qrcode" style="color:#00E5A0"></i>',    urlLabel:'UPI/Pay',    placeholder:'upi://pay?pa=...'},
-  {id:'maps',     label:'Location',  icon:'<i class="fas fa-map-marker-alt" style="color:#FF3B5C"></i>',urlLabel:'Maps URL',placeholder:'maps.app.goo.gl/...'},
-  {id:'video',    label:'Video',     icon:'<i class="fas fa-play-circle" style="color:#ec4899"></i>',urlLabel:'Video URL', placeholder:'youtube.com/watch?v=...'},
-  {id:'blog',     label:'Blog',      icon:'<i class="fas fa-pen-nib" style="color:#a78bfa"></i>',   urlLabel:'Blog URL',   placeholder:'medium.com/@...'},
-  {id:'email',    label:'Email',     icon:'<i class="fas fa-envelope" style="color:#60a5fa"></i>',  urlLabel:'Email',      placeholder:'you@email.com'},
-  {id:'call',     label:'Call',      icon:'<i class="fas fa-phone" style="color:#00E5A0"></i>',     urlLabel:'Phone',      placeholder:'+91XXXXXXXXXX'},
-  {id:'facebook', label:'Facebook',  icon:'<i class="fab fa-facebook" style="color:#1877f2"></i>',  urlLabel:'Profile URL',placeholder:'facebook.com/...'},
-  {id:'behance',  label:'Behance',   icon:'<i class="fab fa-behance" style="color:#1769ff"></i>',   urlLabel:'Behance URL',placeholder:'behance.net/...'},
-  {id:'custom',   label:'Custom',    icon:'<i class="fas fa-link" style="color:#a78bfa"></i>',      urlLabel:'URL',        placeholder:'https://...'},
+const ALL_TYPES=[...PRESETS,
+  {id:'video',  label:'Video',   icon:'fas fa-play-circle',  color:'#831843',urlLabel:'Video URL',   placeholder:'youtube.com/watch?v=...'},
+  {id:'behance',label:'Behance', icon:'fab fa-behance',      color:'#1769ff',urlLabel:'Behance URL', placeholder:'behance.net/...'},
+  {id:'consult',label:'Consult', icon:'fas fa-comment-dollar',color:'#ea580c',urlLabel:'Consult URL',placeholder:'https://...'},
+  {id:'custom', label:'Custom',  icon:'fas fa-link',          color:'#374151',urlLabel:'URL',         placeholder:'https://...'},
 ];
 
 const SOCIAL_CFG={
-  whatsapp:{label:'WhatsApp',inputLabel:'Phone (+91...)',placeholder:'919876543210'},
-  instagram:{label:'Instagram',inputLabel:'Username (no @)',placeholder:'yourusername'},
-  twitter:{label:'X/Twitter',inputLabel:'Username (no @)',placeholder:'yourusername'},
-  youtube:{label:'YouTube',inputLabel:'Channel URL',placeholder:'youtube.com/c/...'},
-  linkedin:{label:'LinkedIn',inputLabel:'Profile URL',placeholder:'linkedin.com/in/...'},
-  facebook:{label:'Facebook',inputLabel:'Profile URL',placeholder:'facebook.com/...'},
-  telegram:{label:'Telegram',inputLabel:'Username (no @)',placeholder:'yourusername'},
-  snapchat:{label:'Snapchat',inputLabel:'Username',placeholder:'yourusername'},
+  whatsapp:{label:'WhatsApp',   inputLabel:'Phone (+91...)',  placeholder:'919876543210'},
+  instagram:{label:'Instagram', inputLabel:'Username (no @)', placeholder:'yourusername'},
+  twitter:{label:'X / Twitter', inputLabel:'Username (no @)', placeholder:'yourusername'},
+  youtube:{label:'YouTube',     inputLabel:'Channel URL',     placeholder:'youtube.com/c/...'},
+  linkedin:{label:'LinkedIn',   inputLabel:'Profile URL',     placeholder:'linkedin.com/in/...'},
+  facebook:{label:'Facebook',   inputLabel:'Profile URL',     placeholder:'facebook.com/...'},
+  telegram:{label:'Telegram',   inputLabel:'Username (no @)', placeholder:'yourusername'},
+  snapchat:{label:'Snapchat',   inputLabel:'Username',        placeholder:'yourusername'},
 };
 
-function buildTemplateStrips(){
-  const el=document.getElementById('templateStrips');
-  el.innerHTML=TEMPLATE_STRIPS.map(t=>`
-    <div class="template-chip ${t.color}" onclick="quickAddStrip('${t.id}','${t.label}','${t.icon}','${t.color}','${t.urlLabel}','${t.placeholder}')">
-      <i class="${t.icon}" style="font-size:14px"></i> ${t.label}
+function buildPresetGrid(){
+  document.getElementById('presetGrid').innerHTML=PRESETS.map(p=>`
+    <div class="preset-strip" style="background:${p.color}" onclick="openPresetModal('${p.id}')">
+      <i class="${p.icon}"></i>${p.label}
     </div>`).join('');
 }
 
-function quickAddStrip(id,label,icon,color,urlLabel,placeholder){
-  if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Spark plan: 18 links max. Upgrade to Blaze!');return;}
-  selectedType={id,label,icon,urlLabel,placeholder};
-  selectedColor=color;
-  document.getElementById('linkTitle').value=label;
-  document.getElementById('linkUrl').value='';
-  document.getElementById('urlLabel').textContent=urlLabel;
-  document.getElementById('linkUrl').placeholder=placeholder;
-  document.getElementById('typeSection').style.display='none';
-  document.getElementById('linkForm').style.display='block';
-  document.getElementById('modalTitle').textContent='Add '+label;
-  document.getElementById('addModal').classList.add('open');
-  updateColorGrid();
-  setTimeout(()=>document.getElementById('linkUrl').focus(),400);
+function buildColorRow(){
+  document.getElementById('colorRow').innerHTML=STRIP_COLORS.map(c=>`
+    <div class="col-swatch ${c.hex===selectedColor?'sel':''}" style="background:${c.hex}" onclick="pickColor('${c.hex}')" title="${c.label}"></div>`).join('');
 }
 
-function buildTypeGrid(){
-  document.getElementById('linkTypeGrid').innerHTML=LINK_TYPES.map(t=>`
-    <div class="link-type-item" data-type="${t.id}" onclick="selectType('${t.id}')">
-      <div class="link-type-icon">${t.icon}</div>
-      <div class="link-type-name">${t.label}</div>
-    </div>`).join('');
-}
-
-function buildColorGrid(){
-  document.getElementById('colorGrid').innerHTML=STRIP_COLORS.map(c=>`
-    <div class="color-swatch ${c.id==='strip-dark'?'strip-dark':''}" style="background:${c.bg}" onclick="selectColor('${c.id}')" title="${c.label}"></div>`).join('');
-}
-
-function updateColorGrid(){
-  document.querySelectorAll('.color-swatch').forEach((el,i)=>{
-    el.classList.toggle('active',STRIP_COLORS[i].id===selectedColor);
+function pickColor(hex){
+  selectedColor=hex;
+  document.querySelectorAll('.col-swatch').forEach(el=>{
+    el.classList.toggle('sel',el.style.background===hex||el.style.backgroundColor===hex);
   });
 }
 
-function selectColor(id){selectedColor=id;updateColorGrid();}
-
-function selectType(id){
-  selectedType=LINK_TYPES.find(t=>t.id===id);
-  document.querySelectorAll('.link-type-item').forEach(el=>el.classList.toggle('selected',el.dataset.type===id));
-  document.getElementById('typeSection').style.display='none';
-  document.getElementById('linkForm').style.display='block';
-  document.getElementById('urlLabel').textContent=selectedType.urlLabel;
-  document.getElementById('linkUrl').placeholder=selectedType.placeholder;
-  if(!editingId){document.getElementById('linkTitle').value=selectedType.label;document.getElementById('linkUrl').value='';}
-  document.getElementById('modalTitle').textContent=editingId?'Edit Link':'Add '+selectedType.label;
-  updateColorGrid();
+function buildTypeGrid(){
+  document.getElementById('typeGrid').innerHTML=ALL_TYPES.map(t=>`
+    <div class="type-item" onclick="selectTypeAndOpen('${t.id}')">
+      <div class="type-item-icon"><i class="${t.icon}" style="color:${t.color}"></i></div>
+      <div class="type-item-name">${t.label}</div>
+    </div>`).join('');
 }
 
-function resetModal(){
-  selectedType=null;editingId=null;
-  document.getElementById('typeSection').style.display='block';
-  document.getElementById('linkForm').style.display='none';
-  document.getElementById('modalTitle').textContent='Add New Link';
-}
-
-function openAddModal(){
-  if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Spark plan: 18 links max. Upgrade to Blaze!');return;}
-  editingId=null;resetModal();
+function openPresetModal(id){
+  if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Upgrade to Blaze for unlimited links!');return;}
+  const preset=PRESETS.find(p=>p.id===id);if(!preset)return;
+  currentPreset=preset;editingId=null;
+  selectedColor=preset.color;
+  document.getElementById('addModalTitle').textContent='Add '+preset.label;
+  document.getElementById('urlLabel').textContent=preset.urlLabel;
+  document.getElementById('linkUrl').placeholder=preset.placeholder;
+  document.getElementById('linkTitle').value=preset.label;
+  document.getElementById('linkUrl').value='';
+  buildColorRow();
   document.getElementById('addModal').classList.add('open');
+  setTimeout(()=>document.getElementById('linkUrl').focus(),420);
 }
+
+function openCustomModal(){
+  if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Upgrade to Blaze for unlimited links!');return;}
+  buildTypeGrid();
+  document.getElementById('typeModal').classList.add('open');
+}
+
+function selectTypeAndOpen(id){
+  document.getElementById('typeModal').classList.remove('open');
+  const type=ALL_TYPES.find(t=>t.id===id)||ALL_TYPES[ALL_TYPES.length-1];
+  currentPreset=type;editingId=null;
+  selectedColor=type.color;
+  document.getElementById('addModalTitle').textContent='Add '+type.label;
+  document.getElementById('urlLabel').textContent=type.urlLabel;
+  document.getElementById('linkUrl').placeholder=type.placeholder;
+  document.getElementById('linkTitle').value=type.label;
+  document.getElementById('linkUrl').value='';
+  buildColorRow();
+  setTimeout(()=>{document.getElementById('addModal').classList.add('open');setTimeout(()=>document.getElementById('linkUrl').focus(),420);},200);
+}
+
+function closeAddModal(){document.getElementById('addModal').classList.remove('open');editingId=null;currentPreset=null;}
 
 function saveLink(){
   const title=document.getElementById('linkTitle').value.trim();
@@ -472,82 +513,105 @@ function saveLink(){
   if(!title){showToast('Please enter a title');return;}
   if(!url){showToast('Please enter a URL');return;}
   let finalUrl=url;
-  const tid=selectedType?selectedType.id:'custom';
+  const tid=currentPreset?currentPreset.id:'custom';
   if(tid==='whatsapp'&&!url.startsWith('http'))finalUrl='https://wa.me/'+url.replace(/\D/g,'');
   else if(tid==='email'&&!url.startsWith('mailto'))finalUrl='mailto:'+url;
   else if(tid==='call'&&!url.startsWith('tel'))finalUrl='tel:'+url.replace(/\s/g,'');
-  else if(!url.startsWith('http')&&!url.startsWith('mailto')&&!url.startsWith('tel'))finalUrl='https://'+url;
-  if(editingId){links=links.map(l=>l.id===editingId?{...l,title,url:finalUrl,icon:tid,color:selectedColor}:l);}
-  else{links.push({id:Date.now().toString(),title,url:finalUrl,icon:tid,color:selectedColor||'strip-purple',active:true,likes:0});}
-  renderLinks();document.getElementById('addModal').classList.remove('open');
-  showToast(editingId?'Updated!':'✅ Strip added!');editingId=null;
+  else if(!url.startsWith('http')&&!url.startsWith('mailto')&&!url.startsWith('tel')&&!url.startsWith('upi'))finalUrl='https://'+url;
+  if(editingId){
+    links=links.map(l=>l.id===editingId?{...l,title,url:finalUrl,icon:tid,color:selectedColor}:l);
+    showToast('Updated!');
+  }else{
+    links.push({id:Date.now().toString(),title,url:finalUrl,icon:tid,color:selectedColor,active:true,likes:0,clicks:0});
+    showToast('✅ Link added!');
+  }
+  closeAddModal();renderLinks();
 }
 
 function renderLinks(){
   const active=links.filter(l=>!l._del);
-  const list=document.getElementById('linksList');
-  if(active.length===0){list.innerHTML=`<div style="text-align:center;padding:24px;color:rgba(255,255,255,0.2);font-size:14px">No links yet.<br>Tap a quick strip above or add custom.</div>`;updatePlanBar(0);return;}
-  list.innerHTML=active.map(link=>{
-    const colorClass=link.color||'strip-purple';
-    const type=LINK_TYPES.find(t=>t.id===link.icon);
-    const iconHtml=type?type.icon:`<i class="fas fa-link"></i>`;
-    return `<div class="link-item link-in ${!link.active?'hidden-link':''} ${colorClass}" id="link-${link.id}">
-      <div class="link-strip-main" onclick="window.open('${esc(link.url)}','_blank')">
-        <div class="link-strip-icon">${iconHtml}</div>
-        <div class="link-strip-text">
-          <div class="link-strip-title">${esc(link.title)}</div>
-          <div class="link-strip-url">${esc(link.url)}</div>
+  const el=document.getElementById('linksList');
+  if(active.length===0){
+    el.innerHTML=`<div class="empty-state"><div style="font-size:28px;margin-bottom:8px">🔗</div>Add your first link below</div>`;
+    updateSpark(0);return;
+  }
+  el.innerHTML=active.map(link=>{
+    const type=ALL_TYPES.find(t=>t.id===link.icon)||ALL_TYPES[ALL_TYPES.length-1];
+    const iconColor=link.color||type.color||'#7c3aed';
+    return `<div class="link-item link-in ${!link.active?'hidden-link':''}" id="link-${link.id}">
+      <div class="link-color-bar" style="background:${iconColor};min-height:100%"></div>
+      <div class="link-drag-handle" title="Drag to reorder"><i class="fas fa-grip-vertical"></i></div>
+      <div class="link-main" onclick="window.open('${esc(link.url)}','_blank')">
+        <div class="link-platform-icon" style="background:${iconColor}18">
+          <i class="${type.icon}" style="color:${iconColor}"></i>
+        </div>
+        <div class="link-text">
+          <div class="link-title-wrap">
+            <div class="link-title" id="lt-${link.id}">${esc(link.title)}</div>
+          </div>
+          <div class="link-url-text">${esc(link.url)}</div>
+          <div class="link-clicks"><i class="fas fa-mouse-pointer" style="font-size:9px"></i>${link.clicks||0} clicks</div>
         </div>
       </div>
-      <div class="link-strip-right">
-        <button class="strip-action ${(link.likes||0)>0?'liked':''}" onclick="likeLink('${link.id}')" title="Like">
-          <i class="fas fa-heart"></i>${link.likes>0?'<span style=\'font-size:9px;margin-left:2px\'>'+link.likes+'</span>':''}
+      <div class="link-actions">
+        <button class="link-action ${(link.likes||0)>0?'active-like':''}" onclick="likeLink('${link.id}')" title="Like">
+          <i class="fas fa-heart"></i>
         </button>
-        <button class="strip-action" onclick="toggleLink('${link.id}')" title="${link.active?'Hide from visitors':'Show'}">
-          <i class="fas ${link.active?'fa-eye':'fa-eye-slash'}"></i>
+        <button class="link-action ${link.active?'active-show':''}" title="${link.active?'Visible to visitors':'Hidden'}">
+          <button class="vis-toggle ${link.active?'on':''}" onclick="toggleLink('${link.id}')" title="${link.active?'Hide from visitors':'Show to visitors'}"></button>
         </button>
-        <button class="strip-action" onclick="editLink('${link.id}')" title="Edit">
-          <i class="fas fa-pen"></i>
-        </button>
-        <button class="strip-action" onclick="deleteLink('${link.id}')" title="Delete" style="color:rgba(255,100,100,0.7)">
-          <i class="fas fa-trash-alt"></i>
-        </button>
-        <div class="strip-drag"><i class="fas fa-grip-vertical"></i></div>
+        <button class="link-action" onclick="editLink('${link.id}')" title="Edit"><i class="fas fa-pen"></i></button>
+        <button class="link-action" onclick="deleteLink('${link.id}')" title="Delete" style="color:#fca5a5"><i class="fas fa-trash-alt"></i></button>
       </div>
     </div>`;
   }).join('');
-  updatePlanBar(active.length);
-  document.getElementById('linkCount').textContent=active.length+' / '+SPARK_LIMIT+' links';
+  updateSpark(active.length);
+  document.getElementById('linkCountBadge').textContent=active.length+' link'+(active.length!==1?'s':'');
 }
 
-function updatePlanBar(count){
-  document.getElementById('planBar').style.width=Math.min(count/SPARK_LIMIT*100,100)+'%';
-  document.getElementById('planBarLabel').textContent=count+'/'+SPARK_LIMIT+' links';
+function updateSpark(count){
+  document.getElementById('sparkBar').style.width=Math.min(count/SPARK_LIMIT*100,100)+'%';
+  document.getElementById('sparkCount').textContent=count+' / '+SPARK_LIMIT+' links';
 }
 
 function likeLink(id){links=links.map(l=>l.id===id?{...l,likes:(l.likes||0)>0?0:1}:l);renderLinks();}
 function toggleLink(id){links=links.map(l=>l.id===id?{...l,active:!l.active}:l);renderLinks();}
-function deleteLink(id){const el=document.getElementById('link-'+id);if(el){el.style.opacity='0';el.style.transform='translateX(60px)';el.style.transition='all 0.25s';setTimeout(()=>{links=links.map(l=>l.id===id?{...l,_del:true}:l);renderLinks();},250);}}
+function deleteLink(id){
+  const el=document.getElementById('link-'+id);
+  if(el){el.style.opacity='0';el.style.transform='translateX(40px)';el.style.transition='all 0.22s';setTimeout(()=>{links=links.map(l=>l.id===id?{...l,_del:true}:l);renderLinks();},230);}
+}
 function editLink(id){
   const link=links.find(l=>l.id===id);if(!link)return;
-  editingId=id;selectedColor=link.color||'strip-purple';
-  const type=LINK_TYPES.find(t=>t.id===link.icon)||LINK_TYPES[LINK_TYPES.length-1];
-  selectedType=type;
-  document.getElementById('addModal').classList.add('open');
-  document.getElementById('typeSection').style.display='none';
-  document.getElementById('linkForm').style.display='block';
+  editingId=id;
+  currentPreset=ALL_TYPES.find(t=>t.id===link.icon)||ALL_TYPES[ALL_TYPES.length-1];
+  selectedColor=link.color||currentPreset.color;
+  document.getElementById('addModalTitle').textContent='Edit Link';
+  document.getElementById('urlLabel').textContent=currentPreset.urlLabel;
+  document.getElementById('linkUrl').placeholder=currentPreset.placeholder;
   document.getElementById('linkTitle').value=link.title;
   document.getElementById('linkUrl').value=link.url;
-  document.getElementById('urlLabel').textContent=type.urlLabel;
-  document.getElementById('linkUrl').placeholder=type.placeholder;
-  document.getElementById('modalTitle').textContent='Edit Strip';
-  updateColorGrid();
+  buildColorRow();
+  document.getElementById('addModal').classList.add('open');
 }
 
 function openUpgrade(){document.getElementById('upgradeModal').classList.add('open');}
-function editSocial(id){currentSocial=id;const cfg=SOCIAL_CFG[id];if(!cfg)return;document.getElementById('socialModalTitle').textContent='Link '+cfg.label;document.getElementById('socialModalLabel').textContent=cfg.inputLabel;document.getElementById('socialInput').placeholder=cfg.placeholder;document.getElementById('socialInput').value=socials[id]||'';document.getElementById('socialModal').classList.add('open');}
+
+function editSocial(id){
+  currentSocial=id;const cfg=SOCIAL_CFG[id];if(!cfg)return;
+  document.getElementById('socialModalTitle').textContent='Link '+cfg.label;
+  document.getElementById('socialModalLabel').textContent=cfg.inputLabel;
+  document.getElementById('socialInput').placeholder=cfg.placeholder;
+  document.getElementById('socialInput').value=socials[id]||'';
+  document.getElementById('socialModal').classList.add('open');
+}
 function closeSocialModal(){document.getElementById('socialModal').classList.remove('open');}
-function saveSocial(){const val=document.getElementById('socialInput').value.trim();socials[currentSocial]=val;const chip=document.querySelector(`.social-chip[data-social="${currentSocial}"]`);if(chip)chip.classList.toggle('linked',!!val);closeSocialModal();showToast(val?'✅ Linked!':'Removed');}
+function saveSocial(){
+  const val=document.getElementById('socialInput').value.trim();
+  socials[currentSocial]=val;
+  const chip=document.querySelector(`.social-chip[data-social="${currentSocial}"]`);
+  if(chip)chip.classList.toggle('linked',!!val);
+  closeSocialModal();showToast(val?'✅ Linked!':'Removed');
+}
 function editBio(){document.getElementById('bioInput').value=document.getElementById('bioText').textContent||'';document.getElementById('bioModal').classList.add('open');}
 function closeBioModal(){document.getElementById('bioModal').classList.remove('open');}
 function saveBio(){const bio=document.getElementById('bioInput').value.trim();document.getElementById('bioText').textContent=bio||'Add your bio';closeBioModal();showToast('Bio updated!');}
@@ -557,23 +621,38 @@ async function saveAllLinks(){
   const token=localStorage.getItem('token');
   if(!token){showToast('Please login first');btn.disabled=false;btn.textContent='Save';return;}
   try{
-    const toSave=links.filter(l=>!l._del).map(({id,title,url,icon,active,color,likes})=>({id,title,url,icon,active,color:color||'strip-purple',likes:likes||0}));
+    const toSave=links.filter(l=>!l._del).map(({id,title,url,icon,active,color,likes,clicks})=>({id,title,url,icon,active,color:color||'#7c3aed',likes:likes||0,clicks:clicks||0}));
     const res=await fetch(API+'/links/reorder',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({links:toSave})});
     const data=await res.json();
-    if(data.success)showToast('✅ Links saved!');else showToast('Error: '+(data.error||'Failed'));
+    if(data.success)showToast('✅ Saved!');else showToast('Error: '+(data.error||'Failed'));
   }catch(e){showToast('Network error');}
   btn.disabled=false;btn.textContent='Save';
 }
 
-function shareProfile(){const u=localStorage.getItem('username'),url='https://app.myqrid.in/profile/'+u;if(navigator.share)navigator.share({title:'My myQRID',url});else{navigator.clipboard.writeText(url);showToast('Link copied!');}}
-function handleAvatarUpload(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const el=document.getElementById('headerAvatar');el.style.background='none';el.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;};r.readAsDataURL(f);}
+function shareProfile(){
+  const u=localStorage.getItem('username'),url='https://myqrid.in/'+u;
+  if(navigator.share)navigator.share({title:'My myQRID',url});
+  else{navigator.clipboard.writeText(url);showToast('Link copied!');}
+}
+
+function handleAvatarUpload(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{const el=document.getElementById('headerAvatar');el.style.background='none';el.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;};
+  r.readAsDataURL(f);
+}
+
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
 async function loadLinks(){
   const name=localStorage.getItem('name')||'';
   const username=localStorage.getItem('username')||'';
-  if(name){const el=document.getElementById('headerAvatar');if(el&&!el.querySelector('img'))el.textContent=name[0].toUpperCase();document.getElementById('headerName').textContent=name;}
+  if(name){
+    const el=document.getElementById('headerAvatar');
+    if(el&&!el.querySelector('img'))el.textContent=name[0].toUpperCase();
+    document.getElementById('headerName').textContent=name;
+  }
   if(username)document.getElementById('headerUsername').textContent=username;
   const saved=localStorage.getItem('avatar_personal');
   if(saved){const el=document.getElementById('headerAvatar');el.style.background='none';el.innerHTML=`<img src="${saved}" style="width:100%;height:100%;object-fit:cover">`;}
@@ -595,7 +674,7 @@ async function loadLinks(){
   renderLinks();
 }
 
-buildTypeGrid();buildColorGrid();buildTemplateStrips();loadLinks();
+buildPresetGrid();loadLinks();
 </script>
 </body>
 </html>
