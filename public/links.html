@@ -8,40 +8,21 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111}
-body.card-personal{background:#f3f0ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(124,58,237,0.04) 39px,rgba(124,58,237,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(124,58,237,0.04) 39px,rgba(124,58,237,0.04) 40px),linear-gradient(135deg,#f3f0ff 0%,#fff 50%,#ede9fe 100%)}
-body.card-work{background:#eff6ff;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(96,165,250,0.05) 39px,rgba(96,165,250,0.05) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(96,165,250,0.05) 39px,rgba(96,165,250,0.05) 40px),linear-gradient(135deg,#eff6ff 0%,#fff 50%,#dbeafe 100%)}
-body.card-business{background:#f5f5f5;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.04) 39px,rgba(0,0,0,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.04) 39px,rgba(0,0,0,0.04) 40px),linear-gradient(135deg,#e5e7eb 0%,#fff 50%,#f3f4f6 100%)}
-body.card-earn{background:#f0fdf4;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(74,222,128,0.05) 39px,rgba(74,222,128,0.05) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(74,222,128,0.05) 39px,rgba(74,222,128,0.05) 40px),linear-gradient(135deg,#f0fdf4 0%,#fff 50%,#ede9fe 100%)}
-body.card-drift{background:#0a0a0f;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,200,184,0.06) 39px,rgba(0,200,184,0.06) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,200,184,0.06) 39px,rgba(0,200,184,0.06) 40px)}
-body.card-personal .link-card{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border-color:rgba(74,222,128,0.2)}
-body.card-personal .lc-title{color:#111}
-body.card-personal .lc-url{color:#6b7280}
-body.card-work .link-card{background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);border-color:rgba(96,165,250,0.2)}
-body.card-business .link-card{background:linear-gradient(135deg,#fdf8f0 0%,#e5e7eb 100%);border-color:rgba(107,114,128,0.2)}
-body.card-earn .link-card{background:linear-gradient(135deg,#f0fdf4 0%,#bbf7d0 100%);border-color:rgba(74,222,128,0.3)}
-body.card-drift .link-card{background:linear-gradient(135deg,#0a0f0a 0%,#001a15 100%);border-color:rgba(0,200,184,0.2)}
-body.card-drift .lc-title{color:#00c8b8}
-body.card-drift .lc-url{color:rgba(0,200,184,0.5)}
-body.card-drift .lbtm-btn{color:rgba(0,200,184,0.4)}
-body.card-drift .topbar{background:rgba(10,10,15,0.94);border-bottom-color:rgba(0,200,184,0.1)}
-body.card-drift .topbar-title{color:#00c8b8}
-body.card-drift .back-btn{background:rgba(0,200,184,0.08);border-color:rgba(0,200,184,0.2);color:#00c8b8}
-body.card-drift .profile-card{background:rgba(0,20,15,0.8);border-color:rgba(0,200,184,0.15)}
-body.card-drift .p-name{color:#00c8b8}
-body.card-drift .p-bio{color:rgba(0,200,184,0.5)}
-body.card-drift .add-main-btn{background:linear-gradient(135deg,#00c8b8,#006858)}
-body.card-drift .sec-lbl{color:rgba(0,200,184,0.4)}
-body.card-drift .lbtm-sep{background:rgba(0,200,184,0.1)}
-.page{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:90px;position:relative}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.94);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f7f7f8}
+body{background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(0,0,0,0.032) 39px,rgba(0,0,0,0.032) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(0,0,0,0.032) 39px,rgba(0,0,0,0.032) 40px)}
+.page{max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:90px}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
 .back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
-.topbar-title{font-size:16px;font-weight:700;color:#111}
+.topbar-title{font-size:16px;font-weight:700}
 .save-btn{padding:7px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(124,58,237,0.25)}
-.save-btn:disabled{opacity:0.5;cursor:not-allowed}
-.profile-card{background:rgba(255,255,255,0.85);border:1px solid rgba(0,0,0,0.07);border-radius:18px;margin:12px 16px;padding:16px 16px 14px;box-shadow:0 1px 8px rgba(0,0,0,0.05);backdrop-filter:blur(10px)}
+.save-btn:disabled{opacity:0.5}
+
+/* PROFILE CARD */
+.profile-card{background:rgba(255,255,255,0.9);border:1px solid rgba(0,0,0,0.07);border-radius:18px;margin:12px 16px;padding:16px;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
 .profile-top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
-.p-avatar{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;cursor:pointer;border:2px solid rgba(124,58,237,0.2)}
+.p-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;cursor:pointer;border:2px solid rgba(124,58,237,0.2)}
 .p-avatar img{width:100%;height:100%;object-fit:cover}
 .p-info{flex:1;min-width:0}
 .p-name{font-size:15px;font-weight:700;color:#111}
@@ -49,187 +30,142 @@ body.card-drift .lbtm-sep{background:rgba(0,200,184,0.1)}
 .p-bio{font-size:12px;color:#888}
 .p-bio-icon{font-size:9px;color:#ccc}
 .p-url{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:3px 10px;font-size:11px;color:#7c3aed;font-weight:500;cursor:pointer;margin-top:5px}
-/* SOCIAL CHIPS — only linked ones fully colored, rest faded */
+
+/* SOCIAL CHIPS */
 .social-row{display:flex;gap:5px;flex-wrap:wrap}
-.soc-chip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,0.6);border:1px solid rgba(0,0,0,0.07);transition:all 0.18s;min-width:44px;opacity:0.3}
-.soc-chip:active{transform:scale(0.93)}
-.soc-chip.linked{background:rgba(124,58,237,0.06);border-color:rgba(124,58,237,0.2);opacity:1}
+.soc-chip{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 8px;border-radius:10px;background:#f5f5f7;border:1px solid #e9e9eb;transition:all 0.18s;min-width:44px;opacity:0.35}
+.soc-chip.linked{opacity:1;background:#fff;border-color:rgba(124,58,237,0.2)}
 .soc-chip i{font-size:15px;color:#ccc}
 .soc-chip.linked i{color:var(--sc,#7c3aed)}
 .soc-chip span{font-size:9px;color:#bbb;font-weight:500}
 .soc-chip.linked span{color:#888}
-.spark-collapsed{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.85);border:1px solid rgba(0,0,0,0.07);border-radius:14px;margin:8px 16px;cursor:pointer;backdrop-filter:blur(8px)}
-.spark-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);flex-shrink:0}
-.spark-collapsed-text{flex:1;font-size:12px;color:#888}
-.spark-collapsed-text strong{color:#111;font-weight:600}
-.spark-collapsed-bar{width:60px;height:3px;background:#eee;border-radius:2px;overflow:hidden;flex-shrink:0}
-.spark-collapsed-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.3s}
-.spark-chevron{color:#ccc;font-size:10px;flex-shrink:0}
-.spark-expanded{display:none;background:rgba(255,255,255,0.85);border:1px solid rgba(0,0,0,0.07);border-radius:14px;margin:0 16px 8px;padding:14px;backdrop-filter:blur(8px)}
-.spark-expanded.open{display:block}
-.spark-exp-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.spark-exp-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.spark-exp-info{flex:1}
-.spark-exp-name{font-size:13px;font-weight:700;color:#111}
-.spark-exp-sub{font-size:11px;color:#aaa;margin-top:1px}
-.spark-bar-wrap{height:4px;background:#f0f0f0;border-radius:2px;margin-top:6px;overflow:hidden}
-.spark-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.35s}
-.spark-cnt{font-size:10px;color:#bbb;margin-top:3px}
-.spark-up-btn{padding:6px 14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;margin-top:10px;font-family:'Inter',sans-serif}
-.add-main-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 16px 12px;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:14px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,0.28);transition:all 0.2s;width:calc(100% - 32px)}
-.add-main-btn:active{transform:scale(0.98)}
-.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:8px}
+
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin:10px 0 8px}
 .sec-lbl{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px}
-.sec-cnt{font-size:11px;color:#ccc}
-.links-wrap{padding:0 16px}
-.link-card{background:#fff;border:1px solid #e9e9eb;border-radius:16px;margin-bottom:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.04);transition:box-shadow 0.2s}
-.link-card.hidden-card{opacity:0.5}
-.link-card-top{display:flex;align-items:center;padding:12px 12px 8px}
-.lc-drag{color:#d1d5db;font-size:13px;cursor:grab;padding:0 8px 0 0;flex-shrink:0}
-.lc-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-right:10px}
-.lc-text{flex:1;min-width:0}
-.lc-title-row{display:flex;align-items:center;gap:5px;margin-bottom:2px}
-.lc-title{font-size:14px;font-weight:600;color:#111;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lc-title-input{font-size:14px;font-weight:600;color:#111;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;border-bottom:1.5px solid #7c3aed;padding-bottom:1px}
-.lc-edit{font-size:10px;color:#d1d5db;cursor:pointer;flex-shrink:0}
-.lc-url-row{display:flex;align-items:center;gap:5px}
-.lc-url{font-size:11px;color:#aaa;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lc-url-input{font-size:11px;color:#666;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;width:100%;border-bottom:1px solid #e5e7eb;padding-bottom:1px}
-.lc-url-edit{font-size:9px;color:#d1d5db;cursor:pointer;flex-shrink:0}
-.lc-right{display:flex;align-items:center;gap:6px;margin-left:8px;flex-shrink:0}
-.lc-share{width:28px;height:28px;border-radius:7px;background:#f9f9fb;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#aaa;font-size:11px}
-.lc-toggle{width:40px;height:22px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
-.lc-toggle.on{background:#7c3aed}
-.lc-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
-.lc-toggle.on::after{transform:translateX(18px)}
-.link-btm{display:flex;align-items:center;padding:5px 10px 9px;border-top:1px solid rgba(0,0,0,0.04)}
-.lbtm-btn{display:flex;align-items:center;gap:4px;padding:5px 7px;border-radius:7px;background:transparent;border:none;cursor:pointer;color:#ccc;font-size:11px;font-family:'Inter',sans-serif;transition:all 0.18s}
-.lbtm-btn:active{background:#f5f5f7;color:#555}
-.lbtm-btn i{font-size:13px}
-.lbtm-btn.liked{color:#ef4444}
-.lbtm-btn.pinned{color:#f59e0b}
-.lbtm-sep{width:1px;height:16px;background:#f0f0f0;flex-shrink:0;margin:0 1px}
-.lbtm-clicks{margin-left:auto;font-size:10px;color:#ccc;display:flex;align-items:center;gap:3px;padding:0 4px}
-.lbtm-del{color:#fca5a5!important}
-.lbtm-del:active{color:#ef4444!important;background:rgba(239,68,68,0.05)!important}
-.link-thumb{width:100%;max-height:140px;object-fit:cover;display:block}
-.col-card{background:rgba(255,255,255,0.7);border:1.5px dashed #d1d5db;border-radius:16px;margin-bottom:8px;overflow:hidden;backdrop-filter:blur(8px)}
-.col-header{display:flex;align-items:center;gap:8px;padding:11px 12px;border-bottom:1px solid rgba(0,0,0,0.04)}
-.col-drag{color:#d1d5db;font-size:13px;cursor:grab;flex-shrink:0}
-.col-icon{color:#aaa;font-size:13px;flex-shrink:0}
-.col-title-input{flex:1;border:none;outline:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#111;background:transparent}
-.col-title-input::placeholder{color:#ccc}
-.col-layout-btn{padding:4px 10px;border-radius:8px;background:#f5f5f7;border:1px solid #e9e9eb;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#888;cursor:pointer}
-.col-del-btn{width:28px;height:28px;border-radius:7px;background:#fff5f5;border:1px solid #fecaca;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fca5a5;font-size:11px}
-.col-vis-toggle{width:38px;height:20px;border-radius:10px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
-.col-vis-toggle.on{background:#7c3aed}
-.col-vis-toggle::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 2px rgba(0,0,0,0.12)}
-.col-vis-toggle.on::after{transform:translateX(18px)}
-.col-body{padding:8px 10px 10px}
-.col-empty{text-align:center;padding:12px;color:#ccc;font-size:12px}
-.col-add-link{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;border-radius:10px;background:#fafafa;border:1px dashed #e5e7eb;cursor:pointer;color:#bbb;font-size:12px;font-weight:500;margin-top:6px;transition:all 0.18s;font-family:'Inter',sans-serif;width:100%}
-.col-add-link:active{background:rgba(124,58,237,0.05);color:#7c3aed;border-color:rgba(124,58,237,0.3)}
-.layout-opt{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px;border-radius:10px;border:1.5px solid #e9e9eb;cursor:pointer;background:#fff;transition:all 0.18s;flex:1}
-.layout-opt.active{border-color:#7c3aed;background:rgba(124,58,237,0.05)}
-.layout-opt i{font-size:16px;color:#bbb}
-.layout-opt.active i{color:#7c3aed}
-.layout-opt span{font-size:10px;color:#aaa;font-weight:500}
-.layout-opt.active span{color:#7c3aed}
-.add-col-btn{display:flex;align-items:center;gap:8px;padding:11px 14px;margin:0 16px 10px;background:rgba(255,255,255,0.7);border:1.5px dashed #d1d5db;border-radius:14px;cursor:pointer;color:#888;font-size:13px;font-weight:500;font-family:'Inter',sans-serif;transition:all 0.18s;width:calc(100% - 32px);backdrop-filter:blur(8px)}
-.add-col-btn:active{background:rgba(124,58,237,0.05);border-color:rgba(124,58,237,0.3);color:#7c3aed}
-.unlock-collapsed{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.85);border:1px solid rgba(124,58,237,0.15);border-radius:14px;margin:8px 16px;cursor:pointer;backdrop-filter:blur(8px)}
-.unlock-collapsed-icon{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.unlock-collapsed-text{flex:1}
-.unlock-collapsed-title{font-size:13px;font-weight:700;color:#111}
-.unlock-collapsed-sub{font-size:11px;color:#aaa;margin-top:1px}
-.unlock-chevron{color:#ccc;font-size:10px}
-.unlock-expanded{display:none;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:18px;margin:0 16px 10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.unlock-expanded.open{display:block}
-.unlock-hdr{padding:16px 18px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.04),rgba(236,72,153,0.03))}
-.unlock-title{font-size:15px;font-weight:800;color:#111;margin-bottom:4px}
-.unlock-sub{font-size:12px;color:#888;line-height:1.6;margin-bottom:12px}
-.unlock-feats{display:flex;flex-direction:column;gap:6px}
-.unlock-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:#444}
-.unlock-feat i{color:#7c3aed;font-size:11px;flex-shrink:0}
-.unlock-plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 18px 16px}
-.uplan-btn{padding:13px 10px;border:none;border-radius:13px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all 0.2s}
+.sec-cnt{font-size:11px;color:#bbb}
+
+/* ═══════════════════════════════════
+   THE 18 PRE-MADE STRIPS
+═══════════════════════════════════ */
+.strips-wrap{padding:0 16px}
+
+.strip{background:#f9f9fb;border:1px solid #e9e9eb;border-radius:16px;margin-bottom:8px;overflow:hidden;transition:all 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.strip.filled{background:#fff;border-color:#e0e0e0;box-shadow:0 1px 6px rgba(0,0,0,0.07)}
+.strip.hidden-strip{opacity:0.45}
+
+/* STRIP TOP ROW */
+.strip-top{display:flex;align-items:center;gap:10px;padding:12px 12px 8px;cursor:pointer}
+.strip-drag{color:#d1d5db;font-size:12px;cursor:grab;flex-shrink:0;padding:0 4px}
+.strip-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:#f0f0f0;transition:all 0.2s}
+.strip.filled .strip-icon{background:var(--ic-bg,#f0f0f0)}
+.strip-content{flex:1;min-width:0}
+.strip-name{font-size:14px;font-weight:600;color:#bbb;transition:color 0.2s}
+.strip.filled .strip-name{color:#111}
+.strip-url-display{font-size:11px;color:#aaa;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.strip-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.strip-share-btn{width:28px;height:28px;border-radius:7px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#bbb;font-size:10px;transition:all 0.18s}
+.strip-share-btn:active{background:#ede9ff;color:#7c3aed}
+.strip-toggle{width:40px;height:22px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
+.strip-toggle.on{background:#7c3aed}
+.strip-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.strip-toggle.on::after{transform:translateX(18px)}
+
+/* STRIP INLINE URL INPUT */
+.strip-input-row{display:none;padding:0 12px 10px;gap:8px;align-items:center}
+.strip-input-row.open{display:flex}
+.strip-url-input{flex:1;padding:9px 12px;background:#f5f5f7;border:1.5px solid #e9e9eb;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;color:#111;outline:none;transition:border 0.2s}
+.strip-url-input:focus{border-color:#7c3aed;background:#fff}
+.strip-url-input::placeholder{color:#bbb;font-size:12px}
+.strip-save-btn{padding:9px 14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.strip-save-btn:active{transform:scale(0.96)}
+.strip-clear-btn{width:30px;height:30px;border-radius:8px;background:#fff5f5;border:1px solid #fecaca;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fca5a5;font-size:12px;flex-shrink:0}
+
+/* STRIP BOTTOM BAR */
+.strip-btm{display:flex;align-items:center;padding:5px 10px 9px;border-top:1px solid #f0f0f0;gap:0}
+.sbtm-btn{display:flex;align-items:center;gap:4px;padding:5px 7px;border-radius:7px;background:transparent;border:none;cursor:pointer;color:#ccc;font-size:11px;font-family:'Inter',sans-serif;transition:all 0.18s;position:relative}
+.sbtm-btn:active{background:#f5f5f7;color:#555;transform:scale(0.95)}
+.sbtm-btn i{font-size:13px}
+.sbtm-btn.active-pin{color:#f59e0b!important}
+.sbtm-btn.active-like{color:#ef4444!important}
+.sbtm-btn.active-hide{color:#7c3aed!important}
+.sbtm-sep{width:1px;height:16px;background:#f0f0f0;flex-shrink:0;margin:0 2px}
+.sbtm-clicks{margin-left:auto;font-size:10px;color:#ccc;display:flex;align-items:center;gap:3px;padding:0 4px}
+
+/* ANALYTICS TOOLTIP */
+.analytics-tip{display:none;position:absolute;bottom:36px;left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:11px;padding:6px 10px;border-radius:8px;white-space:nowrap;z-index:10;pointer-events:none}
+.analytics-tip.show{display:block}
+.analytics-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#111}
+
+/* SPARK BANNER */
+.spark-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:14px;margin:8px 16px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.spark-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);flex-shrink:0}
+.spark-info{flex:1;font-size:12px;color:#888}
+.spark-info strong{color:#111;font-weight:600}
+.spark-bar-wrap{width:60px;height:3px;background:#eee;border-radius:2px;overflow:hidden;flex-shrink:0}
+.spark-bar-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:2px;transition:width 0.3s}
+.spark-cnt-sm{font-size:10px;color:#bbb;margin-left:2px;flex-shrink:0}
+
+/* UPGRADE SECTION */
+.upgrade-section{margin:10px 16px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:18px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
+.upgrade-hdr{padding:16px 16px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(236,72,153,0.03))}
+.upgrade-title{font-size:14px;font-weight:800;color:#111;margin-bottom:4px}
+.upgrade-sub{font-size:12px;color:#888;line-height:1.5;margin-bottom:10px}
+.upgrade-feats{display:flex;flex-direction:column;gap:5px}
+.upgrade-feat{display:flex;align-items:center;gap:7px;font-size:12px;color:#444}
+.upgrade-feat i{color:#7c3aed;font-size:10px;flex-shrink:0}
+.upgrade-plans{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 16px 16px}
+.uplan-btn{padding:12px;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all 0.2s}
 .uplan-btn:active{transform:scale(0.97)}
 .uplan-sub{font-size:10px;font-weight:400;opacity:0.8}
-.btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,0.28)}
-.btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 12px rgba(5,150,105,0.22)}
-.unlock-note{text-align:center;font-size:11px;color:#bbb;padding:0 18px 14px}
+.btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,0.25)}
+.btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 4px 12px rgba(5,150,105,0.2)}
+.upgrade-note{text-align:center;font-size:11px;color:#bbb;padding:0 16px 14px}
+
+/* FOOTER */
 .myqrid-footer{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 20px 20px}
 .footer-brand{font-size:18px;font-weight:800;color:#111}
 .footer-brand span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .footer-tag{font-size:11px;color:#bbb;text-align:center}
+
+/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.04)}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0;cursor:pointer;transition:color 0.2s}
 .nav-item.active{color:#7c3aed}
 .nav-icon{font-size:20px;line-height:1}
 .nav-center-btn{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
+
+/* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
-.modal-overlay.open{background:rgba(0,0,0,0.4);pointer-events:all}
-.add-modal-panel{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);height:88vh;display:flex;flex-direction:column;overflow:hidden}
-.modal-overlay.open .add-modal-panel{transform:translateY(0)}
-.add-modal-top{padding:14px 20px 0;flex-shrink:0}
-.add-modal-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:0 auto 12px}
-.add-modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.add-modal-title{font-size:20px;font-weight:800;color:#111}
-.add-modal-close{width:30px;height:30px;border-radius:50%;background:#f5f5f7;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#888;font-size:14px}
-.add-search-bar{display:flex;align-items:center;gap:10px;background:#f5f5f7;border:1.5px solid #e9e9eb;border-radius:14px;padding:11px 14px;margin-bottom:12px}
-.add-search-bar i{color:#bbb;font-size:14px;flex-shrink:0}
-.add-search-bar input{flex:1;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:14px;color:#111}
-.add-search-bar input::placeholder{color:#bbb}
-.add-top-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 20px 12px;flex-shrink:0}
-.add-tile{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;background:#f9f9fb;border:1.5px solid #e9e9eb;border-radius:13px;cursor:pointer;transition:all 0.18s}
-.add-tile:active{background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.4);transform:scale(0.96)}
-.add-tile-icon{font-size:22px}
-.add-tile-name{font-size:11px;font-weight:600;color:#888}
-.add-split{display:flex;flex:1;overflow:hidden;border-top:1px solid #f0f0f0}
-.add-left{width:140px;flex-shrink:0;border-right:1px solid #f0f0f0;overflow-y:auto;padding:8px 0}
-.add-left::-webkit-scrollbar{display:none}
-.add-cat-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;transition:all 0.18s;color:#666;font-size:13px;font-weight:500}
-.add-cat-item:active,.add-cat-item.active{background:#f5f5f7;color:#111;font-weight:600}
-.add-cat-item i{font-size:14px;color:#bbb;width:16px;flex-shrink:0}
-.add-cat-item.active i{color:#7c3aed}
-.add-right{flex:1;overflow-y:auto;padding:12px 16px}
-.add-right::-webkit-scrollbar{display:none}
-.add-section-title{font-size:15px;font-weight:800;color:#111;margin-bottom:10px}
-.add-type-row{display:flex;align-items:center;gap:12px;padding:11px 12px;background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;cursor:pointer;transition:all 0.18s;margin-bottom:7px}
-.add-type-row:active{background:rgba(124,58,237,0.07);border-color:rgba(124,58,237,0.3);transform:scale(0.98)}
-.add-type-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.add-type-text{flex:1;min-width:0}
-.add-type-name{font-size:13px;font-weight:600;color:#111}
-.add-type-desc{font-size:11px;color:#aaa;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.add-type-arrow{color:#d1d5db;font-size:11px;flex-shrink:0}
-.form-modal-panel{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:85vh;overflow-y:auto}
-.modal-overlay.open .form-modal-panel{transform:translateY(0)}
+.modal-overlay.open{background:rgba(0,0,0,0.45);pointer-events:all}
+.modal-panel{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:80vh;overflow-y:auto}
+.modal-overlay.open .modal-panel{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:0 auto 16px}
 .f-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px}
 .f-input{width:100%;padding:12px 14px;background:#f9f9fb;border:1.5px solid #e9e9eb;border-radius:12px;color:#111;font-family:'Inter',sans-serif;font-size:15px;outline:none;transition:border 0.2s;margin-bottom:13px}
 .f-input:focus{border-color:#7c3aed;background:#fff}
 .f-input::placeholder{color:#ccc}
-.f-save{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(124,58,237,0.24);margin-top:2px}
+.f-save{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:2px}
 .f-save:active{transform:scale(0.98)}
 .f-cancel{width:100%;padding:12px;background:transparent;border:1.5px solid #e9e9eb;border-radius:13px;color:#888;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
-.color-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
-.csw{width:28px;height:28px;border-radius:7px;cursor:pointer;border:2.5px solid transparent;transition:all 0.18s}
-.csw.sel{border-color:#111;transform:scale(1.18)}
-.simple-panel{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:80vh;overflow-y:auto}
-.modal-overlay.open .simple-panel{transform:translateY(0)}
-.empty-state{text-align:center;padding:24px;color:#bbb;font-size:14px;background:rgba(255,255,255,0.6);border-radius:14px;border:1px solid rgba(0,0,0,0.06);backdrop-filter:blur(8px)}
+
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,0.18)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@keyframes lcIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.lc-in{animation:lcIn 0.28s ease forwards}
+@keyframes stripIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.strip-in{animation:stripIn 0.25s ease forwards}
 </style>
 </head>
-<body class="card-personal">
+<body>
 <div class="page">
+
+  <!-- TOPBAR -->
   <div class="topbar">
     <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
     <div class="topbar-title">Links</div>
     <button class="save-btn" id="saveBtn" onclick="saveAllLinks()">Save</button>
   </div>
+
+  <!-- PROFILE CARD -->
   <div class="profile-card">
     <div class="profile-top">
       <div class="p-avatar" id="pAvatar" onclick="document.getElementById('avatarInput').click()">P</div>
@@ -256,71 +192,53 @@ body.card-drift .lbtm-sep{background:rgba(0,200,184,0.1)}
       <div class="soc-chip" data-s="snapchat" style="--sc:#f59e0b" onclick="editSoc('snapchat')"><i class="fab fa-snapchat"></i><span>SC</span></div>
     </div>
   </div>
-  <button class="add-main-btn" onclick="openAddModal()"><i class="fas fa-plus"></i> Add</button>
+
+  <!-- SPARK BANNER -->
+  <div class="spark-banner" onclick="showToast('myQRID Spark · No payment · No card required')">
+    <div class="spark-dot"></div>
+    <div class="spark-info"><strong>myQRID Spark</strong> · No payment · No card</div>
+    <div class="spark-bar-wrap"><div class="spark-bar-fill" id="sparkBarFill" style="width:0%"></div></div>
+    <div class="spark-cnt-sm" id="sparkCntSm">0/18</div>
+  </div>
+
+  <!-- SECTION HEADER -->
   <div class="sec-hdr">
     <div class="sec-lbl">Your Links</div>
-    <div class="sec-cnt" id="secCnt">0 links</div>
+    <div class="sec-cnt" id="secCnt">0 / 18</div>
   </div>
-  <div class="links-wrap" id="linksWrap">
-    <div class="empty-state" id="emptyState">
-      <div style="font-size:24px;margin-bottom:6px">🔗</div>
-      Tap <strong>+ Add</strong> to create your first link
-    </div>
-  </div>
-  <div id="colsWrap" style="padding:0 16px"></div>
-  <button class="add-col-btn" onclick="addCollection()"><i class="fas fa-layer-group"></i> Add Collection</button>
-  <div class="spark-collapsed" id="sparkCollapsed" onclick="toggleSpark()">
-    <div class="spark-dot"></div>
-    <div class="spark-collapsed-text"><strong>myQRID Spark</strong> · No payment · No card</div>
-    <div class="spark-collapsed-bar"><div class="spark-collapsed-fill" id="sparkFill" style="width:0%"></div></div>
-    <div class="spark-cnt" id="sparkCntSmall" style="font-size:10px;color:#bbb;margin-left:4px">0/18</div>
-    <i class="fas fa-chevron-down spark-chevron" id="sparkChevron"></i>
-  </div>
-  <div class="spark-expanded" id="sparkExpanded">
-    <div class="spark-exp-row">
-      <div class="spark-exp-icon">⚡</div>
-      <div class="spark-exp-info">
-        <div class="spark-exp-name">myQRID Spark</div>
-        <div class="spark-exp-sub">No payment · No card · Always yours</div>
-        <div class="spark-bar-wrap"><div class="spark-bar" id="sparkBar" style="width:0%"></div></div>
-        <div class="spark-cnt" id="sparkCnt">0 / 18 links</div>
+
+  <!-- 18 PRE-MADE STRIPS -->
+  <div class="strips-wrap" id="stripsWrap"></div>
+
+  <!-- UPGRADE SECTION -->
+  <div class="upgrade-section">
+    <div class="upgrade-hdr">
+      <div class="upgrade-title">Unlock Full Analytics & More</div>
+      <div class="upgrade-sub">See who viewed your links, when and where — unlimited links, Ea₹n tools and creator features.</div>
+      <div class="upgrade-feats">
+        <div class="upgrade-feat"><i class="fas fa-chart-line"></i> Full scan analytics with location map</div>
+        <div class="upgrade-feat"><i class="fas fa-infinity"></i> Unlimited links, cards & identity modes</div>
+        <div class="upgrade-feat"><i class="fas fa-indian-rupee-sign"></i> Ea₹n — paid consultations & bookings</div>
+        <div class="upgrade-feat"><i class="fas fa-shield-alt"></i> Family Shield — protect everyone you love</div>
+        <div class="upgrade-feat"><i class="fas fa-certificate"></i> Priority verified badge</div>
       </div>
     </div>
-    <button class="spark-up-btn" onclick="toggleUnlock()">Upgrade to Blaze or Family Shield ↑</button>
-  </div>
-  <div class="unlock-collapsed" id="unlockCollapsed" onclick="toggleUnlock()">
-    <div class="unlock-collapsed-icon">🚀</div>
-    <div class="unlock-collapsed-text">
-      <div class="unlock-collapsed-title">Unlock Full Potential</div>
-      <div class="unlock-collapsed-sub">Analytics, unlimited links & creator tools</div>
-    </div>
-    <i class="fas fa-chevron-down unlock-chevron" id="unlockChevron"></i>
-  </div>
-  <div class="unlock-expanded" id="unlockExpanded">
-    <div class="unlock-hdr">
-      <div class="unlock-title">Unlock Full Analytics & More</div>
-      <div class="unlock-sub">See who viewed your links, when and where — plus unlimited links, Ea₹n tools and creator features.</div>
-      <div class="unlock-feats">
-        <div class="unlock-feat"><i class="fas fa-chart-line"></i> Full scan analytics with location map</div>
-        <div class="unlock-feat"><i class="fas fa-infinity"></i> Unlimited links, cards & identity modes</div>
-        <div class="unlock-feat"><i class="fas fa-indian-rupee-sign"></i> Ea₹n — paid consultations & bookings</div>
-        <div class="unlock-feat"><i class="fas fa-shield-alt"></i> Family Shield — protect everyone you love</div>
-        <div class="unlock-feat"><i class="fas fa-palette"></i> Custom QR design, themes & branding</div>
-        <div class="unlock-feat"><i class="fas fa-certificate"></i> Priority verified badge</div>
-      </div>
-    </div>
-    <div class="unlock-plans">
+    <div class="upgrade-plans">
       <button class="uplan-btn btn-blaze" onclick="showToast('myQRID Blaze — coming soon!')"><span>⚡ myQRID Blaze</span><span class="uplan-sub">For creators & builders</span></button>
       <button class="uplan-btn btn-shield" onclick="showToast('Family Shield — coming soon!')"><span>🛡️ Family Shield</span><span class="uplan-sub">For your whole family</span></button>
     </div>
-    <div class="unlock-note">No hidden charges · Cancel anytime · Powered by myQRID</div>
+    <div class="upgrade-note">No hidden charges · Cancel anytime · Powered by myQRID</div>
   </div>
+
+  <!-- FOOTER -->
   <div class="myqrid-footer">
     <div class="footer-brand">my<span>QRID</span></div>
     <div class="footer-tag">Your Digital Identity · One QR · Infinite Possibilities</div>
   </div>
+
 </div>
 
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
   <a href="/links.html" class="nav-item active"><span class="nav-icon">🔗</span><span>Links</span></a>
@@ -331,59 +249,10 @@ body.card-drift .lbtm-sep{background:rgba(0,200,184,0.1)}
   <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
 </nav>
 
-<div class="modal-overlay" id="addModal" onclick="if(event.target===this)closeAddModal()">
-  <div class="add-modal-panel" onclick="event.stopPropagation()">
-    <div class="add-modal-top">
-      <div class="add-modal-handle"></div>
-      <div class="add-modal-hdr">
-        <div class="add-modal-title">Add</div>
-        <button class="add-modal-close" onclick="closeAddModal()"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="add-search-bar">
-        <i class="fas fa-search"></i>
-        <input type="text" id="addSearch" placeholder="Paste or search a link" oninput="onAddSearch(this.value)" autocomplete="off">
-      </div>
-    </div>
-    <div class="add-top-tiles">
-      <div class="add-tile" onclick="handleTile('collection')"><div class="add-tile-icon">📦</div><div class="add-tile-name">Collection</div></div>
-      <div class="add-tile" onclick="handleTile('link')"><div class="add-tile-icon">🔗</div><div class="add-tile-name">Link</div></div>
-      <div class="add-tile" onclick="handleTile('product')"><div class="add-tile-icon">🏷️</div><div class="add-tile-name">Product</div></div>
-      <div class="add-tile" onclick="handleTile('form')"><div class="add-tile-icon">📋</div><div class="add-tile-name">Form</div></div>
-    </div>
-    <div class="add-split">
-      <div class="add-left">
-        <div class="add-cat-item active" data-cat="suggested" onclick="setAddCat('suggested',this)"><i class="fas fa-lightbulb"></i> Suggested</div>
-        <div class="add-cat-item" data-cat="commerce" onclick="setAddCat('commerce',this)"><i class="fas fa-store"></i> Commerce</div>
-        <div class="add-cat-item" data-cat="social" onclick="setAddCat('social',this)"><i class="fas fa-heart"></i> Social</div>
-        <div class="add-cat-item" data-cat="media" onclick="setAddCat('media',this)"><i class="fas fa-play-circle"></i> Media</div>
-        <div class="add-cat-item" data-cat="contact" onclick="setAddCat('contact',this)"><i class="fas fa-address-card"></i> Contact</div>
-        <div class="add-cat-item" data-cat="events" onclick="setAddCat('events',this)"><i class="fas fa-calendar"></i> Events</div>
-        <div class="add-cat-item" data-cat="text" onclick="setAddCat('text',this)"><i class="fas fa-font"></i> Text</div>
-        <div class="add-cat-item" data-cat="all" onclick="setAddCat('all',this)"><i class="fas fa-ellipsis-h"></i> View all</div>
-      </div>
-      <div class="add-right" id="addRight"></div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="formModal" onclick="if(event.target===this)closeFormModal()">
-  <div class="form-modal-panel" onclick="event.stopPropagation()">
-    <div class="add-modal-handle" style="margin-bottom:14px"></div>
-    <div id="fModalTitle" style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Add Link</div>
-    <div class="f-label">Title</div>
-    <input class="f-input" type="text" id="fTitle" placeholder="e.g. My Portfolio">
-    <div class="f-label" id="fUrlLbl">URL</div>
-    <input class="f-input" type="text" id="fUrl" placeholder="https://...">
-    <div class="f-label">Strip Color</div>
-    <div class="color-row" id="colorRow"></div>
-    <button class="f-save" onclick="saveLink()">Add Link</button>
-    <button class="f-cancel" onclick="closeFormModal()">Cancel</button>
-  </div>
-</div>
-
-<div class="modal-overlay" id="socModal" onclick="closeSocModal()">
-  <div class="simple-panel" onclick="event.stopPropagation()">
-    <div class="add-modal-handle" style="margin-bottom:14px"></div>
+<!-- SOC MODAL -->
+<div class="modal-overlay" id="socModal" onclick="if(event.target===this)closeSocModal()">
+  <div class="modal-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
     <div id="socTitle" style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Link Account</div>
     <div class="f-label" id="socLbl">Handle</div>
     <input class="f-input" type="text" id="socInput">
@@ -392,9 +261,10 @@ body.card-drift .lbtm-sep{background:rgba(0,200,184,0.1)}
   </div>
 </div>
 
-<div class="modal-overlay" id="bioModal" onclick="closeBioModal()">
-  <div class="simple-panel" onclick="event.stopPropagation()">
-    <div class="add-modal-handle" style="margin-bottom:14px"></div>
+<!-- BIO MODAL -->
+<div class="modal-overlay" id="bioModal" onclick="if(event.target===this)closeBioModal()">
+  <div class="modal-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
     <div style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Edit Bio</div>
     <div class="f-label">Your Bio</div>
     <textarea class="f-input" id="bioInput" rows="3" placeholder="Tell people who you are..." style="resize:none;line-height:1.5"></textarea>
@@ -403,303 +273,306 @@ body.card-drift .lbtm-sep{background:rgba(0,200,184,0.1)}
   </div>
 </div>
 
-<div class="modal-overlay" id="layoutModal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="simple-panel" onclick="event.stopPropagation()">
-    <div class="add-modal-handle" style="margin-bottom:14px"></div>
-    <div style="font-size:17px;font-weight:800;color:#111;margin-bottom:16px">Display as</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
-      <div class="layout-opt active" onclick="setLayout('stack',this)"><i class="fas fa-bars"></i><span>Stack</span></div>
-      <div class="layout-opt" onclick="setLayout('grid',this)"><i class="fas fa-th"></i><span>Grid</span></div>
-      <div class="layout-opt" onclick="setLayout('carousel',this)"><i class="fas fa-film"></i><span>Carousel</span></div>
-      <div class="layout-opt" onclick="setLayout('showcase',this)"><i class="fas fa-expand"></i><span>Showcase</span></div>
-    </div>
-    <button class="f-save" onclick="document.getElementById('layoutModal').classList.remove('open')">Done</button>
+<!-- ANALYTICS MODAL -->
+<div class="modal-overlay" id="analyticsModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div style="font-size:17px;font-weight:800;color:#111;margin-bottom:4px" id="analyticsTitle">Link Analytics</div>
+    <div style="font-size:12px;color:#888;margin-bottom:16px" id="analyticsUrl"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px" id="analyticsStats"></div>
+    <div style="font-size:12px;color:#bbb;text-align:center;padding:8px">Full analytics available with myQRID Blaze</div>
+    <button class="f-cancel" onclick="document.getElementById('analyticsModal').classList.remove('open')">Close</button>
   </div>
 </div>
 
 <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatar(event)">
-<input type="file" id="thumbInput" accept="image/*" style="display:none" onchange="handleThumb(event)">
 <div class="toast" id="toast"></div>
 
 <script>
 const API='https://myqrid-backend.myqrid.workers.dev';
-const SPARK_LIMIT=18;
-let links=[],collections=[],editingId=null,thumbTarget=null,curSoc=null,socials={},selColor='#7c3aed',curType=null,addCat='suggested',searchQ='',colIdCtr=0,curLayoutColId=null,sparkOpen=false,unlockOpen=false;
 
-const COLORS=[{h:'#7c3aed'},{h:'#ec4899'},{h:'#2563eb'},{h:'#059669'},{h:'#ea580c'},{h:'#0d9488'},{h:'#4338ca'},{h:'#be123c'},{h:'#075985'},{h:'#064e3b'},{h:'#374151'},{h:'#111827'}];
+/* ══════════════════════════════════════
+   18 STRIP TEMPLATES
+══════════════════════════════════════ */
+const STRIP_TEMPLATES=[
+  {id:'whatsapp',  name:'WhatsApp',   icon:'fab fa-whatsapp',  color:'#25D366', bg:'rgba(37,211,102,0.12)',  ph:'919876543210',  lbl:'Phone number (+91...)', prefix:'https://wa.me/'},
+  {id:'instagram', name:'Instagram',  icon:'fab fa-instagram', color:'#e1306c', bg:'rgba(225,48,108,0.12)', ph:'@yourusername',  lbl:'Instagram handle',      prefix:'https://instagram.com/'},
+  {id:'youtube',   name:'YouTube',    icon:'fab fa-youtube',   color:'#FF0000', bg:'rgba(255,0,0,0.1)',      ph:'youtube.com/c/...',lbl:'Channel URL',          prefix:''},
+  {id:'twitter',   name:'X / Twitter',icon:'fab fa-x-twitter', color:'#111',    bg:'rgba(0,0,0,0.08)',       ph:'@yourusername',  lbl:'X handle',              prefix:'https://x.com/'},
+  {id:'linkedin',  name:'LinkedIn',   icon:'fab fa-linkedin',  color:'#0a66c2', bg:'rgba(10,102,194,0.12)', ph:'linkedin.com/in/...',lbl:'Profile URL',        prefix:''},
+  {id:'facebook',  name:'Facebook',   icon:'fab fa-facebook',  color:'#1877f2', bg:'rgba(24,119,242,0.12)', ph:'facebook.com/...',lbl:'Profile URL',           prefix:''},
+  {id:'telegram',  name:'Telegram',   icon:'fab fa-telegram',  color:'#2aabee', bg:'rgba(42,171,238,0.12)', ph:'@username',      lbl:'Telegram handle',       prefix:'https://t.me/'},
+  {id:'snapchat',  name:'Snapchat',   icon:'fab fa-snapchat',  color:'#f59e0b', bg:'rgba(245,158,11,0.12)', ph:'yourusername',   lbl:'Snapchat username',     prefix:'https://snapchat.com/add/'},
+  {id:'github',    name:'GitHub',     icon:'fab fa-github',    color:'#212121', bg:'rgba(33,33,33,0.08)',   ph:'github.com/...',  lbl:'GitHub profile URL',    prefix:''},
+  {id:'spotify',   name:'Spotify',    icon:'fab fa-spotify',   color:'#1db954', bg:'rgba(29,185,84,0.12)',  ph:'open.spotify.com/...',lbl:'Spotify profile', prefix:''},
+  {id:'tiktok',    name:'TikTok',     icon:'fab fa-tiktok',    color:'#111',    bg:'rgba(0,0,0,0.08)',       ph:'@yourusername',  lbl:'TikTok handle',         prefix:'https://tiktok.com/@'},
+  {id:'website',   name:'Website',    icon:'fas fa-globe',     color:'#4338ca', bg:'rgba(67,56,202,0.1)',   ph:'https://...',    lbl:'Website URL',            prefix:''},
+  {id:'portfolio', name:'Portfolio',  icon:'fas fa-briefcase', color:'#7c3aed', bg:'rgba(124,58,237,0.1)',  ph:'https://...',    lbl:'Portfolio URL',          prefix:''},
+  {id:'booking',   name:'Book Me',    icon:'fas fa-calendar-check',color:'#0d9488',bg:'rgba(13,148,136,0.1)',ph:'calendly.com/...',lbl:'Booking URL',          prefix:''},
+  {id:'payment',   name:'Pay Me',     icon:'fas fa-qrcode',    color:'#059669', bg:'rgba(5,150,105,0.1)',   ph:'upi://pay?pa=...',lbl:'UPI / Payment link',   prefix:''},
+  {id:'email',     name:'Email',      icon:'fas fa-envelope',  color:'#2563eb', bg:'rgba(37,99,235,0.1)',   ph:'you@email.com',  lbl:'Email address',          prefix:'mailto:'},
+  {id:'call',      name:'Call Me',    icon:'fas fa-phone',     color:'#16a34a', bg:'rgba(22,163,74,0.1)',   ph:'+91XXXXXXXXXX',  lbl:'Phone number',           prefix:'tel:'},
+  {id:'maps',      name:'Location',   icon:'fas fa-map-marker-alt',color:'#dc2626',bg:'rgba(220,38,38,0.1)',ph:'maps.app.goo.gl/...',lbl:'Google Maps URL',   prefix:''},
+];
 
-const TYPES_DATA={
-  suggested:[
-    {id:'instagram',name:'Instagram',desc:'Display your posts and reels',icon:'fab fa-instagram',bg:'linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)',color:'#c2185b',urlLbl:'@handle',ph:'@yourusername'},
-    {id:'tiktok',name:'TikTok',desc:'Share your TikToks directly',icon:'fab fa-tiktok',bg:'#000',color:'#111',urlLbl:'@handle',ph:'@yourusername'},
-    {id:'youtube',name:'YouTube',desc:'Share your YouTube videos',icon:'fab fa-youtube',bg:'#ff0000',color:'#c62828',urlLbl:'Channel URL',ph:'youtube.com/c/...'},
-    {id:'spotify',name:'Spotify',desc:'Your music & playlists',icon:'fab fa-spotify',bg:'#1db954',color:'#1b5e20',urlLbl:'Profile URL',ph:'open.spotify.com/...'},
-    {id:'whatsapp',name:'WhatsApp',desc:'Chat with you directly',icon:'fab fa-whatsapp',bg:'#25D366',color:'#075e54',urlLbl:'Phone',ph:'919876543210'},
-    {id:'website',name:'Website',desc:'Your main website',icon:'fas fa-globe',bg:'#4338ca',color:'#4338ca',urlLbl:'URL',ph:'https://...'},
-  ],
-  commerce:[
-    {id:'booking',name:'Coaching & Bookings',desc:'Sell 1:1 sessions',icon:'fas fa-calendar-check',bg:'#7c3aed',color:'#7c3aed',urlLbl:'Booking URL',ph:'calendly.com/...'},
-    {id:'product',name:'Digital Products',desc:'Sell documents, PDFs',icon:'fas fa-cloud-upload-alt',bg:'#ea580c',color:'#ea580c',urlLbl:'Product URL',ph:'https://...'},
-    {id:'course',name:'Courses',desc:'Sell online courses',icon:'fas fa-graduation-cap',bg:'#7c3aed',color:'#7c3aed',urlLbl:'Course URL',ph:'https://...'},
-    {id:'affiliate',name:'Affiliate Products',desc:'Share items you promote',icon:'fas fa-tag',bg:'#eab308',color:'#92400e',urlLbl:'Affiliate URL',ph:'https://...'},
-    {id:'payment',name:'Pay Me',desc:'UPI / payment link',icon:'fas fa-qrcode',bg:'#059669',color:'#065f46',urlLbl:'UPI / Link',ph:'upi://pay?pa=...'},
-    {id:'catalogue',name:'Catalogue',desc:'Your products & services',icon:'fas fa-shopping-bag',bg:'#be185d',color:'#be185d',urlLbl:'Catalogue URL',ph:'https://...'},
-  ],
-  social:[
-    {id:'instagram',name:'Instagram',desc:'Display up to 6 posts',icon:'fab fa-instagram',bg:'linear-gradient(135deg,#833ab4,#fd1d1d)',color:'#c2185b',urlLbl:'@handle',ph:'@yourusername'},
-    {id:'tiktok',name:'TikTok',desc:'Share your TikToks',icon:'fab fa-tiktok',bg:'#000',color:'#111',urlLbl:'@handle',ph:'@yourusername'},
-    {id:'twitter',name:'X / Twitter',desc:'Your X profile',icon:'fab fa-x-twitter',bg:'#111',color:'#111',urlLbl:'@handle',ph:'@yourusername'},
-    {id:'threads',name:'Threads',desc:'Connect your Threads',icon:'fab fa-meta',bg:'#111',color:'#111',urlLbl:'@handle',ph:'@yourusername'},
-    {id:'facebook',name:'Facebook',desc:'Facebook profile or page',icon:'fab fa-facebook',bg:'#1877f2',color:'#1565c0',urlLbl:'Profile URL',ph:'facebook.com/...'},
-    {id:'linkedin',name:'LinkedIn',desc:'Professional network',icon:'fab fa-linkedin',bg:'#0a66c2',color:'#0277bd',urlLbl:'Profile URL',ph:'linkedin.com/in/...'},
-    {id:'pinterest',name:'Pinterest',desc:'Your Pinterest boards',icon:'fab fa-pinterest',bg:'#e60023',color:'#be123c',urlLbl:'Profile URL',ph:'pinterest.com/...'},
-    {id:'snapchat',name:'Snapchat',desc:'Snapchat profile',icon:'fab fa-snapchat',bg:'#fffc00',color:'#92400e',urlLbl:'Username',ph:'yourusername'},
-    {id:'telegram',name:'Telegram',desc:'Telegram channel',icon:'fab fa-telegram',bg:'#2aabee',color:'#0277bd',urlLbl:'@handle',ph:'@username'},
-    {id:'whatsapp',name:'WhatsApp',desc:'Chat via WhatsApp',icon:'fab fa-whatsapp',bg:'#25D366',color:'#075e54',urlLbl:'Phone',ph:'919876543210'},
-    {id:'github',name:'GitHub',desc:'Code repositories',icon:'fab fa-github',bg:'#212121',color:'#212121',urlLbl:'GitHub URL',ph:'github.com/...'},
-  ],
-  media:[
-    {id:'video',name:'Video',desc:'Visitors watch inline',icon:'fas fa-play-circle',bg:'#eab308',color:'#92400e',urlLbl:'Video URL',ph:'youtube.com/watch?v=...'},
-    {id:'youtube',name:'YouTube',desc:'YouTube video embed',icon:'fab fa-youtube',bg:'#ff0000',color:'#c62828',urlLbl:'YouTube URL',ph:'youtube.com/watch?v=...'},
-    {id:'spotify',name:'Spotify',desc:'Music or podcast',icon:'fab fa-spotify',bg:'#1db954',color:'#1b5e20',urlLbl:'Spotify URL',ph:'open.spotify.com/...'},
-    {id:'podcast',name:'Podcast',desc:'Your podcast',icon:'fas fa-microphone',bg:'#7c3aed',color:'#7c3aed',urlLbl:'Podcast URL',ph:'podcasts.apple.com/...'},
-    {id:'blog',name:'Blog / Article',desc:'Your articles',icon:'fas fa-pen-nib',bg:'#92400e',color:'#92400e',urlLbl:'Blog URL',ph:'medium.com/@...'},
-    {id:'pdf',name:'PDF / Document',desc:'Share a document',icon:'fas fa-file-pdf',bg:'#e11d48',color:'#be123c',urlLbl:'PDF URL',ph:'drive.google.com/...'},
-  ],
-  contact:[
-    {id:'form',name:'Form',desc:'Contact form',icon:'fas fa-clipboard-list',bg:'#7c3aed',color:'#7c3aed',urlLbl:'Form URL',ph:'forms.gle/...'},
-    {id:'email_sub',name:'Email Signup',desc:'Collect emails',icon:'fas fa-envelope',bg:'#1e40af',color:'#1e40af',urlLbl:'Signup URL',ph:'mailchimp.com/...'},
-    {id:'call',name:'Call Me',desc:'Direct phone call',icon:'fas fa-phone',bg:'#166534',color:'#166534',urlLbl:'Phone',ph:'+91XXXXXXXXXX'},
-    {id:'email',name:'Email',desc:'Email address',icon:'fas fa-at',bg:'#1e40af',color:'#1e40af',urlLbl:'Email',ph:'you@email.com'},
-  ],
-  events:[
-    {id:'events',name:'Tour and Events',desc:'Promote upcoming shows',icon:'fas fa-ticket-alt',bg:'#0ea5e9',color:'#075985',urlLbl:'Events URL',ph:'https://...'},
-    {id:'bandsintown',name:'Bands In Town',desc:'Promote shows',icon:'fas fa-music',bg:'#00b4b3',color:'#0d9488',urlLbl:'BIT URL',ph:'https://...'},
-  ],
-  text:[
-    {id:'text_block',name:'Text',desc:'Custom text block',icon:'fas fa-font',bg:'#059669',color:'#065f46',urlLbl:'Text content',ph:'Type your text here...'},
-    {id:'header',name:'Header',desc:'Section header',icon:'fas fa-heading',bg:'#374151',color:'#374151',urlLbl:'Header text',ph:'e.g. My Links'},
-  ],
-};
-TYPES_DATA.all=[...TYPES_DATA.commerce,...TYPES_DATA.social,...TYPES_DATA.media,...TYPES_DATA.contact,...TYPES_DATA.events,...TYPES_DATA.text];
+/* Strip state */
+let strips=STRIP_TEMPLATES.map(t=>({
+  ...t,
+  url:'',
+  active:false,   /* false = not filled */
+  visible:false,  /* false = hidden from visitors */
+  pinned:false,
+  liked:false,
+  clicks:0,
+  inputOpen:false,
+}));
 
-function openAddModal(){
-  if(links.filter(l=>!l._del).length>=SPARK_LIMIT){showToast('Upgrade to Blaze for unlimited links!');return;}
-  document.getElementById('addSearch').value='';searchQ='';
-  setAddCat('suggested',document.querySelector('.add-cat-item[data-cat="suggested"]'));
-  document.getElementById('addModal').classList.add('open');
-}
-function closeAddModal(){document.getElementById('addModal').classList.remove('open');}
+let socials={},curSoc=null;
 
-function setAddCat(cat,el){
-  addCat=cat;
-  document.querySelectorAll('.add-cat-item').forEach(i=>i.classList.remove('active'));
-  if(el)el.classList.add('active');
-  renderAddRight();
-}
+/* ══════════════════════════════════════
+   RENDER ALL 18 STRIPS
+══════════════════════════════════════ */
+function renderStrips(){
+  const wrap=document.getElementById('stripsWrap');
+  wrap.innerHTML=strips.map((s,i)=>`
+    <div class="strip ${s.active?'filled':''} ${s.active&&!s.visible?'hidden-strip':''} strip-in" id="strip-${s.id}" style="--ic-bg:${s.bg}">
 
-function onAddSearch(q){
-  searchQ=q.trim().toLowerCase();
-  if(q.length>6){const det=detectType(q);if(det){openFormForType(det,q);document.getElementById('addSearch').value='';closeAddModal();return;}}
-  renderAddRight();
-}
+      <!-- TOP ROW -->
+      <div class="strip-top" onclick="toggleInput('${s.id}')">
+        <div class="strip-drag" onclick="event.stopPropagation()"><i class="fas fa-grip-vertical"></i></div>
+        <div class="strip-icon">
+          <i class="${s.icon}" style="color:${s.active?s.color:'#ccc'}"></i>
+        </div>
+        <div class="strip-content">
+          <div class="strip-name">${s.name}</div>
+          ${s.url?`<div class="strip-url-display">${esc(s.url)}</div>`:`<div class="strip-url-display" style="color:#ccc;font-style:italic">Tap to add link</div>`}
+        </div>
+        <div class="strip-right" onclick="event.stopPropagation()">
+          <div class="strip-share-btn" onclick="shareStrip('${s.id}')" title="Share">
+            <i class="fas fa-share"></i>
+          </div>
+          <button class="strip-toggle ${s.active&&s.visible?'on':''}"
+            onclick="toggleVisible('${s.id}')"
+            title="${s.visible?'Visible to visitors':'Hidden from visitors'}">
+          </button>
+        </div>
+      </div>
 
-function renderAddRight(){
-  const right=document.getElementById('addRight');
-  let data=TYPES_DATA[addCat]||TYPES_DATA.suggested;
-  if(searchQ)data=TYPES_DATA.all.filter(t=>t.name.toLowerCase().includes(searchQ)||t.desc.toLowerCase().includes(searchQ));
-  const catLabel=addCat==='suggested'?'Suggested':addCat.charAt(0).toUpperCase()+addCat.slice(1);
-  right.innerHTML=`<div class="add-section-title">${searchQ?'Search Results':catLabel}</div>`+
-    data.map(t=>`<div class="add-type-row" onclick="openFormForType('${t.id}')">
-      <div class="add-type-icon" style="background:${t.bg}"><i class="${t.icon}" style="color:#fff;font-size:17px"></i></div>
-      <div class="add-type-text"><div class="add-type-name">${t.name}</div><div class="add-type-desc">${t.desc}</div></div>
-      <i class="fas fa-chevron-right add-type-arrow"></i>
+      <!-- INLINE URL INPUT -->
+      <div class="strip-input-row ${s.inputOpen?'open':''}" id="input-${s.id}">
+        <input class="strip-url-input" type="text" id="url-${s.id}"
+          placeholder="${s.ph}"
+          value="${esc(s.url)}"
+          onkeydown="if(event.key==='Enter')saveStrip('${s.id}')"
+          onclick="event.stopPropagation()">
+        <button class="strip-save-btn" onclick="saveStrip('${s.id}')">Save</button>
+        ${s.url?`<div class="strip-clear-btn" onclick="clearStrip('${s.id}')" title="Clear"><i class="fas fa-times"></i></div>`:''}
+      </div>
+
+      <!-- BOTTOM BAR -->
+      <div class="strip-btm">
+        <!-- ANALYTICS -->
+        <div class="sbtm-btn" onclick="showAnalytics('${s.id}')" title="Analytics" style="position:relative">
+          <i class="fas fa-chart-bar"></i>
+          <span style="font-size:10px">${s.clicks}</span>
+        </div>
+        <div class="sbtm-sep"></div>
+        <!-- PIN -->
+        <button class="sbtm-btn ${s.pinned?'active-pin':''}" onclick="togglePin('${s.id}')" title="${s.pinned?'Unpin':'Pin to top'}">
+          <i class="fas fa-thumbtack"></i>
+        </button>
+        <div class="sbtm-sep"></div>
+        <!-- LIKE -->
+        <button class="sbtm-btn ${s.liked?'active-like':''}" onclick="toggleLike('${s.id}')" title="${s.liked?'Unlike':'Like'}">
+          <i class="fas fa-heart"></i>
+        </button>
+        <div class="sbtm-sep"></div>
+        <!-- EDIT -->
+        <button class="sbtm-btn" onclick="toggleInput('${s.id}')" title="Edit URL">
+          <i class="fas fa-pen"></i>
+        </button>
+        <div class="sbtm-sep"></div>
+        <!-- HIDE/SHOW -->
+        <button class="sbtm-btn ${s.active&&s.visible?'active-hide':''}" onclick="toggleVisible('${s.id}')" title="${s.visible?'Hide from visitors':'Show to visitors'}">
+          <i class="fas ${s.active&&s.visible?'fa-eye':'fa-eye-slash'}"></i>
+        </button>
+        <!-- CLICKS -->
+        <div class="sbtm-clicks">
+          <i class="fas fa-mouse-pointer" style="font-size:9px"></i>
+          ${s.clicks} clicks
+        </div>
+      </div>
     </div>`).join('');
+
+  updateSparkBar();
 }
 
-function handleTile(type){
-  if(type==='collection'){closeAddModal();addCollection();return;}
-  if(type==='link'){closeAddModal();openFormForType('website');return;}
-  if(type==='product'){closeAddModal();openFormForType('product');return;}
-  if(type==='form'){closeAddModal();openFormForType('form');return;}
+/* ══════════════════════════════════════
+   STRIP ACTIONS
+══════════════════════════════════════ */
+function toggleInput(id){
+  const s=strips.find(x=>x.id===id);if(!s)return;
+  /* Close all other inputs first */
+  strips.forEach(x=>{if(x.id!==id)x.inputOpen=false;});
+  s.inputOpen=!s.inputOpen;
+  renderStrips();
+  if(s.inputOpen){
+    setTimeout(()=>{
+      const inp=document.getElementById('url-'+id);
+      if(inp){inp.focus();inp.select();}
+    },100);
+  }
 }
 
-function detectType(url){
-  const u=url.toLowerCase();
-  if(u.includes('instagram.com'))return 'instagram';
-  if(u.includes('wa.me')||u.includes('whatsapp.com'))return 'whatsapp';
-  if(u.includes('youtube.com')||u.includes('youtu.be'))return 'youtube';
-  if(u.includes('twitter.com')||u.includes('x.com'))return 'twitter';
-  if(u.includes('linkedin.com'))return 'linkedin';
-  if(u.includes('facebook.com'))return 'facebook';
-  if(u.includes('telegram.me')||u.includes('t.me'))return 'telegram';
-  if(u.includes('tiktok.com'))return 'tiktok';
-  if(u.includes('spotify.com'))return 'spotify';
-  if(u.includes('github.com'))return 'github';
-  if(u.startsWith('mailto:'))return 'email';
-  if(u.startsWith('tel:'))return 'call';
-  return 'website';
+function saveStrip(id){
+  const s=strips.find(x=>x.id===id);if(!s)return;
+  const inp=document.getElementById('url-'+id);
+  if(!inp)return;
+  let val=inp.value.trim();
+  if(!val){showToast('Enter a URL first');return;}
+
+  /* Auto-format URLs */
+  if(id==='whatsapp'&&!val.startsWith('http')){val='https://wa.me/'+val.replace(/\D/g,'');}
+  else if(id==='email'&&!val.startsWith('mailto:')){val='mailto:'+val;}
+  else if(id==='call'&&!val.startsWith('tel:')){val='tel:'+val.replace(/\s/g,'');}
+  else if(id==='instagram'&&!val.startsWith('http')){val='https://instagram.com/'+val.replace('@','');}
+  else if(id==='twitter'&&!val.startsWith('http')){val='https://x.com/'+val.replace('@','');}
+  else if(id==='telegram'&&!val.startsWith('http')){val='https://t.me/'+val.replace('@','');}
+  else if(id==='snapchat'&&!val.startsWith('http')){val='https://snapchat.com/add/'+val;}
+  else if(!val.startsWith('http')&&!val.startsWith('mailto:')&&!val.startsWith('tel:')&&!val.startsWith('upi:')){val='https://'+val;}
+
+  s.url=val;
+  s.active=true;
+  s.visible=true; /* Auto-show to visitors when filled */
+  s.inputOpen=false;
+
+  renderStrips();
+  autoSave();
+  showToast('✅ '+s.name+' added!');
+
+  /* Update social chip if applicable */
+  const chip=document.querySelector(`.soc-chip[data-s="${id}"]`);
+  if(chip)chip.classList.add('linked');
 }
 
-function openFormForType(id,prefill){
-  let type=null;
-  for(const cat of Object.values(TYPES_DATA)){const f=cat.find(t=>t.id===id);if(f){type=f;break;}}
-  if(!type)type={id:'custom',name:'Custom Link',desc:'Any URL',icon:'fas fa-link',bg:'#374151',color:'#374151',urlLbl:'URL',ph:'https://'};
-  curType=type;editingId=null;selColor=type.color;
-  document.getElementById('fModalTitle').textContent='Add '+type.name;
-  document.getElementById('fUrlLbl').textContent=type.urlLbl;
-  document.getElementById('fUrl').placeholder=type.ph;
-  document.getElementById('fTitle').value=type.name;
-  document.getElementById('fUrl').value=prefill||'';
-  buildColorRow();
-  closeAddModal();
-  document.getElementById('formModal').classList.add('open');
-  setTimeout(()=>document.getElementById('fUrl').focus(),420);
+function clearStrip(id){
+  const s=strips.find(x=>x.id===id);if(!s)return;
+  s.url='';s.active=false;s.visible=false;s.inputOpen=false;
+  renderStrips();
+  autoSave();
+  const chip=document.querySelector(`.soc-chip[data-s="${id}"]`);
+  if(chip)chip.classList.remove('linked');
+  showToast('Cleared');
 }
 
-function buildColorRow(){
-  document.getElementById('colorRow').innerHTML=COLORS.map(c=>`<div class="csw ${c.h===selColor?'sel':''}" style="background:${c.h}" onclick="pickColor('${c.h}')"></div>`).join('');
+function toggleVisible(id){
+  const s=strips.find(x=>x.id===id);if(!s)return;
+  if(!s.active){showToast('Add a link first');return;}
+  s.visible=!s.visible;
+  renderStrips();
+  autoSave();
+  showToast(s.visible?'👁 Visible to visitors':'Hidden from visitors');
 }
-function pickColor(h){selColor=h;document.querySelectorAll('.csw').forEach(el=>el.classList.toggle('sel',el.style.background===h||el.style.backgroundColor===h));}
-function closeFormModal(){document.getElementById('formModal').classList.remove('open');editingId=null;curType=null;}
 
-/* ── FIX 1: saveLink renders immediately ── */
-function saveLink(){
-  const title=document.getElementById('fTitle').value.trim();
-  const url=document.getElementById('fUrl').value.trim();
-  if(!title){showToast('Enter a title');return;}
-  if(!url){showToast('Enter a URL');return;}
-  let fu=url;
-  const tid=curType?curType.id:'website';
-  if(tid==='whatsapp'&&!url.startsWith('http'))fu='https://wa.me/'+url.replace(/\D/g,'');
-  else if(tid==='email'&&!url.startsWith('mailto'))fu='mailto:'+url;
-  else if(tid==='call'&&!url.startsWith('tel'))fu='tel:'+url.replace(/\s/g,'');
-  else if(!url.startsWith('http')&&!url.startsWith('mailto')&&!url.startsWith('tel')&&!url.startsWith('upi'))fu='https://'+url;
-  if(editingId){
-    links=links.map(l=>l.id===editingId?{...l,title,url:fu,icon:tid,color:selColor}:l);
-    showToast('Updated!');
+function togglePin(id){
+  const s=strips.find(x=>x.id===id);if(!s)return;
+  s.pinned=!s.pinned;
+  /* Move pinned to top */
+  if(s.pinned){
+    strips=strips.filter(x=>x.id!==id);
+    strips.unshift(s);
   }else{
-    links.push({id:Date.now().toString(),title,url:fu,icon:tid,color:selColor,active:true,likes:0,clicks:0,pinned:false,thumb:null});
-    showToast('✅ Link added!');
+    /* Move back to original position */
+    strips=strips.filter(x=>x.id!==id);
+    const origIdx=STRIP_TEMPLATES.findIndex(t=>t.id===id);
+    strips.splice(origIdx,0,s);
   }
-  /* Close modal FIRST, then render — strip appears immediately */
-  closeFormModal();
-  renderLinks();
+  renderStrips();
+  autoSave();
+  showToast(s.pinned?'📌 Pinned to top':'Unpinned');
 }
 
-function getTypeInfo(id){
-  for(const cat of Object.values(TYPES_DATA)){const f=cat.find(t=>t.id===id);if(f)return f;}
-  return {id:'website',icon:'fas fa-globe',bg:'#4338ca',color:'#4338ca'};
+function toggleLike(id){
+  const s=strips.find(x=>x.id===id);if(!s)return;
+  s.liked=!s.liked;
+  renderStrips();
+  showToast(s.liked?'❤️ Liked!':'Unliked');
 }
 
-function renderLinks(){
-  const active=links.filter(l=>!l._del);
-  const wrap=document.getElementById('linksWrap');
-  const empty=document.getElementById('emptyState');
-  if(active.length===0){
-    if(!wrap.contains(empty))wrap.appendChild(empty);
-    empty.style.display='block';updateSpark(0);
-    document.getElementById('secCnt').textContent='0 links';return;
-  }
-  empty.style.display='none';
-  wrap.innerHTML=active.map(link=>{
-    const ti=getTypeInfo(link.icon);
-    const ic=link.color||ti.color;
-    return `<div class="link-card lc-in ${!link.active?'hidden-card':''}" id="lc-${link.id}">
-      ${link.thumb?`<img class="link-thumb" src="${esc(link.thumb)}">`:''}
-      <div class="link-card-top">
-        <div class="lc-drag"><i class="fas fa-grip-vertical"></i></div>
-        <div class="lc-icon" style="background:${ic}18"><i class="${ti.icon}" style="color:${ic}"></i></div>
-        <div class="lc-text">
-          <div class="lc-title-row">
-            <div class="lc-title" id="lct-${link.id}">${esc(link.title)}</div>
-            <span class="lc-edit" onclick="inlineTitle('${link.id}')"><i class="fas fa-pen"></i></span>
-          </div>
-          <div class="lc-url-row">
-            <div class="lc-url" id="lcu-${link.id}">${esc(link.url)}</div>
-            <span class="lc-url-edit" onclick="inlineUrl('${link.id}')"><i class="fas fa-pen"></i></span>
-          </div>
-        </div>
-        <div class="lc-right">
-          <div class="lc-share" onclick="shareLink('${link.id}')"><i class="fas fa-share"></i></div>
-          <button class="lc-toggle ${link.active?'on':''}" onclick="toggleLink('${link.id}')"></button>
-        </div>
-      </div>
-      <div class="link-btm">
-        <button class="lbtm-btn" onclick="trigThumb('${link.id}')"><i class="fas fa-image"></i></button>
-        <div class="lbtm-sep"></div>
-        <button class="lbtm-btn ${link.pinned?'pinned':''}" onclick="pinLink('${link.id}')"><i class="fas fa-thumbtack"></i></button>
-        <div class="lbtm-sep"></div>
-        <button class="lbtm-btn ${(link.likes||0)>0?'liked':''}" onclick="likeLink('${link.id}')"><i class="fas fa-heart"></i></button>
-        <div class="lbtm-sep"></div>
-        <button class="lbtm-btn" onclick="editLink('${link.id}')"><i class="fas fa-pen"></i></button>
-        <div class="lbtm-clicks"><i class="fas fa-mouse-pointer"></i>${link.clicks||0}</div>
-        <button class="lbtm-btn lbtm-del" onclick="delLink('${link.id}')"><i class="fas fa-trash-alt"></i></button>
-      </div>
+function shareStrip(id){
+  const s=strips.find(x=>x.id===id);if(!s||!s.url){showToast('Add a link first');return;}
+  if(navigator.share)navigator.share({title:s.name,url:s.url});
+  else{navigator.clipboard.writeText(s.url);showToast('Link copied!');}
+}
+
+function showAnalytics(id){
+  const s=strips.find(x=>x.id===id);if(!s)return;
+  document.getElementById('analyticsTitle').textContent=s.name+' Analytics';
+  document.getElementById('analyticsUrl').textContent=s.url||'No URL set';
+  document.getElementById('analyticsStats').innerHTML=`
+    <div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center">
+      <div style="font-size:24px;font-weight:800;color:#111">${s.clicks}</div>
+      <div style="font-size:11px;color:#aaa;margin-top:3px">Total Clicks</div>
+    </div>
+    <div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center">
+      <div style="font-size:24px;font-weight:800;color:#111">0</div>
+      <div style="font-size:11px;color:#aaa;margin-top:3px">This Week</div>
+    </div>
+    <div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center">
+      <div style="font-size:24px;font-weight:800;color:${s.active&&s.visible?'#7c3aed':'#bbb'}">${s.active&&s.visible?'ON':'OFF'}</div>
+      <div style="font-size:11px;color:#aaa;margin-top:3px">Visibility</div>
     </div>`;
-  }).join('');
-  updateSpark(active.length);
-  document.getElementById('secCnt').textContent=active.length+' link'+(active.length!==1?'s':'');
+  document.getElementById('analyticsModal').classList.add('open');
 }
 
-function updateSpark(n){
-  const pct=Math.min(n/SPARK_LIMIT*100,100)+'%';
-  document.getElementById('sparkBar').style.width=pct;
-  document.getElementById('sparkFill').style.width=pct;
-  document.getElementById('sparkCnt').textContent=n+' / '+SPARK_LIMIT+' links';
-  document.getElementById('sparkCntSmall').textContent=n+'/18';
+function updateSparkBar(){
+  const filled=strips.filter(s=>s.active).length;
+  const pct=Math.min(filled/18*100,100)+'%';
+  document.getElementById('sparkBarFill').style.width=pct;
+  document.getElementById('sparkCntSm').textContent=filled+'/18';
+  document.getElementById('secCnt').textContent=filled+' / 18';
 }
 
-function inlineTitle(id){const el=document.getElementById('lct-'+id);if(!el)return;const v=el.textContent;el.outerHTML=`<input class="lc-title-input" id="lct-${id}" value="${esc(v)}" onblur="saveTitle('${id}')" onkeydown="if(event.key==='Enter')this.blur()">`;document.getElementById('lct-'+id).focus();}
-function saveTitle(id){const el=document.getElementById('lct-'+id);if(!el)return;const v=el.value.trim()||'Untitled';links=links.map(l=>l.id===id?{...l,title:v}:l);el.outerHTML=`<div class="lc-title" id="lct-${id}">${esc(v)}</div>`;}
-function inlineUrl(id){const el=document.getElementById('lcu-'+id);if(!el)return;const v=el.textContent;el.outerHTML=`<input class="lc-url-input" id="lcu-${id}" value="${esc(v)}" onblur="saveUrl('${id}')" onkeydown="if(event.key==='Enter')this.blur()">`;document.getElementById('lcu-'+id).focus();}
-function saveUrl(id){const el=document.getElementById('lcu-'+id);if(!el)return;const v=el.value.trim();links=links.map(l=>l.id===id?{...l,url:v}:l);el.outerHTML=`<div class="lc-url" id="lcu-${id}">${esc(v)}</div>`;}
-function toggleLink(id){links=links.map(l=>l.id===id?{...l,active:!l.active}:l);renderLinks();}
-function pinLink(id){links=links.map(l=>l.id===id?{...l,pinned:!l.pinned}:l);renderLinks();}
-function likeLink(id){links=links.map(l=>l.id===id?{...l,likes:(l.likes||0)>0?0:1}:l);renderLinks();}
-function shareLink(id){const l=links.find(x=>x.id===id);if(!l)return;if(navigator.share)navigator.share({title:l.title,url:l.url});else{navigator.clipboard.writeText(l.url);showToast('Copied!');}}
-function delLink(id){const el=document.getElementById('lc-'+id);if(el){el.style.opacity='0';el.style.transform='translateX(40px)';el.style.transition='all 0.22s';setTimeout(()=>{links=links.map(l=>l.id===id?{...l,_del:true}:l);renderLinks();},240);}}
-function editLink(id){
-  const link=links.find(l=>l.id===id);if(!link)return;
-  editingId=id;const ti=getTypeInfo(link.icon);curType=ti;selColor=link.color||ti.color;
-  document.getElementById('fModalTitle').textContent='Edit Link';
-  document.getElementById('fUrlLbl').textContent=ti.urlLbl||'URL';
-  document.getElementById('fUrl').placeholder=ti.ph||'https://...';
-  document.getElementById('fTitle').value=link.title;
-  document.getElementById('fUrl').value=link.url;
-  buildColorRow();
-  document.getElementById('formModal').classList.add('open');
+/* ══════════════════════════════════════
+   AUTO SAVE — no manual save needed
+══════════════════════════════════════ */
+let saveTimer=null;
+function autoSave(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{
+    const token=localStorage.getItem('token');
+    if(!token)return;
+    const toSave=strips.filter(s=>s.active).map(({id,name,url,active,visible,pinned,liked,clicks,color,icon})=>({
+      id,title:name,url,icon,active,visible,color,pinned:!!pinned,liked:!!liked,clicks:clicks||0
+    }));
+    fetch(API+'/links/reorder',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({links:toSave})
+    }).catch(()=>{});
+    /* Also save to localStorage as immediate fallback */
+    localStorage.setItem('strips_data',JSON.stringify(strips.map(({id,url,active,visible,pinned,liked,clicks})=>({id,url,active,visible,pinned,liked,clicks}))));
+  },800);
 }
-function trigThumb(id){thumbTarget=id;document.getElementById('thumbInput').click();}
-function handleThumb(e){const f=e.target.files[0];if(!f||!thumbTarget)return;const r=new FileReader();r.onload=ev=>{links=links.map(l=>l.id===thumbTarget?{...l,thumb:ev.target.result}:l);renderLinks();};r.readAsDataURL(f);}
 
-function addCollection(){const id='col'+(++colIdCtr);collections.push({id,title:'',active:true,layout:'stack',linkIds:[]});renderCols();}
-function renderCols(){
-  const wrap=document.getElementById('colsWrap');
-  wrap.innerHTML=collections.map(col=>`
-    <div class="col-card" id="col-${col.id}">
-      <div class="col-header">
-        <div class="col-drag"><i class="fas fa-grip-vertical"></i></div>
-        <i class="fas fa-layer-group col-icon"></i>
-        <input class="col-title-input" placeholder="Collection title" value="${esc(col.title)}" onchange="updColTitle('${col.id}',this.value)">
-        <button class="col-layout-btn" onclick="openLayout('${col.id}')"><i class="fas fa-th-large"></i> ${col.layout||'Stack'}</button>
-        <button class="col-del-btn" onclick="delCol('${col.id}')"><i class="fas fa-trash-alt"></i></button>
-        <button class="col-vis-toggle ${col.active?'on':''}" onclick="toggleCol('${col.id}')"></button>
-      </div>
-      <div class="col-body">
-        <div class="col-empty">No links in this collection</div>
-        <button class="col-add-link" onclick="showToast('Drag links here — coming soon!')"><i class="fas fa-plus"></i> Add link</button>
-      </div>
-    </div>`).join('');
+async function saveAllLinks(){
+  const btn=document.getElementById('saveBtn');btn.disabled=true;btn.textContent='Saving...';
+  const token=localStorage.getItem('token');
+  if(!token){showToast('Please login first');btn.disabled=false;btn.textContent='Save';return;}
+  try{
+    const toSave=strips.filter(s=>s.active).map(({id,name,url,active,visible,pinned,liked,clicks,color,icon})=>({
+      id,title:name,url,icon,active,visible,color,pinned:!!pinned,liked:!!liked,clicks:clicks||0
+    }));
+    const res=await fetch(API+'/links/reorder',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({links:toSave})});
+    const d=await res.json();
+    if(d.success)showToast('✅ All links saved!');else showToast('Error saving');
+  }catch(e){showToast('Saved locally');}
+  btn.disabled=false;btn.textContent='Save';
 }
-function updColTitle(id,v){collections=collections.map(c=>c.id===id?{...c,title:v}:c);}
-function toggleCol(id){collections=collections.map(c=>c.id===id?{...c,active:!c.active}:c);renderCols();}
-function delCol(id){collections=collections.filter(c=>c.id!==id);renderCols();}
-function openLayout(id){curLayoutColId=id;document.getElementById('layoutModal').classList.add('open');}
-function setLayout(layout,el){if(curLayoutColId)collections=collections.map(c=>c.id===curLayoutColId?{...c,layout}:c);document.querySelectorAll('.layout-opt').forEach(o=>o.classList.remove('active'));if(el)el.classList.add('active');renderCols();}
-function toggleSpark(){sparkOpen=!sparkOpen;document.getElementById('sparkExpanded').classList.toggle('open',sparkOpen);document.getElementById('sparkChevron').style.transform=sparkOpen?'rotate(180deg)':'rotate(0)';}
-function toggleUnlock(){unlockOpen=!unlockOpen;document.getElementById('unlockExpanded').classList.toggle('open',unlockOpen);document.getElementById('unlockChevron').style.transform=unlockOpen?'rotate(180deg)':'rotate(0)';}
 
+/* ══════════════════════════════════════
+   SOCIAL CHIPS
+══════════════════════════════════════ */
 const SOC_CFG={
   whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210'},
   instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername'},
@@ -710,7 +583,6 @@ const SOC_CFG={
   telegram:{label:'Telegram',lbl:'Username (no @)',ph:'yourusername'},
   snapchat:{label:'Snapchat',lbl:'Username',ph:'yourusername'},
 };
-
 function editSoc(id){
   curSoc=id;const c=SOC_CFG[id];if(!c)return;
   document.getElementById('socTitle').textContent='Link '+c.label;
@@ -718,17 +590,19 @@ function editSoc(id){
   document.getElementById('socInput').placeholder=c.ph;
   document.getElementById('socInput').value=socials[id]||'';
   document.getElementById('socModal').classList.add('open');
+  setTimeout(()=>document.getElementById('socInput').focus(),300);
 }
 function closeSocModal(){document.getElementById('socModal').classList.remove('open');}
-
-/* ── FIX 2: saveSoc marks chip as linked immediately ── */
 function saveSoc(){
   const v=document.getElementById('socInput').value.trim();
   socials[curSoc]=v;
   const chip=document.querySelector(`.soc-chip[data-s="${curSoc}"]`);
-  if(chip){
-    chip.classList.toggle('linked',!!v);
-    /* opacity handled by CSS: linked=1, unlinked=0.3 */
+  if(chip)chip.classList.toggle('linked',!!v);
+  /* Also update corresponding strip */
+  const s=strips.find(x=>x.id===curSoc);
+  if(s&&v&&!s.url){
+    s.url=v;s.active=true;s.visible=true;
+    renderStrips();autoSave();
   }
   closeSocModal();
   showToast(v?'✅ Linked!':'Removed');
@@ -738,51 +612,61 @@ function editBio(){document.getElementById('bioInput').value=document.getElement
 function closeBioModal(){document.getElementById('bioModal').classList.remove('open');}
 function saveBio(){const v=document.getElementById('bioInput').value.trim();document.getElementById('pBio').textContent=v||'Add your bio';closeBioModal();showToast('Bio updated!');}
 
-function applyCardTheme(){
-  const cardType=localStorage.getItem('activeCard')||'personal';
-  const themeMap={personal:'card-personal',work:'card-work',business:'card-business',earn:'card-earn',drift:'card-drift'};
-  document.body.className=themeMap[cardType]||'card-personal';
-}
-
-async function saveAllLinks(){
-  const btn=document.getElementById('saveBtn');btn.disabled=true;btn.textContent='Saving...';
-  const token=localStorage.getItem('token');
-  if(!token){showToast('Please login first');btn.disabled=false;btn.textContent='Save';return;}
-  try{
-    const toSave=links.filter(l=>!l._del).map(({id,title,url,icon,active,color,likes,clicks,pinned})=>({id,title,url,icon,active,color:color||'#7c3aed',likes:likes||0,clicks:clicks||0,pinned:!!pinned}));
-    const res=await fetch(API+'/links/reorder',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({links:toSave})});
-    const d=await res.json();
-    if(d.success)showToast('✅ Saved!');else showToast('Error: '+(d.error||'Failed'));
-  }catch(e){showToast('Network error');}
-  btn.disabled=false;btn.textContent='Save';
-}
-
 function copyUrl(){const u=localStorage.getItem('username')||'—';navigator.clipboard.writeText('https://myqrid.in/'+u);showToast('URL copied!');}
 function shareProfile(){const u=localStorage.getItem('username'),url='https://myqrid.in/'+u;if(navigator.share)navigator.share({title:'My myQRID',url});else{navigator.clipboard.writeText(url);showToast('Link copied!');}}
 function handleAvatar(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const el=document.getElementById('pAvatar');el.style.background='none';el.innerHTML=`<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover">`;};r.readAsDataURL(f);}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
+/* ══════════════════════════════════════
+   LOAD DATA
+══════════════════════════════════════ */
 async function loadData(){
-  applyCardTheme();
   const name=localStorage.getItem('name')||'';
   const username=localStorage.getItem('username')||'';
   if(name){const el=document.getElementById('pAvatar');if(el&&!el.querySelector('img'))el.textContent=name[0].toUpperCase();document.getElementById('pName').textContent=name;}
   if(username)document.getElementById('pUser').textContent=username;
   const saved=localStorage.getItem('avatar_personal');
   if(saved){const el=document.getElementById('pAvatar');el.style.background='none';el.innerHTML=`<img src="${saved}" style="width:100%;height:100%;object-fit:cover">`;}
+
+  /* Restore from localStorage first (instant) */
+  const localStrips=localStorage.getItem('strips_data');
+  if(localStrips){
+    try{
+      const parsed=JSON.parse(localStrips);
+      parsed.forEach(saved=>{
+        const s=strips.find(x=>x.id===saved.id);
+        if(s){Object.assign(s,{url:saved.url||'',active:saved.active||false,visible:saved.visible||false,pinned:saved.pinned||false,liked:saved.liked||false,clicks:saved.clicks||0});}
+      });
+      /* Restore pinned order */
+      const pinnedStrips=strips.filter(s=>s.pinned);
+      const unpinned=strips.filter(s=>!s.pinned);
+      strips=[...pinnedStrips,...unpinned];
+    }catch(e){}
+  }
+
+  renderStrips();
+
+  /* Then sync from backend */
   const token=localStorage.getItem('token');
-  if(!token){renderLinks();renderAddRight();return;}
+  if(!token)return;
   try{
     const res=await fetch(API+'/links',{headers:{'Authorization':'Bearer '+token}});
-    const d=await res.json();if(d.success&&d.links)links=d.links;
+    const d=await res.json();
+    if(d.success&&d.links&&d.links.length){
+      d.links.forEach(link=>{
+        const s=strips.find(x=>x.id===link.id||x.id===link.icon);
+        if(s){s.url=link.url||'';s.active=!!link.url;s.visible=link.visible!==false;s.clicks=link.clicks||0;}
+      });
+      renderStrips();
+    }
   }catch(e){}
+
   try{
     const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
     const d=await res.json();
     if(d.success){
       socials=d.profile.socials||{};
-      /* FIX 2: Mark chips linked based on socials data */
       Object.keys(socials).forEach(k=>{
         if(socials[k]){
           const c=document.querySelector(`.soc-chip[data-s="${k}"]`);
@@ -792,7 +676,6 @@ async function loadData(){
       if(d.profile.bio)document.getElementById('pBio').textContent=d.profile.bio;
     }
   }catch(e){}
-  renderLinks();renderAddRight();
 }
 
 loadData();
