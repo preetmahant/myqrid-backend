@@ -860,13 +860,20 @@ function updatePreview(){
   const pl=document.getElementById('prevLinks');
   if(pl){
     const vis=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
-    pl.innerHTML=vis.length?vis.map(s=>{
+    const username=localStorage.getItem('username')||'';
+    const ctaHtml=`<div style="margin-top:14px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.2);border-radius:12px;padding:12px 10px;text-align:center">
+      <div style="font-size:10px;font-weight:800;color:#fff;margin-bottom:3px">Join ${username||'username'} on myQRID</div>
+      <div style="font-size:8px;color:rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;gap:5px">
+        <span>Safety</span><span style="opacity:0.4">·</span><span>Privacy</span><span style="opacity:0.4">·</span><span>More from myQRID</span>
+      </div>
+    </div>`;
+    pl.innerHTML=(vis.length?vis.map(s=>{
       const plat=getPlatform(s.platform);
       return `<div class="prev-link">
         <div class="prev-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color}"></i></div>
         <div class="prev-link-title">${esc(s.title||s.url)}</div>
       </div>`;
-    }).join(''):'<div class="prev-empty">Your visible links appear here</div>';
+    }).join(''):'<div class="prev-empty">Your visible links appear here</div>')+ctaHtml;
   }
 }
 
