@@ -11,6 +11,8 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f7f7f8}
 .app-layout{display:flex;min-height:100vh}
+
+/* SIDEBAR */
 .sidebar{width:240px;flex-shrink:0;background:#fff;border-right:1px solid #e9e9eb;display:none;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:40;overflow-y:auto}
 @media(min-width:768px){.sidebar{display:flex}}
 .sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid #f0f0f0}
@@ -28,14 +30,21 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .spf-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .spf-name{font-size:13px;font-weight:600;color:#111}
 .spf-url{font-size:11px;color:#aaa}
+
+/* MAIN */
 .main-content{flex:1;max-width:560px;min-height:100vh;padding-bottom:90px}
 @media(min-width:768px){.main-content{margin-left:240px;padding-bottom:40px}}
+@media(min-width:1100px){.main-content{max-width:520px}}
+
+/* TOPBAR */
 .topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
 .back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px}
 @media(min-width:768px){.back-btn{display:none}}
 .topbar-title{font-size:16px;font-weight:700}
 .save-btn{padding:7px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer}
 .save-btn:disabled{opacity:0.5}
+
+/* PROFILE CARD */
 .profile-card{background:rgba(255,255,255,0.9);border:1px solid rgba(0,0,0,0.07);border-radius:18px;margin:12px 16px;padding:16px;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
 .profile-top{display:flex;align-items:center;gap:14px;margin-bottom:10px}
 .p-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;cursor:pointer;border:2px solid rgba(124,58,237,0.2)}
@@ -50,17 +59,16 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .p-url-action{width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all 0.18s;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
 .p-url-action:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3)}
 
-/* ── FIX 1: SOCIAL CHIPS — only linked visible, no faded ── */
+/* SOCIAL CHIPS — only linked show */
 .social-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;min-height:0}
 .soc-chip{display:none;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 8px;border-radius:10px;background:#fff;border:1px solid rgba(124,58,237,0.2);transition:all 0.18s;min-width:44px}
 .soc-chip.linked{display:flex}
 .soc-chip:active{transform:scale(0.93)}
 .soc-chip i{font-size:15px;color:var(--sc,#7c3aed)}
 .soc-chip span{font-size:9px;color:#888;font-weight:500}
-/* Add social row empty state */
-.soc-empty{font-size:12px;color:#ccc;padding:4px 0;display:none}
-.social-row:empty+.soc-empty{display:block}
+.soc-add-hint{font-size:11px;color:#ccc;margin-top:6px;display:flex;align-items:center;gap:5px;cursor:pointer}
 
+/* SPARK */
 .spark-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:14px;margin:8px 16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
 .spark-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);flex-shrink:0}
 .spark-info{flex:1;font-size:12px;color:#888}
@@ -71,10 +79,14 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin:10px 0 8px}
 .sec-lbl{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px}
 .sec-cnt{font-size:11px;color:#bbb}
+
+/* ACTION BUTTONS */
 .action-btns-row{display:flex;gap:8px;padding:0 16px;margin:0 0 10px}
 .action-btn-sm{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 8px;background:#fff;border:1px solid #e9e9eb;border-radius:12px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.04);transition:all 0.18s}
 .action-btn-sm:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3);color:#7c3aed;transform:scale(0.97)}
 .action-btn-sm i{font-size:14px;color:#aaa}
+
+/* STRIPS */
 .strips-wrap{padding:0 16px}
 .sortable-ghost{opacity:0.3;background:#ede9ff!important;border:1.5px dashed #7c3aed!important}
 .sortable-chosen{box-shadow:0 8px 24px rgba(124,58,237,0.18)!important;transform:scale(1.01)}
@@ -127,11 +139,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .sbtm-sep{width:1px;height:14px;background:#efefef;flex-shrink:0;margin:0 2px}
 .sbtm-clicks{margin-left:auto;font-size:10px;color:#ccc;display:flex;align-items:center;gap:3px}
 
-/* ── FIX 2: ADD 1 STRIP AT A TIME ── */
-.add-strip-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;margin:0 16px 8px;background:#fff;border:1.5px dashed rgba(124,58,237,0.3);border-radius:14px;cursor:pointer;color:#7c3aed;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;transition:all 0.18s}
-.add-strip-btn:active{background:rgba(124,58,237,0.05)}
-.add-strip-btn:disabled{opacity:0.4;cursor:not-allowed}
-
+/* UPGRADE */
 .upgrade-section{margin:10px 16px 8px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:18px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
 .upgrade-hdr{padding:16px 16px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(236,72,153,0.03))}
 .upgrade-title{font-size:14px;font-weight:800;color:#111;margin-bottom:4px}
@@ -150,12 +158,45 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .footer-brand{font-size:18px;font-weight:800;color:#111}
 .footer-brand span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .footer-tag{font-size:11px;color:#bbb;text-align:center}
+
+/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.04)}
 @media(min-width:768px){.bottom-nav{display:none}}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0}
 .nav-item.active{color:#7c3aed}
 .nav-icon{font-size:20px;line-height:1}
 .nav-center-btn{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
+
+/* RIGHT PREVIEW PANEL */
+.preview-panel{width:260px;flex-shrink:0;display:none;position:sticky;top:0;height:100vh;background:#f0f0f2;border-left:1px solid #e9e9eb;flex-direction:column;align-items:center;padding:20px 16px;overflow-y:auto}
+@media(min-width:1100px){.preview-panel{display:flex}}
+.preview-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;align-self:flex-start}
+.preview-phone{width:200px;background:#1a1a2e;border-radius:26px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.2);border:5px solid #2a2a3e}
+.preview-phone-notch{height:16px;background:#111;display:flex;align-items:center;justify-content:center}
+.preview-phone-notch::after{content:'';width:44px;height:4px;background:#222;border-radius:2px}
+.preview-scroll{max-height:480px;overflow-y:auto;scrollbar-width:none;padding:14px 10px 16px;background:linear-gradient(135deg,#0a0a1a,#1a0a2e)}
+.preview-scroll::-webkit-scrollbar{display:none}
+.preview-profile{text-align:center;margin-bottom:12px}
+.preview-avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;margin:0 auto 7px;overflow:hidden;border:2px solid rgba(124,58,237,0.3)}
+.preview-avatar img{width:100%;height:100%;object-fit:cover}
+.preview-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px}
+.preview-bio-text{font-size:9px;color:rgba(255,255,255,0.45);margin-bottom:7px;line-height:1.4;padding:0 4px}
+.preview-soc-row{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:2px}
+.preview-soc-icon{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px}
+.preview-link{background:rgba(255,255,255,0.08);border-radius:9px;padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.preview-link-icon{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.preview-link-title{font-size:10px;font-weight:600;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preview-empty{text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:12px 4px}
+.preview-powered{text-align:center;margin-top:10px;font-size:8px;color:rgba(255,255,255,0.2)}
+.preview-powered span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
+.preview-bottom{width:100%;margin-top:14px}
+.preview-url-chip{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;padding:8px 12px;margin-bottom:8px}
+.preview-url-text{flex:1;font-size:11px;color:#7c3aed;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preview-action-row{display:flex;gap:6px}
+.preview-action-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;cursor:pointer;font-size:11px;font-weight:600;color:#555;font-family:'Inter',sans-serif;transition:all 0.18s}
+.preview-action-btn:active{background:#f3f0ff;color:#7c3aed}
+
+/* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
 .modal-overlay.open{background:rgba(0,0,0,0.45);pointer-events:all}
 .modal-panel{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:560px;margin:0 auto;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:85vh;overflow-y:auto}
@@ -186,81 +227,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .archive-title{font-size:13px;font-weight:600;color:#111}
 .archive-url{font-size:11px;color:#aaa;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .archive-restore{padding:6px 14px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:8px;color:#7c3aed;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0}
-/* ── RIGHT PREVIEW PANEL ── */
-.preview-panel{width:280px;flex-shrink:0;display:none;position:sticky;top:0;height:100vh;background:#f0f0f2;border-left:1px solid #e9e9eb;flex-direction:column;align-items:center;padding:20px 16px;overflow-y:auto}
-@media(min-width:1100px){.preview-panel{display:flex}}
-.preview-phone{width:220px;background:#1a1a2e;border-radius:28px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:6px solid #2a2a3e;position:relative}
-.preview-phone-bar{height:18px;background:#111;display:flex;align-items:center;justify-content:center}
-.preview-phone-bar::after{content:'';width:50px;height:4px;background:#333;border-radius:2px}
-.preview-scroll{max-height:520px;overflow-y:auto;scrollbar-width:none;padding:16px 12px 20px}
-.preview-scroll::-webkit-scrollbar{display:none}
-.preview-profile{text-align:center;margin-bottom:14px}
-.preview-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;margin:0 auto 8px;overflow:hidden}
-.preview-avatar img{width:100%;height:100%;object-fit:cover}
-.preview-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
-.preview-bio{font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:8px;line-height:1.4}
-.preview-soc-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:4px}
-.preview-soc-icon{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px}
-.preview-link{background:rgba(255,255,255,0.1);border-radius:10px;padding:9px 12px;margin-bottom:6px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all 0.18s}
-.preview-link:hover{background:rgba(255,255,255,0.15)}
-.preview-link-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;background:rgba(255,255,255,0.15)}
-.preview-link-title{font-size:11px;font-weight:600;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-powered{text-align:center;margin-top:12px;font-size:9px;color:rgba(255,255,255,0.3)}
-.preview-powered span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
-.preview-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px}
-.preview-url-row{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;padding:7px 12px;margin-top:14px;width:100%}
-.preview-url-text{flex:1;font-size:11px;color:#7c3aed;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-url-share{width:26px;height:26px;border-radius:7px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-/* ── RIGHT PREVIEW PANEL ── */
-.preview-panel{width:280px;flex-shrink:0;display:none;position:sticky;top:0;height:100vh;background:#f0f0f2;border-left:1px solid #e9e9eb;flex-direction:column;align-items:center;padding:20px 16px;overflow-y:auto}
-@media(min-width:1100px){.preview-panel{display:flex}}
-.preview-phone{width:220px;background:#1a1a2e;border-radius:28px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:6px solid #2a2a3e;position:relative}
-.preview-phone-bar{height:18px;background:#111;display:flex;align-items:center;justify-content:center}
-.preview-phone-bar::after{content:'';width:50px;height:4px;background:#333;border-radius:2px}
-.preview-scroll{max-height:520px;overflow-y:auto;scrollbar-width:none;padding:16px 12px 20px}
-.preview-scroll::-webkit-scrollbar{display:none}
-.preview-profile{text-align:center;margin-bottom:14px}
-.preview-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;margin:0 auto 8px;overflow:hidden}
-.preview-avatar img{width:100%;height:100%;object-fit:cover}
-.preview-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
-.preview-bio{font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:8px;line-height:1.4}
-.preview-soc-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:4px}
-.preview-soc-icon{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px}
-.preview-link{background:rgba(255,255,255,0.1);border-radius:10px;padding:9px 12px;margin-bottom:6px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all 0.18s}
-.preview-link:hover{background:rgba(255,255,255,0.15)}
-.preview-link-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;background:rgba(255,255,255,0.15)}
-.preview-link-title{font-size:11px;font-weight:600;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-powered{text-align:center;margin-top:12px;font-size:9px;color:rgba(255,255,255,0.3)}
-.preview-powered span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
-.preview-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px}
-.preview-url-row{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;padding:7px 12px;margin-top:14px;width:100%}
-.preview-url-text{flex:1;font-size:11px;color:#7c3aed;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-url-share{width:26px;height:26px;border-radius:7px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-/* ── RIGHT PREVIEW PANEL ── */
-.preview-panel{width:280px;flex-shrink:0;display:none;position:sticky;top:0;height:100vh;background:#f0f0f2;border-left:1px solid #e9e9eb;flex-direction:column;align-items:center;padding:20px 16px;overflow-y:auto}
-@media(min-width:1100px){.preview-panel{display:flex}}
-.preview-phone{width:220px;background:#1a1a2e;border-radius:28px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);border:6px solid #2a2a3e;position:relative}
-.preview-phone-bar{height:18px;background:#111;display:flex;align-items:center;justify-content:center}
-.preview-phone-bar::after{content:'';width:50px;height:4px;background:#333;border-radius:2px}
-.preview-scroll{max-height:520px;overflow-y:auto;scrollbar-width:none;padding:16px 12px 20px}
-.preview-scroll::-webkit-scrollbar{display:none}
-.preview-profile{text-align:center;margin-bottom:14px}
-.preview-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;margin:0 auto 8px;overflow:hidden}
-.preview-avatar img{width:100%;height:100%;object-fit:cover}
-.preview-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
-.preview-bio{font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:8px;line-height:1.4}
-.preview-soc-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:4px}
-.preview-soc-icon{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px}
-.preview-link{background:rgba(255,255,255,0.1);border-radius:10px;padding:9px 12px;margin-bottom:6px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all 0.18s}
-.preview-link:hover{background:rgba(255,255,255,0.15)}
-.preview-link-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;background:rgba(255,255,255,0.15)}
-.preview-link-title{font-size:11px;font-weight:600;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-powered{text-align:center;margin-top:12px;font-size:9px;color:rgba(255,255,255,0.3)}
-.preview-powered span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
-.preview-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px}
-.preview-url-row{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;padding:7px 12px;margin-top:14px;width:100%}
-.preview-url-text{flex:1;font-size:11px;color:#7c3aed;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-url-share{width:26px;height:26px;border-radius:7px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,0.18)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(min-width:768px){.toast{bottom:24px}}
@@ -269,6 +235,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 <body>
 <div class="app-layout">
 
+<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="sidebar-brand">my<span>QRID</span></div>
@@ -298,6 +265,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
   </div>
 </aside>
 
+<!-- MAIN -->
 <div class="main-content">
   <div class="topbar">
     <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
@@ -332,7 +300,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
         </div>
       </div>
     </div>
-    <!-- SOCIAL ROW: only linked chips show, no faded -->
     <div class="social-row" id="socialRow">
       <div class="soc-chip" data-s="whatsapp" style="--sc:#25D366" onclick="editSoc('whatsapp')"><i class="fab fa-whatsapp"></i><span>WA</span></div>
       <div class="soc-chip" data-s="instagram" style="--sc:#e1306c" onclick="editSoc('instagram')"><i class="fab fa-instagram"></i><span>IG</span></div>
@@ -343,9 +310,8 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
       <div class="soc-chip" data-s="telegram" style="--sc:#2aabee" onclick="editSoc('telegram')"><i class="fab fa-telegram"></i><span>TG</span></div>
       <div class="soc-chip" data-s="snapchat" style="--sc:#f59e0b" onclick="editSoc('snapchat')"><i class="fab fa-snapchat"></i><span>SC</span></div>
     </div>
-    <div style="font-size:11px;color:#ccc;margin-top:6px;display:flex;align-items:center;gap:5px" id="socAddHint">
-      <i class="fas fa-plus" style="font-size:9px"></i>
-      <span onclick="editSoc('whatsapp')" style="cursor:pointer">Add social links</span>
+    <div class="soc-add-hint" id="socAddHint" onclick="editSoc('whatsapp')">
+      <i class="fas fa-plus" style="font-size:9px"></i> Add social links
     </div>
   </div>
 
@@ -398,8 +364,59 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <div class="footer-tag">Your Digital Identity · One QR · Infinite Possibilities</div>
   </div>
 </div>
+
+<!-- RIGHT PREVIEW PANEL -->
+<div class="preview-panel" id="previewPanel">
+  <div class="preview-label">Live Preview</div>
+  <div class="preview-phone">
+    <div class="preview-phone-notch"></div>
+    <div class="preview-scroll" id="previewScroll">
+      <div class="preview-profile">
+        <div class="preview-avatar" id="prevAvatar">P</div>
+        <div class="preview-name" id="prevName">Your Name</div>
+        <div class="preview-bio-text" id="prevBio">Add your bio</div>
+        <div class="preview-soc-row" id="prevSocRow"></div>
+      </div>
+      <div id="prevLinks"><div class="preview-empty">Your links will appear here</div></div>
+      <div class="preview-powered">Powered by <span>myQRID</span></div>
+    </div>
+  </div>
+  <div class="preview-bottom">
+    <div class="preview-url-chip">
+      <i class="fas fa-link" style="font-size:9px;color:#7c3aed;flex-shrink:0"></i>
+      <div class="preview-url-text" id="prevUrl">myqrid.in/—</div>
+      <div style="display:flex;gap:4px">
+        <div style="width:24px;height:24px;border-radius:6px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="copyUrl()">
+          <i class="fas fa-copy" style="font-size:9px;color:#7c3aed"></i>
+        </div>
+        <div style="width:24px;height:24px;border-radius:6px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="shareProfile()">
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
+            <rect x="0.5" y="4" width="9" height="7.5" rx="1.5" stroke="#7c3aed" stroke-width="1.2" fill="none"/>
+            <path d="M5 7V1" stroke="#7c3aed" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M3 3L5 1L7 3" stroke="#7c3aed" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="preview-action-row">
+      <button class="preview-action-btn" onclick="window.open('https://myqrid.in/'+(localStorage.getItem('username')||''),'_blank')">
+        <i class="fas fa-external-link-alt" style="font-size:11px"></i> View Profile
+      </button>
+      <button class="preview-action-btn" onclick="shareProfile()">
+        <svg width="11" height="13" viewBox="0 0 11 13" fill="none" style="flex-shrink:0">
+          <rect x="0.5" y="4.5" width="10" height="8" rx="1.5" stroke="#555" stroke-width="1.2" fill="none"/>
+          <path d="M5.5 8V1" stroke="#555" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M3.5 3L5.5 1L7.5 3" stroke="#555" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Share
+      </button>
+    </div>
+  </div>
 </div>
 
+</div><!-- end app-layout -->
+
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
   <a href="/links.html" class="nav-item active"><span class="nav-icon">🔗</span><span>Links</span></a>
@@ -476,7 +493,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
       <div class="col-layout-opt" onclick="selectColLayout('carousel',this)"><i class="fas fa-film"></i><span>Carousel</span></div>
       <div class="col-layout-opt" onclick="selectColLayout('showcase',this)"><i class="fas fa-expand-arrows-alt"></i><span>Showcase</span></div>
     </div>
-    <div class="f-label">Add Links to Collection</div>
+    <div class="f-label">Links to include</div>
     <div id="colLinksList" style="margin-bottom:12px;max-height:160px;overflow-y:auto"></div>
     <button class="f-save" onclick="saveCollection()"><i class="fas fa-layer-group"></i> Create Collection</button>
     <button class="f-cancel" onclick="closeCollectionModal()">Cancel</button>
@@ -515,7 +532,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 <script>
 const API='https://myqrid-backend.myqrid.workers.dev';
 const TOTAL=18;
-const INIT_COUNT=10; /* start with 10 strips */
+const INIT_COUNT=10;
 
 const SHARE_SVG=`<svg width="12" height="14" viewBox="0 0 12 14" fill="none">
   <rect x="1" y="5" width="10" height="8" rx="1.5" stroke="#bbb" stroke-width="1.3" fill="none"/>
@@ -547,28 +564,23 @@ const PLATFORMS=[
 
 function getPlatform(id){return PLATFORMS.find(p=>p.id===id)||PLATFORMS[PLATFORMS.length-1];}
 
-/* Start with INIT_COUNT strips, user adds more */
 let strips=Array.from({length:INIT_COUNT},(_,i)=>({
   sid:i,title:'',url:'',platform:'link',
   visible:false,pinned:false,liked:false,clicks:0,open:false,archived:false,
 }));
 
+/* socials persisted in localStorage */
 let socials={},curSoc=null,colLayout='stack',collections=[],sortableInst=null;
 
-/* ══ FIX 2: ADD ONE STRIP AT A TIME ══ */
+/* ══ ADD ONE STRIP ══ */
 function addOneStrip(){
   const active=strips.filter(s=>!s.archived).length;
-  if(active>=TOTAL){
-    showToast('Max 18 strips reached — upgrade for more!');
-    return;
-  }
-  const newSid=strips.length;
-  const newStrip={sid:newSid,title:'',url:'',platform:'link',
+  if(active>=TOTAL){showToast('Max 18 strips — upgrade for more!');return;}
+  const newStrip={sid:0,title:'',url:'',platform:'link',
     visible:false,pinned:false,liked:false,clicks:0,open:true,archived:false};
-  strips=[newStrip,...strips]; /* Add to TOP */
+  strips=[newStrip,...strips];
   strips.forEach((s,i)=>s.sid=i);
-  renderStrips();
-  updateAddBtn();
+  renderStrips();updateAddBtn();
   setTimeout(()=>{
     const el=document.getElementById('strip-0');
     if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
@@ -577,19 +589,19 @@ function addOneStrip(){
 }
 
 function updateAddBtn(){
-  const btn=document.getElementById('addLinkBtn');
-  if(!btn)return;
+  const btn=document.getElementById('addLinkBtn');if(!btn)return;
   const active=strips.filter(s=>!s.archived).length;
-  if(active>=TOTAL){
+  const left=TOTAL-active;
+  if(left<=0){
     btn.innerHTML='<i class="fas fa-lock" style="color:#bbb"></i> Max 18 reached';
     btn.style.opacity='0.5';btn.style.cursor='not-allowed';
   }else{
-    btn.innerHTML=`<i class="fas fa-plus" style="color:#7c3aed"></i> Add Link (${TOTAL-active} left)`;
+    btn.innerHTML=`<i class="fas fa-plus" style="color:#7c3aed"></i> Add Link (${left} left)`;
     btn.style.opacity='1';btn.style.cursor='pointer';
   }
 }
 
-/* ══ RENDER STRIPS ══ */
+/* ══ RENDER ══ */
 function renderStrips(){
   const wrap=document.getElementById('stripsWrap');
   const visible=strips.filter(s=>!s.archived);
@@ -609,7 +621,7 @@ function renderStrips(){
           <div class="strip-url-disp">${s.url?esc(s.url):''}</div>
         </div>
         <div class="strip-right" onclick="event.stopPropagation()">
-          <div class="strip-share" onclick="shareStrip(${s.sid})" title="Share">${SHARE_SVG}</div>
+          <div class="strip-share" onclick="shareStrip(${s.sid})">${SHARE_SVG}</div>
           <button class="strip-toggle ${s.visible&&filled?'on':''}" onclick="toggleVisible(${s.sid})"></button>
           <div class="strip-arrows">
             <div class="strip-arrow-btn" onclick="moveStrip(${s.sid},-1)"><i class="fas fa-chevron-up"></i></div>
@@ -661,12 +673,7 @@ function renderStrips(){
       </div>
     </div>`;
   }).join('');
-  updateSparkBar();
-  updateAddBtn();
-  initSortable();
-  updatePreview();
-  updatePreview();
-  updatePreview();
+  updateSparkBar();updateAddBtn();initSortable();updatePreview();
 }
 
 function initSortable(){
@@ -681,7 +688,7 @@ function initSortable(){
       const moved=strips.splice(evt.oldIndex,1)[0];
       strips.splice(evt.newIndex,0,moved);
       strips.forEach((s,i)=>s.sid=i);
-      autoSave();showToast('Reordered ✓');
+      autoSave();updatePreview();showToast('Reordered ✓');
     }
   });
 }
@@ -709,9 +716,7 @@ function toggleOpen(sid){
 
 function setPlatform(sid,pid){
   const s=strips.find(x=>x.sid===sid);if(!s)return;
-  s.platform=pid;
-  renderStrips();
-  s.open=true;
+  s.platform=pid;renderStrips();s.open=true;
   setTimeout(()=>{
     const el=document.getElementById('strip-'+sid);
     if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -736,8 +741,7 @@ function saveStrip(sid){
     else if(!url.startsWith('http')&&!url.startsWith('mailto:')&&!url.startsWith('tel:')&&!url.startsWith('upi:'))url='https://'+url;
   }
   s.title=title;s.url=url;s.visible=true;s.open=false;
-  renderStrips();autoSave();updatePreview();
-  /* Update social chip */
+  renderStrips();autoSave();
   const chip=document.querySelector(`.soc-chip[data-s="${s.platform}"]`);
   if(chip&&url)chip.classList.add('linked');
   updateSocHint();
@@ -766,17 +770,10 @@ function toggleVisible(sid){
 function togglePin(sid){
   const s=strips.find(x=>x.sid===sid);if(!s)return;
   s.pinned=!s.pinned;
-  if(s.pinned){
-    const removed=strips.splice(strips.findIndex(x=>x.sid===sid),1)[0];
-    strips.unshift(removed);
-  }else{
-    const removed=strips.splice(strips.findIndex(x=>x.sid===sid),1)[0];
-    const fp=strips.findIndex(x=>!x.pinned);
-    strips.splice(fp===-1?strips.length:fp,0,removed);
-  }
+  if(s.pinned){const r=strips.splice(strips.findIndex(x=>x.sid===sid),1)[0];strips.unshift(r);}
+  else{const r=strips.splice(strips.findIndex(x=>x.sid===sid),1)[0];const fp=strips.findIndex(x=>!x.pinned);strips.splice(fp===-1?strips.length:fp,0,r);}
   strips.forEach((x,i)=>x.sid=i);
-  renderStrips();autoSave();
-  showToast(s.pinned?'📌 Pinned to top':'Unpinned');
+  renderStrips();autoSave();showToast(s.pinned?'📌 Pinned':'Unpinned');
 }
 
 function toggleLike(sid){
@@ -819,7 +816,40 @@ function updateSparkBar(){
   document.getElementById('secCnt').textContent=filled+' filled / '+total+' strips';
 }
 
-/* ══ FIX 1: SOCIAL — update hint visibility ══ */
+/* ══ LIVE PREVIEW ══ */
+function updatePreview(){
+  const av=localStorage.getItem('avatar_personal');
+  const pa=document.getElementById('prevAvatar');
+  if(pa){
+    if(av){pa.style.background='none';pa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;}
+    else{pa.style.background='';pa.textContent=(localStorage.getItem('name')||'P')[0].toUpperCase();}
+  }
+  const pn=document.getElementById('prevName');if(pn)pn.textContent=localStorage.getItem('name')||'Your Name';
+  const pb=document.getElementById('prevBio');if(pb)pb.textContent=document.getElementById('pBio')?.textContent||'Add your bio';
+  const pu=document.getElementById('prevUrl');if(pu)pu.textContent='myqrid.in/'+(localStorage.getItem('username')||'—');
+  /* Social icons in preview */
+  const sr=document.getElementById('prevSocRow');
+  if(sr){
+    const socColors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b'};
+    const socIcons={whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',twitter:'fab fa-x-twitter',youtube:'fab fa-youtube',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',telegram:'fab fa-telegram',snapchat:'fab fa-snapchat'};
+    const linked=Object.keys(socials).filter(k=>socials[k]);
+    sr.innerHTML=linked.map(k=>`<div class="preview-soc-icon"><i class="${socIcons[k]||'fas fa-link'}" style="color:${socColors[k]||'#fff'}"></i></div>`).join('');
+  }
+  /* Links in preview */
+  const pl=document.getElementById('prevLinks');
+  if(pl){
+    const vis=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
+    pl.innerHTML=vis.length?vis.map(s=>{
+      const plat=getPlatform(s.platform);
+      return `<div class="preview-link">
+        <div class="preview-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color}"></i></div>
+        <div class="preview-link-title">${esc(s.title||s.url)}</div>
+      </div>`;
+    }).join(''):'<div class="preview-empty">Your links will appear here</div>';
+  }
+}
+
+/* ══ SOC HINT ══ */
 function updateSocHint(){
   const hasLinked=document.querySelectorAll('.soc-chip.linked').length>0;
   const hint=document.getElementById('socAddHint');
@@ -839,11 +869,7 @@ function openCollectionModal(){
   document.getElementById('collectionModal').classList.add('open');
 }
 function closeCollectionModal(){document.getElementById('collectionModal').classList.remove('open');}
-function selectColLayout(layout,el){
-  colLayout=layout;
-  document.querySelectorAll('.col-layout-opt').forEach(o=>o.classList.remove('sel'));
-  if(el)el.classList.add('sel');
-}
+function selectColLayout(layout,el){colLayout=layout;document.querySelectorAll('.col-layout-opt').forEach(o=>o.classList.remove('sel'));if(el)el.classList.add('sel');}
 function saveCollection(){
   const title=document.getElementById('colTitle').value.trim();
   if(!title){showToast('Enter a collection title');return;}
@@ -862,8 +888,7 @@ function openArchiveModal(){
       <div class="archive-info"><div class="archive-title">${esc(s.title||'Untitled')}</div><div class="archive-url">${esc(s.url)}</div></div>
       <button class="archive-restore" onclick="restoreStrip(${s.sid})">Restore</button>
     </div>`;
-  }).join(''):
-  '<div style="text-align:center;padding:40px 20px;color:#bbb"><i class="fas fa-archive" style="font-size:32px;color:#e5e7eb;display:block;margin-bottom:10px"></i>No archived links yet</div>';
+  }).join(''):'<div style="text-align:center;padding:40px 20px;color:#bbb"><i class="fas fa-archive" style="font-size:32px;color:#e5e7eb;display:block;margin-bottom:10px"></i>No archived links yet</div>';
   document.getElementById('archiveModal').classList.add('open');
 }
 function closeArchiveModal(){document.getElementById('archiveModal').classList.remove('open');}
@@ -905,9 +930,10 @@ function setAvatarSrc(src,type){
     if(sa){sa.style.background='none';sa.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}
   }
   localStorage.setItem('avatar_personal',src);
+  updatePreview();
 }
 
-/* ══ SOCIAL ══ */
+/* ══ SOCIAL — persist to localStorage ══ */
 const SOC_CFG={
   whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210'},
   instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername'},
@@ -931,15 +957,27 @@ function closeSocModal(){document.getElementById('socModal').classList.remove('o
 function saveSoc(){
   const v=document.getElementById('socInput').value.trim();
   socials[curSoc]=v;
+  /* Persist socials to localStorage */
+  localStorage.setItem('socials_data',JSON.stringify(socials));
   const chip=document.querySelector(`.soc-chip[data-s="${curSoc}"]`);
   if(chip)chip.classList.toggle('linked',!!v);
-  closeSocModal();updateSocHint();updatePreview();showToast(v?'✅ Linked!':'Removed');
-  localStorage.setItem('socials_data',JSON.stringify(socials));
+  closeSocModal();updateSocHint();updatePreview();
+  showToast(v?'✅ Linked!':'Removed');
 }
+
 function editBio(){document.getElementById('bioInput').value=document.getElementById('pBio').textContent||'';document.getElementById('bioModal').classList.add('open');}
 function closeBioModal(){document.getElementById('bioModal').classList.remove('open');}
-function saveBio(){const v=document.getElementById('bioInput').value.trim();document.getElementById('pBio').textContent=v||'Add your bio';closeBioModal();updatePreview();showToast('Bio updated!');}
-function copyUrl(){const u=localStorage.getItem('username')||'—';navigator.clipboard.writeText('https://myqrid.in/'+u);showToast('🔗 Link copied!');}
+function saveBio(){
+  const v=document.getElementById('bioInput').value.trim();
+  document.getElementById('pBio').textContent=v||'Add your bio';
+  closeBioModal();updatePreview();showToast('Bio updated!');
+}
+
+function copyUrl(){
+  const u=localStorage.getItem('username')||'—';
+  navigator.clipboard.writeText('https://myqrid.in/'+u);
+  showToast('🔗 Link copied!');
+}
 function shareProfile(){
   const u=localStorage.getItem('username')||'',url='https://myqrid.in/'+u;
   if(navigator.share)navigator.share({title:(localStorage.getItem('name')||'My myQRID')+' — myQRID',url});
@@ -987,136 +1025,10 @@ async function saveAllLinks(){
   btn.disabled=false;btn.textContent='Save';
 }
 
-/* ══ LIVE PREVIEW UPDATE ══ */
-function updatePreview(){
-  /* Avatar */
-  const av=localStorage.getItem('avatar_personal');
-  const pa=document.getElementById('prevAvatar');
-  if(pa){
-    if(av){pa.style.background='none';pa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;}
-    else{pa.style.background='';pa.innerHTML=(localStorage.getItem('name')||'P')[0].toUpperCase();}
-  }
-  /* Name & bio */
-  const pn=document.getElementById('prevName');if(pn)pn.textContent=localStorage.getItem('name')||'Your Name';
-  const pb=document.getElementById('prevBio');if(pb)pb.textContent=document.getElementById('pBio')?.textContent||'Add your bio';
-  /* URL */
-  const pu=document.getElementById('prevUrl');if(pu)pu.textContent='myqrid.in/'+(localStorage.getItem('username')||'—');
-  /* Social icons */
-  const sr=document.getElementById('prevSocRow');
-  if(sr){
-    const linked=Object.keys(socials).filter(k=>socials[k]);
-    sr.innerHTML=linked.map(k=>{
-      const colors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b'};
-      const icons={whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',twitter:'fab fa-x-twitter',youtube:'fab fa-youtube',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',telegram:'fab fa-telegram',snapchat:'fab fa-snapchat'};
-      return `<div class="preview-soc-icon"><i class="${icons[k]||'fas fa-link'}" style="color:${colors[k]||'#fff'}"></i></div>`;
-    }).join('');
-  }
-  /* Links */
-  const pl=document.getElementById('prevLinks');
-  if(pl){
-    const visible=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
-    if(visible.length===0){
-      pl.innerHTML='<div style="text-align:center;font-size:10px;color:rgba(255,255,255,0.2);padding:10px">Your links will appear here</div>';
-    }else{
-      pl.innerHTML=visible.map(s=>{
-        const plat=getPlatform(s.platform);
-        return `<div class="preview-link">
-          <div class="preview-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color};font-size:11px"></i></div>
-          <div class="preview-link-title">${esc(s.title||s.url)}</div>
-        </div>`;
-      }).join('');
-    }
-  }
-}
-
-/* ══ LIVE PREVIEW UPDATE ══ */
-function updatePreview(){
-  /* Avatar */
-  const av=localStorage.getItem('avatar_personal');
-  const pa=document.getElementById('prevAvatar');
-  if(pa){
-    if(av){pa.style.background='none';pa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;}
-    else{pa.style.background='';pa.innerHTML=(localStorage.getItem('name')||'P')[0].toUpperCase();}
-  }
-  /* Name & bio */
-  const pn=document.getElementById('prevName');if(pn)pn.textContent=localStorage.getItem('name')||'Your Name';
-  const pb=document.getElementById('prevBio');if(pb)pb.textContent=document.getElementById('pBio')?.textContent||'Add your bio';
-  /* URL */
-  const pu=document.getElementById('prevUrl');if(pu)pu.textContent='myqrid.in/'+(localStorage.getItem('username')||'—');
-  /* Social icons */
-  const sr=document.getElementById('prevSocRow');
-  if(sr){
-    const linked=Object.keys(socials).filter(k=>socials[k]);
-    sr.innerHTML=linked.map(k=>{
-      const colors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b'};
-      const icons={whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',twitter:'fab fa-x-twitter',youtube:'fab fa-youtube',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',telegram:'fab fa-telegram',snapchat:'fab fa-snapchat'};
-      return `<div class="preview-soc-icon"><i class="${icons[k]||'fas fa-link'}" style="color:${colors[k]||'#fff'}"></i></div>`;
-    }).join('');
-  }
-  /* Links */
-  const pl=document.getElementById('prevLinks');
-  if(pl){
-    const visible=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
-    if(visible.length===0){
-      pl.innerHTML='<div style="text-align:center;font-size:10px;color:rgba(255,255,255,0.2);padding:10px">Your links will appear here</div>';
-    }else{
-      pl.innerHTML=visible.map(s=>{
-        const plat=getPlatform(s.platform);
-        return `<div class="preview-link">
-          <div class="preview-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color};font-size:11px"></i></div>
-          <div class="preview-link-title">${esc(s.title||s.url)}</div>
-        </div>`;
-      }).join('');
-    }
-  }
-}
-
-/* ══ LIVE PREVIEW UPDATE ══ */
-function updatePreview(){
-  /* Avatar */
-  const av=localStorage.getItem('avatar_personal');
-  const pa=document.getElementById('prevAvatar');
-  if(pa){
-    if(av){pa.style.background='none';pa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;}
-    else{pa.style.background='';pa.innerHTML=(localStorage.getItem('name')||'P')[0].toUpperCase();}
-  }
-  /* Name & bio */
-  const pn=document.getElementById('prevName');if(pn)pn.textContent=localStorage.getItem('name')||'Your Name';
-  const pb=document.getElementById('prevBio');if(pb)pb.textContent=document.getElementById('pBio')?.textContent||'Add your bio';
-  /* URL */
-  const pu=document.getElementById('prevUrl');if(pu)pu.textContent='myqrid.in/'+(localStorage.getItem('username')||'—');
-  /* Social icons */
-  const sr=document.getElementById('prevSocRow');
-  if(sr){
-    const linked=Object.keys(socials).filter(k=>socials[k]);
-    sr.innerHTML=linked.map(k=>{
-      const colors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b'};
-      const icons={whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',twitter:'fab fa-x-twitter',youtube:'fab fa-youtube',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',telegram:'fab fa-telegram',snapchat:'fab fa-snapchat'};
-      return `<div class="preview-soc-icon"><i class="${icons[k]||'fas fa-link'}" style="color:${colors[k]||'#fff'}"></i></div>`;
-    }).join('');
-  }
-  /* Links */
-  const pl=document.getElementById('prevLinks');
-  if(pl){
-    const visible=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
-    if(visible.length===0){
-      pl.innerHTML='<div style="text-align:center;font-size:10px;color:rgba(255,255,255,0.2);padding:10px">Your links will appear here</div>';
-    }else{
-      pl.innerHTML=visible.map(s=>{
-        const plat=getPlatform(s.platform);
-        return `<div class="preview-link">
-          <div class="preview-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color};font-size:11px"></i></div>
-          <div class="preview-link-title">${esc(s.title||s.url)}</div>
-        </div>`;
-      }).join('');
-    }
-  }
-}
-
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
-/* ══ LOAD ══ */
+/* ══ LOAD DATA ══ */
 async function loadData(){
   const name=localStorage.getItem('name')||'';
   const username=localStorage.getItem('username')||'';
@@ -1139,25 +1051,27 @@ async function loadData(){
     if(sa){sa.style.background='none';sa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}
   }
 
-  /* Restore socials from localStorage */
+  /* ── RESTORE SOCIALS from localStorage ── */
   const localSoc=localStorage.getItem('socials_data');
-  if(localSoc){try{socials=JSON.parse(localSoc);Object.keys(socials).forEach(k=>{if(socials[k]){const c=document.querySelector(`.soc-chip[data-s="${k}"]`);if(c)c.classList.add('linked');}});}catch(e){}}
+  if(localSoc){
+    try{
+      socials=JSON.parse(localSoc);
+      Object.keys(socials).forEach(k=>{
+        if(socials[k]){
+          const c=document.querySelector(`.soc-chip[data-s="${k}"]`);
+          if(c)c.classList.add('linked');
+        }
+      });
+    }catch(e){}
+  }
   updateSocHint();
-  /* Restore socials from localStorage */
-  const localSoc=localStorage.getItem('socials_data');
-  if(localSoc){try{socials=JSON.parse(localSoc);Object.keys(socials).forEach(k=>{if(socials[k]){const c=document.querySelector(`.soc-chip[data-s="${k}"]`);if(c)c.classList.add('linked');}});}catch(e){}}
-  updateSocHint();
-  /* Restore socials from localStorage */
-  const localSoc=localStorage.getItem('socials_data');
-  if(localSoc){try{socials=JSON.parse(localSoc);Object.keys(socials).forEach(k=>{if(socials[k]){const c=document.querySelector(`.soc-chip[data-s="${k}"]`);if(c)c.classList.add('linked');}});}catch(e){}}
-  updateSocHint();
-  /* Restore from localStorage */
+
+  /* ── RESTORE STRIPS from localStorage ── */
   const local=localStorage.getItem('strips_v5');
   if(local){
     try{
       const saved=JSON.parse(local);
       if(saved.length>0){
-        /* Rebuild strips from saved */
         strips=saved.map(sv=>({
           sid:sv.sid,title:sv.title||'',url:sv.url||'',platform:sv.platform||'link',
           visible:sv.visible||false,pinned:sv.pinned||false,
@@ -1169,8 +1083,8 @@ async function loadData(){
   }
 
   renderStrips();
-  updateSocHint();
 
+  /* ── BACKEND SYNC ── */
   const token=localStorage.getItem('token');if(!token)return;
   try{
     const res=await fetch(API+'/links',{headers:{'Authorization':'Bearer '+token}});
@@ -1191,12 +1105,15 @@ async function loadData(){
     const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
     const d=await res.json();
     if(d.success){
-      socials=d.profile.socials||{};
+      /* Merge backend socials with localStorage */
+      const backendSocials=d.profile.socials||{};
+      socials={...socials,...backendSocials};
+      localStorage.setItem('socials_data',JSON.stringify(socials));
       Object.keys(socials).forEach(k=>{
         if(socials[k]){const c=document.querySelector(`.soc-chip[data-s="${k}"]`);if(c)c.classList.add('linked');}
       });
-      updateSocHint();
-      if(d.profile.bio)document.getElementById('pBio').textContent=d.profile.bio;
+      updateSocHint();updatePreview();
+      if(d.profile.bio){document.getElementById('pBio').textContent=d.profile.bio;}
     }
   }catch(e){}
 }
