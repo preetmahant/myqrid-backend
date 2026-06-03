@@ -101,6 +101,8 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 
 /* STRIPS */
 .strips-wrap{padding:0 16px}
+.strip-group-header{display:flex;align-items:center;gap:8px;padding:8px 4px 4px;font-size:11px;font-weight:700;color:#666;cursor:pointer;user-select:none;border-bottom:1px solid #f0f0f0;margin-bottom:4px;margin-top:8px}
+.strip-group-header:first-child{margin-top:0}
 .sortable-ghost{opacity:0.3;background:#ede9ff!important;border:1.5px dashed #7c3aed!important}
 .sortable-chosen{box-shadow:0 8px 24px rgba(124,58,237,0.18)!important;transform:scale(1.01)}
 .strip{background:#f9f9fb;border:1px solid #e9e9eb;border-radius:16px;margin-bottom:8px;overflow:hidden;transition:all 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
@@ -400,15 +402,15 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
           <div class="cta-main" id="ctaMainText">Join on myQRID</div>
           <div class="cta-sub">Build your free digital identity</div>
         </div>
-        <a href="/signup.html" class="cta-join-btn">Join Free</a>
+        <a href="/signup.html" class="cta-join-btn" id="ctaJoinBtn">Join Free</a>
       </div>
     </div>
     <div style="padding:10px 16px 6px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap">
-      <a href="#" style="font-size:11px;color:#bbb;text-decoration:none">Safety</a>
+      <a href="/safety.html" target="_blank" style="font-size:11px;color:#888;text-decoration:none;font-weight:500">Safety</a>
       <span style="color:#ddd;font-size:10px">·</span>
-      <a href="#" style="font-size:11px;color:#bbb;text-decoration:none">Privacy</a>
+      <a href="/privacy.html" target="_blank" style="font-size:11px;color:#888;text-decoration:none;font-weight:500">Privacy</a>
       <span style="color:#ddd;font-size:10px">·</span>
-      <a href="https://myqrid.in" style="font-size:11px;color:#bbb;text-decoration:none">More from myQRID</a>
+      <a href="https://myqrid.in" target="_blank" style="font-size:11px;color:#888;text-decoration:none;font-weight:500">More from myQRID</a>
     </div>
     <div style="padding:8px 20px 20px;display:flex;flex-direction:column;align-items:center;gap:3px">
       <div style="font-size:15px;font-weight:800;color:#111">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
@@ -434,18 +436,18 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <div class="preview-links-area" id="prevLinksArea">
       <div id="prevLinks"><div class="prev-empty">Your visible links appear here</div></div>
       <!-- Clean plain footer — no box -->
-      <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
-        <div id="prevCtaTitle" style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);margin-bottom:4px">Join on myQRID</div>
-        <div style="font-size:7px;color:rgba(255,255,255,0.22);margin-bottom:6px">Build your free digital identity</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:7px">
-          <span style="font-size:7px;color:rgba(255,255,255,0.22)">Safety</span>
-          <span style="font-size:6px;color:rgba(255,255,255,0.1)">·</span>
-          <span style="font-size:7px;color:rgba(255,255,255,0.22)">Privacy</span>
-          <span style="font-size:6px;color:rgba(255,255,255,0.1)">·</span>
-          <span style="font-size:7px;color:rgba(255,255,255,0.22)">More from myQRID</span>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);text-align:center">
+        <a href="/signup.html" style="display:block;font-size:10px;font-weight:800;color:rgba(255,255,255,0.9);margin-bottom:3px;text-decoration:none" id="prevCtaTitle">Join on myQRID</a>
+        <a href="/signup.html" style="display:block;font-size:7.5px;color:rgba(255,255,255,0.55);margin-bottom:8px;text-decoration:none">Build your free digital identity</a>
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px">
+          <a href="/safety.html" style="font-size:7px;color:rgba(255,255,255,0.4);text-decoration:none">Safety</a>
+          <span style="color:rgba(255,255,255,0.15);font-size:6px">·</span>
+          <a href="/privacy.html" style="font-size:7px;color:rgba(255,255,255,0.4);text-decoration:none">Privacy</a>
+          <span style="color:rgba(255,255,255,0.15);font-size:6px">·</span>
+          <a href="https://myqrid.in" style="font-size:7px;color:rgba(255,255,255,0.4);text-decoration:none">More from myQRID</a>
         </div>
-        <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.4)">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
-        <div style="font-size:6px;color:rgba(255,255,255,0.15);margin-top:2px">Your Digital Identity · One QR · Infinite Possibilities</div>
+        <div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.7)">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
+        <div style="font-size:6px;color:rgba(255,255,255,0.2);margin-top:2px">Your Digital Identity · One QR · Infinite Possibilities</div>
       </div>
     </div>
     <div class="preview-home"></div>
@@ -614,6 +616,41 @@ const PLATFORMS=[
   {id:'email',name:'Email',icon:'fas fa-envelope',color:'#2563eb',bg:'rgba(37,99,235,0.1)'},
   {id:'call',name:'Call',icon:'fas fa-phone',color:'#16a34a',bg:'rgba(22,163,74,0.1)'},
   {id:'link',name:'Link',icon:'fas fa-link',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
+  /* GROW & FOLLOW */
+  {id:'ig_follow',name:'Follow IG',icon:'fab fa-instagram',color:'#e1306c',bg:'rgba(225,48,108,0.12)'},
+  {id:'yt_subscribe',name:'Subscribe YT',icon:'fab fa-youtube',color:'#FF0000',bg:'rgba(255,0,0,0.1)'},
+  {id:'fb_follow',name:'Follow FB',icon:'fab fa-facebook',color:'#1877f2',bg:'rgba(24,119,242,0.12)'},
+  {id:'threads_follow',name:'Threads',icon:'fab fa-threads',color:'#111',bg:'rgba(0,0,0,0.08)'},
+  {id:'tg_join',name:'Join Channel',icon:'fab fa-telegram',color:'#2aabee',bg:'rgba(42,171,238,0.12)'},
+  {id:'tw_follow',name:'Follow X',icon:'fab fa-x-twitter',color:'#111',bg:'rgba(0,0,0,0.08)'},
+  /* SHARE & VIRAL */
+  {id:'share_profile',name:'Share Profile',icon:'fas fa-share-alt',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
+  {id:'share_ig_story',name:'IG Story',icon:'fab fa-instagram',color:'#e1306c',bg:'rgba(225,48,108,0.12)'},
+  {id:'share_wa_status',name:'WA Status',icon:'fab fa-whatsapp',color:'#25D366',bg:'rgba(37,211,102,0.12)'},
+  {id:'share_fb_story',name:'FB Story',icon:'fab fa-facebook',color:'#1877f2',bg:'rgba(24,119,242,0.12)'},
+  {id:'share_twitter',name:'Tweet This',icon:'fab fa-x-twitter',color:'#111',bg:'rgba(0,0,0,0.08)'},
+  {id:'share_threads',name:'Thread This',icon:'fab fa-threads',color:'#111',bg:'rgba(0,0,0,0.08)'},
+  {id:'qr_card',name:'QR Card',icon:'fas fa-qrcode',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
+  {id:'follow_all',name:'Follow All',icon:'fas fa-users-plus',color:'#059669',bg:'rgba(5,150,105,0.1)'},
+  /* EARN & MONETIZE */
+  {id:'paid_chat',name:'Paid Chat',icon:'fas fa-comments-dollar',color:'#059669',bg:'rgba(5,150,105,0.1)'},
+  {id:'paid_call',name:'Paid Call',icon:'fas fa-phone-square',color:'#0d9488',bg:'rgba(13,148,136,0.1)'},
+  {id:'digital_product',name:'My Product',icon:'fas fa-box',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
+  {id:'course',name:'My Course',icon:'fas fa-graduation-cap',color:'#6d28d9',bg:'rgba(109,40,217,0.1)'},
+  {id:'subscription',name:'Subscribe Me',icon:'fas fa-bell',color:'#ec4899',bg:'rgba(236,72,153,0.1)'},
+  {id:'support',name:'Support Me',icon:'fas fa-heart',color:'#ef4444',bg:'rgba(239,68,68,0.1)'},
+  {id:'upi',name:'UPI Pay',icon:'fas fa-indian-rupee-sign',color:'#059669',bg:'rgba(5,150,105,0.1)'},
+  /* BUSINESS */
+  {id:'menu',name:'Our Menu',icon:'fas fa-utensils',color:'#f59e0b',bg:'rgba(245,158,11,0.1)'},
+  {id:'location',name:'Find Us',icon:'fas fa-map-marker-alt',color:'#ef4444',bg:'rgba(239,68,68,0.1)'},
+  {id:'offer',name:'Current Offer',icon:'fas fa-tags',color:'#ec4899',bg:'rgba(236,72,153,0.1)'},
+  {id:'shop',name:'My Shop',icon:'fas fa-store',color:'#f59e0b',bg:'rgba(245,158,11,0.1)'},
+  {id:'affiliate',name:'Shop with Me',icon:'fas fa-shopping-bag',color:'#f59e0b',bg:'rgba(245,158,11,0.1)'},
+  /* myQRID ECOSYSTEM */
+  {id:'myqrid_card',name:'Digital Card',icon:'fas fa-id-card',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
+  {id:'myqrid_drift',name:'Drift',icon:'fas fa-motorcycle',color:'#111',bg:'rgba(0,0,0,0.08)'},
+  {id:'myqrid_care',name:'Care',icon:'fas fa-shield-heart',color:'#ef4444',bg:'rgba(239,68,68,0.1)'},
+  {id:'myqrid_earn',name:'Ea₹n',icon:'fas fa-indian-rupee-sign',color:'#059669',bg:'rgba(5,150,105,0.1)'},
 ];
 
 const SOC_CFG={
@@ -629,9 +666,76 @@ const SOC_CFG={
   spotify:{label:'Spotify',lbl:'Profile URL',ph:'open.spotify.com/user/...',color:'#1db954'},
   tiktok:{label:'TikTok',lbl:'Username (no @)',ph:'yourusername',color:'#111'},
   website:{label:'Website',lbl:'Your website URL',ph:'https://yoursite.com',color:'#4338ca'},
+  threads:{label:'Threads',lbl:'Username (no @)',ph:'yourusername',color:'#111'},
+  pinterest:{label:'Pinterest',lbl:'Username',ph:'yourusername',color:'#e60023'},
+  shop:{label:'My Shop',lbl:'Shop URL',ph:'https://yourshop.com',color:'#f59e0b'},
+  product:{label:'My Product',lbl:'Product URL',ph:'https://yourproduct.com',color:'#7c3aed'},
+  calendar:{label:'Book Me',lbl:'Booking URL',ph:'https://calendly.com/...',color:'#0d9488'},
+  custom:{label:'Custom Link',lbl:'Enter URL',ph:'https://...',color:'#6b7280'},
 };
 
 function getPlatform(id){return PLATFORMS.find(p=>p.id===id)||PLATFORMS[PLATFORMS.length-1];}
+
+const STRIP_GROUPS=[
+  {id:'social',label:'🌐 Social',platforms:['whatsapp','instagram','twitter','youtube','facebook','telegram','snapchat','tiktok','github','spotify','pinterest','ig_follow','yt_subscribe','fb_follow','threads_follow','tg_join','tw_follow']},
+  {id:'grow',label:'🎯 Grow & Follow',platforms:['ig_follow','yt_subscribe','fb_follow','threads_follow','tg_join','tw_follow','follow_all','subscription']},
+  {id:'share',label:'📤 Share & Viral',platforms:['share_profile','share_ig_story','share_wa_status','share_fb_story','share_twitter','share_threads','qr_card']},
+  {id:'earn',label:'💰 Ea₹n & Monetize',platforms:['paid_chat','paid_call','digital_product','course','support','upi','myqrid_earn']},
+  {id:'work',label:'💼 Work & Professional',platforms:['linkedin','portfolio','booking','email','call','myqrid_card']},
+  {id:'business',label:'🏢 Business',platforms:['website','menu','location','offer','shop','affiliate','payment']},
+  {id:'ecosystem',label:'🛡️ myQRID Ecosystem',platforms:['myqrid_card','myqrid_drift','myqrid_care','myqrid_earn']},
+  {id:'other',label:'🔗 Other',platforms:['link','portfolio','booking']},
+];
+function getStripGroup(platform){
+  for(const g of STRIP_GROUPS){if(g.platforms.includes(platform))return g;}
+  return STRIP_GROUPS[STRIP_GROUPS.length-1];
+}
+function renderStripsGrouped(){
+  const wrap=document.getElementById('stripsWrap');
+  const visible=strips.filter(s=>!s.archived);
+  /* Group strips */
+  const grouped={};
+  const groupOrder=[];
+  visible.forEach(s=>{
+    const g=getStripGroup(s.platform);
+    if(!grouped[g.id]){grouped[g.id]=[];groupOrder.push(g);}
+    grouped[g.id].push(s);
+  });
+  /* Remove duplicates in groupOrder */
+  const seen=new Set();
+  const uniqueGroups=groupOrder.filter(g=>{if(seen.has(g.id))return false;seen.add(g.id);return true;});
+  let html='';
+  uniqueGroups.forEach(g=>{
+    const groupStrips=grouped[g.id];
+    html+=`<div class="strip-group-header" onclick="toggleGroup('${g.id}')">
+      <span>${g.label}</span>
+      <span style="font-size:10px;color:#bbb">${groupStrips.length}</span>
+      <i class="fas fa-chevron-down" style="font-size:9px;color:#bbb;margin-left:auto;transition:transform 0.2s" id="grp-icon-${g.id}"></i>
+    </div>
+    <div id="grp-${g.id}">`;
+    groupStrips.forEach(s=>{
+      html+=buildStripHTML(s);
+    });
+    html+='</div>';
+  });
+  wrap.innerHTML=html;
+  updateSparkBar();updateAddBtn();initSortable();syncSocialChips();updatePreview();
+}
+const collapsedGroups=new Set();
+function toggleGroup(id){
+  const el=document.getElementById('grp-'+id);
+  const icon=document.getElementById('grp-icon-'+id);
+  if(!el)return;
+  if(collapsedGroups.has(id)){
+    collapsedGroups.delete(id);
+    el.style.display='block';
+    if(icon)icon.style.transform='rotate(0deg)';
+  }else{
+    collapsedGroups.add(id);
+    el.style.display='none';
+    if(icon)icon.style.transform='rotate(-90deg)';
+  }
+}
 
 let strips=Array.from({length:INIT_COUNT},(_,i)=>({
   sid:i,title:'',url:'',platform:'link',visible:false,pinned:false,liked:false,clicks:0,open:false,archived:false,
@@ -709,10 +813,8 @@ function updateAddBtn(){
   btn.style.opacity=left<=0?'0.5':'1';btn.style.cursor=left<=0?'not-allowed':'pointer';
 }
 
-/* ══ RENDER ══ */
-function renderStrips(){
-  const wrap=document.getElementById('stripsWrap');
-  wrap.innerHTML=strips.filter(s=>!s.archived).map(s=>{
+/* ══ BUILD STRIP HTML ══ */
+function buildStripHTML(s){
     const filled=!!(s.title||s.url);const plat=getPlatform(s.platform);
     return `<div class="strip ${filled?'filled':''}" id="strip-${s.sid}" style="--icon-color:${filled?plat.color:'#ccc'};--icon-bg:${filled?plat.bg:'#efefef'}">
       <div class="strip-header" onclick="toggleOpen(${s.sid})">
@@ -761,7 +863,11 @@ function renderStrips(){
         <div class="sbtm-clicks"><i class="fas fa-mouse-pointer" style="font-size:9px"></i>${s.clicks}</div>
       </div>
     </div>`;
-  }).join('');
+}
+/* ══ RENDER ══ */
+function renderStrips(){
+  const wrap=document.getElementById('stripsWrap');
+  wrap.innerHTML=strips.filter(s=>!s.archived).map(s=>buildStripHTML(s)).join('');
   updateSparkBar();updateAddBtn();initSortable();syncSocialChips();updatePreview();
 }
 
@@ -798,6 +904,105 @@ function setPlatform(sid,pid){
   s.platform=pid;renderStrips();s.open=true;
   setTimeout(()=>{const el=document.getElementById('strip-'+sid);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});const ti=document.getElementById('t-'+sid);if(ti)ti.focus();},80);
 }
+/* Handle special platform actions */
+function handleSpecialStrip(sid){
+  const s=strips.find(x=>x.sid===sid);if(!s)return false;
+  const username=localStorage.getItem('username')||'';
+  const profileUrl='https://myqrid.in/'+username;
+  const name=localStorage.getItem('name')||'Check out my profile';
+  switch(s.platform){
+    case 'share_profile':
+      if(navigator.share)navigator.share({title:name+' on myQRID',url:profileUrl});
+      else{navigator.clipboard.writeText(profileUrl);showToast('Profile link copied!');}
+      return true;
+    case 'share_ig_story':
+      window.open('instagram://story-camera','_blank');
+      setTimeout(()=>navigator.clipboard.writeText(profileUrl),500);
+      showToast('Link copied! Paste in your Instagram Story');return true;
+    case 'share_wa_status':
+      window.open('https://wa.me/?text='+encodeURIComponent(name+' — Check out my myQRID profile: '+profileUrl),'_blank');return true;
+    case 'share_fb_story':
+      window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(profileUrl),'_blank');return true;
+    case 'share_twitter':
+      window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent('Check out my myQRID profile: '+profileUrl),'_blank');return true;
+    case 'share_threads':
+      window.open('https://www.threads.net/intent/post?text='+encodeURIComponent('Check out my myQRID profile: '+profileUrl),'_blank');return true;
+    case 'qr_card':
+      generateQRCard();return true;
+    case 'follow_all':
+      openFollowAllModal();return true;
+    case 'myqrid_card':
+      window.open('/cards.html','_blank');return true;
+    case 'myqrid_drift':
+      window.open('/drift.html','_blank');return true;
+    case 'myqrid_care':
+      window.open('/care.html','_blank');return true;
+  }
+  return false;
+}
+
+function generateQRCard(){
+  const username=localStorage.getItem('username')||'';
+  const name=localStorage.getItem('name')||'myQRID';
+  const url='https://myqrid.in/'+username;
+  /* Create canvas QR card */
+  const canvas=document.createElement('canvas');
+  canvas.width=400;canvas.height=500;
+  const ctx=canvas.getContext('2d');
+  const grad=ctx.createLinearGradient(0,0,400,500);
+  grad.addColorStop(0,'#0f0f24');grad.addColorStop(1,'#1a0a2e');
+  ctx.fillStyle=grad;ctx.fillRect(0,0,400,500);
+  ctx.fillStyle='rgba(255,255,255,0.9)';
+  ctx.font='bold 24px Inter,sans-serif';
+  ctx.textAlign='center';ctx.fillText(name,200,60);
+  ctx.font='14px Inter,sans-serif';
+  ctx.fillStyle='rgba(255,255,255,0.5)';
+  ctx.fillText('myqrid.in/'+username,200,90);
+  ctx.fillStyle='rgba(255,255,255,0.08)';
+  ctx.roundRect(100,110,200,200,20);ctx.fill();
+  ctx.fillStyle='rgba(124,58,237,0.9)';
+  ctx.font='bold 16px Inter,sans-serif';
+  ctx.fillText('Scan to connect',200,340);
+  ctx.fillStyle='rgba(255,255,255,0.3)';
+  ctx.font='11px Inter,sans-serif';
+  ctx.fillText('Powered by myQRID',200,460);
+  const a=document.createElement('a');
+  a.href=canvas.toDataURL('image/png');
+  a.download=(username||'myqrid')+'_card.png';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  showToast('📸 QR Card downloaded!');
+}
+
+function openFollowAllModal(){
+  const linked=Object.keys(socials).filter(k=>socials[k]);
+  if(!linked.length){showToast('Add social links first');return;}
+  const socUrls={
+    whatsapp:v=>'https://wa.me/'+v.replace(/D/g,''),
+    instagram:v=>'https://instagram.com/'+v,
+    twitter:v=>'https://x.com/'+v,
+    youtube:v=>v.startsWith('http')?v:'https://youtube.com/'+v,
+    telegram:v=>'https://t.me/'+v,
+    facebook:v=>v.startsWith('http')?v:'https://facebook.com/'+v,
+    linkedin:v=>v.startsWith('http')?v:'https://linkedin.com/in/'+v,
+    tiktok:v=>'https://tiktok.com/@'+v,
+    threads:v=>'https://threads.net/@'+v,
+    github:v=>'https://github.com/'+v,
+    website:v=>v.startsWith('http')?v:'https://'+v,
+  };
+  let idx=0;
+  function openNext(){
+    if(idx>=linked.length){showToast('All done! Please follow each 😊');return;}
+    const k=linked[idx++];const v=socials[k];
+    if(!v){openNext();return;}
+    const fn=socUrls[k];
+    const url=fn?fn(v):v;
+    window.open(url,'_blank');
+    setTimeout(openNext,1500);
+  }
+  showToast('Opening your socials one by one...');
+  openNext();
+}
+
 function saveStrip(sid){
   const s=strips.find(x=>x.sid===sid);if(!s)return;
   const ti=document.getElementById('t-'+sid);const ui=document.getElementById('u-'+sid);
@@ -985,6 +1190,10 @@ async function loadData(){
     const su=document.getElementById('sidebarUrl');if(su)su.textContent='myqrid.in/'+username;
     const ct=document.getElementById('ctaMainText');if(ct)ct.textContent='Join '+username+' on myQRID';
     const pc=document.getElementById('prevCtaTitle');if(pc)pc.textContent='Join '+username+' on myQRID';
+    /* Referral links */
+    const refUrl='/signup.html?ref='+username;
+    document.querySelectorAll('[href="/signup.html"]').forEach(a=>a.href=refUrl);
+    const jb=document.getElementById('ctaJoinBtn');if(jb)jb.href=refUrl;
   }
   const av=localStorage.getItem('avatar_personal');
   if(av){
