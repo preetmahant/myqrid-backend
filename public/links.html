@@ -347,11 +347,11 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
           <div class="soc-chip" data-s="spotify" style="--sc:#1db954" onclick="openSocManage('spotify')"><i class="fab fa-spotify"></i><span>SP</span></div>
           <div class="soc-chip" data-s="tiktok" style="--sc:#111" onclick="openSocManage('tiktok')"><i class="fab fa-tiktok"></i><span>TT</span></div>
           <div class="soc-chip" data-s="website" style="--sc:#4338ca" onclick="openSocManage('website')"><i class="fas fa-globe"></i><span>WEB</span></div>
-          <div class="soc-chip" data-s="linkedin" style="--sc:#0a66c2" onclick="openSocManage('linkedin')"><i class="fab fa-linkedin"></i><span>LI</span></div>
         </div>
         <div class="soc-add-btn" onclick="openSocManage(null)" title="Manage social links"><i class="fas fa-pen" style="font-size:10px"></i></div>
       </div>
-
+      <!-- vCard download -->
+      <button class="vcard-btn" onclick="downloadVCard()"><i class="fas fa-address-card"></i> Save Contact</button>
     </div>
     <div class="spark-banner">
       <div class="spark-dot"></div>
@@ -361,8 +361,17 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     </div>
   </div>
 
-  <!-- SCROLLABLE CONTENT — only strips + below scroll -->
+  <!-- SCROLLABLE CONTENT — only this scrolls -->
   <div class="scroll-content" id="scrollContent">
+    <div class="sec-hdr">
+      <div class="sec-lbl">Your Links</div>
+      <div class="sec-cnt" id="secCnt">0 / 18</div>
+    </div>
+    <div class="action-btns-row">
+      <button class="action-btn-sm" id="addLinkBtn" onclick="addOneStrip()"><i class="fas fa-plus" style="color:#7c3aed"></i> Add Link</button>
+      <button class="action-btn-sm" onclick="openCollectionModal()"><i class="fas fa-layer-group" style="color:#ec4899"></i> Collection</button>
+      <button class="action-btn-sm" onclick="openArchiveModal()"><i class="fas fa-archive" style="color:#aaa"></i> View Archive</button>
+    </div>
     <div class="strips-wrap" id="stripsWrap"></div>
 
     <div class="upgrade-section">
@@ -423,22 +432,19 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <!-- Scrollable links -->
     <div class="preview-links-area" id="prevLinksArea">
       <div id="prevLinks"><div class="prev-empty">Your visible links appear here</div></div>
-      <!-- CTA bottom — clean plain text, no box -->
-      <div style="margin-top:18px;padding:0 6px 10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:14px">
-        <div id="prevCtaTitle" style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.55);text-align:center;margin-bottom:5px;letter-spacing:0.1px">Join on myQRID</div>
-        <div style="font-size:7.5px;color:rgba(255,255,255,0.28);text-align:center;margin-bottom:8px">Build your free digital identity</div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px">
-          <a href="#" style="font-size:7px;color:rgba(255,255,255,0.25);text-decoration:none;letter-spacing:0.2px">Safety</a>
-          <span style="color:rgba(255,255,255,0.12);font-size:7px">·</span>
-          <a href="#" style="font-size:7px;color:rgba(255,255,255,0.25);text-decoration:none;letter-spacing:0.2px">Privacy</a>
-          <span style="color:rgba(255,255,255,0.12);font-size:7px">·</span>
-          <a href="https://myqrid.in" style="font-size:7px;color:rgba(255,255,255,0.25);text-decoration:none;letter-spacing:0.2px">More from myQRID</a>
+      <!-- CTA at bottom of preview -->
+      <div class="prev-cta-box" id="prevCta">
+        <div class="prev-cta-title" id="prevCtaTitle">Join on myQRID</div>
+        <div class="prev-cta-sub">Build your free digital identity</div>
+        <div class="prev-cta-links">
+          <a href="#">Safety</a><span>·</span>
+          <a href="#">Privacy</a><span>·</span>
+          <a href="https://myqrid.in">More from myQRID</a>
         </div>
-        <div style="display:flex;align-items:center;justify-content:center;gap:4px">
-          <span style="font-size:8.5px;font-weight:800;color:rgba(255,255,255,0.45)">my</span><span style="font-size:8.5px;font-weight:800;background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span>
-          <span style="color:rgba(255,255,255,0.1);font-size:7px">·</span>
-          <span style="font-size:6.5px;color:rgba(255,255,255,0.2);letter-spacing:0.1px">Your Digital Identity · One QR</span>
-        </div>
+      </div>
+      <div class="prev-brand">
+        <div class="prev-brand-name">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
+        <div class="prev-brand-tag">Your Digital Identity · One QR · Infinite Possibilities</div>
       </div>
     </div>
     <div class="preview-home"></div>
@@ -854,8 +860,6 @@ function updatePreview(){
   const username=localStorage.getItem('username')||'';
   const pc=document.getElementById('prevCtaTitle');
   if(pc)pc.textContent='Join '+(username||'username')+' on myQRID';
-  const pc2=document.getElementById('prevCtaTitle');
-  if(pc2)pc2.textContent='Join '+(username||'username')+' on myQRID';
 }
 
 /* ══ COLLECTION ══ */
@@ -959,36 +963,6 @@ async function saveAllLinks(){
     const d=await res.json();showToast(d.success?'✅ All saved!':'Error saving');
   }catch(e){showToast('Saved locally');}
   btn.disabled=false;btn.textContent='Save';
-}
-
-function downloadVCard(){
-  const name=localStorage.getItem('name')||'My Contact';
-  const username=localStorage.getItem('username')||'';
-  const bio=document.getElementById('pBio')?.textContent||'';
-  /* Build vCard */
-  const wa=socials.whatsapp||'';
-  const email=socials.email||'';
-  const website=socials.website||'';
-  const ig=socials.instagram?'https://instagram.com/'+socials.instagram:'';
-  const li=socials.linkedin||'';
-  const tel=wa?wa.replace(/D/g,''):'';
-  let vcard='BEGIN:VCARD\nVERSION:3.0\n';
-  vcard+='FN:'+name+'\n';
-  vcard+='NOTE:'+bio+'\n';
-  if(tel)vcard+='TEL;TYPE=CELL:+'+tel+'\n';
-  if(email)vcard+='EMAIL:'+email+'\n';
-  if(website)vcard+='URL:'+website+'\n';
-  else if(username)vcard+='URL:https://myqrid.in/'+username+'\n';
-  if(ig)vcard+='X-SOCIALPROFILE;type=instagram:'+ig+'\n';
-  if(li)vcard+='X-SOCIALPROFILE;type=linkedin:'+li+'\n';
-  vcard+='END:VCARD';
-  const blob=new Blob([vcard],{type:'text/vcard'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.download=(name.replace(/s+/g,'_')||'contact')+'.vcf';
-  document.body.appendChild(a);a.click();
-  document.body.removeChild(a);URL.revokeObjectURL(url);
-  showToast('📇 Contact saved!');
 }
 
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
