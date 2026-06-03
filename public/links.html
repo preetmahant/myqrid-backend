@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f7f7f8}
+html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f7f7f8;overflow-x:hidden}
 .app-layout{display:flex;min-height:100vh}
 .sidebar{width:240px;flex-shrink:0;background:#fff;border-right:1px solid #e9e9eb;display:none;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:40;overflow-y:auto}
 @media(min-width:768px){.sidebar{display:flex}}
@@ -224,7 +224,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 @media(min-width:768px){.toast{bottom:24px}}
 </style>
 </head>
-<body>
+<body style="margin:0;padding:0">
 <div class="app-layout">
 
 <aside class="sidebar">
