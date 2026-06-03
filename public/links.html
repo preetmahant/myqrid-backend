@@ -31,7 +31,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .main-content{flex:1;max-width:560px;min-height:100vh;padding-bottom:90px}
 @media(min-width:768px){.main-content{margin-left:240px;padding-bottom:40px}}
 @media(min-width:1100px){.main-content{max-width:520px}}
-.topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
+.topbar{position:-webkit-sticky;position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
 .back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px}
 @media(min-width:768px){.back-btn{display:none}}
 .topbar-title{font-size:16px;font-weight:700}
@@ -390,7 +390,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
         <div class="prev-soc-row" id="prevSocRow"></div>
       </div>
       <div id="prevLinks"><div class="prev-empty">Your visible links appear here</div></div>
-      <div class="prev-powered">Powered by <span>myQRID</span></div>
+      
     </div>
     <div class="preview-phone-bottom"></div>
   </div>
@@ -870,22 +870,19 @@ function updatePreview(){
     }).join(''):'<div class="prev-empty">Your visible links appear here</div>';
     const bottomHtml=`
       <div style="margin-top:16px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);border-radius:12px;padding:12px 10px;text-align:center">
-        <div style="font-size:11px;font-weight:800;color:#fff;margin-bottom:2px">Join ${username||'username'} on myQRID</div>
-        <div style="font-size:8px;color:rgba(255,255,255,0.4);margin-bottom:8px">Build your free digital identity</div>
-        <div style="background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;padding:6px 14px;display:inline-block;cursor:pointer" onclick="window.open('/signup.html','_blank')">
-          <span style="font-size:10px;font-weight:700;color:#fff">Join Free</span>
+        <a href="/signup.html" style="font-size:11px;font-weight:800;color:#fff;text-decoration:none;display:block;margin-bottom:2px">Join ${username||'username'} on myQRID</a>
+        <div style="font-size:8px;color:rgba(255,255,255,0.4);margin-bottom:6px">Build your free digital identity</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap">
+          <a href="#" style="font-size:7px;color:rgba(255,255,255,0.35);text-decoration:none">Safety</a>
+          <span style="font-size:7px;color:rgba(255,255,255,0.15)">·</span>
+          <a href="#" style="font-size:7px;color:rgba(255,255,255,0.35);text-decoration:none">Privacy</a>
+          <span style="font-size:7px;color:rgba(255,255,255,0.15)">·</span>
+          <a href="https://myqrid.in" style="font-size:7px;color:rgba(255,255,255,0.35);text-decoration:none">More from myQRID</a>
         </div>
       </div>
-      <div style="margin-top:10px;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap">
-        <a href="#" style="font-size:7px;color:rgba(255,255,255,0.3);text-decoration:none">Safety</a>
-        <span style="font-size:7px;color:rgba(255,255,255,0.15)">·</span>
-        <a href="#" style="font-size:7px;color:rgba(255,255,255,0.3);text-decoration:none">Privacy</a>
-        <span style="font-size:7px;color:rgba(255,255,255,0.15)">·</span>
-        <a href="https://myqrid.in" style="font-size:7px;color:rgba(255,255,255,0.3);text-decoration:none">More from myQRID</a>
-      </div>
-      <div style="margin-top:8px;text-align:center">
-        <div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.6)">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
-        <div style="font-size:6px;color:rgba(255,255,255,0.2);margin-top:1px">Your Digital Identity · One QR · Infinite Possibilities</div>
+      <div style="margin-top:10px;text-align:center">
+        <div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.5)">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
+        <div style="font-size:6px;color:rgba(255,255,255,0.18);margin-top:1px">Your Digital Identity · One QR · Infinite Possibilities</div>
       </div>`;
     pl.innerHTML=linksHtml+bottomHtml;
   }
