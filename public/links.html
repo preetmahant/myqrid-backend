@@ -347,6 +347,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
           <div class="soc-chip" data-s="spotify" style="--sc:#1db954" onclick="openSocManage('spotify')"><i class="fab fa-spotify"></i><span>SP</span></div>
           <div class="soc-chip" data-s="tiktok" style="--sc:#111" onclick="openSocManage('tiktok')"><i class="fab fa-tiktok"></i><span>TT</span></div>
           <div class="soc-chip" data-s="website" style="--sc:#4338ca" onclick="openSocManage('website')"><i class="fas fa-globe"></i><span>WEB</span></div>
+          <div class="soc-chip linked" data-s="vcard" style="--sc:#0d9488" onclick="downloadVCard()" title="Save Contact"><i class="fas fa-address-card"></i><span>VCF</span></div>
         </div>
         <div class="soc-add-btn" onclick="openSocManage(null)" title="Manage social links"><i class="fas fa-pen" style="font-size:10px"></i></div>
       </div>
@@ -432,19 +433,19 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <!-- Scrollable links -->
     <div class="preview-links-area" id="prevLinksArea">
       <div id="prevLinks"><div class="prev-empty">Your visible links appear here</div></div>
-      <!-- CTA at bottom of preview -->
-      <div class="prev-cta-box" id="prevCta">
-        <div class="prev-cta-title" id="prevCtaTitle">Join on myQRID</div>
-        <div class="prev-cta-sub">Build your free digital identity</div>
-        <div class="prev-cta-links">
-          <a href="#">Safety</a><span>·</span>
-          <a href="#">Privacy</a><span>·</span>
-          <a href="https://myqrid.in">More from myQRID</a>
+      <!-- Clean plain footer — no box -->
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
+        <div id="prevCtaTitle" style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.5);margin-bottom:4px">Join on myQRID</div>
+        <div style="font-size:7px;color:rgba(255,255,255,0.22);margin-bottom:6px">Build your free digital identity</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:5px;margin-bottom:7px">
+          <span style="font-size:7px;color:rgba(255,255,255,0.22)">Safety</span>
+          <span style="font-size:6px;color:rgba(255,255,255,0.1)">·</span>
+          <span style="font-size:7px;color:rgba(255,255,255,0.22)">Privacy</span>
+          <span style="font-size:6px;color:rgba(255,255,255,0.1)">·</span>
+          <span style="font-size:7px;color:rgba(255,255,255,0.22)">More from myQRID</span>
         </div>
-      </div>
-      <div class="prev-brand">
-        <div class="prev-brand-name">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
-        <div class="prev-brand-tag">Your Digital Identity · One QR · Infinite Possibilities</div>
+        <div style="font-size:8px;font-weight:800;color:rgba(255,255,255,0.4)">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
+        <div style="font-size:6px;color:rgba(255,255,255,0.15);margin-top:2px">Your Digital Identity · One QR · Infinite Possibilities</div>
       </div>
     </div>
     <div class="preview-home"></div>
@@ -669,6 +670,7 @@ function syncSocialChips(){
   const used=new Set(strips.filter(s=>(s.title||s.url)&&!s.archived).map(s=>s.platform));
   Object.keys(socials).forEach(k=>{if(socials[k])used.add(k);});
   document.querySelectorAll('.soc-chip').forEach(c=>{
+    if(c.dataset.s==='vcard')return; /* VCF always visible */
     c.classList.toggle('linked',used.has(c.dataset.s));
   });
   localStorage.setItem('socials_data',JSON.stringify(socials));
