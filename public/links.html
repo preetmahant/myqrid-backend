@@ -915,7 +915,7 @@ function handleAvatarVideo(e){
   const url=URL.createObjectURL(f);
   const vid=document.createElement('video');vid.src=url;
   vid.onloadedmetadata=()=>{
-    if(vid.duration>30){showToast('Video must be under 30 seconds');return;}
+    if(f.size>20*1024*1024){showToast('Video must be under 20 MB');return;}
     setAvatarSrc(url,'video');
   };
 }
