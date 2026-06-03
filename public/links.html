@@ -347,6 +347,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
           <div class="soc-chip" data-s="spotify" style="--sc:#1db954" onclick="openSocManage('spotify')"><i class="fab fa-spotify"></i><span>SP</span></div>
           <div class="soc-chip" data-s="tiktok" style="--sc:#111" onclick="openSocManage('tiktok')"><i class="fab fa-tiktok"></i><span>TT</span></div>
           <div class="soc-chip" data-s="website" style="--sc:#4338ca" onclick="openSocManage('website')"><i class="fas fa-globe"></i><span>WEB</span></div>
+          <div class="soc-chip" data-s="linkedin" style="--sc:#0a66c2" onclick="openSocManage('linkedin')"><i class="fab fa-linkedin"></i><span>LI</span></div>
         </div>
         <div class="soc-add-btn" onclick="openSocManage(null)" title="Manage social links"><i class="fas fa-pen" style="font-size:10px"></i></div>
       </div>
@@ -958,6 +959,36 @@ async function saveAllLinks(){
     const d=await res.json();showToast(d.success?'✅ All saved!':'Error saving');
   }catch(e){showToast('Saved locally');}
   btn.disabled=false;btn.textContent='Save';
+}
+
+function downloadVCard(){
+  const name=localStorage.getItem('name')||'My Contact';
+  const username=localStorage.getItem('username')||'';
+  const bio=document.getElementById('pBio')?.textContent||'';
+  /* Build vCard */
+  const wa=socials.whatsapp||'';
+  const email=socials.email||'';
+  const website=socials.website||'';
+  const ig=socials.instagram?'https://instagram.com/'+socials.instagram:'';
+  const li=socials.linkedin||'';
+  const tel=wa?wa.replace(/D/g,''):'';
+  let vcard='BEGIN:VCARD\nVERSION:3.0\n';
+  vcard+='FN:'+name+'\n';
+  vcard+='NOTE:'+bio+'\n';
+  if(tel)vcard+='TEL;TYPE=CELL:+'+tel+'\n';
+  if(email)vcard+='EMAIL:'+email+'\n';
+  if(website)vcard+='URL:'+website+'\n';
+  else if(username)vcard+='URL:https://myqrid.in/'+username+'\n';
+  if(ig)vcard+='X-SOCIALPROFILE;type=instagram:'+ig+'\n';
+  if(li)vcard+='X-SOCIALPROFILE;type=linkedin:'+li+'\n';
+  vcard+='END:VCARD';
+  const blob=new Blob([vcard],{type:'text/vcard'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=(name.replace(/s+/g,'_')||'contact')+'.vcf';
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);URL.revokeObjectURL(url);
+  showToast('📇 Contact saved!');
 }
 
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
