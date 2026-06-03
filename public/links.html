@@ -50,14 +50,16 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .p-url{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:4px 12px;font-size:11px;color:#7c3aed;font-weight:500;cursor:pointer;flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .p-url-action{width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all 0.18s;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
 .p-url-action:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3)}
-/* SOCIAL CHIPS — only linked shown */
-.social-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;min-height:0}
+/* SOCIAL CHIPS */
+.social-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;min-height:0}
 .soc-chip{display:none;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 8px;border-radius:10px;background:#fff;border:1px solid rgba(124,58,237,0.2);transition:all 0.18s;min-width:44px}
 .soc-chip.linked{display:flex}
 .soc-chip:active{transform:scale(0.93)}
 .soc-chip i{font-size:15px;color:var(--sc,#7c3aed)}
 .soc-chip span{font-size:9px;color:#888;font-weight:500}
-.soc-add-hint{font-size:11px;color:#ccc;margin-top:6px;display:flex;align-items:center;gap:5px;cursor:pointer}
+/* ADD SOCIAL BTN — small + button only */
+.soc-add-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#f5f5f7;border:1.5px dashed rgba(124,58,237,0.3);cursor:pointer;color:#7c3aed;font-size:13px;margin-top:10px;transition:all 0.18s;flex-shrink:0}
+.soc-add-btn:active{background:rgba(124,58,237,0.08)}
 .spark-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:14px;margin:8px 16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
 .spark-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);flex-shrink:0}
 .spark-info{flex:1;font-size:12px;color:#888}
@@ -137,44 +139,48 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .btn-blaze{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:0 4px 12px rgba(124,58,237,0.25)}
 .btn-shield{background:linear-gradient(135deg,#059669,#10b981);color:#fff}
 .upgrade-note{text-align:center;font-size:11px;color:#bbb;padding:0 16px 14px}
-.myqrid-footer{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 20px 20px}
-.footer-brand{font-size:18px;font-weight:800;color:#111}
-.footer-brand span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.footer-tag{font-size:11px;color:#bbb;text-align:center}
+/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.04)}
 @media(min-width:768px){.bottom-nav{display:none}}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0}
 .nav-item.active{color:#7c3aed}
 .nav-icon{font-size:20px;line-height:1}
 .nav-center-btn{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
-/* RIGHT PREVIEW PANEL */
-.preview-panel{width:260px;flex-shrink:0;display:none;position:sticky;top:0;height:100vh;background:#f0f0f2;border-left:1px solid #e9e9eb;flex-direction:column;align-items:center;padding:20px 16px;overflow-y:auto}
+/* RIGHT PREVIEW PANEL — full height like Linktree */
+.preview-panel{width:280px;flex-shrink:0;display:none;position:sticky;top:0;height:100vh;background:#f2f2f4;border-left:1px solid #e9e9eb;flex-direction:column;align-items:center;padding:16px 14px;overflow-y:auto}
 @media(min-width:1100px){.preview-panel{display:flex}}
-.preview-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px;align-self:flex-start}
-.preview-phone{width:200px;background:#1a1a2e;border-radius:26px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.2);border:5px solid #2a2a3e}
-.preview-phone-notch{height:16px;background:#111;display:flex;align-items:center;justify-content:center}
-.preview-phone-notch::after{content:'';width:44px;height:4px;background:#222;border-radius:2px}
-.preview-scroll{max-height:480px;overflow-y:auto;scrollbar-width:none;padding:14px 10px 16px;background:linear-gradient(135deg,#0a0a1a,#1a0a2e)}
-.preview-scroll::-webkit-scrollbar{display:none}
-.preview-profile{text-align:center;margin-bottom:12px}
-.preview-avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;margin:0 auto 7px;overflow:hidden;border:2px solid rgba(124,58,237,0.3)}
-.preview-avatar img{width:100%;height:100%;object-fit:cover}
-.preview-name{font-size:12px;font-weight:700;color:#fff;margin-bottom:2px}
-.preview-bio-text{font-size:9px;color:rgba(255,255,255,0.45);margin-bottom:7px;line-height:1.4;padding:0 4px}
-.preview-soc-row{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:2px}
-.preview-soc-icon{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:11px}
-.preview-link{background:rgba(255,255,255,0.08);border-radius:9px;padding:8px 10px;margin-bottom:5px;display:flex;align-items:center;gap:7px}
-.preview-link-icon{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
-.preview-link-title{font-size:10px;font-weight:600;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-empty{text-align:center;font-size:9px;color:rgba(255,255,255,0.2);padding:12px 4px}
-.preview-powered{text-align:center;margin-top:10px;font-size:8px;color:rgba(255,255,255,0.2)}
-.preview-powered span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
-.preview-bottom{width:100%;margin-top:14px}
-.preview-url-chip{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;padding:8px 12px;margin-bottom:8px}
-.preview-url-text{flex:1;font-size:11px;color:#7c3aed;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-action-row{display:flex;gap:6px}
-.preview-action-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;cursor:pointer;font-size:11px;font-weight:600;color:#555;font-family:'Inter',sans-serif;transition:all 0.18s}
-.preview-action-btn:active{background:#f3f0ff;color:#7c3aed}
+.preview-label{font-size:10px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:12px;align-self:flex-start}
+/* Phone mockup — taller like Linktree */
+.preview-phone{width:220px;background:#0d0d1a;border-radius:30px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.25);border:6px solid #1e1e2e;display:flex;flex-direction:column}
+.preview-phone-top{height:20px;background:#0a0a14;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.preview-phone-top::after{content:'';width:48px;height:5px;background:#1a1a2a;border-radius:3px}
+.preview-phone-body{flex:1;overflow-y:auto;scrollbar-width:none;background:linear-gradient(160deg,#0f0f24 0%,#1a0a2e 100%);padding:14px 10px 16px}
+.preview-phone-body::-webkit-scrollbar{display:none}
+.preview-phone-bottom{height:14px;background:#0a0a14;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.preview-phone-bottom::after{content:'';width:36px;height:4px;background:#2a2a3a;border-radius:2px}
+/* Preview content */
+.prev-profile{text-align:center;margin-bottom:14px}
+.prev-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;margin:0 auto 8px;overflow:hidden;border:2px solid rgba(124,58,237,0.4)}
+.prev-avatar img{width:100%;height:100%;object-fit:cover}
+.prev-name{font-size:13px;font-weight:700;color:#fff;margin-bottom:3px}
+.prev-bio{font-size:9px;color:rgba(255,255,255,0.4);margin-bottom:8px;line-height:1.4;padding:0 6px}
+.prev-soc-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.prev-soc-icon{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px}
+.prev-link{background:rgba(255,255,255,0.09);border-radius:10px;padding:9px 11px;margin-bottom:6px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background 0.15s}
+.prev-link:hover{background:rgba(255,255,255,0.14)}
+.prev-link-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.prev-link-title{font-size:11px;font-weight:600;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+.prev-empty{text-align:center;font-size:9px;color:rgba(255,255,255,0.18);padding:16px 6px}
+.prev-powered{text-align:center;margin-top:12px;font-size:8px;color:rgba(255,255,255,0.18)}
+.prev-powered span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700}
+/* Preview bottom controls */
+.preview-controls{width:100%;margin-top:12px}
+.prev-url-row{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;padding:8px 12px;margin-bottom:8px}
+.prev-url-text{flex:1;font-size:11px;color:#7c3aed;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prev-url-btn{width:26px;height:26px;border-radius:7px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.prev-action-row{display:flex;gap:6px}
+.prev-action-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:9px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;cursor:pointer;font-size:11px;font-weight:600;color:#555;font-family:'Inter',sans-serif;transition:all 0.18s}
+.prev-action-btn:active{background:#f3f0ff;color:#7c3aed}
 /* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
 .modal-overlay.open{background:rgba(0,0,0,0.45);pointer-events:all}
@@ -206,6 +212,13 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .archive-title{font-size:13px;font-weight:600;color:#111}
 .archive-url{font-size:11px;color:#aaa;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .archive-restore{padding:6px 14px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:8px;color:#7c3aed;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0}
+/* SOC PICKER MODAL */
+.soc-picker-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.soc-picker-item{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 8px;border-radius:12px;border:1.5px solid #e9e9eb;cursor:pointer;transition:all 0.18s;background:#f9f9fb}
+.soc-picker-item.linked{border-color:var(--sc,#7c3aed);background:rgba(124,58,237,0.05)}
+.soc-picker-item i{font-size:20px;color:var(--sc,#7c3aed)}
+.soc-picker-item span{font-size:10px;font-weight:600;color:#888}
+.soc-picker-item.linked span{color:var(--sc,#7c3aed)}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,0.18)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(min-width:768px){.toast{bottom:24px}}
@@ -277,18 +290,22 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
         </div>
       </div>
     </div>
-    <div class="social-row" id="socialRow">
-      <div class="soc-chip" data-s="whatsapp" style="--sc:#25D366" onclick="editSoc('whatsapp')"><i class="fab fa-whatsapp"></i><span>WA</span></div>
-      <div class="soc-chip" data-s="instagram" style="--sc:#e1306c" onclick="editSoc('instagram')"><i class="fab fa-instagram"></i><span>IG</span></div>
-      <div class="soc-chip" data-s="twitter" style="--sc:#111" onclick="editSoc('twitter')"><i class="fab fa-x-twitter"></i><span>X</span></div>
-      <div class="soc-chip" data-s="youtube" style="--sc:#FF0000" onclick="editSoc('youtube')"><i class="fab fa-youtube"></i><span>YT</span></div>
-      <div class="soc-chip" data-s="linkedin" style="--sc:#0a66c2" onclick="editSoc('linkedin')"><i class="fab fa-linkedin"></i><span>LI</span></div>
-      <div class="soc-chip" data-s="facebook" style="--sc:#1877f2" onclick="editSoc('facebook')"><i class="fab fa-facebook"></i><span>FB</span></div>
-      <div class="soc-chip" data-s="telegram" style="--sc:#2aabee" onclick="editSoc('telegram')"><i class="fab fa-telegram"></i><span>TG</span></div>
-      <div class="soc-chip" data-s="snapchat" style="--sc:#f59e0b" onclick="editSoc('snapchat')"><i class="fab fa-snapchat"></i><span>SC</span></div>
-    </div>
-    <div class="soc-add-hint" id="socAddHint" onclick="editSoc('whatsapp')">
-      <i class="fas fa-plus" style="font-size:9px"></i> Add social links
+    <!-- SOCIAL ROW: linked chips + small + button to add -->
+    <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap">
+      <div class="social-row" id="socialRow">
+        <div class="soc-chip" data-s="whatsapp" style="--sc:#25D366" onclick="editSoc('whatsapp')"><i class="fab fa-whatsapp"></i><span>WA</span></div>
+        <div class="soc-chip" data-s="instagram" style="--sc:#e1306c" onclick="editSoc('instagram')"><i class="fab fa-instagram"></i><span>IG</span></div>
+        <div class="soc-chip" data-s="twitter" style="--sc:#111" onclick="editSoc('twitter')"><i class="fab fa-x-twitter"></i><span>X</span></div>
+        <div class="soc-chip" data-s="youtube" style="--sc:#FF0000" onclick="editSoc('youtube')"><i class="fab fa-youtube"></i><span>YT</span></div>
+        <div class="soc-chip" data-s="linkedin" style="--sc:#0a66c2" onclick="editSoc('linkedin')"><i class="fab fa-linkedin"></i><span>LI</span></div>
+        <div class="soc-chip" data-s="facebook" style="--sc:#1877f2" onclick="editSoc('facebook')"><i class="fab fa-facebook"></i><span>FB</span></div>
+        <div class="soc-chip" data-s="telegram" style="--sc:#2aabee" onclick="editSoc('telegram')"><i class="fab fa-telegram"></i><span>TG</span></div>
+        <div class="soc-chip" data-s="snapchat" style="--sc:#f59e0b" onclick="editSoc('snapchat')"><i class="fab fa-snapchat"></i><span>SC</span></div>
+      </div>
+      <!-- Small + to open picker -->
+      <div class="soc-add-btn" onclick="openSocPicker()" title="Add social link">
+        <i class="fas fa-plus"></i>
+      </div>
     </div>
   </div>
 
@@ -336,18 +353,27 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <div class="upgrade-note">No hidden charges · Cancel anytime</div>
   </div>
 
-  <!-- JOIN CTA — like Linktree -->
-  <div style="margin:0 16px 16px;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(236,72,153,0.05));border:1px solid rgba(124,58,237,0.15);border-radius:16px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px">
-    <div>
-      <div style="font-size:13px;font-weight:700;color:#111" id="joinCtaText">Join on myQRID</div>
-      <div style="font-size:11px;color:#888;margin-top:2px">Create your free digital identity</div>
+  <!-- CONNECT CTA — like Linktree "Join on Linktree" -->
+  <div style="margin:8px 16px 4px;background:linear-gradient(135deg,rgba(124,58,237,0.07),rgba(236,72,153,0.04));border:1px solid rgba(124,58,237,0.15);border-radius:16px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div style="min-width:0">
+      <div style="font-size:13px;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="connectCtaText">Connect on myQRID</div>
+      <div style="font-size:11px;color:#888;margin-top:2px">Build your free digital identity</div>
     </div>
-    <a href="/signup.html" style="padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 3px 10px rgba(124,58,237,0.3)">Join Free</a>
+    <a href="/signup.html" style="flex-shrink:0;padding:9px 18px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:22px;color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-decoration:none;box-shadow:0 3px 10px rgba(124,58,237,0.3)">Join Free</a>
   </div>
 
-  <div class="myqrid-footer">
-    <div class="footer-brand">my<span>QRID</span></div>
-    <div class="footer-tag">Your Digital Identity · One QR · Infinite Possibilities</div>
+  <!-- FOOTER LINKS — Safety · Privacy · More from myQRID -->
+  <div style="padding:14px 16px 8px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap">
+    <a href="#" style="font-size:11px;color:#bbb;text-decoration:none;transition:color 0.18s" onmouseover="this.style.color='#7c3aed'" onmouseout="this.style.color='#bbb'">Safety</a>
+    <span style="font-size:10px;color:#ddd">·</span>
+    <a href="#" style="font-size:11px;color:#bbb;text-decoration:none;transition:color 0.18s" onmouseover="this.style.color='#7c3aed'" onmouseout="this.style.color='#bbb'">Privacy</a>
+    <span style="font-size:10px;color:#ddd">·</span>
+    <a href="https://myqrid.in" style="font-size:11px;color:#bbb;text-decoration:none;transition:color 0.18s" onmouseover="this.style.color='#7c3aed'" onmouseout="this.style.color='#bbb'">More from myQRID</a>
+  </div>
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 20px 20px">
+    <div style="font-size:16px;font-weight:800;color:#111">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
+    <div style="font-size:10px;color:#ccc;text-align:center">Your Digital Identity · One QR · Infinite Possibilities</div>
   </div>
 </div>
 
@@ -355,46 +381,42 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 <div class="preview-panel" id="previewPanel">
   <div class="preview-label">Live Preview</div>
   <div class="preview-phone">
-    <div class="preview-phone-notch"></div>
-    <div class="preview-scroll">
-      <div class="preview-profile">
-        <div class="preview-avatar" id="prevAvatar">P</div>
-        <div class="preview-name" id="prevName">Your Name</div>
-        <div class="preview-bio-text" id="prevBio">Add your bio</div>
-        <div class="preview-soc-row" id="prevSocRow"></div>
+    <div class="preview-phone-top"></div>
+    <div class="preview-phone-body" id="previewBody">
+      <div class="prev-profile">
+        <div class="prev-avatar" id="prevAvatar">P</div>
+        <div class="prev-name" id="prevName">Your Name</div>
+        <div class="prev-bio" id="prevBio">Add your bio</div>
+        <div class="prev-soc-row" id="prevSocRow"></div>
       </div>
-      <div id="prevLinks"><div class="preview-empty">Your links will appear here</div></div>
-      <div class="preview-powered">Powered by <span>myQRID</span></div>
+      <div id="prevLinks"><div class="prev-empty">Your visible links appear here</div></div>
+      <div class="prev-powered">Powered by <span>myQRID</span></div>
     </div>
+    <div class="preview-phone-bottom"></div>
   </div>
-  <div class="preview-bottom">
-    <div class="preview-url-chip">
+  <div class="preview-controls">
+    <div class="prev-url-row">
       <i class="fas fa-link" style="font-size:9px;color:#7c3aed;flex-shrink:0"></i>
-      <div class="preview-url-text" id="prevUrl">myqrid.in/—</div>
-      <div style="display:flex;gap:4px">
-        <div style="width:24px;height:24px;border-radius:6px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="copyUrl()">
-          <i class="fas fa-copy" style="font-size:9px;color:#7c3aed"></i>
-        </div>
-        <div style="width:24px;height:24px;border-radius:6px;background:#f5f5f7;border:1px solid #e9e9eb;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="shareProfile()">
-          <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
-            <rect x="0.5" y="4" width="9" height="7.5" rx="1.5" stroke="#7c3aed" stroke-width="1.2" fill="none"/>
-            <path d="M5 7V1" stroke="#7c3aed" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M3 3L5 1L7 3" stroke="#7c3aed" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
+      <div class="prev-url-text" id="prevUrl">myqrid.in/—</div>
+      <div class="prev-url-btn" onclick="copyUrl()"><i class="fas fa-copy" style="font-size:9px;color:#7c3aed"></i></div>
+      <div class="prev-url-btn" onclick="shareProfile()" style="margin-left:2px">
+        <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
+          <rect x="0.5" y="4" width="9" height="7.5" rx="1.5" stroke="#7c3aed" stroke-width="1.2" fill="none"/>
+          <path d="M5 7V1" stroke="#7c3aed" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M3 3L5 1L7 3" stroke="#7c3aed" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
     </div>
-    <div class="preview-action-row">
-      <button class="preview-action-btn" onclick="window.open('https://myqrid.in/'+(localStorage.getItem('username')||''),'_blank')">
+    <div class="prev-action-row">
+      <button class="prev-action-btn" onclick="window.open('https://myqrid.in/'+(localStorage.getItem('username')||''),'_blank')">
         <i class="fas fa-external-link-alt" style="font-size:10px"></i> View Profile
       </button>
-      <button class="preview-action-btn" onclick="shareProfile()">
+      <button class="prev-action-btn" onclick="shareProfile()">
         <svg width="11" height="13" viewBox="0 0 11 13" fill="none" style="flex-shrink:0">
           <rect x="0.5" y="4.5" width="10" height="8" rx="1.5" stroke="#555" stroke-width="1.2" fill="none"/>
           <path d="M5.5 8V1" stroke="#555" stroke-width="1.2" stroke-linecap="round"/>
           <path d="M3.5 3L5.5 1L7.5 3" stroke="#555" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Share
+        </svg> Share
       </button>
     </div>
   </div>
@@ -421,7 +443,17 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
   <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
 </nav>
 
-<!-- SOC MODAL -->
+<!-- SOC PICKER MODAL -->
+<div class="modal-overlay" id="socPickerModal" onclick="if(event.target===this)closeSocPicker()">
+  <div class="modal-panel" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Social Links</div>
+    <div class="soc-picker-grid" id="socPickerGrid"></div>
+    <button class="f-cancel" onclick="closeSocPicker()">Done</button>
+  </div>
+</div>
+
+<!-- SOC EDIT MODAL -->
 <div class="modal-overlay" id="socModal" onclick="if(event.target===this)closeSocModal()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -516,8 +548,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 
 <script>
 const API='https://myqrid-backend.myqrid.workers.dev';
-const TOTAL=18;
-const INIT_COUNT=10;
+const TOTAL=18,INIT_COUNT=10;
 
 const SHARE_SVG=`<svg width="12" height="14" viewBox="0 0 12 14" fill="none">
   <rect x="1" y="5" width="10" height="8" rx="1.5" stroke="#bbb" stroke-width="1.3" fill="none"/>
@@ -526,26 +557,37 @@ const SHARE_SVG=`<svg width="12" height="14" viewBox="0 0 12 14" fill="none">
 </svg>`;
 
 const PLATFORMS=[
-  {id:'whatsapp',  name:'WhatsApp',  icon:'fab fa-whatsapp',  color:'#25D366', bg:'rgba(37,211,102,0.12)'},
-  {id:'instagram', name:'Instagram', icon:'fab fa-instagram', color:'#e1306c', bg:'rgba(225,48,108,0.12)'},
-  {id:'youtube',   name:'YouTube',   icon:'fab fa-youtube',   color:'#FF0000', bg:'rgba(255,0,0,0.1)'},
-  {id:'twitter',   name:'X',         icon:'fab fa-x-twitter', color:'#111',    bg:'rgba(0,0,0,0.08)'},
-  {id:'linkedin',  name:'LinkedIn',  icon:'fab fa-linkedin',  color:'#0a66c2', bg:'rgba(10,102,194,0.12)'},
-  {id:'facebook',  name:'Facebook',  icon:'fab fa-facebook',  color:'#1877f2', bg:'rgba(24,119,242,0.12)'},
-  {id:'telegram',  name:'Telegram',  icon:'fab fa-telegram',  color:'#2aabee', bg:'rgba(42,171,238,0.12)'},
-  {id:'snapchat',  name:'Snapchat',  icon:'fab fa-snapchat',  color:'#f59e0b', bg:'rgba(245,158,11,0.12)'},
-  {id:'github',    name:'GitHub',    icon:'fab fa-github',    color:'#212121', bg:'rgba(33,33,33,0.08)'},
-  {id:'spotify',   name:'Spotify',   icon:'fab fa-spotify',   color:'#1db954', bg:'rgba(29,185,84,0.12)'},
-  {id:'tiktok',    name:'TikTok',    icon:'fab fa-tiktok',    color:'#111',    bg:'rgba(0,0,0,0.08)'},
-  {id:'pinterest', name:'Pinterest', icon:'fab fa-pinterest', color:'#e60023', bg:'rgba(230,0,35,0.1)'},
-  {id:'website',   name:'Website',   icon:'fas fa-globe',     color:'#4338ca', bg:'rgba(67,56,202,0.1)'},
-  {id:'portfolio', name:'Portfolio', icon:'fas fa-briefcase', color:'#7c3aed', bg:'rgba(124,58,237,0.1)'},
-  {id:'booking',   name:'Book Me',   icon:'fas fa-calendar-check',color:'#0d9488',bg:'rgba(13,148,136,0.1)'},
-  {id:'payment',   name:'Pay Me',    icon:'fas fa-qrcode',    color:'#059669', bg:'rgba(5,150,105,0.1)'},
-  {id:'email',     name:'Email',     icon:'fas fa-envelope',  color:'#2563eb', bg:'rgba(37,99,235,0.1)'},
-  {id:'call',      name:'Call',      icon:'fas fa-phone',     color:'#16a34a', bg:'rgba(22,163,74,0.1)'},
-  {id:'link',      name:'Link',      icon:'fas fa-link',      color:'#7c3aed', bg:'rgba(124,58,237,0.1)'},
+  {id:'whatsapp',name:'WhatsApp',icon:'fab fa-whatsapp',color:'#25D366',bg:'rgba(37,211,102,0.12)'},
+  {id:'instagram',name:'Instagram',icon:'fab fa-instagram',color:'#e1306c',bg:'rgba(225,48,108,0.12)'},
+  {id:'youtube',name:'YouTube',icon:'fab fa-youtube',color:'#FF0000',bg:'rgba(255,0,0,0.1)'},
+  {id:'twitter',name:'X',icon:'fab fa-x-twitter',color:'#111',bg:'rgba(0,0,0,0.08)'},
+  {id:'linkedin',name:'LinkedIn',icon:'fab fa-linkedin',color:'#0a66c2',bg:'rgba(10,102,194,0.12)'},
+  {id:'facebook',name:'Facebook',icon:'fab fa-facebook',color:'#1877f2',bg:'rgba(24,119,242,0.12)'},
+  {id:'telegram',name:'Telegram',icon:'fab fa-telegram',color:'#2aabee',bg:'rgba(42,171,238,0.12)'},
+  {id:'snapchat',name:'Snapchat',icon:'fab fa-snapchat',color:'#f59e0b',bg:'rgba(245,158,11,0.12)'},
+  {id:'github',name:'GitHub',icon:'fab fa-github',color:'#212121',bg:'rgba(33,33,33,0.08)'},
+  {id:'spotify',name:'Spotify',icon:'fab fa-spotify',color:'#1db954',bg:'rgba(29,185,84,0.12)'},
+  {id:'tiktok',name:'TikTok',icon:'fab fa-tiktok',color:'#111',bg:'rgba(0,0,0,0.08)'},
+  {id:'pinterest',name:'Pinterest',icon:'fab fa-pinterest',color:'#e60023',bg:'rgba(230,0,35,0.1)'},
+  {id:'website',name:'Website',icon:'fas fa-globe',color:'#4338ca',bg:'rgba(67,56,202,0.1)'},
+  {id:'portfolio',name:'Portfolio',icon:'fas fa-briefcase',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
+  {id:'booking',name:'Book Me',icon:'fas fa-calendar-check',color:'#0d9488',bg:'rgba(13,148,136,0.1)'},
+  {id:'payment',name:'Pay Me',icon:'fas fa-qrcode',color:'#059669',bg:'rgba(5,150,105,0.1)'},
+  {id:'email',name:'Email',icon:'fas fa-envelope',color:'#2563eb',bg:'rgba(37,99,235,0.1)'},
+  {id:'call',name:'Call',icon:'fas fa-phone',color:'#16a34a',bg:'rgba(22,163,74,0.1)'},
+  {id:'link',name:'Link',icon:'fas fa-link',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
 ];
+
+const SOC_CFG={
+  whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210',color:'#25D366'},
+  instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername',color:'#e1306c'},
+  twitter:{label:'X/Twitter',lbl:'Username (no @)',ph:'yourusername',color:'#111'},
+  youtube:{label:'YouTube',lbl:'Channel URL',ph:'youtube.com/c/...',color:'#FF0000'},
+  linkedin:{label:'LinkedIn',lbl:'Profile URL',ph:'linkedin.com/in/...',color:'#0a66c2'},
+  facebook:{label:'Facebook',lbl:'Profile URL',ph:'facebook.com/...',color:'#1877f2'},
+  telegram:{label:'Telegram',lbl:'Username (no @)',ph:'yourusername',color:'#2aabee'},
+  snapchat:{label:'Snapchat',lbl:'Username',ph:'yourusername',color:'#f59e0b'},
+};
 
 function getPlatform(id){return PLATFORMS.find(p=>p.id===id)||PLATFORMS[PLATFORMS.length-1];}
 
@@ -553,10 +595,9 @@ let strips=Array.from({length:INIT_COUNT},(_,i)=>({
   sid:i,title:'',url:'',platform:'link',
   visible:false,pinned:false,liked:false,clicks:0,open:false,archived:false,
 }));
-
 let socials={},curSoc=null,colLayout='stack',collections=[],sortableInst=null;
 
-/* ══ APPLY SOCIALS — force chips to show/hide correctly ══ */
+/* ══ APPLY SOCIALS ══ */
 function applySocials(){
   document.querySelectorAll('.soc-chip').forEach(c=>c.classList.remove('linked'));
   Object.keys(socials).forEach(k=>{
@@ -565,22 +606,31 @@ function applySocials(){
       if(c)c.classList.add('linked');
     }
   });
-  updateSocHint();
   updatePreview();
 }
 
-function updateSocHint(){
-  const hasLinked=document.querySelectorAll('.soc-chip.linked').length>0;
-  const hint=document.getElementById('socAddHint');
-  if(hint)hint.style.display=hasLinked?'none':'flex';
+/* ══ SOC PICKER MODAL ══ */
+function openSocPicker(){
+  const grid=document.getElementById('socPickerGrid');
+  grid.innerHTML=Object.keys(SOC_CFG).map(k=>{
+    const c=SOC_CFG[k];
+    const linked=!!(socials[k]);
+    return `<div class="soc-picker-item ${linked?'linked':''}" style="--sc:${c.color}" onclick="editSocFromPicker('${k}')">
+      <i class="${PLATFORMS.find(p=>p.id===k)?.icon||'fas fa-link'}" style="color:${c.color}"></i>
+      <span>${c.label}</span>
+      ${linked?`<i class="fas fa-check" style="font-size:8px;color:${c.color}"></i>`:''}
+    </div>`;
+  }).join('');
+  document.getElementById('socPickerModal').classList.add('open');
 }
+function closeSocPicker(){document.getElementById('socPickerModal').classList.remove('open');}
+function editSocFromPicker(id){closeSocPicker();editSoc(id);}
 
 /* ══ ADD ONE STRIP ══ */
 function addOneStrip(){
   const active=strips.filter(s=>!s.archived).length;
   if(active>=TOTAL){showToast('Max 18 strips — upgrade for more!');return;}
-  const newStrip={sid:0,title:'',url:'',platform:'link',
-    visible:false,pinned:false,liked:false,clicks:0,open:true,archived:false};
+  const newStrip={sid:0,title:'',url:'',platform:'link',visible:false,pinned:false,liked:false,clicks:0,open:true,archived:false};
   strips=[newStrip,...strips];
   strips.forEach((s,i)=>s.sid=i);
   renderStrips();updateAddBtn();
@@ -593,8 +643,7 @@ function addOneStrip(){
 
 function updateAddBtn(){
   const btn=document.getElementById('addLinkBtn');if(!btn)return;
-  const active=strips.filter(s=>!s.archived).length;
-  const left=TOTAL-active;
+  const left=TOTAL-strips.filter(s=>!s.archived).length;
   if(left<=0){
     btn.innerHTML='<i class="fas fa-lock" style="color:#bbb"></i> Max 18 reached';
     btn.style.opacity='0.5';btn.style.cursor='not-allowed';
@@ -607,8 +656,7 @@ function updateAddBtn(){
 /* ══ RENDER ══ */
 function renderStrips(){
   const wrap=document.getElementById('stripsWrap');
-  const visible=strips.filter(s=>!s.archived);
-  wrap.innerHTML=visible.map(s=>{
+  wrap.innerHTML=strips.filter(s=>!s.archived).map(s=>{
     const filled=!!(s.title||s.url);
     const plat=getPlatform(s.platform);
     return `
@@ -635,22 +683,18 @@ function renderStrips(){
       <div class="strip-fields ${s.open?'open':''}" id="fields-${s.sid}">
         <div style="font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Platform</div>
         <div class="platform-scroll">
-          ${PLATFORMS.map(p=>`
-            <div class="plat-chip ${s.platform===p.id?'sel':''}" style="--pc:${p.color}" onclick="setPlatform(${s.sid},'${p.id}')">
-              <i class="${p.icon}" style="color:${p.color};font-size:13px"></i>${p.name}
-            </div>`).join('')}
+          ${PLATFORMS.map(p=>`<div class="plat-chip ${s.platform===p.id?'sel':''}" style="--pc:${p.color}" onclick="setPlatform(${s.sid},'${p.id}')">
+            <i class="${p.icon}" style="color:${p.color};font-size:13px"></i>${p.name}</div>`).join('')}
         </div>
         <div class="field-row">
           <div class="field-label-icon"><i class="fas fa-pen" style="font-size:10px"></i></div>
-          <input class="field-input" type="text" id="t-${s.sid}" placeholder="Title"
-            value="${esc(s.title)}" onclick="event.stopPropagation()"
-            oninput="strips[${s.sid}].title=this.value">
+          <input class="field-input" type="text" id="t-${s.sid}" placeholder="Title" value="${esc(s.title)}"
+            onclick="event.stopPropagation()" oninput="strips[${s.sid}].title=this.value">
         </div>
         <div class="field-row">
           <div class="field-label-icon"><i class="fas fa-link" style="font-size:10px"></i></div>
-          <input class="field-input" type="text" id="u-${s.sid}" placeholder="URL"
-            value="${esc(s.url)}" onclick="event.stopPropagation()"
-            onkeydown="if(event.key==='Enter')saveStrip(${s.sid})">
+          <input class="field-input" type="text" id="u-${s.sid}" placeholder="URL" value="${esc(s.url)}"
+            onclick="event.stopPropagation()" onkeydown="if(event.key==='Enter')saveStrip(${s.sid})">
         </div>
         <div class="strip-action-row">
           <button class="strip-save-btn" onclick="saveStrip(${s.sid})"><i class="fas fa-check"></i> Save</button>
@@ -684,8 +728,7 @@ function initSortable(){
   if(sortableInst)sortableInst.destroy();
   const el=document.getElementById('stripsWrap');if(!el)return;
   sortableInst=Sortable.create(el,{
-    animation:200,handle:'.strip-drag',
-    ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',
+    animation:200,handle:'.strip-drag',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',
     onEnd:function(evt){
       if(evt.oldIndex===evt.newIndex)return;
       const moved=strips.splice(evt.oldIndex,1)[0];
@@ -698,22 +741,18 @@ function initSortable(){
 
 function moveStrip(sid,dir){
   const idx=strips.findIndex(s=>s.sid===sid);if(idx<0)return;
-  const newIdx=idx+dir;if(newIdx<0||newIdx>=strips.length)return;
-  const tmp=strips[idx];strips[idx]=strips[newIdx];strips[newIdx]=tmp;
-  strips.forEach((s,i)=>s.sid=i);
-  renderStrips();autoSave();
+  const ni=idx+dir;if(ni<0||ni>=strips.length)return;
+  const tmp=strips[idx];strips[idx]=strips[ni];strips[ni]=tmp;
+  strips.forEach((s,i)=>s.sid=i);renderStrips();autoSave();
 }
 
 function toggleOpen(sid){
   const s=strips.find(x=>x.sid===sid);if(!s)return;
-  const wasOpen=s.open;
-  strips.forEach(x=>x.open=false);
-  s.open=!wasOpen;
+  const was=s.open;strips.forEach(x=>x.open=false);s.open=!was;
   renderStrips();
   if(s.open)setTimeout(()=>{
     const ti=document.getElementById('t-'+sid);if(ti)ti.focus();
-    const el=document.getElementById('strip-'+sid);
-    if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+    const el=document.getElementById('strip-'+sid);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
   },120);
 }
 
@@ -721,8 +760,7 @@ function setPlatform(sid,pid){
   const s=strips.find(x=>x.sid===sid);if(!s)return;
   s.platform=pid;renderStrips();s.open=true;
   setTimeout(()=>{
-    const el=document.getElementById('strip-'+sid);
-    if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+    const el=document.getElementById('strip-'+sid);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
     const ti=document.getElementById('t-'+sid);if(ti)ti.focus();
   },80);
 }
@@ -744,27 +782,17 @@ function saveStrip(sid){
     else if(!url.startsWith('http')&&!url.startsWith('mailto:')&&!url.startsWith('tel:')&&!url.startsWith('upi:'))url='https://'+url;
   }
   s.title=title;s.url=url;s.visible=true;s.open=false;
-  renderStrips();autoSave();
-  showToast('✅ '+(title||'Link')+' saved!');
+  renderStrips();autoSave();showToast('✅ '+(title||'Link')+' saved!');
 }
 
-function deleteStrip(sid){
-  strips=strips.filter(s=>s.sid!==sid);
-  strips.forEach((s,i)=>s.sid=i);
-  renderStrips();autoSave();showToast('Strip deleted');
-}
-
-function archiveStrip(sid){
-  const s=strips.find(x=>x.sid===sid);if(!s)return;
-  s.archived=true;s.visible=false;s.open=false;
-  renderStrips();autoSave();showToast('Archived');
-}
+function deleteStrip(sid){strips=strips.filter(s=>s.sid!==sid);strips.forEach((s,i)=>s.sid=i);renderStrips();autoSave();showToast('Deleted');}
+function archiveStrip(sid){const s=strips.find(x=>x.sid===sid);if(!s)return;s.archived=true;s.visible=false;s.open=false;renderStrips();autoSave();showToast('Archived');}
 
 function toggleVisible(sid){
   const s=strips.find(x=>x.sid===sid);if(!s)return;
   if(!s.title&&!s.url){showToast('Add a link first');return;}
   s.visible=!s.visible;renderStrips();autoSave();
-  showToast(s.visible?'👁 Visible to visitors':'🙈 Hidden');
+  showToast(s.visible?'👁 Visible':'🙈 Hidden');
 }
 
 function togglePin(sid){
@@ -772,14 +800,10 @@ function togglePin(sid){
   s.pinned=!s.pinned;
   if(s.pinned){const r=strips.splice(strips.findIndex(x=>x.sid===sid),1)[0];strips.unshift(r);}
   else{const r=strips.splice(strips.findIndex(x=>x.sid===sid),1)[0];const fp=strips.findIndex(x=>!x.pinned);strips.splice(fp===-1?strips.length:fp,0,r);}
-  strips.forEach((x,i)=>x.sid=i);
-  renderStrips();autoSave();showToast(s.pinned?'📌 Pinned':'Unpinned');
+  strips.forEach((x,i)=>x.sid=i);renderStrips();autoSave();showToast(s.pinned?'📌 Pinned':'Unpinned');
 }
 
-function toggleLike(sid){
-  const s=strips.find(x=>x.sid===sid);if(!s)return;
-  s.liked=!s.liked;renderStrips();showToast(s.liked?'❤️ Liked':'Unliked');
-}
+function toggleLike(sid){const s=strips.find(x=>x.sid===sid);if(!s)return;s.liked=!s.liked;renderStrips();showToast(s.liked?'❤️ Liked':'Unliked');}
 
 function shareStrip(sid){
   const s=strips.find(x=>x.sid===sid);if(!s||!s.url){showToast('Add a link first');return;}
@@ -810,8 +834,7 @@ function showAnalytics(sid){
 function updateSparkBar(){
   const filled=strips.filter(s=>!!(s.title||s.url)&&!s.archived).length;
   const total=strips.filter(s=>!s.archived).length;
-  const pct=Math.min(total/TOTAL*100,100)+'%';
-  document.getElementById('sparkBarFill').style.width=pct;
+  document.getElementById('sparkBarFill').style.width=Math.min(total/TOTAL*100,100)+'%';
   document.getElementById('sparkCntSm').textContent=total+'/'+TOTAL;
   document.getElementById('secCnt').textContent=filled+' filled / '+total+' strips';
 }
@@ -827,23 +850,23 @@ function updatePreview(){
   const pn=document.getElementById('prevName');if(pn)pn.textContent=localStorage.getItem('name')||'Your Name';
   const pb=document.getElementById('prevBio');if(pb)pb.textContent=document.getElementById('pBio')?.textContent||'Add your bio';
   const pu=document.getElementById('prevUrl');if(pu)pu.textContent='myqrid.in/'+(localStorage.getItem('username')||'—');
+  const socColors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b'};
+  const socIcons={whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',twitter:'fab fa-x-twitter',youtube:'fab fa-youtube',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',telegram:'fab fa-telegram',snapchat:'fab fa-snapchat'};
   const sr=document.getElementById('prevSocRow');
   if(sr){
-    const socColors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b'};
-    const socIcons={whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',twitter:'fab fa-x-twitter',youtube:'fab fa-youtube',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',telegram:'fab fa-telegram',snapchat:'fab fa-snapchat'};
     const linked=Object.keys(socials).filter(k=>socials[k]);
-    sr.innerHTML=linked.map(k=>`<div class="preview-soc-icon"><i class="${socIcons[k]||'fas fa-link'}" style="color:${socColors[k]||'#fff'}"></i></div>`).join('');
+    sr.innerHTML=linked.map(k=>`<div class="prev-soc-icon"><i class="${socIcons[k]||'fas fa-link'}" style="color:${socColors[k]||'#fff'}"></i></div>`).join('');
   }
   const pl=document.getElementById('prevLinks');
   if(pl){
     const vis=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
     pl.innerHTML=vis.length?vis.map(s=>{
       const plat=getPlatform(s.platform);
-      return `<div class="preview-link">
-        <div class="preview-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color}"></i></div>
-        <div class="preview-link-title">${esc(s.title||s.url)}</div>
+      return `<div class="prev-link">
+        <div class="prev-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color}"></i></div>
+        <div class="prev-link-title">${esc(s.title||s.url)}</div>
       </div>`;
-    }).join(''):'<div class="preview-empty">Your links will appear here</div>';
+    }).join(''):'<div class="prev-empty">Your visible links appear here</div>';
   }
 }
 
@@ -860,19 +883,18 @@ function openCollectionModal(){
   document.getElementById('collectionModal').classList.add('open');
 }
 function closeCollectionModal(){document.getElementById('collectionModal').classList.remove('open');}
-function selectColLayout(layout,el){colLayout=layout;document.querySelectorAll('.col-layout-opt').forEach(o=>o.classList.remove('sel'));if(el)el.classList.add('sel');}
+function selectColLayout(l,el){colLayout=l;document.querySelectorAll('.col-layout-opt').forEach(o=>o.classList.remove('sel'));if(el)el.classList.add('sel');}
 function saveCollection(){
-  const title=document.getElementById('colTitle').value.trim();
-  if(!title){showToast('Enter a collection title');return;}
-  collections.push({title,layout:colLayout});
-  closeCollectionModal();showToast('✅ Collection "'+title+'" created!');
+  const t=document.getElementById('colTitle').value.trim();
+  if(!t){showToast('Enter a title');return;}
+  collections.push({title:t,layout:colLayout});
+  closeCollectionModal();showToast('✅ Collection "'+t+'" created!');
 }
 
 /* ══ ARCHIVE ══ */
 function openArchiveModal(){
   const archived=strips.filter(s=>s.archived);
-  const list=document.getElementById('archiveList');
-  list.innerHTML=archived.length?archived.map(s=>{
+  document.getElementById('archiveList').innerHTML=archived.length?archived.map(s=>{
     const plat=getPlatform(s.platform);
     return `<div class="archive-item">
       <div class="archive-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color}"></i></div>
@@ -888,10 +910,8 @@ function restoreStrip(sid){
   s.archived=false;openArchiveModal();renderStrips();autoSave();showToast('✅ Restored!');
 }
 function archiveAllHidden(){
-  let count=0;
-  strips.forEach(s=>{if(!s.visible&&(s.title||s.url)&&!s.archived){s.archived=true;count++;}});
-  openArchiveModal();renderStrips();autoSave();
-  showToast(count?`Archived ${count} links`:'No unpublished links');
+  let n=0;strips.forEach(s=>{if(!s.visible&&(s.title||s.url)&&!s.archived){s.archived=true;n++;}});
+  openArchiveModal();renderStrips();autoSave();showToast(n?`Archived ${n} links`:'No unpublished links');
 }
 
 /* ══ AVATAR ══ */
@@ -903,10 +923,8 @@ function handleAvatarImg(e){
 }
 function handleAvatarVideo(e){
   const f=e.target.files[0];if(!f)return;
-  /* FIX: Check 20MB limit before loading */
   if(f.size>20*1024*1024){showToast('Video must be under 20 MB');return;}
-  const url=URL.createObjectURL(f);
-  setAvatarSrc(url,'video');
+  setAvatarSrc(URL.createObjectURL(f),'video');
 }
 function setAvatarSrc(src,type){
   const el=document.getElementById('pAvatar');
@@ -918,21 +936,10 @@ function setAvatarSrc(src,type){
     el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover">`;
     if(sa){sa.style.background='none';sa.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}
   }
-  localStorage.setItem('avatar_personal',src);
-  updatePreview();
+  localStorage.setItem('avatar_personal',src);updatePreview();
 }
 
-/* ══ SOCIAL — persist ══ */
-const SOC_CFG={
-  whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210'},
-  instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername'},
-  twitter:{label:'X/Twitter',lbl:'Username (no @)',ph:'yourusername'},
-  youtube:{label:'YouTube',lbl:'Channel URL',ph:'youtube.com/c/...'},
-  linkedin:{label:'LinkedIn',lbl:'Profile URL',ph:'linkedin.com/in/...'},
-  facebook:{label:'Facebook',lbl:'Profile URL',ph:'facebook.com/...'},
-  telegram:{label:'Telegram',lbl:'Username (no @)',ph:'yourusername'},
-  snapchat:{label:'Snapchat',lbl:'Username',ph:'yourusername'},
-};
+/* ══ SOCIAL ══ */
 function editSoc(id){
   curSoc=id;const c=SOC_CFG[id];if(!c)return;
   document.getElementById('socTitle').textContent='Link '+c.label;
@@ -947,8 +954,7 @@ function saveSoc(){
   const v=document.getElementById('socInput').value.trim();
   socials[curSoc]=v;
   localStorage.setItem('socials_data',JSON.stringify(socials));
-  closeSocModal();
-  applySocials(); /* This handles chip display + hint + preview */
+  closeSocModal();applySocials();
   showToast(v?'✅ Linked!':'Removed');
 }
 
@@ -960,11 +966,7 @@ function saveBio(){
   closeBioModal();updatePreview();showToast('Bio updated!');
 }
 
-function copyUrl(){
-  const u=localStorage.getItem('username')||'—';
-  navigator.clipboard.writeText('https://myqrid.in/'+u);
-  showToast('🔗 Link copied!');
-}
+function copyUrl(){navigator.clipboard.writeText('https://myqrid.in/'+(localStorage.getItem('username')||'—'));showToast('🔗 Link copied!');}
 function shareProfile(){
   const u=localStorage.getItem('username')||'',url='https://myqrid.in/'+u;
   if(navigator.share)navigator.share({title:(localStorage.getItem('name')||'My myQRID')+' — myQRID',url});
@@ -981,14 +983,13 @@ function autoSave(){
         ({sid,title,url,platform,visible,pinned,liked,clicks,archived}))
     ));
     const token=localStorage.getItem('token');if(!token)return;
-    const toSave=strips.filter(s=>(s.title||s.url)&&!s.archived).map(s=>({
-      id:'strip_'+s.sid,title:s.title,url:s.url,icon:s.platform,
-      active:true,visible:s.visible,pinned:s.pinned,clicks:s.clicks,
-      color:getPlatform(s.platform).color
-    }));
     fetch(API+'/links/reorder',{method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({links:toSave})
+      body:JSON.stringify({links:strips.filter(s=>(s.title||s.url)&&!s.archived).map(s=>({
+        id:'strip_'+s.sid,title:s.title,url:s.url,icon:s.platform,
+        active:true,visible:s.visible,pinned:s.pinned,clicks:s.clicks,
+        color:getPlatform(s.platform).color
+      }))})
     }).catch(()=>{});
   },800);
 }
@@ -998,16 +999,14 @@ async function saveAllLinks(){
   const token=localStorage.getItem('token');
   if(!token){showToast('Please login first');btn.disabled=false;btn.textContent='Save';return;}
   try{
-    const toSave=strips.filter(s=>(s.title||s.url)&&!s.archived).map(s=>({
-      id:'strip_'+s.sid,title:s.title,url:s.url,icon:s.platform,
-      active:true,visible:s.visible,pinned:s.pinned,clicks:s.clicks,
-      color:getPlatform(s.platform).color
-    }));
     const res=await fetch(API+'/links/reorder',{method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({links:toSave})});
-    const d=await res.json();
-    showToast(d.success?'✅ All saved!':'Error saving');
+      body:JSON.stringify({links:strips.filter(s=>(s.title||s.url)&&!s.archived).map(s=>({
+        id:'strip_'+s.sid,title:s.title,url:s.url,icon:s.platform,
+        active:true,visible:s.visible,pinned:s.pinned,clicks:s.clicks,
+        color:getPlatform(s.platform).color
+      }))})});
+    const d=await res.json();showToast(d.success?'✅ All saved!':'Error saving');
   }catch(e){showToast('Saved locally');}
   btn.disabled=false;btn.textContent='Save';
 }
@@ -1029,9 +1028,8 @@ async function loadData(){
   if(username){
     document.getElementById('pUser').textContent='myqrid.in/'+username;
     const su=document.getElementById('sidebarUrl');if(su)su.textContent='myqrid.in/'+username;
-    /* Join CTA */
-    const jc=document.getElementById('joinCtaText');
-    if(jc)jc.textContent='Join @'+username+' on myQRID';
+    const ct=document.getElementById('connectCtaText');
+    if(ct)ct.textContent='Connect with '+username+' on myQRID';
   }
   const av=localStorage.getItem('avatar_personal');
   if(av){
@@ -1041,12 +1039,12 @@ async function loadData(){
     if(sa){sa.style.background='none';sa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}
   }
 
-  /* ── RESTORE SOCIALS — always from localStorage first ── */
+  /* RESTORE SOCIALS */
   const localSoc=localStorage.getItem('socials_data');
   if(localSoc){try{socials=JSON.parse(localSoc);}catch(e){}}
-  applySocials(); /* Force chips to show correctly */
+  applySocials();
 
-  /* ── RESTORE STRIPS ── */
+  /* RESTORE STRIPS */
   const local=localStorage.getItem('strips_v5');
   if(local){
     try{
@@ -1055,15 +1053,14 @@ async function loadData(){
         strips=saved.map(sv=>({
           sid:sv.sid,title:sv.title||'',url:sv.url||'',platform:sv.platform||'link',
           visible:sv.visible||false,pinned:sv.pinned||false,
-          liked:sv.liked||false,clicks:sv.clicks||0,
-          archived:sv.archived||false,open:false
+          liked:sv.liked||false,clicks:sv.clicks||0,archived:sv.archived||false,open:false
         }));
       }
     }catch(e){}
   }
   renderStrips();
 
-  /* ── BACKEND SYNC ── */
+  /* BACKEND SYNC */
   const token=localStorage.getItem('token');if(!token)return;
   try{
     const res=await fetch(API+'/links',{headers:{'Authorization':'Bearer '+token}});
@@ -1084,11 +1081,9 @@ async function loadData(){
     const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
     const d=await res.json();
     if(d.success){
-      /* Merge backend socials */
-      const bs=d.profile.socials||{};
-      socials={...socials,...bs};
+      socials={...socials,...(d.profile.socials||{})};
       localStorage.setItem('socials_data',JSON.stringify(socials));
-      applySocials(); /* Re-apply after merge */
+      applySocials();
       if(d.profile.bio)document.getElementById('pBio').textContent=d.profile.bio;
     }
   }catch(e){}
