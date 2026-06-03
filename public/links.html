@@ -11,8 +11,6 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:#f7f7f8}
 .app-layout{display:flex;min-height:100vh}
-
-/* SIDEBAR */
 .sidebar{width:240px;flex-shrink:0;background:#fff;border-right:1px solid #e9e9eb;display:none;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:40;overflow-y:auto}
 @media(min-width:768px){.sidebar{display:flex}}
 .sidebar-logo{padding:20px 20px 16px;border-bottom:1px solid #f0f0f0}
@@ -30,21 +28,15 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .spf-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .spf-name{font-size:13px;font-weight:600;color:#111}
 .spf-url{font-size:11px;color:#aaa}
-
-/* MAIN */
 .main-content{flex:1;max-width:560px;min-height:100vh;padding-bottom:90px}
 @media(min-width:768px){.main-content{margin-left:240px;padding-bottom:40px}}
 @media(min-width:1100px){.main-content{max-width:520px}}
-
-/* TOPBAR */
 .topbar{position:sticky;top:0;z-index:50;background:rgba(247,247,248,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.07);display:flex;align-items:center;justify-content:space-between;padding:13px 20px;padding-top:calc(13px + env(safe-area-inset-top))}
 .back-btn{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:13px}
 @media(min-width:768px){.back-btn{display:none}}
 .topbar-title{font-size:16px;font-weight:700}
 .save-btn{padding:7px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer}
 .save-btn:disabled{opacity:0.5}
-
-/* PROFILE CARD */
 .profile-card{background:rgba(255,255,255,0.9);border:1px solid rgba(0,0,0,0.07);border-radius:18px;margin:12px 16px;padding:16px;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
 .profile-top{display:flex;align-items:center;gap:14px;margin-bottom:10px}
 .p-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;cursor:pointer;border:2px solid rgba(124,58,237,0.2)}
@@ -58,8 +50,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .p-url{display:inline-flex;align-items:center;gap:5px;background:rgba(124,58,237,0.07);border:1px solid rgba(124,58,237,0.15);border-radius:20px;padding:4px 12px;font-size:11px;color:#7c3aed;font-weight:500;cursor:pointer;flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .p-url-action{width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all 0.18s;box-shadow:0 1px 3px rgba(0,0,0,0.07)}
 .p-url-action:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3)}
-
-/* SOCIAL CHIPS — only linked show */
+/* SOCIAL CHIPS — only linked shown */
 .social-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;min-height:0}
 .soc-chip{display:none;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 8px;border-radius:10px;background:#fff;border:1px solid rgba(124,58,237,0.2);transition:all 0.18s;min-width:44px}
 .soc-chip.linked{display:flex}
@@ -67,8 +58,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .soc-chip i{font-size:15px;color:var(--sc,#7c3aed)}
 .soc-chip span{font-size:9px;color:#888;font-weight:500}
 .soc-add-hint{font-size:11px;color:#ccc;margin-top:6px;display:flex;align-items:center;gap:5px;cursor:pointer}
-
-/* SPARK */
 .spark-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:14px;margin:8px 16px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
 .spark-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);flex-shrink:0}
 .spark-info{flex:1;font-size:12px;color:#888}
@@ -79,14 +68,10 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin:10px 0 8px}
 .sec-lbl{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px}
 .sec-cnt{font-size:11px;color:#bbb}
-
-/* ACTION BUTTONS */
 .action-btns-row{display:flex;gap:8px;padding:0 16px;margin:0 0 10px}
 .action-btn-sm{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 8px;background:#fff;border:1px solid #e9e9eb;border-radius:12px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#555;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.04);transition:all 0.18s}
 .action-btn-sm:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3);color:#7c3aed;transform:scale(0.97)}
 .action-btn-sm i{font-size:14px;color:#aaa}
-
-/* STRIPS */
 .strips-wrap{padding:0 16px}
 .sortable-ghost{opacity:0.3;background:#ede9ff!important;border:1.5px dashed #7c3aed!important}
 .sortable-chosen{box-shadow:0 8px 24px rgba(124,58,237,0.18)!important;transform:scale(1.01)}
@@ -138,8 +123,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .sbtm-btn.is-visible{color:#7c3aed}
 .sbtm-sep{width:1px;height:14px;background:#efefef;flex-shrink:0;margin:0 2px}
 .sbtm-clicks{margin-left:auto;font-size:10px;color:#ccc;display:flex;align-items:center;gap:3px}
-
-/* UPGRADE */
 .upgrade-section{margin:10px 16px 8px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:18px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
 .upgrade-hdr{padding:16px 16px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(236,72,153,0.03))}
 .upgrade-title{font-size:14px;font-weight:800;color:#111;margin-bottom:4px}
@@ -158,15 +141,12 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .footer-brand{font-size:18px;font-weight:800;color:#111}
 .footer-brand span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .footer-tag{font-size:11px;color:#bbb;text-align:center}
-
-/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-top:1px solid #e9e9eb;display:flex;padding:10px 0;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:100;box-shadow:0 -2px 10px rgba(0,0,0,0.04)}
 @media(min-width:768px){.bottom-nav{display:none}}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:#ccc;font-size:10px;font-weight:500;padding:4px 0}
 .nav-item.active{color:#7c3aed}
 .nav-icon{font-size:20px;line-height:1}
 .nav-center-btn{width:50px;height:50px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px;box-shadow:0 0 18px rgba(124,58,237,0.4)}
-
 /* RIGHT PREVIEW PANEL */
 .preview-panel{width:260px;flex-shrink:0;display:none;position:sticky;top:0;height:100vh;background:#f0f0f2;border-left:1px solid #e9e9eb;flex-direction:column;align-items:center;padding:20px 16px;overflow-y:auto}
 @media(min-width:1100px){.preview-panel{display:flex}}
@@ -195,7 +175,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .preview-action-row{display:flex;gap:6px}
 .preview-action-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;cursor:pointer;font-size:11px;font-weight:600;color:#555;font-family:'Inter',sans-serif;transition:all 0.18s}
 .preview-action-btn:active{background:#f3f0ff;color:#7c3aed}
-
 /* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
 .modal-overlay.open{background:rgba(0,0,0,0.45);pointer-events:all}
@@ -235,7 +214,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 <body>
 <div class="app-layout">
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
     <div class="sidebar-brand">my<span>QRID</span></div>
@@ -265,7 +243,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main-content">
   <div class="topbar">
     <div class="back-btn" onclick="history.back()"><i class="fas fa-arrow-left"></i></div>
@@ -359,6 +336,15 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <div class="upgrade-note">No hidden charges · Cancel anytime</div>
   </div>
 
+  <!-- JOIN CTA — like Linktree -->
+  <div style="margin:0 16px 16px;background:linear-gradient(135deg,rgba(124,58,237,0.08),rgba(236,72,153,0.05));border:1px solid rgba(124,58,237,0.15);border-radius:16px;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#111" id="joinCtaText">Join on myQRID</div>
+      <div style="font-size:11px;color:#888;margin-top:2px">Create your free digital identity</div>
+    </div>
+    <a href="/signup.html" style="padding:8px 16px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;box-shadow:0 3px 10px rgba(124,58,237,0.3)">Join Free</a>
+  </div>
+
   <div class="myqrid-footer">
     <div class="footer-brand">my<span>QRID</span></div>
     <div class="footer-tag">Your Digital Identity · One QR · Infinite Possibilities</div>
@@ -370,7 +356,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
   <div class="preview-label">Live Preview</div>
   <div class="preview-phone">
     <div class="preview-phone-notch"></div>
-    <div class="preview-scroll" id="previewScroll">
+    <div class="preview-scroll">
       <div class="preview-profile">
         <div class="preview-avatar" id="prevAvatar">P</div>
         <div class="preview-name" id="prevName">Your Name</div>
@@ -400,7 +386,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     </div>
     <div class="preview-action-row">
       <button class="preview-action-btn" onclick="window.open('https://myqrid.in/'+(localStorage.getItem('username')||''),'_blank')">
-        <i class="fas fa-external-link-alt" style="font-size:11px"></i> View Profile
+        <i class="fas fa-external-link-alt" style="font-size:10px"></i> View Profile
       </button>
       <button class="preview-action-btn" onclick="shareProfile()">
         <svg width="11" height="13" viewBox="0 0 11 13" fill="none" style="flex-shrink:0">
@@ -416,7 +402,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 
 </div><!-- end app-layout -->
 
-<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
   <a href="/links.html" class="nav-item active"><span class="nav-icon">🔗</span><span>Links</span></a>
@@ -472,7 +457,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     </div>
     <div class="avatar-option" onclick="document.getElementById('avatarVideoInput').click();closeAvatarModal()">
       <div class="avatar-opt-icon" style="background:#fef3c7"><i class="fas fa-video" style="color:#f59e0b"></i></div>
-      <div><div class="avatar-opt-title">Select Video</div><div class="avatar-opt-sub">Max 30 seconds · MP4, MOV</div></div>
+      <div><div class="avatar-opt-title">Select Video</div><div class="avatar-opt-sub">Max 20 MB · MP4, MOV</div></div>
       <i class="fas fa-chevron-right" style="color:#ccc;margin-left:auto"></i>
     </div>
     <button class="f-cancel" onclick="closeAvatarModal()">Cancel</button>
@@ -569,8 +554,26 @@ let strips=Array.from({length:INIT_COUNT},(_,i)=>({
   visible:false,pinned:false,liked:false,clicks:0,open:false,archived:false,
 }));
 
-/* socials persisted in localStorage */
 let socials={},curSoc=null,colLayout='stack',collections=[],sortableInst=null;
+
+/* ══ APPLY SOCIALS — force chips to show/hide correctly ══ */
+function applySocials(){
+  document.querySelectorAll('.soc-chip').forEach(c=>c.classList.remove('linked'));
+  Object.keys(socials).forEach(k=>{
+    if(socials[k]){
+      const c=document.querySelector(`.soc-chip[data-s="${k}"]`);
+      if(c)c.classList.add('linked');
+    }
+  });
+  updateSocHint();
+  updatePreview();
+}
+
+function updateSocHint(){
+  const hasLinked=document.querySelectorAll('.soc-chip.linked').length>0;
+  const hint=document.getElementById('socAddHint');
+  if(hint)hint.style.display=hasLinked?'none':'flex';
+}
 
 /* ══ ADD ONE STRIP ══ */
 function addOneStrip(){
@@ -742,9 +745,6 @@ function saveStrip(sid){
   }
   s.title=title;s.url=url;s.visible=true;s.open=false;
   renderStrips();autoSave();
-  const chip=document.querySelector(`.soc-chip[data-s="${s.platform}"]`);
-  if(chip&&url)chip.classList.add('linked');
-  updateSocHint();
   showToast('✅ '+(title||'Link')+' saved!');
 }
 
@@ -827,7 +827,6 @@ function updatePreview(){
   const pn=document.getElementById('prevName');if(pn)pn.textContent=localStorage.getItem('name')||'Your Name';
   const pb=document.getElementById('prevBio');if(pb)pb.textContent=document.getElementById('pBio')?.textContent||'Add your bio';
   const pu=document.getElementById('prevUrl');if(pu)pu.textContent='myqrid.in/'+(localStorage.getItem('username')||'—');
-  /* Social icons in preview */
   const sr=document.getElementById('prevSocRow');
   if(sr){
     const socColors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b'};
@@ -835,7 +834,6 @@ function updatePreview(){
     const linked=Object.keys(socials).filter(k=>socials[k]);
     sr.innerHTML=linked.map(k=>`<div class="preview-soc-icon"><i class="${socIcons[k]||'fas fa-link'}" style="color:${socColors[k]||'#fff'}"></i></div>`).join('');
   }
-  /* Links in preview */
   const pl=document.getElementById('prevLinks');
   if(pl){
     const vis=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
@@ -847,13 +845,6 @@ function updatePreview(){
       </div>`;
     }).join(''):'<div class="preview-empty">Your links will appear here</div>';
   }
-}
-
-/* ══ SOC HINT ══ */
-function updateSocHint(){
-  const hasLinked=document.querySelectorAll('.soc-chip.linked').length>0;
-  const hint=document.getElementById('socAddHint');
-  if(hint)hint.style.display=hasLinked?'none':'flex';
 }
 
 /* ══ COLLECTION ══ */
@@ -912,12 +903,10 @@ function handleAvatarImg(e){
 }
 function handleAvatarVideo(e){
   const f=e.target.files[0];if(!f)return;
+  /* FIX: Check 20MB limit before loading */
+  if(f.size>20*1024*1024){showToast('Video must be under 20 MB');return;}
   const url=URL.createObjectURL(f);
-  const vid=document.createElement('video');vid.src=url;
-  vid.onloadedmetadata=()=>{
-    if(f.size>20*1024*1024){showToast('Video must be under 20 MB');return;}
-    setAvatarSrc(url,'video');
-  };
+  setAvatarSrc(url,'video');
 }
 function setAvatarSrc(src,type){
   const el=document.getElementById('pAvatar');
@@ -933,7 +922,7 @@ function setAvatarSrc(src,type){
   updatePreview();
 }
 
-/* ══ SOCIAL — persist to localStorage ══ */
+/* ══ SOCIAL — persist ══ */
 const SOC_CFG={
   whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210'},
   instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername'},
@@ -957,11 +946,9 @@ function closeSocModal(){document.getElementById('socModal').classList.remove('o
 function saveSoc(){
   const v=document.getElementById('socInput').value.trim();
   socials[curSoc]=v;
-  /* Persist socials to localStorage */
   localStorage.setItem('socials_data',JSON.stringify(socials));
-  const chip=document.querySelector(`.soc-chip[data-s="${curSoc}"]`);
-  if(chip)chip.classList.toggle('linked',!!v);
-  closeSocModal();updateSocHint();updatePreview();
+  closeSocModal();
+  applySocials(); /* This handles chip display + hint + preview */
   showToast(v?'✅ Linked!':'Removed');
 }
 
@@ -1042,6 +1029,9 @@ async function loadData(){
   if(username){
     document.getElementById('pUser').textContent='myqrid.in/'+username;
     const su=document.getElementById('sidebarUrl');if(su)su.textContent='myqrid.in/'+username;
+    /* Join CTA */
+    const jc=document.getElementById('joinCtaText');
+    if(jc)jc.textContent='Join @'+username+' on myQRID';
   }
   const av=localStorage.getItem('avatar_personal');
   if(av){
@@ -1051,22 +1041,12 @@ async function loadData(){
     if(sa){sa.style.background='none';sa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}
   }
 
-  /* ── RESTORE SOCIALS from localStorage ── */
+  /* ── RESTORE SOCIALS — always from localStorage first ── */
   const localSoc=localStorage.getItem('socials_data');
-  if(localSoc){
-    try{
-      socials=JSON.parse(localSoc);
-      Object.keys(socials).forEach(k=>{
-        if(socials[k]){
-          const c=document.querySelector(`.soc-chip[data-s="${k}"]`);
-          if(c)c.classList.add('linked');
-        }
-      });
-    }catch(e){}
-  }
-  updateSocHint();
+  if(localSoc){try{socials=JSON.parse(localSoc);}catch(e){}}
+  applySocials(); /* Force chips to show correctly */
 
-  /* ── RESTORE STRIPS from localStorage ── */
+  /* ── RESTORE STRIPS ── */
   const local=localStorage.getItem('strips_v5');
   if(local){
     try{
@@ -1081,7 +1061,6 @@ async function loadData(){
       }
     }catch(e){}
   }
-
   renderStrips();
 
   /* ── BACKEND SYNC ── */
@@ -1105,15 +1084,12 @@ async function loadData(){
     const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
     const d=await res.json();
     if(d.success){
-      /* Merge backend socials with localStorage */
-      const backendSocials=d.profile.socials||{};
-      socials={...socials,...backendSocials};
+      /* Merge backend socials */
+      const bs=d.profile.socials||{};
+      socials={...socials,...bs};
       localStorage.setItem('socials_data',JSON.stringify(socials));
-      Object.keys(socials).forEach(k=>{
-        if(socials[k]){const c=document.querySelector(`.soc-chip[data-s="${k}"]`);if(c)c.classList.add('linked');}
-      });
-      updateSocHint();updatePreview();
-      if(d.profile.bio){document.getElementById('pBio').textContent=d.profile.bio;}
+      applySocials(); /* Re-apply after merge */
+      if(d.profile.bio)document.getElementById('pBio').textContent=d.profile.bio;
     }
   }catch(e){}
 }
