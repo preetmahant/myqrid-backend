@@ -861,19 +861,33 @@ function updatePreview(){
   if(pl){
     const vis=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
     const username=localStorage.getItem('username')||'';
-    const ctaHtml=`<div style="margin-top:14px;background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.2);border-radius:12px;padding:12px 10px;text-align:center">
-      <div style="font-size:10px;font-weight:800;color:#fff;margin-bottom:3px">Join ${username||'username'} on myQRID</div>
-      <div style="font-size:8px;color:rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;gap:5px">
-        <span>Safety</span><span style="opacity:0.4">·</span><span>Privacy</span><span style="opacity:0.4">·</span><span>More from myQRID</span>
-      </div>
-    </div>`;
-    pl.innerHTML=(vis.length?vis.map(s=>{
+    const linksHtml=vis.length?vis.map(s=>{
       const plat=getPlatform(s.platform);
       return `<div class="prev-link">
         <div class="prev-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color}"></i></div>
         <div class="prev-link-title">${esc(s.title||s.url)}</div>
       </div>`;
-    }).join(''):'<div class="prev-empty">Your visible links appear here</div>')+ctaHtml;
+    }).join(''):'<div class="prev-empty">Your visible links appear here</div>';
+    const bottomHtml=`
+      <div style="margin-top:16px;background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.25);border-radius:12px;padding:12px 10px;text-align:center">
+        <div style="font-size:11px;font-weight:800;color:#fff;margin-bottom:2px">Join ${username||'username'} on myQRID</div>
+        <div style="font-size:8px;color:rgba(255,255,255,0.4);margin-bottom:8px">Build your free digital identity</div>
+        <div style="background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:20px;padding:6px 14px;display:inline-block;cursor:pointer" onclick="window.open('/signup.html','_blank')">
+          <span style="font-size:10px;font-weight:700;color:#fff">Join Free</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap">
+        <a href="#" style="font-size:7px;color:rgba(255,255,255,0.3);text-decoration:none">Safety</a>
+        <span style="font-size:7px;color:rgba(255,255,255,0.15)">·</span>
+        <a href="#" style="font-size:7px;color:rgba(255,255,255,0.3);text-decoration:none">Privacy</a>
+        <span style="font-size:7px;color:rgba(255,255,255,0.15)">·</span>
+        <a href="https://myqrid.in" style="font-size:7px;color:rgba(255,255,255,0.3);text-decoration:none">More from myQRID</a>
+      </div>
+      <div style="margin-top:8px;text-align:center">
+        <div style="font-size:9px;font-weight:800;color:rgba(255,255,255,0.6)">my<span style="background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">QRID</span></div>
+        <div style="font-size:6px;color:rgba(255,255,255,0.2);margin-top:1px">Your Digital Identity · One QR · Infinite Possibilities</div>
+      </div>`;
+    pl.innerHTML=linksHtml+bottomHtml;
   }
 }
 
