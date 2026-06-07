@@ -10,119 +10,155 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;font-family:'Inter',sans-serif}
 
-/* THEMES */
+/* ── PAGE THEMES ── */
 body.t-personal{background:linear-gradient(135deg,#e8e0ff 0%,#f5f0ff 40%,#fff 100%)}
 body.t-work{background:linear-gradient(135deg,#dbeafe 0%,#eff6ff 40%,#fff 100%)}
-body.t-business{background:linear-gradient(135deg,#e5e7eb 0%,#f3f4f6 40%,#fff 100%)}
-body.t-earn{background:linear-gradient(135deg,#bbf7d0 0%,#f0fdf4 40%,#ede9fe 100%)}
+body.t-shop{background:linear-gradient(135deg,#fef3c7 0%,#fdf8ef 40%,#f0fdf4 100%)}
 body.t-drift{background:#050505}
+body.t-care{background:linear-gradient(135deg,#ffe4e6 0%,#fff1f2 40%,#fff 100%)}
 
 .bg-orb{position:fixed;border-radius:50%;filter:blur(60px);opacity:0.35;pointer-events:none;z-index:0}
 body.t-personal .bg-orb1{width:300px;height:300px;background:#a78bfa;top:-80px;left:-80px}
 body.t-personal .bg-orb2{width:250px;height:250px;background:#c4b5fd;bottom:-60px;right:-60px}
 body.t-work .bg-orb1{width:300px;height:300px;background:#60a5fa;top:-80px;left:-80px}
 body.t-work .bg-orb2{width:250px;height:250px;background:#93c5fd;bottom:-60px;right:-60px}
-body.t-business .bg-orb1{width:300px;height:300px;background:#9ca3af;top:-80px;left:-80px}
-body.t-business .bg-orb2{width:250px;height:250px;background:#d1d5db;bottom:-60px;right:-60px}
-body.t-earn .bg-orb1{width:300px;height:300px;background:#4ade80;top:-80px;left:-80px}
-body.t-earn .bg-orb2{width:250px;height:250px;background:#a78bfa;bottom:-60px;right:-60px}
+body.t-shop .bg-orb1{width:300px;height:300px;background:#f59e0b;top:-80px;left:-80px}
+body.t-shop .bg-orb2{width:250px;height:250px;background:#4ade80;bottom:-60px;right:-60px}
 body.t-drift .bg-orb1{width:300px;height:300px;background:#00c8b8;top:-80px;left:-80px;opacity:0.15}
 body.t-drift .bg-orb2{width:250px;height:250px;background:#6d28d9;bottom:-60px;right:-60px;opacity:0.15}
+body.t-care .bg-orb1{width:300px;height:300px;background:#fb7185;top:-80px;left:-80px}
+body.t-care .bg-orb2{width:250px;height:250px;background:#f43f5e;bottom:-60px;right:-60px}
 
 .page{display:flex;flex-direction:column;height:100%;position:relative;z-index:1}
 
-/* TOPBAR */
+/* ── TOPBAR ── */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;padding-top:calc(14px + env(safe-area-inset-top));flex-shrink:0}
 .topbar-logo{font-size:19px;font-weight:800;color:#111}
 body.t-drift .topbar-logo{color:#fff}
 .logo-q{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .topbar-right{display:flex;gap:8px}
-.icon-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.6);border:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:14px;backdrop-filter:blur(8px);position:relative;transition:all 0.2s}
+.icon-btn{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.6);border:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#555;font-size:14px;backdrop-filter:blur(8px);transition:all 0.2s;position:relative}
 body.t-drift .icon-btn{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6)}
 .icon-btn:active{transform:scale(0.93)}
-.sound-slash{position:absolute;width:2px;height:20px;background:currentColor;transform:rotate(45deg);display:none;border-radius:1px}
 
-/* CARD TABS */
-.card-tabs{display:flex;gap:5px;padding:0 16px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+/* ── TABS ── */
+.card-tabs{display:flex;gap:5px;padding:0 16px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
 .card-tabs::-webkit-scrollbar{display:none}
 .card-tab{flex-shrink:0;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;color:rgba(0,0,0,0.35);background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.07);cursor:pointer;transition:all 0.3s;white-space:nowrap;backdrop-filter:blur(8px)}
 body.t-drift .card-tab{color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08)}
 
-/* CARDS TRACK */
+/* ── CARDS AREA ── */
 .cards-area{flex:1;display:flex;flex-direction:column;padding:0 14px;overflow:hidden;min-height:0}
 .track-wrap{flex:1;overflow:hidden;position:relative;touch-action:pan-y pinch-zoom;min-height:0}
 .cards-track{display:flex;height:100%;transition:transform 0.42s cubic-bezier(0.34,1.15,0.64,1);will-change:transform}
 .card-slide{flex:0 0 100%;height:100%;padding:0 3px}
 
-/* THE CARD — image forward, info overlay */
-.id-card{height:100%;border-radius:28px;overflow:hidden;position:relative;cursor:pointer;box-shadow:0 12px 40px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.08)}
+/* ── THE CARD — 60/40 fusion ── */
+.id-card{height:100%;border-radius:28px;overflow:hidden;position:relative;cursor:pointer;box-shadow:0 12px 40px rgba(0,0,0,0.15),0 2px 8px rgba(0,0,0,0.08);display:flex;flex-direction:column}
 .id-card:active{transform:scale(0.985)}
 
-/* FULL CARD BACKGROUND — image fills entire card */
-.card-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.card-bg-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.card-initials{font-size:100px;font-weight:900;opacity:0.12;letter-spacing:-4px;color:#fff}
+/* 60% image top */
+.card-img-zone{flex:0 0 60%;position:relative;overflow:hidden}
+.card-bg-fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.card-bg-grad{position:absolute;inset:0;width:100%;height:100%}
+.card-initials{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:80px;font-weight:900;opacity:0.13;color:#fff;letter-spacing:-3px}
+.card-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.0) 40%,rgba(0,0,0,0.35) 100%)}
+.card-badge{position:absolute;top:14px;left:50%;transform:translateX(-50%);padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;backdrop-filter:blur(16px);background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.2);color:#fff;white-space:nowrap;z-index:3}
+.card-edit-photo{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.35);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;cursor:pointer;z-index:4}
+.card-edit-photo:active{transform:scale(0.9)}
 
-/* GRADIENT OVERLAY — bottom half info */
-.card-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,
-  transparent 0%,
-  transparent 35%,
-  rgba(0,0,0,0.15) 50%,
-  rgba(0,0,0,0.75) 78%,
-  rgba(0,0,0,0.92) 100%
-)}
+/* 40% content bottom */
+.card-content{flex:0 0 40%;display:flex;flex-direction:column;padding:14px 16px 12px;position:relative;overflow:hidden}
+/* each card has its own content bg */
+.card-content::before{content:'';position:absolute;inset:0;z-index:0}
+.card-content>*{position:relative;z-index:1}
 
-/* TOP BADGE */
-.card-badge{position:absolute;top:16px;left:50%;transform:translateX(-50%);padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;backdrop-filter:blur(16px);background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.2);color:#fff;white-space:nowrap;z-index:2}
-
-/* EDIT PHOTO BTN */
-.card-edit-photo{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,0.35);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;cursor:pointer;z-index:3}
-
-/* BOTTOM INFO — overlaid on image */
-.card-info{position:absolute;bottom:0;left:0;right:0;padding:20px 20px 18px;z-index:2}
-.card-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:2px;text-shadow:0 1px 4px rgba(0,0,0,0.3)}
-.card-role{font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:14px;font-weight:400}
-.card-meta-row{display:flex;gap:12px;margin-bottom:14px}
-.card-meta{display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.55);flex:1;min-width:0}
-.card-meta span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card-meta i{font-size:11px;flex-shrink:0}
-.card-actions{display:flex;gap:8px}
-.card-btn{flex:1;padding:11px;border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;border:none}
-.card-btn:active{transform:scale(0.96)}
-.card-btn-ghost{background:rgba(255,255,255,0.12);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.2)!important;color:#fff}
-
-/* PERSONAL */
-.card-personal-bg{background:linear-gradient(145deg,#3d1f6e 0%,#5b2fa0 35%,#7c4dcc 65%,#e8d5ff 100%)}
-.card-personal-btn{background:linear-gradient(135deg,#a78bfa,#c4b5fd);color:#2e1065}
+/* PERSONAL content */
+.cc-personal{background:linear-gradient(160deg,#3d1f6e,#5b2fa0)}
+.cc-personal .c-name{color:#fff}
+.cc-personal .c-role{color:rgba(255,255,255,0.6)}
+.cc-personal .c-meta i{color:#c4b5fd}
+.cc-personal .c-meta span{color:rgba(255,255,255,0.55)}
+.cc-personal .c-divider{background:rgba(255,255,255,0.1)}
+.btn-personal{background:linear-gradient(135deg,#a78bfa,#c4b5fd);color:#2e1065}
 /* WORK */
-.card-work-bg{background:linear-gradient(145deg,#0f2040 0%,#1a3a6e 35%,#2a5da8 65%,#dbeafe 100%)}
-.card-work-btn{background:linear-gradient(135deg,#60a5fa,#93c5fd);color:#0c1a3a}
-/* BUSINESS */
-.card-business-bg{background:linear-gradient(145deg,#1a1a1a 0%,#2d2d2d 35%,#4a4a4a 65%,#e5e7eb 100%)}
-.card-business-btn{background:linear-gradient(135deg,#9ca3af,#e5e7eb);color:#111}
-/* EARN */
-.card-earn-bg{background:linear-gradient(145deg,#064e3b 0%,#065f46 35%,#059669 65%,#bbf7d0 100%)}
-.card-earn-btn{background:linear-gradient(135deg,#4ade80,#bbf7d0);color:#064e3b}
+.cc-work{background:linear-gradient(160deg,#0f2040,#1a3a6e)}
+.cc-work .c-name{color:#fff}
+.cc-work .c-role{color:rgba(255,255,255,0.6)}
+.cc-work .c-meta i{color:#93c5fd}
+.cc-work .c-meta span{color:rgba(255,255,255,0.55)}
+.cc-work .c-divider{background:rgba(255,255,255,0.1)}
+.btn-work{background:linear-gradient(135deg,#60a5fa,#93c5fd);color:#0c1a3a}
+/* SHOP */
+.cc-shop{background:linear-gradient(160deg,#78350f,#92400e)}
+.cc-shop .c-name{color:#fff}
+.cc-shop .c-role{color:rgba(255,255,255,0.6)}
+.cc-shop .c-meta i{color:#fcd34d}
+.cc-shop .c-meta span{color:rgba(255,255,255,0.55)}
+.cc-shop .c-divider{background:rgba(255,255,255,0.1)}
+.btn-shop{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#78350f}
 /* DRIFT */
-.card-drift-bg{background:linear-gradient(145deg,#000 0%,#050a0a 40%,#0a1a15 70%,#001a12 100%)}
-.card-drift-btn{background:linear-gradient(135deg,#00c8b8,#005a50);color:#000}
-.drift-name{color:#00c8b8!important;letter-spacing:2px;text-transform:uppercase;font-size:18px!important}
-.drift-role{color:rgba(0,200,184,0.5)!important}
-.drift-meta{color:rgba(0,200,184,0.4)!important}
-.drift-badge-row{display:inline-flex;align-items:center;gap:6px;background:rgba(0,200,184,0.08);border:1px solid rgba(0,200,184,0.25);border-radius:8px;padding:3px 10px;font-size:10px;font-weight:700;color:#00c8b8;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px}
+.cc-drift{background:linear-gradient(160deg,#000,#050a0a)}
+.cc-drift .c-name{color:#00c8b8;letter-spacing:2px;text-transform:uppercase;font-size:16px!important}
+.cc-drift .c-role{color:rgba(0,200,184,0.5)}
+.cc-drift .c-meta i{color:#00c8b8}
+.cc-drift .c-meta span{color:rgba(0,200,184,0.5)}
+.cc-drift .c-divider{background:rgba(0,200,184,0.12)}
+.btn-drift{background:linear-gradient(135deg,#00c8b8,#005a50);color:#000}
+/* CARE */
+.cc-care{background:linear-gradient(160deg,#881337,#be123c)}
+.cc-care .c-name{color:#fff}
+.cc-care .c-role{color:rgba(255,255,255,0.6)}
+.cc-care .c-meta i{color:#fda4af}
+.cc-care .c-meta span{color:rgba(255,255,255,0.55)}
+.cc-care .c-divider{background:rgba(255,255,255,0.1)}
+.btn-care{background:linear-gradient(135deg,#fb7185,#f43f5e);color:#fff}
 
-/* VEHICLE DISPLAY on drift card */
-.vehicle-area{position:absolute;top:0;left:0;right:0;bottom:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:50px 12px 8px;z-index:2}
+.c-name{font-size:18px;font-weight:800;letter-spacing:-0.3px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-role{font-size:11px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-divider{height:1px;margin-bottom:8px}
+.c-metas{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;flex:1}
+.c-meta{display:flex;align-items:center;gap:7px;font-size:11px;min-height:18px}
+.c-meta i{width:14px;text-align:center;font-size:11px;flex-shrink:0}
+.c-meta span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.c-meta.hidden-field{display:none}
+.c-actions{display:flex;gap:7px;margin-top:auto}
+.c-btn{flex:1;padding:10px 8px;border-radius:12px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;border:none;transition:all 0.2s}
+.c-btn:active{transform:scale(0.96)}
+.c-btn-ghost{background:rgba(255,255,255,0.12);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.2)!important;color:#fff}
+/* Apple share SVG */
+.apple-share-svg{width:14px;height:14px;flex-shrink:0}
+
+/* DRIFT VEHICLE AREA */
+.card-personal-bg{background:linear-gradient(145deg,#3d1f6e 0%,#5b2fa0 35%,#7c4dcc 65%,#e8d5ff 100%)}
+.card-work-bg{background:linear-gradient(145deg,#0f2040 0%,#1a3a6e 35%,#2a5da8 65%,#dbeafe 100%)}
+.card-shop-bg{background:linear-gradient(145deg,#78350f 0%,#92400e 35%,#b45309 65%,#fef3c7 100%)}
+.card-drift-bg{background:linear-gradient(145deg,#000 0%,#050a0a 40%,#0a1a15 70%,#001a12 100%)}
+.card-care-bg{background:linear-gradient(145deg,#4c0519 0%,#881337 35%,#be123c 65%,#ffe4e6 100%)}
+
+.vehicle-area{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:44px 12px 8px;z-index:2}
 .vehicle-tabs{display:flex;gap:6px}
 .vtab{padding:4px 12px;border-radius:10px;font-size:10px;font-weight:700;cursor:pointer;transition:all 0.2s;border:1px solid rgba(0,200,184,0.2);color:rgba(0,200,184,0.45);background:transparent}
 .vtab.on{background:rgba(0,200,184,0.12);color:#00c8b8;border-color:rgba(0,200,184,0.4)}
-.vsv{flex:1;display:flex;align-items:center;justify-content:center;width:100%;max-height:140px}
-.engine-btn{position:absolute;bottom:172px;left:50%;transform:translateX(-50%);width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,0.7);border:2px solid rgba(0,200,184,0.45);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;z-index:4}
+.vsv{flex:1;display:flex;align-items:center;justify-content:center;width:100%;max-height:120px}
+.engine-btn{width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,0.7);border:2px solid rgba(0,200,184,0.45);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;flex-shrink:0}
 @keyframes engPulse{0%,100%{box-shadow:0 0 14px rgba(0,200,184,0.4)}50%{box-shadow:0 0 36px rgba(0,200,184,0.85)}}
 .engine-on{animation:engPulse 0.9s ease-in-out infinite!important;border-color:rgba(0,200,184,0.8)!important;background:rgba(0,200,184,0.15)!important}
 
+/* CARE MEMBERS */
+.care-members{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.care-members::-webkit-scrollbar{display:none}
+.care-member{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.care-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;border:2px solid rgba(255,255,255,0.3);overflow:hidden;position:relative}
+.care-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.care-label{font-size:9px;color:rgba(255,255,255,0.5);font-weight:600;text-align:center;max-width:40px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.care-status{position:absolute;bottom:0;right:0;width:10px;height:10px;border-radius:50%;border:1.5px solid #be123c}
+.care-status.safe{background:#22c55e}
+.care-status.alert{background:#f59e0b}
+.care-status.sos{background:#ef4444}
+
 /* DOTS */
-.swipe-dots{display:flex;justify-content:center;gap:5px;padding:7px 0 5px;flex-shrink:0}
+.swipe-dots{display:flex;justify-content:center;gap:5px;padding:6px 0 4px;flex-shrink:0}
 .dot{width:6px;height:6px;border-radius:3px;background:rgba(0,0,0,0.15);transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1)}
 body.t-drift .dot{background:rgba(255,255,255,0.15)}
 .dot.on{width:20px}
@@ -135,478 +171,629 @@ body.t-drift .nav-item{color:rgba(255,255,255,0.25)}
 .nav-icon{font-size:20px;line-height:1}
 .nav-ctr{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;margin-top:-16px}
 
-/* EXPAND OVERLAY */
-.expand-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0);display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
-.expand-overlay.open{background:rgba(0,0,0,0.75);pointer-events:all}
-.expand-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom))}
-.expand-overlay.open .expand-panel{transform:translateY(0)}
-.exp-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:0 auto 16px}
-.exp-title{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px}
-.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+/* THEME PICKER */
+.theme-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.theme-opt{border-radius:12px;height:52px;cursor:pointer;border:2.5px solid transparent;transition:all 0.2s;position:relative;overflow:hidden}
+.theme-opt.sel{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,0.25)}
+.theme-opt-check{position:absolute;top:4px;right:4px;width:16px;height:16px;border-radius:50%;background:#7c3aed;display:none;align-items:center;justify-content:center}
+.theme-opt.sel .theme-opt-check{display:flex}
+.theme-opt-check i{font-size:8px;color:#fff}
+
+/* FIELD TOGGLE */
+.field-toggle-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#f9f9fb;border:1px solid #e9e9eb;border-radius:11px}
+.field-toggle-label{font-size:13px;font-weight:600;color:#111;display:flex;align-items:center;gap:8px}
+.field-toggle-label i{color:#7c3aed;width:16px}
+.ftoggle{width:38px;height:21px;border-radius:11px;background:#e5e7eb;border:none;cursor:pointer;position:relative;transition:background 0.25s;flex-shrink:0}
+.ftoggle.on{background:#7c3aed}
+.ftoggle::after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.ftoggle.on::after{transform:translateX(17px)}
+
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0);display:flex;align-items:flex-end;pointer-events:none;transition:background 0.3s}
+.modal-overlay.open{background:rgba(0,0,0,0.6);pointer-events:all}
+.modal-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.1,0.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom));max-height:88vh;overflow-y:auto}
+.modal-overlay.open .modal-panel{transform:translateY(0)}
+.modal-handle{width:40px;height:4px;background:#e5e7eb;border-radius:2px;margin:0 auto 16px}
+.modal-title{font-size:17px;font-weight:800;color:#111;margin-bottom:4px}
+.modal-sub{font-size:12px;color:#aaa;margin-bottom:16px}
+.modal-sect{font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;margin-top:14px}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
 .exp-opt{padding:14px;background:#f9f9fb;border:1px solid #e9e9eb;border-radius:14px;cursor:pointer;transition:all 0.18s;display:flex;align-items:center;gap:10px}
 .exp-opt:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3)}
 .exp-opt i{width:18px;font-size:15px;color:#7c3aed;flex-shrink:0}
 .exp-opt-t{font-size:13px;font-weight:600;color:#111}
 .exp-opt-s{font-size:11px;color:#aaa;margin-top:2px}
+.f-save{width:100%;padding:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:13px;color:#fff;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:4px}
+.f-cancel{width:100%;padding:12px;background:transparent;border:1.5px solid #e9e9eb;border-radius:13px;color:#888;font-family:'Inter',sans-serif;font-size:14px;cursor:pointer;margin-top:8px}
+.f-input{width:100%;padding:11px 13px;background:#f9f9fb;border:1.5px solid #e9e9eb;border-radius:11px;font-family:'Inter',sans-serif;font-size:14px;color:#111;outline:none;margin-bottom:10px;transition:border 0.2s}
+.f-input:focus{border-color:#7c3aed;background:#fff}
+.f-label{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;margin-bottom:6px;letter-spacing:0.4px}
 
 .toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,0.2)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@keyframes cardIn{from{opacity:0;transform:scale(0.96) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.card-in{animation:cardIn 0.42s cubic-bezier(0.34,1.2,0.64,1) forwards}
+@keyframes cardIn{from{opacity:0;transform:scale(0.96) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.card-in{animation:cardIn 0.38s cubic-bezier(0.34,1.2,0.64,1) forwards}
 </style>
 </head>
 <body class="t-personal">
 <div class="bg-orb bg-orb1"></div>
 <div class="bg-orb bg-orb2"></div>
-
 <div class="page">
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="topbar-logo">my<span class="logo-q">QRID</span></div>
-    <div class="topbar-right">
-      <div class="icon-btn" onclick="toggleSound()" id="soundBtn">
-        <i class="fas fa-volume-up" id="soundIco"></i>
-        <div class="sound-slash" id="soundSlash"></div>
-      </div>
-      <div class="icon-btn" onclick="location.href='/dashboard.html'"><i class="fas fa-home"></i></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-logo">my<span class="logo-q">QRID</span></div>
+  <div class="topbar-right">
+    <div class="icon-btn" onclick="toggleSound()" id="soundBtn" title="Sound">
+      <i class="fas fa-volume-up" id="soundIco"></i>
+    </div>
+    <div class="icon-btn" onclick="openThemePicker()" title="Theme">
+      <i class="fas fa-palette"></i>
+    </div>
+    <div class="icon-btn" onclick="location.href='/dashboard.html'" title="Home">
+      <i class="fas fa-home"></i>
     </div>
   </div>
-
-  <!-- TABS -->
-  <div class="card-tabs" id="cardTabs">
-    <div class="card-tab" onclick="goCard(0)">Personal</div>
-    <div class="card-tab" onclick="goCard(1)">Work</div>
-    <div class="card-tab" onclick="goCard(2)">Business</div>
-    <div class="card-tab" onclick="goCard(3)">Ea₹n</div>
-    <div class="card-tab" onclick="goCard(4)">Drift</div>
-  </div>
-
-  <!-- CARDS -->
-  <div class="cards-area">
-    <div class="track-wrap" id="trackWrap">
-      <div class="cards-track" id="track">
-
-        <!-- PERSONAL -->
-        <div class="card-slide"><div class="id-card card-in" onclick="openMenu(0)">
-          <div class="card-bg-placeholder card-personal-bg">
-            <div class="card-initials" id="ini-personal">P</div>
-          </div>
-          <div id="img-personal"></div>
-          <div class="card-overlay"></div>
-          <div class="card-badge" style="border-color:rgba(196,181,253,0.3)">✦ Personal</div>
-          <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('personal')"><i class="fas fa-camera"></i></div>
-          <div class="card-info">
-            <div class="card-name" id="nm-personal">Your Name</div>
-            <div class="card-role" id="rl-personal">Tap to set up your identity</div>
-            <div class="card-meta-row">
-              <div class="card-meta"><i class="fas fa-phone" style="color:#c4b5fd"></i><span id="ph-personal">Add phone</span></div>
-              <div class="card-meta"><i class="fas fa-envelope" style="color:#c4b5fd"></i><span id="em-personal">Add email</span></div>
-            </div>
-            <div class="card-actions">
-              <button class="card-btn card-personal-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
-              <button class="card-btn card-btn-ghost" onclick="event.stopPropagation();location.href='/settings.html'"><i class="fas fa-pen"></i> Edit</button>
-            </div>
-          </div>
-        </div></div>
-
-        <!-- WORK -->
-        <div class="card-slide"><div class="id-card card-in" onclick="openMenu(1)">
-          <div class="card-bg-placeholder card-work-bg">
-            <div class="card-initials" id="ini-work">W</div>
-          </div>
-          <div id="img-work"></div>
-          <div class="card-overlay"></div>
-          <div class="card-badge" style="border-color:rgba(147,197,253,0.3)">◈ Work</div>
-          <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('work')"><i class="fas fa-camera"></i></div>
-          <div class="card-info">
-            <div class="card-name" id="nm-work">Work Profile</div>
-            <div class="card-role" id="rl-work">Designation · Company</div>
-            <div class="card-meta-row">
-              <div class="card-meta"><i class="fas fa-briefcase" style="color:#93c5fd"></i><span id="co-work">Add company</span></div>
-              <div class="card-meta"><i class="fas fa-envelope" style="color:#93c5fd"></i><span id="em-work">Work email</span></div>
-            </div>
-            <div class="card-actions">
-              <button class="card-btn card-work-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
-              <button class="card-btn card-btn-ghost" onclick="event.stopPropagation();location.href='/settings.html?card=work'"><i class="fas fa-pen"></i> Edit</button>
-            </div>
-          </div>
-        </div></div>
-
-        <!-- BUSINESS -->
-        <div class="card-slide"><div class="id-card card-in" onclick="openMenu(2)">
-          <div class="card-bg-placeholder card-business-bg">
-            <div class="card-initials" id="ini-business">B</div>
-          </div>
-          <div id="img-business"></div>
-          <div class="card-overlay"></div>
-          <div class="card-badge" style="border-color:rgba(209,213,219,0.4)">⬡ Business</div>
-          <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('business')"><i class="fas fa-camera"></i></div>
-          <div class="card-info">
-            <div class="card-name" id="nm-business">Business Name</div>
-            <div class="card-role" id="rl-business">Your business tagline</div>
-            <div class="card-meta-row">
-              <div class="card-meta"><i class="fas fa-globe" style="color:#d1d5db"></i><span id="wb-business">Add website</span></div>
-              <div class="card-meta"><i class="fas fa-map-marker-alt" style="color:#d1d5db"></i><span id="lc-business">Location</span></div>
-            </div>
-            <div class="card-actions">
-              <button class="card-btn card-business-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
-              <button class="card-btn card-btn-ghost" onclick="event.stopPropagation();location.href='/settings.html?card=business'"><i class="fas fa-pen"></i> Edit</button>
-            </div>
-          </div>
-        </div></div>
-
-        <!-- EARN -->
-        <div class="card-slide"><div class="id-card card-in" onclick="openMenu(3)">
-          <div class="card-bg-placeholder card-earn-bg">
-            <div class="card-initials" id="ini-earn">E</div>
-          </div>
-          <div id="img-earn"></div>
-          <div class="card-overlay"></div>
-          <div class="card-badge" style="border-color:rgba(187,247,208,0.3)">₹ Ea₹n</div>
-          <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('earn')"><i class="fas fa-camera"></i></div>
-          <div class="card-info">
-            <div class="card-name" id="nm-earn">Creator Name</div>
-            <div class="card-role" id="rl-earn">Your expertise · What you offer</div>
-            <div class="card-meta-row">
-              <div class="card-meta"><i class="fas fa-indian-rupee-sign" style="color:#86efac"></i><span id="rt-earn">Set your rate</span></div>
-              <div class="card-meta"><i class="fas fa-calendar-check" style="color:#86efac"></i><span id="av-earn">Availability</span></div>
-            </div>
-            <div class="card-actions">
-              <button class="card-btn card-earn-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share</button>
-              <button class="card-btn card-btn-ghost" onclick="event.stopPropagation();location.href='/settings.html?card=earn'"><i class="fas fa-pen"></i> Edit</button>
-            </div>
-          </div>
-        </div></div>
-
-        <!-- DRIFT -->
-        <div class="card-slide"><div class="id-card card-in" onclick="openMenu(4)">
-          <div class="card-bg-placeholder card-drift-bg"></div>
-          <div id="img-drift"></div>
-          <!-- VEHICLE AREA -->
-          <div class="vehicle-area">
-            <div class="vehicle-tabs">
-              <div class="vtab on" id="vt-bike" onclick="event.stopPropagation();showV('bike')">🏍 Bike</div>
-              <div class="vtab" id="vt-car" onclick="event.stopPropagation();showV('car')">🏎 F1 Car</div>
-            </div>
-            <div class="vsv">
-              <!-- BIKE SVG -->
-              <svg id="svg-bike" viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg" style="width:92%">
-                <defs><filter id="gB"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-                <g fill="none" stroke="rgba(0,200,184,0.72)" stroke-width="2.2" filter="url(#gB)">
-                  <circle cx="82" cy="130" r="38" stroke-width="5" stroke="rgba(0,200,184,0.2)"/>
-                  <circle cx="82" cy="130" r="26"/>
-                  <circle cx="82" cy="130" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
-                  <circle cx="278" cy="130" r="38" stroke-width="5" stroke="rgba(0,200,184,0.2)"/>
-                  <circle cx="278" cy="130" r="26"/>
-                  <circle cx="278" cy="130" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
-                  <path d="M82 130 L162 60 L210 130 L278 130"/>
-                  <path d="M162 60 L202 48 L230 72 L180 80 Z" fill="rgba(0,200,184,0.08)"/>
-                  <path d="M146 64 L124 50 L143 48 L162 58"/>
-                  <path d="M228 72 L298 58 L304 94"/>
-                  <line x1="228" y1="72" x2="278" y2="130"/>
-                  <circle cx="174" cy="102" r="14"/>
-                  <circle cx="174" cy="102" r="5" fill="rgba(0,200,184,0.55)" stroke="none"/>
-                  <line x1="4" y1="96" x2="38" y2="96" stroke="rgba(0,200,184,0.18)" stroke-width="1"/>
-                  <line x1="4" y1="108" x2="26" y2="108" stroke="rgba(0,200,184,0.12)" stroke-width="1"/>
-                  <line x1="4" y1="120" x2="16" y2="120" stroke="rgba(0,200,184,0.08)" stroke-width="1"/>
-                </g>
-                <style>#svg-bike{animation:bkF 3.5s ease-in-out infinite}@keyframes bkF{0%,100%{transform:translateX(0) rotate(0deg)}25%{transform:translateX(5px) rotate(0.4deg)}75%{transform:translateX(-5px) rotate(-0.4deg)}}</style>
-              </svg>
-              <!-- F1 CAR SVG -->
-              <svg id="svg-car" viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg" style="width:92%;display:none">
-                <defs><filter id="gC"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-                <g fill="none" stroke="rgba(0,200,184,0.7)" stroke-width="1.8" filter="url(#gC)">
-                  <circle cx="80" cy="102" r="24" stroke-width="4" stroke="rgba(0,200,184,0.28)"/>
-                  <circle cx="80" cy="102" r="14"/>
-                  <circle cx="80" cy="102" r="5" fill="rgba(0,200,184,0.5)" stroke="none"/>
-                  <circle cx="280" cy="102" r="20" stroke-width="4" stroke="rgba(0,200,184,0.28)"/>
-                  <circle cx="280" cy="102" r="11"/>
-                  <circle cx="280" cy="102" r="4" fill="rgba(0,200,184,0.5)" stroke="none"/>
-                  <path d="M58,102 L58,74 L98,68 L138,60 L222,57 L272,64 L302,74 L302,102" stroke-width="2" fill="rgba(0,200,184,0.05)"/>
-                  <path d="M155,68 L165,44 L200,42 L210,66 Z" fill="rgba(0,200,184,0.12)" stroke="rgba(0,200,184,0.6)" stroke-width="1.5"/>
-                  <path d="M292,82 L342,78 L344,90 L297,94"/>
-                  <path d="M48,64 L12,56 L10,48 L50,54"/>
-                  <line x1="20" y1="52" x2="20" y2="66"/>
-                  <path d="M161,56 Q182,46 202,56" stroke="rgba(0,200,184,0.4)" stroke-width="3" fill="none"/>
-                  <path d="M138,68 L138,90 L222,90 L222,66" fill="rgba(0,200,184,0.06)" stroke="rgba(0,200,184,0.35)" stroke-width="1"/>
-                  <line x1="56" y1="74" x2="38" y2="70" stroke="rgba(0,200,184,0.5)" stroke-width="2"/>
-                  <line x1="2" y1="82" x2="32" y2="82" stroke="rgba(0,200,184,0.2)" stroke-width="1"/>
-                  <line x1="2" y1="92" x2="20" y2="92" stroke="rgba(0,200,184,0.13)" stroke-width="1"/>
-                  <path d="M58,102 L302,102" stroke-width="2.5"/>
-                  <path d="M58,102 L48,110 L312,110 L302,102"/>
-                </g>
-                <style>#svg-car{animation:f1F 2.5s ease-in-out infinite}@keyframes f1F{0%,100%{transform:translateX(0)}33%{transform:translateX(6px)}66%{transform:translateX(-3px)}}</style>
-              </svg>
-            </div>
-          </div>
-          <div class="engine-btn" id="engBtn" onclick="event.stopPropagation();toggleEngine()">
-            <i class="fas fa-power-off" id="engIco" style="color:#00c8b8;font-size:17px"></i>
-          </div>
-          <div class="card-overlay" style="background:linear-gradient(to bottom,transparent 0%,transparent 45%,rgba(0,0,0,0.8) 75%,rgba(0,0,0,0.97) 100%)"></div>
-          <div class="card-badge" style="border-color:rgba(0,200,184,0.35);color:#00c8b8">🏁 Drift</div>
-          <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('drift')" style="border-color:rgba(0,200,184,0.3)"><i class="fas fa-camera"></i></div>
-          <div class="card-info">
-            <div class="drift-badge-row"><i class="fas fa-flag-checkered"></i> RIDER IDENTITY</div>
-            <div class="card-name drift-name" id="nm-drift">YOUR RIDER NAME</div>
-            <div class="card-role drift-role" id="rl-drift">Set your machine</div>
-            <div class="card-actions" style="margin-top:10px">
-              <button class="card-btn card-drift-btn" onclick="event.stopPropagation();shareCard()"><i class="fas fa-share-nodes"></i> Share Ride</button>
-              <button class="card-btn card-btn-ghost" style="border-color:rgba(0,200,184,0.2)" onclick="event.stopPropagation();location.href='/drift.html'"><i class="fas fa-flag-checkered"></i> Open</button>
-            </div>
-          </div>
-        </div></div>
-
-      </div>
-    </div>
-    <!-- DOTS -->
-    <div class="swipe-dots" id="dots">
-      <div class="dot on" style="background:#a78bfa"></div>
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-    </div>
-  </div>
-
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
-    <a href="/links.html" class="nav-item"><span class="nav-icon">🔗</span><span>Links</span></a>
-    <a href="/cards.html" class="nav-item" style="flex:none;width:62px">
-      <div class="nav-ctr" id="navCtr" style="background:linear-gradient(135deg,#a78bfa,#c4b5fd);box-shadow:0 0 18px rgba(167,139,250,0.4)">
-        <i class="fas fa-id-card" style="color:#fff;font-size:18px"></i>
-      </div>
-    </a>
-    <a href="#" class="nav-item" onclick="shareCard()"><span class="nav-icon">📤</span><span>Share</span></a>
-    <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
-  </nav>
 </div>
 
-<!-- EXPAND OVERLAY -->
-<div class="expand-overlay" id="expOverlay" onclick="closeMenu()">
-  <div class="expand-panel" onclick="event.stopPropagation()" id="expPanel">
-    <div class="exp-handle"></div>
-    <div class="exp-title" id="expTitle">Personal Card</div>
-    <div class="exp-grid">
-      <div class="exp-opt" onclick="location.href='/settings.html';closeMenu()"><i class="fas fa-pen"></i><div><div class="exp-opt-t">Edit Card</div><div class="exp-opt-s">Update info</div></div></div>
-      <div class="exp-opt" onclick="shareCard();closeMenu()"><i class="fas fa-share-nodes"></i><div><div class="exp-opt-t">Share Card</div><div class="exp-opt-s">WhatsApp, QR</div></div></div>
-      <div class="exp-opt" onclick="location.href='/share.html';closeMenu()"><i class="fas fa-qrcode"></i><div><div class="exp-opt-t">Download QR</div><div class="exp-opt-s">Print ready</div></div></div>
-      <div class="exp-opt" onclick="viewProfile();closeMenu()"><i class="fas fa-eye"></i><div><div class="exp-opt-t">View Profile</div><div class="exp-opt-s">Public view</div></div></div>
-      <div class="exp-opt" onclick="saveVCF();closeMenu()"><i class="fas fa-address-card"></i><div><div class="exp-opt-t">Save Contact</div><div class="exp-opt-s">Download VCF</div></div></div>
-      <div class="exp-opt" onclick="showToast('Pro themes coming soon!');closeMenu()"><i class="fas fa-palette"></i><div><div class="exp-opt-t">Change Theme</div><div class="exp-opt-s">Pro feature</div></div></div>
+<!-- TABS -->
+<div class="card-tabs" id="cardTabs">
+  <div class="card-tab" onclick="goCard(0)">Personal</div>
+  <div class="card-tab" onclick="goCard(1)">Work</div>
+  <div class="card-tab" onclick="goCard(2)">myQRID+</div>
+  <div class="card-tab" onclick="goCard(3)">Drift</div>
+  <div class="card-tab" onclick="goCard(4)">Family Care</div>
+</div>
+
+<!-- CARDS -->
+<div class="cards-area">
+<div class="track-wrap" id="trackWrap">
+<div class="cards-track" id="track">
+
+<!-- 1. PERSONAL -->
+<div class="card-slide">
+<div class="id-card card-in" id="card-personal">
+  <!-- 60% IMAGE -->
+  <div class="card-img-zone card-personal-bg">
+    <div class="card-initials" id="ini-personal">P</div>
+    <div id="img-personal"></div>
+    <div class="card-img-overlay"></div>
+    <div class="card-badge" style="border-color:rgba(196,181,253,0.3)">✦ Personal</div>
+    <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('personal')"><i class="fas fa-camera"></i></div>
+  </div>
+  <!-- 40% CONTENT -->
+  <div class="card-content cc-personal">
+    <div class="c-name" id="nm-personal">Your Name</div>
+    <div class="c-role" id="rl-personal">Add your tagline</div>
+    <div class="c-divider"></div>
+    <div class="c-metas">
+      <div class="c-meta" id="f-personal-phone"><i class="fas fa-phone"></i><span id="ph-personal">Add phone</span></div>
+      <div class="c-meta" id="f-personal-email"><i class="fas fa-envelope"></i><span id="em-personal">Add email</span></div>
+      <div class="c-meta" id="f-personal-web"><i class="fas fa-globe"></i><span id="wb-personal">myqrid.in/—</span></div>
+      <div class="c-meta" id="f-personal-ig"><i class="fab fa-instagram"></i><span id="ig-personal">Instagram</span></div>
+    </div>
+    <div class="c-actions">
+      <button class="c-btn btn-personal" onclick="event.stopPropagation();shareCard(0)">
+        <svg class="apple-share-svg" viewBox="0 0 18 22" fill="none"><rect x="1" y="8" width="16" height="13" rx="2.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M9 13V2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 4.5L9 2L12 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Share
+      </button>
+      <button class="c-btn c-btn-ghost" onclick="event.stopPropagation();openEditModal(0)"><i class="fas fa-pen"></i> Edit</button>
+      <button class="c-btn c-btn-ghost" onclick="event.stopPropagation();saveVCF(0)"><i class="fas fa-address-card"></i></button>
     </div>
   </div>
+</div>
+</div>
+
+<!-- 2. WORK -->
+<div class="card-slide">
+<div class="id-card card-in" id="card-work">
+  <div class="card-img-zone card-work-bg">
+    <div class="card-initials" id="ini-work">W</div>
+    <div id="img-work"></div>
+    <div class="card-img-overlay"></div>
+    <div class="card-badge" style="border-color:rgba(147,197,253,0.3)">◈ Work</div>
+    <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('work')"><i class="fas fa-camera"></i></div>
+  </div>
+  <div class="card-content cc-work">
+    <div class="c-name" id="nm-work">Work Profile</div>
+    <div class="c-role" id="rl-work">Designation · Company</div>
+    <div class="c-divider"></div>
+    <div class="c-metas">
+      <div class="c-meta" id="f-work-company"><i class="fas fa-briefcase"></i><span id="co-work">Add company</span></div>
+      <div class="c-meta" id="f-work-email"><i class="fas fa-envelope"></i><span id="em-work">Work email</span></div>
+      <div class="c-meta" id="f-work-phone"><i class="fas fa-phone"></i><span id="ph-work">Work phone</span></div>
+      <div class="c-meta" id="f-work-linkedin"><i class="fab fa-linkedin"></i><span id="li-work">LinkedIn</span></div>
+    </div>
+    <div class="c-actions">
+      <button class="c-btn btn-work" onclick="event.stopPropagation();shareCard(1)">
+        <svg class="apple-share-svg" viewBox="0 0 18 22" fill="none"><rect x="1" y="8" width="16" height="13" rx="2.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M9 13V2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 4.5L9 2L12 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Share
+      </button>
+      <button class="c-btn c-btn-ghost" onclick="event.stopPropagation();openEditModal(1)"><i class="fas fa-pen"></i> Edit</button>
+      <button class="c-btn c-btn-ghost" onclick="event.stopPropagation();saveVCF(1)"><i class="fas fa-address-card"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 3. myQRID+ (user sees Ea₹n, visitor sees Digital Shop) -->
+<div class="card-slide">
+<div class="id-card card-in" id="card-shop">
+  <div class="card-img-zone card-shop-bg">
+    <div class="card-initials" id="ini-shop">₹</div>
+    <div id="img-shop"></div>
+    <div class="card-img-overlay"></div>
+    <div class="card-badge" style="border-color:rgba(252,211,77,0.4)">₹ myQRID+ Ea₹n</div>
+    <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('shop')"><i class="fas fa-camera"></i></div>
+  </div>
+  <div class="card-content cc-shop">
+    <div class="c-name" id="nm-shop">Creator Name</div>
+    <div class="c-role" id="rl-shop">Your expertise · What you offer</div>
+    <div class="c-divider"></div>
+    <div class="c-metas">
+      <div class="c-meta" id="f-shop-rate"><i class="fas fa-indian-rupee-sign"></i><span id="rt-shop">Set your rate</span></div>
+      <div class="c-meta" id="f-shop-avail"><i class="fas fa-calendar-check"></i><span id="av-shop">Availability</span></div>
+      <div class="c-meta" id="f-shop-product"><i class="fas fa-box"></i><span id="pr-shop">Digital products</span></div>
+      <div class="c-meta" id="f-shop-upi"><i class="fas fa-qrcode"></i><span id="upi-shop">UPI / Pay link</span></div>
+    </div>
+    <div class="c-actions">
+      <button class="c-btn btn-shop" onclick="event.stopPropagation();shareCard(2)">
+        <svg class="apple-share-svg" viewBox="0 0 18 22" fill="none"><rect x="1" y="8" width="16" height="13" rx="2.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M9 13V2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 4.5L9 2L12 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Share
+      </button>
+      <button class="c-btn c-btn-ghost" onclick="event.stopPropagation();openEditModal(2)"><i class="fas fa-pen"></i> Edit</button>
+      <button class="c-btn c-btn-ghost" onclick="event.stopPropagation();openShopLinks()"><i class="fas fa-store"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 4. DRIFT -->
+<div class="card-slide">
+<div class="id-card card-in" id="card-drift">
+  <!-- 60% = vehicle animation area -->
+  <div class="card-img-zone card-drift-bg">
+    <div id="img-drift"></div>
+    <div class="vehicle-area">
+      <div class="vehicle-tabs">
+        <div class="vtab on" id="vt-bike" onclick="event.stopPropagation();showV('bike')">🏍 Bike</div>
+        <div class="vtab" id="vt-car" onclick="event.stopPropagation();showV('car')">🏎 F1</div>
+      </div>
+      <div class="vsv">
+        <svg id="svg-bike" viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg" style="width:92%">
+          <defs><filter id="gB"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <g fill="none" stroke="rgba(0,200,184,0.72)" stroke-width="2.2" filter="url(#gB)">
+            <circle cx="82" cy="130" r="38" stroke-width="5" stroke="rgba(0,200,184,0.2)"/>
+            <circle cx="82" cy="130" r="26"/><circle cx="82" cy="130" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
+            <circle cx="278" cy="130" r="38" stroke-width="5" stroke="rgba(0,200,184,0.2)"/>
+            <circle cx="278" cy="130" r="26"/><circle cx="278" cy="130" r="6" fill="rgba(0,200,184,0.45)" stroke="none"/>
+            <path d="M82 130 L162 60 L210 130 L278 130"/>
+            <path d="M162 60 L202 48 L230 72 L180 80 Z" fill="rgba(0,200,184,0.08)"/>
+            <path d="M146 64 L124 50 L143 48 L162 58"/>
+            <path d="M228 72 L298 58 L304 94"/>
+            <line x1="228" y1="72" x2="278" y2="130"/>
+            <circle cx="174" cy="102" r="14"/><circle cx="174" cy="102" r="5" fill="rgba(0,200,184,0.55)" stroke="none"/>
+          </g>
+          <style>#svg-bike{animation:bkF 3.5s ease-in-out infinite}@keyframes bkF{0%,100%{transform:translateX(0) rotate(0deg)}25%{transform:translateX(5px) rotate(0.4deg)}75%{transform:translateX(-5px) rotate(-0.4deg)}}</style>
+        </svg>
+        <svg id="svg-car" viewBox="0 0 360 140" xmlns="http://www.w3.org/2000/svg" style="width:92%;display:none">
+          <defs><filter id="gC"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <g fill="none" stroke="rgba(0,200,184,0.7)" stroke-width="1.8" filter="url(#gC)">
+            <circle cx="80" cy="102" r="24" stroke-width="4" stroke="rgba(0,200,184,0.28)"/>
+            <circle cx="80" cy="102" r="14"/><circle cx="80" cy="102" r="5" fill="rgba(0,200,184,0.5)" stroke="none"/>
+            <circle cx="280" cy="102" r="20" stroke-width="4" stroke="rgba(0,200,184,0.28)"/>
+            <circle cx="280" cy="102" r="11"/><circle cx="280" cy="102" r="4" fill="rgba(0,200,184,0.5)" stroke="none"/>
+            <path d="M58,102 L58,74 L98,68 L138,60 L222,57 L272,64 L302,74 L302,102" stroke-width="2" fill="rgba(0,200,184,0.05)"/>
+            <path d="M155,68 L165,44 L200,42 L210,66 Z" fill="rgba(0,200,184,0.12)" stroke="rgba(0,200,184,0.6)" stroke-width="1.5"/>
+            <path d="M292,82 L342,78 L344,90 L297,94"/>
+            <path d="M48,64 L12,56 L10,48 L50,54"/>
+          </g>
+          <style>#svg-car{animation:f1F 2.5s ease-in-out infinite}@keyframes f1F{0%,100%{transform:translateX(0)}33%{transform:translateX(6px)}66%{transform:translateX(-3px)}}</style>
+        </svg>
+      </div>
+      <div class="engine-btn" id="engBtn" onclick="event.stopPropagation();toggleEngine()">
+        <i class="fas fa-power-off" id="engIco" style="color:#00c8b8;font-size:16px"></i>
+      </div>
+    </div>
+    <div class="card-badge" style="border-color:rgba(0,200,184,0.35);color:#00c8b8">🏁 Drift</div>
+    <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('drift')" style="border-color:rgba(0,200,184,0.3)"><i class="fas fa-camera"></i></div>
+  </div>
+  <div class="card-content cc-drift">
+    <div class="c-name" id="nm-drift">RIDER NAME</div>
+    <div class="c-role" id="rl-drift">Set your machine</div>
+    <div class="c-divider"></div>
+    <div class="c-metas">
+      <div class="c-meta" id="f-drift-blood"><i class="fas fa-droplet"></i><span id="bl-drift">Blood Group</span></div>
+      <div class="c-meta" id="f-drift-bike"><i class="fas fa-motorcycle"></i><span id="bk-drift">Your ride</span></div>
+      <div class="c-meta" id="f-drift-ec"><i class="fas fa-phone-volume"></i><span id="ec-drift">Emergency contact</span></div>
+    </div>
+    <div class="c-actions">
+      <button class="c-btn btn-drift" onclick="event.stopPropagation();shareCard(3)">
+        <svg class="apple-share-svg" viewBox="0 0 18 22" fill="none"><rect x="1" y="8" width="16" height="13" rx="2.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M9 13V2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 4.5L9 2L12 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Share
+      </button>
+      <button class="c-btn c-btn-ghost" style="border-color:rgba(0,200,184,0.2)" onclick="event.stopPropagation();openEditModal(3)"><i class="fas fa-pen"></i> Edit</button>
+      <button class="c-btn c-btn-ghost" style="border-color:rgba(0,200,184,0.2)" onclick="event.stopPropagation();location.href='/drift.html'"><i class="fas fa-flag-checkered"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- 5. FAMILY CARE -->
+<div class="card-slide">
+<div class="id-card card-in" id="card-care">
+  <div class="card-img-zone card-care-bg">
+    <div class="card-initials" id="ini-care">🛡️</div>
+    <div id="img-care"></div>
+    <div class="card-img-overlay"></div>
+    <div class="card-badge" style="border-color:rgba(253,164,175,0.4)">🛡️ Family Care</div>
+    <div class="card-edit-photo" onclick="event.stopPropagation();trigPhoto('care')"><i class="fas fa-camera"></i></div>
+    <!-- Family members in image zone -->
+    <div style="position:absolute;bottom:10px;left:12px;right:12px;z-index:3">
+      <div style="font-size:9px;color:rgba(255,255,255,0.5);font-weight:600;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.4px">Family Members</div>
+      <div class="care-members" id="careMembers">
+        <div class="care-member" onclick="event.stopPropagation();openCareMember('me')">
+          <div class="care-avatar" style="background:linear-gradient(135deg,#f43f5e,#fb7185)">
+            <span id="care-ini-me">M</span>
+            <div class="care-status safe"></div>
+          </div>
+          <div class="care-label">Me</div>
+        </div>
+        <div class="care-member" onclick="event.stopPropagation();addCareMember()">
+          <div class="care-avatar" style="background:rgba(255,255,255,0.1);border:2px dashed rgba(255,255,255,0.3)">
+            <i class="fas fa-plus" style="font-size:14px;color:rgba(255,255,255,0.4)"></i>
+          </div>
+          <div class="care-label">Add</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-content cc-care">
+    <div class="c-name" id="nm-care">Family Shield</div>
+    <div class="c-role" id="rl-care">myQRID+ Family Care</div>
+    <div class="c-divider"></div>
+    <div class="c-metas">
+      <div class="c-meta" id="f-care-blood"><i class="fas fa-droplet"></i><span id="bl-care">Blood Group</span></div>
+      <div class="c-meta" id="f-care-allergy"><i class="fas fa-triangle-exclamation"></i><span id="al-care">Allergies</span></div>
+      <div class="c-meta" id="f-care-ec1"><i class="fas fa-phone-volume"></i><span id="ec1-care">Emergency Contact 1</span></div>
+      <div class="c-meta" id="f-care-ec2"><i class="fas fa-phone"></i><span id="ec2-care">Emergency Contact 2</span></div>
+    </div>
+    <div class="c-actions">
+      <button class="c-btn btn-care" onclick="event.stopPropagation();shareCard(4)">
+        <svg class="apple-share-svg" viewBox="0 0 18 22" fill="none"><rect x="1" y="8" width="16" height="13" rx="2.5" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M9 13V2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 4.5L9 2L12 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Share
+      </button>
+      <button class="c-btn c-btn-ghost" onclick="event.stopPropagation();openEditModal(4)"><i class="fas fa-pen"></i> Edit</button>
+      <button class="c-btn c-btn-ghost" onclick="event.stopPropagation();trigSOS()"><i class="fas fa-sos" style="color:#f43f5e"></i></button>
+    </div>
+  </div>
+</div>
+</div>
+
+</div><!-- end track -->
+</div><!-- end track-wrap -->
+
+<!-- DOTS -->
+<div class="swipe-dots" id="dots">
+  <div class="dot on" style="background:#a78bfa"></div>
+  <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+</div>
+</div><!-- end cards-area -->
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="/dashboard.html" class="nav-item"><span class="nav-icon">🏠</span><span>Home</span></a>
+  <a href="/links.html" class="nav-item"><span class="nav-icon">🔗</span><span>Links</span></a>
+  <a href="/cards.html" class="nav-item" style="flex:none;width:62px">
+    <div class="nav-ctr" id="navCtr" style="background:linear-gradient(135deg,#a78bfa,#c4b5fd);box-shadow:0 0 18px rgba(167,139,250,0.4)">
+      <i class="fas fa-id-card" style="color:#fff;font-size:18px"></i>
+    </div>
+  </a>
+  <a href="#" class="nav-item" onclick="shareCard(cur)"><span class="nav-icon">📤</span><span>Share</span></a>
+  <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+</nav>
+</div><!-- end page -->
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeEditModal()">
+<div class="modal-panel" onclick="event.stopPropagation()">
+  <div class="modal-handle"></div>
+  <div class="modal-title" id="editTitle">Edit Card</div>
+  <div class="modal-sub" id="editSub">Update your info</div>
+  <div id="editFields"></div>
+  <div class="modal-sect">Show / Hide Fields</div>
+  <div class="field-toggle-list" id="editToggles"></div>
+  <button class="f-save" onclick="saveEditModal()">Save Changes</button>
+  <button class="f-cancel" onclick="closeEditModal()">Cancel</button>
+</div>
+</div>
+
+<!-- THEME PICKER MODAL -->
+<div class="modal-overlay" id="themeModal" onclick="if(event.target===this)closeThemePicker()">
+<div class="modal-panel" onclick="event.stopPropagation()">
+  <div class="modal-handle"></div>
+  <div class="modal-title">Card Theme</div>
+  <div class="modal-sub" id="themeCardLabel">Choose a style for this card</div>
+  <div class="modal-sect">Preset Themes</div>
+  <div class="theme-picker" id="themePicker"></div>
+  <div class="modal-sect">Layout</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px" id="layoutPicker">
+    <div class="exp-opt sel" id="lay-portrait" onclick="setLayout('portrait')"><i class="fas fa-portrait" style="color:#7c3aed"></i><div><div class="exp-opt-t">Portrait</div><div class="exp-opt-s">60/40 fusion</div></div></div>
+    <div class="exp-opt" id="lay-classic" onclick="setLayout('classic')"><i class="fas fa-id-card" style="color:#aaa"></i><div><div class="exp-opt-t">Classic</div><div class="exp-opt-s">Full overlay</div></div></div>
+  </div>
+  <div class="modal-sect">Font</div>
+  <div style="display:flex;gap:8px;margin-bottom:14px" id="fontPicker">
+    <div class="exp-opt sel" id="font-inter" onclick="setFont('Inter')" style="flex:1"><div><div class="exp-opt-t" style="font-family:Inter">Inter</div><div class="exp-opt-s">Modern</div></div></div>
+    <div class="exp-opt" id="font-mono" onclick="setFont('monospace')" style="flex:1"><div><div class="exp-opt-t" style="font-family:monospace">Mono</div><div class="exp-opt-s">Technical</div></div></div>
+    <div class="exp-opt" id="font-serif" onclick="setFont('Georgia')" style="flex:1"><div><div class="exp-opt-t" style="font-family:Georgia">Serif</div><div class="exp-opt-s">Classic</div></div></div>
+  </div>
+  <button class="f-save" onclick="applyTheme()">Apply Theme</button>
+  <button class="f-cancel" onclick="closeThemePicker()">Cancel</button>
+</div>
+</div>
+
+<!-- SHOP LINKS MODAL -->
+<div class="modal-overlay" id="shopModal" onclick="if(event.target===this)this.classList.remove('open')">
+<div class="modal-panel" onclick="event.stopPropagation()">
+  <div class="modal-handle"></div>
+  <div class="modal-title">myQRID+ Ea₹n</div>
+  <div class="modal-sub">Your monetization links — visible as Digital Shop to visitors</div>
+  <div class="exp-grid">
+    <div class="exp-opt" onclick="openLink(localStorage.getItem('shop_booking')||'/earn.html')"><i class="fas fa-calendar-check"></i><div><div class="exp-opt-t">Book Session</div><div class="exp-opt-s">Paid consultation</div></div></div>
+    <div class="exp-opt" onclick="openLink(localStorage.getItem('shop_product')||'/earn.html')"><i class="fas fa-box"></i><div><div class="exp-opt-t">My Products</div><div class="exp-opt-s">Digital downloads</div></div></div>
+    <div class="exp-opt" onclick="openLink(localStorage.getItem('shop_upi')||'')"><i class="fas fa-indian-rupee-sign"></i><div><div class="exp-opt-t">Pay Me</div><div class="exp-opt-s">UPI / Direct pay</div></div></div>
+    <div class="exp-opt" onclick="openLink(localStorage.getItem('shop_course')||'/earn.html')"><i class="fas fa-graduation-cap"></i><div><div class="exp-opt-t">My Course</div><div class="exp-opt-s">Learn from me</div></div></div>
+  </div>
+  <button class="f-cancel" onclick="document.getElementById('shopModal').classList.remove('open')">Close</button>
+</div>
 </div>
 
 <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhoto(event)">
 <div class="toast" id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════════
-   CARD CONFIG
-══════════════════════════════════════════ */
-const CARDS=[
-  {id:'personal', theme:'t-personal', dot:'#a78bfa', label:'Personal Card',
-   grad:'linear-gradient(135deg,#a78bfa,#c4b5fd)', navBg:'linear-gradient(135deg,#a78bfa,#c4b5fd)', navGlow:'rgba(167,139,250,0.4)', tabColor:'#fff', tabText:'#2e1065'},
-  {id:'work',     theme:'t-work',     dot:'#60a5fa', label:'Work Card',
-   grad:'linear-gradient(135deg,#60a5fa,#93c5fd)', navBg:'linear-gradient(135deg,#60a5fa,#93c5fd)', navGlow:'rgba(96,165,250,0.4)',  tabColor:'#fff', tabText:'#0c1a3a'},
-  {id:'business', theme:'t-business', dot:'#9ca3af', label:'Business Card',
-   grad:'linear-gradient(135deg,#6b7280,#e5e7eb)', navBg:'linear-gradient(135deg,#6b7280,#d1d5db)', navGlow:'rgba(107,114,128,0.4)', tabColor:'#fff', tabText:'#111'},
-  {id:'earn',     theme:'t-earn',     dot:'#4ade80', label:'Earn Card',
-   grad:'linear-gradient(135deg,#4ade80,#bbf7d0)', navBg:'linear-gradient(135deg,#4ade80,#bbf7d0)', navGlow:'rgba(74,222,128,0.4)',  tabColor:'#111', tabText:'#064e3b'},
-  {id:'drift',    theme:'t-drift',    dot:'#00c8b8', label:'Drift Card',
-   grad:'linear-gradient(135deg,#00c8b8,#006858)', navBg:'linear-gradient(135deg,#00c8b8,#00a898)', navGlow:'rgba(0,200,184,0.4)',   tabColor:'#000', tabText:'#000'},
+/* ══ CARD CONFIG ══ */
+var CARDS=[
+  {id:'personal',theme:'t-personal',dot:'#a78bfa',label:'Personal',
+   grad:'linear-gradient(135deg,#a78bfa,#c4b5fd)',navBg:'linear-gradient(135deg,#a78bfa,#c4b5fd)',navGlow:'rgba(167,139,250,0.4)',tabText:'#2e1065'},
+  {id:'work',theme:'t-work',dot:'#60a5fa',label:'Work',
+   grad:'linear-gradient(135deg,#60a5fa,#93c5fd)',navBg:'linear-gradient(135deg,#60a5fa,#93c5fd)',navGlow:'rgba(96,165,250,0.4)',tabText:'#0c1a3a'},
+  {id:'shop',theme:'t-shop',dot:'#f59e0b',label:'myQRID+',
+   grad:'linear-gradient(135deg,#f59e0b,#fbbf24)',navBg:'linear-gradient(135deg,#f59e0b,#fbbf24)',navGlow:'rgba(245,158,11,0.4)',tabText:'#78350f'},
+  {id:'drift',theme:'t-drift',dot:'#00c8b8',label:'Drift',
+   grad:'linear-gradient(135deg,#00c8b8,#006858)',navBg:'linear-gradient(135deg,#00c8b8,#00a898)',navGlow:'rgba(0,200,184,0.4)',tabText:'#000'},
+  {id:'care',theme:'t-care',dot:'#f43f5e',label:'Family Care',
+   grad:'linear-gradient(135deg,#fb7185,#f43f5e)',navBg:'linear-gradient(135deg,#fb7185,#f43f5e)',navGlow:'rgba(244,63,94,0.4)',tabText:'#fff'},
 ];
 
-let cur=0, photoTarget=null, soundOn=localStorage.getItem('sound')!=='off', engineOn=false, engSrcs=[];
+/* CARD EDIT CONFIG */
+var CARD_FIELDS={
+  personal:[
+    {key:'name',label:'Full Name',icon:'fas fa-user',elem:'nm-personal',storage:'name'},
+    {key:'role',label:'Tagline / Bio',icon:'fas fa-pen',elem:'rl-personal',storage:'personal_role'},
+    {key:'phone',label:'Phone',icon:'fas fa-phone',elem:'ph-personal',storage:'phone',toggle:'f-personal-phone',href:'tel:'},
+    {key:'email',label:'Email',icon:'fas fa-envelope',elem:'em-personal',storage:'email',toggle:'f-personal-email',href:'mailto:'},
+    {key:'web',label:'Website',icon:'fas fa-globe',elem:'wb-personal',storage:'website',toggle:'f-personal-web',href:''},
+    {key:'ig',label:'Instagram',icon:'fab fa-instagram',elem:'ig-personal',storage:'instagram',toggle:'f-personal-ig',href:'https://instagram.com/'},
+  ],
+  work:[
+    {key:'name',label:'Your Name',icon:'fas fa-user',elem:'nm-work',storage:'name'},
+    {key:'role',label:'Designation · Company',icon:'fas fa-briefcase',elem:'rl-work',storage:'work_role'},
+    {key:'company',label:'Company',icon:'fas fa-building',elem:'co-work',storage:'work_company',toggle:'f-work-company'},
+    {key:'email',label:'Work Email',icon:'fas fa-envelope',elem:'em-work',storage:'work_email',toggle:'f-work-email',href:'mailto:'},
+    {key:'phone',label:'Work Phone',icon:'fas fa-phone',elem:'ph-work',storage:'work_phone',toggle:'f-work-phone',href:'tel:'},
+    {key:'linkedin',label:'LinkedIn URL',icon:'fab fa-linkedin',elem:'li-work',storage:'linkedin',toggle:'f-work-linkedin',href:''},
+  ],
+  shop:[
+    {key:'name',label:'Creator / Shop Name',icon:'fas fa-store',elem:'nm-shop',storage:'shop_name'},
+    {key:'role',label:'What you offer',icon:'fas fa-pen',elem:'rl-shop',storage:'shop_role'},
+    {key:'rate',label:'Your Rate (e.g. ₹500/hr)',icon:'fas fa-indian-rupee-sign',elem:'rt-shop',storage:'shop_rate',toggle:'f-shop-rate'},
+    {key:'avail',label:'Availability',icon:'fas fa-calendar',elem:'av-shop',storage:'shop_avail',toggle:'f-shop-avail'},
+    {key:'product',label:'Product / Course URL',icon:'fas fa-box',elem:'pr-shop',storage:'shop_product',toggle:'f-shop-product',href:''},
+    {key:'upi',label:'UPI / Pay Link',icon:'fas fa-qrcode',elem:'upi-shop',storage:'shop_upi',toggle:'f-shop-upi',href:''},
+  ],
+  drift:[
+    {key:'name',label:'Rider Name',icon:'fas fa-user',elem:'nm-drift',storage:'drift_name'},
+    {key:'role',label:'Your machine / tagline',icon:'fas fa-motorcycle',elem:'rl-drift',storage:'drift_role'},
+    {key:'blood',label:'Blood Group',icon:'fas fa-droplet',elem:'bl-drift',storage:'drift_blood',toggle:'f-drift-blood'},
+    {key:'bike',label:'Your Ride (model)',icon:'fas fa-motorcycle',elem:'bk-drift',storage:'drift_bike',toggle:'f-drift-bike'},
+    {key:'ec',label:'Emergency Contact',icon:'fas fa-phone-volume',elem:'ec-drift',storage:'drift_ec',toggle:'f-drift-ec',href:'tel:'},
+  ],
+  care:[
+    {key:'name',label:'Family Name / Title',icon:'fas fa-house-user',elem:'nm-care',storage:'care_name'},
+    {key:'role',label:'Tagline',icon:'fas fa-pen',elem:'rl-care',storage:'care_role'},
+    {key:'blood',label:'Blood Group',icon:'fas fa-droplet',elem:'bl-care',storage:'care_blood',toggle:'f-care-blood'},
+    {key:'allergy',label:'Allergies',icon:'fas fa-triangle-exclamation',elem:'al-care',storage:'care_allergy',toggle:'f-care-allergy'},
+    {key:'ec1',label:'Emergency Contact 1',icon:'fas fa-phone-volume',elem:'ec1-care',storage:'care_ec1',toggle:'f-care-ec1',href:'tel:'},
+    {key:'ec2',label:'Emergency Contact 2',icon:'fas fa-phone',elem:'ec2-care',storage:'care_ec2',toggle:'f-care-ec2',href:'tel:'},
+  ],
+};
 
-/* ══════════════════════════════════════════
-   SOUND SYSTEM — real files + Web Audio fallback
-══════════════════════════════════════════ */
-let _ctx=null;
-function ctx(){if(!_ctx)_ctx=new(window.AudioContext||window.webkitAudioContext)();return _ctx;}
+/* CARD THEMES (6 presets per card) */
+var CARD_THEMES={
+  personal:[
+    {name:'Deep Purple',imgGrad:'linear-gradient(145deg,#3d1f6e,#5b2fa0,#7c4dcc,#e8d5ff)',cc:'linear-gradient(160deg,#3d1f6e,#5b2fa0)'},
+    {name:'Midnight',imgGrad:'linear-gradient(145deg,#0a0a1a,#1a0a2e,#2d1b4e,#c4b5fd)',cc:'linear-gradient(160deg,#0a0a1a,#1a0a2e)'},
+    {name:'Rose',imgGrad:'linear-gradient(145deg,#4c0519,#881337,#be123c,#fecdd3)',cc:'linear-gradient(160deg,#4c0519,#881337)'},
+    {name:'Ocean',imgGrad:'linear-gradient(145deg,#0c4a6e,#0369a1,#0ea5e9,#bae6fd)',cc:'linear-gradient(160deg,#0c4a6e,#0369a1)'},
+    {name:'Carbon',imgGrad:'linear-gradient(145deg,#111,#222,#444,#e5e7eb)',cc:'linear-gradient(160deg,#111,#222)'},
+    {name:'Forest',imgGrad:'linear-gradient(145deg,#052e16,#14532d,#16a34a,#bbf7d0)',cc:'linear-gradient(160deg,#052e16,#14532d)'},
+  ],
+  work:[
+    {name:'Navy',imgGrad:'linear-gradient(145deg,#0f2040,#1a3a6e,#2a5da8,#dbeafe)',cc:'linear-gradient(160deg,#0f2040,#1a3a6e)'},
+    {name:'Slate',imgGrad:'linear-gradient(145deg,#0f172a,#1e293b,#334155,#cbd5e1)',cc:'linear-gradient(160deg,#0f172a,#1e293b)'},
+    {name:'Indigo',imgGrad:'linear-gradient(145deg,#1e1b4b,#3730a3,#6366f1,#e0e7ff)',cc:'linear-gradient(160deg,#1e1b4b,#3730a3)'},
+    {name:'Teal',imgGrad:'linear-gradient(145deg,#042f2e,#134e4a,#0d9488,#ccfbf1)',cc:'linear-gradient(160deg,#042f2e,#134e4a)'},
+    {name:'Gold',imgGrad:'linear-gradient(145deg,#451a03,#78350f,#d97706,#fef3c7)',cc:'linear-gradient(160deg,#451a03,#78350f)'},
+    {name:'Carbon',imgGrad:'linear-gradient(145deg,#111,#222,#444,#e5e7eb)',cc:'linear-gradient(160deg,#111,#222)'},
+  ],
+  shop:[
+    {name:'Amber',imgGrad:'linear-gradient(145deg,#78350f,#92400e,#b45309,#fef3c7)',cc:'linear-gradient(160deg,#78350f,#92400e)'},
+    {name:'Emerald',imgGrad:'linear-gradient(145deg,#052e16,#14532d,#059669,#bbf7d0)',cc:'linear-gradient(160deg,#052e16,#14532d)'},
+    {name:'Purple',imgGrad:'linear-gradient(145deg,#3d1f6e,#5b2fa0,#7c3aed,#ede9fe)',cc:'linear-gradient(160deg,#3d1f6e,#5b2fa0)'},
+    {name:'Pink',imgGrad:'linear-gradient(145deg,#500724,#881337,#ec4899,#fce7f3)',cc:'linear-gradient(160deg,#500724,#881337)'},
+    {name:'Blue',imgGrad:'linear-gradient(145deg,#0f2040,#1d4ed8,#60a5fa,#dbeafe)',cc:'linear-gradient(160deg,#0f2040,#1d4ed8)'},
+    {name:'Carbon',imgGrad:'linear-gradient(145deg,#111,#222,#444,#e5e7eb)',cc:'linear-gradient(160deg,#111,#222)'},
+  ],
+  drift:[
+    {name:'Teal',imgGrad:'linear-gradient(145deg,#000,#050a0a,#0a1a15,#001a12)',cc:'linear-gradient(160deg,#000,#050a0a)'},
+    {name:'Neon Purple',imgGrad:'linear-gradient(145deg,#000,#1a003a,#4c0080,#a855f7)',cc:'linear-gradient(160deg,#000,#1a003a)'},
+    {name:'Blood Red',imgGrad:'linear-gradient(145deg,#000,#1a0000,#7f1d1d,#ef4444)',cc:'linear-gradient(160deg,#000,#1a0000)'},
+    {name:'Gold',imgGrad:'linear-gradient(145deg,#000,#1a1200,#78350f,#f59e0b)',cc:'linear-gradient(160deg,#000,#1a1200)'},
+    {name:'Ice Blue',imgGrad:'linear-gradient(145deg,#000,#00101a,#0c4a6e,#38bdf8)',cc:'linear-gradient(160deg,#000,#00101a)'},
+    {name:'Carbon',imgGrad:'linear-gradient(145deg,#000,#111,#222,#444)',cc:'linear-gradient(160deg,#000,#111)'},
+  ],
+  care:[
+    {name:'Red Shield',imgGrad:'linear-gradient(145deg,#4c0519,#881337,#be123c,#ffe4e6)',cc:'linear-gradient(160deg,#4c0519,#881337)'},
+    {name:'Blue Care',imgGrad:'linear-gradient(145deg,#0f2040,#1a3a6e,#2a5da8,#dbeafe)',cc:'linear-gradient(160deg,#0f2040,#1a3a6e)'},
+    {name:'Green Life',imgGrad:'linear-gradient(145deg,#052e16,#14532d,#16a34a,#bbf7d0)',cc:'linear-gradient(160deg,#052e16,#14532d)'},
+    {name:'Purple',imgGrad:'linear-gradient(145deg,#3d1f6e,#5b2fa0,#7c3aed,#ede9fe)',cc:'linear-gradient(160deg,#3d1f6e,#5b2fa0)'},
+    {name:'Amber',imgGrad:'linear-gradient(145deg,#78350f,#92400e,#b45309,#fef3c7)',cc:'linear-gradient(160deg,#78350f,#92400e)'},
+    {name:'Carbon',imgGrad:'linear-gradient(145deg,#111,#222,#444,#e5e7eb)',cc:'linear-gradient(160deg,#111,#222)'},
+  ],
+};
 
-/* Try real audio file first, fallback to synthesized */
-function playFile(src,vol=0.7){
-  try{
-    const a=new Audio(src);a.volume=vol;
-    a.play().catch(()=>{});
-    return true;
-  }catch(e){return false;}
-}
+/* STATE */
+var cur=0,photoTarget=null,soundOn=localStorage.getItem('sound')!=='off';
+var engineOn=false,engSrcs=[],_ctx=null;
+var selectedTheme=[-1,-1,-1,-1,-1];/* -1 = default */
+var selectedFont=['Inter','Inter','Inter','Inter','Inter'];
+var curEditCard=0;
 
-/* TYPEWRITER — for Personal, Work, Business */
+/* ══ AUDIO ══ */
+function actx(){if(!_ctx)_ctx=new(window.AudioContext||window.webkitAudioContext)();return _ctx;}
+
 function playTypewriter(){
   if(!soundOn)return;
-  /* Try real WAV first */
-  if(playFile('/sounds/typewriter.wav',0.6))return;
-  /* Fallback synthesized */
   try{
-    const c=ctx();
-    for(let k=0;k<3;k++){
-      setTimeout(()=>{
-        const b=c.createBuffer(1,c.sampleRate*0.04,c.sampleRate),d=b.getChannelData(0);
-        for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.85;
-        const s=c.createBufferSource();s.buffer=b;
-        const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1400+k*180;f.Q.value=2.2;
-        const g=c.createGain();g.gain.value=0.5;
+    var c=actx();
+    for(var k=0;k<3;k++){
+      (function(kk){setTimeout(function(){
+        var b=c.createBuffer(1,Math.floor(c.sampleRate*0.04),c.sampleRate);
+        var d=b.getChannelData(0);
+        for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.85;
+        var s=c.createBufferSource();s.buffer=b;
+        var f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1400+kk*180;f.Q.value=2.2;
+        var g=c.createGain();g.gain.value=0.5;
         s.connect(f);f.connect(g);g.connect(c.destination);s.start();
-      },k*58);
+      },kk*58);})(k);
     }
   }catch(e){}
 }
 
-/* CASH CALCULATOR — for Earn (3 sec) */
 function playCashCalc(){
   if(!soundOn)return;
-  /* Try real WAV first */
-  if(playFile('/sounds/cash-calc.wav',0.65))return;
-  /* Fallback synthesized */
   try{
-    const c=ctx();
-    const dur=3.0,rate=c.sampleRate;
-    /* motor hum */
-    const mo=c.createOscillator(),mg=c.createGain();
+    var c=actx();var dur=2.5;
+    var mo=c.createOscillator(),mg=c.createGain();
     mo.type='sawtooth';mo.frequency.value=52;
-    mg.gain.setValueAtTime(0.07,c.currentTime);
-    mg.gain.setValueAtTime(0.07,c.currentTime+dur-0.25);
+    mg.gain.setValueAtTime(0.06,c.currentTime);
     mg.gain.linearRampToValueAtTime(0,c.currentTime+dur);
     mo.connect(mg);mg.connect(c.destination);mo.start();mo.stop(c.currentTime+dur);
-    /* paper clicks */
-    [0,0.09,0.18,0.27,0.37,0.46,0.56,0.65,0.75,0.85,0.95,1.05,1.15,1.26,1.36,1.47,1.58,1.68,1.79,1.90,2.00,2.11,2.22,2.33,2.44,2.55,2.66,2.77,2.88].forEach(t=>{
-      const b=c.createBuffer(1,rate*0.028,rate),d=b.getChannelData(0);
-      for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.72;
-      const s=c.createBufferSource();s.buffer=b;
-      const f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1700+Math.random()*350;f.Q.value=1.8;
-      const g=c.createGain();g.gain.value=0.52;
+    [0,0.1,0.2,0.31,0.42,0.54,0.66,0.79,0.92,1.06,1.2,1.35,1.5,1.66,1.82,2.0,2.18,2.36].forEach(function(t){
+      var b=c.createBuffer(1,Math.floor(c.sampleRate*0.025),c.sampleRate);
+      var d=b.getChannelData(0);
+      for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length)*0.7;
+      var s=c.createBufferSource();s.buffer=b;
+      var f=c.createBiquadFilter();f.type='bandpass';f.frequency.value=1600+Math.random()*400;f.Q.value=2;
+      var g=c.createGain();g.gain.value=0.5;
       s.connect(f);f.connect(g);g.connect(c.destination);s.start(c.currentTime+t);
     });
-    /* final beep */
-    const bo=c.createOscillator(),bg=c.createGain();
-    bo.type='sine';bo.frequency.value=880;
-    bg.gain.setValueAtTime(0,c.currentTime+2.9);
-    bg.gain.linearRampToValueAtTime(0.18,c.currentTime+2.92);
-    bg.gain.exponentialRampToValueAtTime(0.001,c.currentTime+3.0);
-    bo.connect(bg);bg.connect(c.destination);bo.start(c.currentTime+2.9);bo.stop(c.currentTime+3.0);
   }catch(e){}
 }
 
-/* F1 ZOOM PASS — for Drift swipe (3 sec) */
 function playF1Zoom(){
   if(!soundOn)return;
-  /* Try real turbo-whoosh MP3 first */
-  if(playFile('/sounds/turbo-whoosh.mp3',0.7))return;
-  /* Fallback synthesized */
   try{
-    const c=ctx();
-    const o1=c.createOscillator(),o2=c.createOscillator(),o3=c.createOscillator();
-    const dist=c.createWaveShaper();
-    const curve=new Float32Array(512);
-    for(let i=0;i<512;i++){const x=i/256-1;curve[i]=x<0?-Math.pow(-x,0.55):Math.pow(x,0.55);}
+    var c=actx();
+    var o1=c.createOscillator(),o2=c.createOscillator(),o3=c.createOscillator();
+    var dist=c.createWaveShaper();
+    var curve=new Float32Array(512);
+    for(var i=0;i<512;i++){var x=i/256-1;curve[i]=x<0?-Math.pow(-x,0.55):Math.pow(x,0.55);}
     dist.curve=curve;
-    const mg=c.createGain();
+    var mg=c.createGain();
     mg.gain.setValueAtTime(0,c.currentTime);
     mg.gain.linearRampToValueAtTime(0.55,c.currentTime+0.35);
     mg.gain.setValueAtTime(0.55,c.currentTime+1.5);
-    mg.gain.linearRampToValueAtTime(0,c.currentTime+3.0);
-    [o1,o2,o3].forEach((o,i)=>{
+    mg.gain.linearRampToValueAtTime(0,c.currentTime+2.8);
+    [o1,o2,o3].forEach(function(o,idx){
       o.type='sawtooth';
-      const bf=[88,176,264][i],pf=[340,680,1020][i];
+      var bf=[88,176,264][idx],pf=[340,680,1020][idx];
       o.frequency.setValueAtTime(bf,c.currentTime);
       o.frequency.exponentialRampToValueAtTime(pf,c.currentTime+1.2);
-      o.frequency.exponentialRampToValueAtTime(bf*0.65,c.currentTime+3.0);
+      o.frequency.exponentialRampToValueAtTime(bf*0.65,c.currentTime+2.8);
       o.connect(dist);
     });
-    /* turbo whine */
-    const tw=c.createOscillator(),tg=c.createGain();
-    tw.type='sine';
-    tw.frequency.setValueAtTime(2200,c.currentTime+0.2);
-    tw.frequency.exponentialRampToValueAtTime(6500,c.currentTime+1.0);
-    tw.frequency.exponentialRampToValueAtTime(1600,c.currentTime+3.0);
-    tg.gain.setValueAtTime(0,c.currentTime+0.2);
-    tg.gain.linearRampToValueAtTime(0.12,c.currentTime+0.5);
-    tg.gain.exponentialRampToValueAtTime(0.001,c.currentTime+3.0);
-    tw.connect(tg);tg.connect(c.destination);
-    tw.start(c.currentTime+0.2);tw.stop(c.currentTime+3.0);
     dist.connect(mg);mg.connect(c.destination);
     o1.start();o2.start();o3.start();
-    o1.stop(c.currentTime+3.0);o2.stop(c.currentTime+3.0);o3.stop(c.currentTime+3.0);
+    o1.stop(c.currentTime+2.8);o2.stop(c.currentTime+2.8);o3.stop(c.currentTime+2.8);
   }catch(e){}
 }
 
-/* ENGINE START — F1 standing start acceleration */
 function playEngineStart(){
   if(!soundOn)return;
   try{
-    const c=ctx();
-    /* Try engine-start WAV */
-    if(playFile('/sounds/engine-start.wav',0.75))return;
-    /* Synthesized F1 standing start */
-    const o1=c.createOscillator(),o2=c.createOscillator(),o3=c.createOscillator();
-    const dist=c.createWaveShaper();
-    const curve=new Float32Array(512);
-    for(let i=0;i<512;i++){const x=i/256-1;curve[i]=x<0?-Math.pow(-x,0.5):Math.pow(x,0.5);}
+    var c=actx();
+    var o1=c.createOscillator(),o2=c.createOscillator(),o3=c.createOscillator();
+    var dist=c.createWaveShaper();
+    var curve=new Float32Array(512);
+    for(var i=0;i<512;i++){var x=i/256-1;curve[i]=x<0?-Math.pow(-x,0.5):Math.pow(x,0.5);}
     dist.curve=curve;
-    const gn=c.createGain();
+    var gn=c.createGain();
     gn.gain.setValueAtTime(0,c.currentTime);
     gn.gain.linearRampToValueAtTime(0.18,c.currentTime+0.3);
-    gn.gain.linearRampToValueAtTime(0.5,c.currentTime+1.6);
-    gn.gain.linearRampToValueAtTime(0.65,c.currentTime+2.4);
-    gn.gain.linearRampToValueAtTime(0.38,c.currentTime+3.8);
-    [o1,o2,o3].forEach((o,i)=>{
+    gn.gain.linearRampToValueAtTime(0.6,c.currentTime+2.0);
+    gn.gain.linearRampToValueAtTime(0.35,c.currentTime+3.5);
+    [o1,o2,o3].forEach(function(o,idx){
       o.type='sawtooth';
-      const id=[105,210,315][i],pk=[480,960,1440][i],cr=[290,580,870][i];
+      var id=[105,210,315][idx],pk=[480,960,1440][idx];
       o.frequency.setValueAtTime(id,c.currentTime);
-      o.frequency.exponentialRampToValueAtTime(id*1.5,c.currentTime+0.5);
-      o.frequency.exponentialRampToValueAtTime(pk,c.currentTime+2.4);
-      o.frequency.exponentialRampToValueAtTime(cr,c.currentTime+3.8);
+      o.frequency.exponentialRampToValueAtTime(pk,c.currentTime+2.0);
+      o.frequency.exponentialRampToValueAtTime(pk*0.6,c.currentTime+3.5);
       o.connect(dist);
     });
-    const tw=c.createOscillator(),tg=c.createGain();
-    tw.type='sine';
-    tw.frequency.setValueAtTime(1900,c.currentTime+0.5);
-    tw.frequency.exponentialRampToValueAtTime(5800,c.currentTime+2.4);
-    tw.frequency.exponentialRampToValueAtTime(4000,c.currentTime+3.8);
-    tg.gain.setValueAtTime(0,c.currentTime+0.5);
-    tg.gain.linearRampToValueAtTime(0.1,c.currentTime+1.2);
-    tg.gain.setValueAtTime(0.1,c.currentTime+3.8);
-    tw.connect(tg);tg.connect(c.destination);tw.start(c.currentTime+0.5);
     dist.connect(gn);gn.connect(c.destination);
     o1.start();o2.start();o3.start();
-    /* Store for stop */
-    engSrcs=[o1,o2,o3,tw];
-    window._engGain=gn;window._engTwGain=tg;
+    engSrcs=[o1,o2,o3];window._engGain=gn;
   }catch(e){}
 }
 
 function stopEngine(){
   try{
-    const c=ctx();
+    var c=actx();
     if(window._engGain)window._engGain.gain.linearRampToValueAtTime(0,c.currentTime+0.5);
-    if(window._engTwGain)window._engTwGain.gain.linearRampToValueAtTime(0,c.currentTime+0.5);
-    setTimeout(()=>{engSrcs.forEach(o=>{try{o.stop();}catch(e){}});engSrcs=[];},550);
+    setTimeout(function(){engSrcs.forEach(function(o){try{o.stop();}catch(e){}});engSrcs=[];},550);
   }catch(e){}
 }
 
-const SOUNDS=[playTypewriter,playTypewriter,playTypewriter,playCashCalc,playF1Zoom];
-
-/* ══════════════════════════════════════════
-   ENGINE TOGGLE
-══════════════════════════════════════════ */
-function toggleEngine(){
-  engineOn=!engineOn;
-  const btn=document.getElementById('engBtn');
-  const ico=document.getElementById('engIco');
-  if(engineOn){
-    btn.classList.add('engine-on');ico.style.color='#fff';
-    playEngineStart();
-    showToast('🏁 Engine ON');
-  }else{
-    btn.classList.remove('engine-on');ico.style.color='#00c8b8';
-    stopEngine();showToast('Engine off');
-  }
+function playCareSOS(){
+  if(!soundOn)return;
+  try{
+    var c=actx();
+    [0,0.4,0.8].forEach(function(t){
+      var o=c.createOscillator(),g=c.createGain();
+      o.type='sine';o.frequency.value=880;
+      g.gain.setValueAtTime(0,c.currentTime+t);
+      g.gain.linearRampToValueAtTime(0.3,c.currentTime+t+0.05);
+      g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+t+0.35);
+      o.connect(g);g.connect(c.destination);
+      o.start(c.currentTime+t);o.stop(c.currentTime+t+0.35);
+    });
+  }catch(e){}
 }
 
-/* ══════════════════════════════════════════
-   VEHICLE TOGGLE
-══════════════════════════════════════════ */
+var SOUNDS=[playTypewriter,playTypewriter,playCashCalc,playF1Zoom,playTypewriter];
+
+/* ══ ENGINE ══ */
+function toggleEngine(){
+  engineOn=!engineOn;
+  var btn=document.getElementById('engBtn'),ico=document.getElementById('engIco');
+  if(engineOn){btn.classList.add('engine-on');ico.style.color='#fff';playEngineStart();showToast('🏁 Engine ON');}
+  else{btn.classList.remove('engine-on');ico.style.color='#00c8b8';stopEngine();showToast('Engine off');}
+}
+
+/* ══ VEHICLE TOGGLE ══ */
 function showV(type){
   document.getElementById('svg-bike').style.display=type==='bike'?'block':'none';
   document.getElementById('svg-car').style.display=type==='car'?'block':'none';
@@ -614,168 +801,349 @@ function showV(type){
   document.getElementById('vt-car').classList.toggle('on',type==='car');
 }
 
-/* ══════════════════════════════════════════
-   THEME UPDATE
-══════════════════════════════════════════ */
+/* ══ THEME UPDATE ══ */
 function updateTheme(i){
-  const c=CARDS[i];
+  var c=CARDS[i];
   document.body.className=c.theme;
-  /* orbs */
-  document.querySelectorAll('.bg-orb').forEach(o=>{o.remove();});
-  const o1=document.createElement('div'),o2=document.createElement('div');
-  o1.className='bg-orb bg-orb1';o2.className='bg-orb bg-orb2';
-  document.body.prepend(o2);document.body.prepend(o1);
-  /* logo */
-  const lq=document.querySelector('.logo-q');
-  if(i===4)lq.style.cssText='background:linear-gradient(135deg,#00c8b8,#006858);-webkit-background-clip:text;-webkit-text-fill-color:transparent';
-  else lq.style.cssText='background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent';
-  /* nav center */
-  const nc=document.getElementById('navCtr');
-  nc.style.background=c.navBg;nc.style.boxShadow=`0 0 18px ${c.navGlow}`;
-  /* tabs */
-  document.querySelectorAll('.card-tab').forEach((t,j)=>{
-    if(j===i){t.style.background=c.grad;t.style.border='none';t.style.color=c.tabText;t.style.boxShadow=`0 3px 10px ${c.dot}44`;}
+  var nc=document.getElementById('navCtr');
+  nc.style.background=c.navBg;nc.style.boxShadow='0 0 18px '+c.navGlow;
+  document.querySelectorAll('.card-tab').forEach(function(t,j){
+    if(j===i){t.style.background=c.grad;t.style.border='none';t.style.color=c.tabText;t.style.boxShadow='0 3px 10px '+c.dot+'44';}
     else{t.style.background='';t.style.border='';t.style.color='';t.style.boxShadow='';}
   });
-  /* dots */
-  document.querySelectorAll('.dot').forEach((d,j)=>{
+  document.querySelectorAll('.dot').forEach(function(d,j){
     d.classList.toggle('on',j===i);
-    d.style.background=j===i?c.dot:(i===4?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.15)');
+    d.style.background=j===i?c.dot:(i===3?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.15)');
   });
-  /* store active card for links.html theme */
+  if(i===3){
+    document.querySelector('.logo-q').style.cssText='background:linear-gradient(135deg,#00c8b8,#006858);-webkit-background-clip:text;-webkit-text-fill-color:transparent';
+  }else{
+    document.querySelector('.logo-q').style.cssText='background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent';
+  }
   localStorage.setItem('activeCard',c.id);
 }
 
-/* ══════════════════════════════════════════
-   SWIPE
-══════════════════════════════════════════ */
-const track=document.getElementById('track');
-const wrap=document.getElementById('trackWrap');
-let tx=0,ty=0,dragging=false,mx=0,md=false;
+/* ══ SWIPE ══ */
+var track=document.getElementById('track');
+var wrap=document.getElementById('trackWrap');
+var tx=0,ty=0,dragging=false,mx=0,md=false;
 
-function moveTo(i,anim=true){
-  track.style.transition=anim?'transform 0.42s cubic-bezier(0.34,1.15,0.64,1)':'none';
-  track.style.transform=`translateX(-${i*100}%)`;
+function moveTo(i,anim){
+  track.style.transition=anim===false?'none':'transform 0.42s cubic-bezier(0.34,1.15,0.64,1)';
+  track.style.transform='translateX(-'+i*100+'%)';
 }
 
-wrap.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;dragging=false;track.style.transition='none';},{passive:true});
-wrap.addEventListener('touchmove',e=>{
-  const dx=e.touches[0].clientX-tx,dy=e.touches[0].clientY-ty;
+wrap.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY;dragging=false;track.style.transition='none';},{passive:true});
+wrap.addEventListener('touchmove',function(e){
+  var dx=e.touches[0].clientX-tx,dy=e.touches[0].clientY-ty;
   if(!dragging&&Math.abs(dy)>Math.abs(dx))return;
   dragging=true;e.preventDefault();
-  track.style.transform=`translateX(calc(-${cur*100}% + ${dx}px))`;
+  track.style.transform='translateX(calc(-'+cur*100+'% + '+dx+'px))';
 },{passive:false});
-wrap.addEventListener('touchend',e=>{
+wrap.addEventListener('touchend',function(e){
   if(!dragging)return;
-  const dx=e.changedTouches[0].clientX-tx;
+  var dx=e.changedTouches[0].clientX-tx;
   if(dx<-45&&cur<4){cur++;if(soundOn)SOUNDS[cur]();}
   else if(dx>45&&cur>0){cur--;if(soundOn)SOUNDS[cur]();}
   moveTo(cur);updateTheme(cur);
 });
-
-wrap.addEventListener('mousedown',e=>{mx=e.clientX;md=true;track.style.transition='none';});
-wrap.addEventListener('mousemove',e=>{if(!md)return;track.style.transform=`translateX(calc(-${cur*100}% + ${e.clientX-mx}px))`;});
-wrap.addEventListener('mouseup',e=>{
+wrap.addEventListener('mousedown',function(e){mx=e.clientX;md=true;track.style.transition='none';});
+wrap.addEventListener('mousemove',function(e){if(!md)return;track.style.transform='translateX(calc(-'+cur*100+'% + '+(e.clientX-mx)+'px))';});
+wrap.addEventListener('mouseup',function(e){
   if(!md)return;md=false;
-  const dx=e.clientX-mx;
+  var dx=e.clientX-mx;
   if(dx<-45&&cur<4){cur++;if(soundOn)SOUNDS[cur]();}
   else if(dx>45&&cur>0){cur--;if(soundOn)SOUNDS[cur]();}
   moveTo(cur);updateTheme(cur);
 });
-wrap.addEventListener('mouseleave',()=>{if(md){md=false;moveTo(cur);}});
+wrap.addEventListener('mouseleave',function(){if(md){md=false;moveTo(cur);}});
 
 function goCard(i){if(i===cur)return;cur=i;moveTo(i);if(soundOn)SOUNDS[i]();updateTheme(i);}
 
-/* ══════════════════════════════════════════
-   SOUND TOGGLE
-══════════════════════════════════════════ */
+/* ══ SOUND TOGGLE ══ */
 function toggleSound(){
   soundOn=!soundOn;
   localStorage.setItem('sound',soundOn?'on':'off');
   document.getElementById('soundIco').className=soundOn?'fas fa-volume-up':'fas fa-volume-xmark';
-  document.getElementById('soundSlash').style.display=soundOn?'none':'block';
   showToast(soundOn?'Sound on 🔊':'Sound off 🔇');
 }
 
-/* ══════════════════════════════════════════
-   EXPAND MENU
-══════════════════════════════════════════ */
-function openMenu(i){cur=i;document.getElementById('expTitle').textContent=CARDS[i].label;document.getElementById('expOverlay').classList.add('open');}
-function closeMenu(){document.getElementById('expOverlay').classList.remove('open');}
-
-/* ══════════════════════════════════════════
-   ACTIONS
-══════════════════════════════════════════ */
-function shareCard(){
-  const u=localStorage.getItem('username'),url='https://myqrid.in/'+u;
-  if(navigator.share)navigator.share({title:'My myQRID',url});
+/* ══ SHARE — Apple style ══ */
+function shareCard(i){
+  if(i===undefined)i=cur;
+  var u=localStorage.getItem('username')||'';
+  var n=localStorage.getItem('name')||'myQRID';
+  var url='https://myqrid.in/'+u;
+  if(navigator.share){navigator.share({title:n+' — myQRID',url:url});}
   else{navigator.clipboard.writeText(url);showToast('Link copied!');}
 }
-function viewProfile(){const u=localStorage.getItem('username');if(u)window.open('/profile/'+u,'_blank');}
-function saveVCF(){
-  const n=localStorage.getItem('name')||'',p=localStorage.getItem('phone')||'',e=localStorage.getItem('email')||'',u=localStorage.getItem('username')||'';
-  const v=`BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL:${p}\nEMAIL:${e}\nURL:https://myqrid.in/${u}\nNOTE:myQRID\nEND:VCARD`;
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));a.download=(u||'contact')+'.vcf';a.click();showToast('Contact saved!');
+
+/* ══ VCF DOWNLOAD ══ */
+function saveVCF(i){
+  if(i===undefined)i=cur;
+  var c=CARDS[i];
+  var n=localStorage.getItem('name')||'';
+  var p=localStorage.getItem('phone')||'';
+  var e=localStorage.getItem('email')||'';
+  var u=localStorage.getItem('username')||'';
+  var co=localStorage.getItem('work_company')||'';
+  var we=localStorage.getItem('work_email')||'';
+  var li=localStorage.getItem('linkedin')||'';
+  var ws=localStorage.getItem('website')||'';
+  var v='BEGIN:VCARD\nVERSION:3.0\n';
+  v+='FN:'+n+'\n';
+  if(p)v+='TEL;TYPE=CELL:'+p+'\n';
+  if(e)v+='EMAIL:'+e+'\n';
+  if(we&&i===1)v+='EMAIL;TYPE=WORK:'+we+'\n';
+  if(co)v+='ORG:'+co+'\n';
+  if(ws)v+='URL:'+ws+'\n';
+  else if(u)v+='URL:https://myqrid.in/'+u+'\n';
+  if(li)v+='X-SOCIALPROFILE;type=linkedin:'+li+'\n';
+  v+='NOTE:Shared via myQRID\nEND:VCARD';
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));
+  a.download=(u||'contact')+'.vcf';a.click();
+  showToast('📇 Contact saved!');
 }
 
-/* ══════════════════════════════════════════
-   PHOTO
-══════════════════════════════════════════ */
+/* ══ PHOTO ══ */
 function trigPhoto(t){photoTarget=t;document.getElementById('photoInput').click();}
 function handlePhoto(e){
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{
-    const src=ev.target.result;
-    /* Set as full card background */
-    const bgEl=document.getElementById('img-'+photoTarget);
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    var src=ev.target.result;
+    var bgEl=document.getElementById('img-'+photoTarget);
     if(bgEl){
       bgEl.style.cssText='position:absolute;inset:0;z-index:1';
-      bgEl.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;display:block">`;
+      bgEl.innerHTML='<img src="'+src+'" style="width:100%;height:100%;object-fit:cover;display:block">';
+      var ii=document.getElementById('ini-'+photoTarget);if(ii)ii.style.opacity='0';
     }
-    /* Fade out initials */
-    const ini=document.getElementById('ini-'+photoTarget);
-    if(ini)ini.style.opacity='0';
     localStorage.setItem('avatar_'+photoTarget,src);
     showToast('Photo updated!');
   };
   r.readAsDataURL(f);
 }
 
-/* ══════════════════════════════════════════
-   LOAD DATA
-══════════════════════════════════════════ */
-function loadData(){
-  const n=localStorage.getItem('name')||'';
-  const p=localStorage.getItem('phone')||'';
-  const em=localStorage.getItem('email')||'';
-  if(n){
-    ['personal','work','business','earn'].forEach(id=>{
-      const el=document.getElementById('nm-'+id);if(el)el.textContent=n;
-      const ii=document.getElementById('ini-'+id);if(ii)ii.textContent=n[0].toUpperCase();
-    });
-    const nd=document.getElementById('nm-drift');if(nd)nd.textContent=n.toUpperCase();
+/* ══ EDIT MODAL ══ */
+function openEditModal(i){
+  curEditCard=i;
+  var c=CARDS[i];
+  var fields=CARD_FIELDS[c.id];
+  document.getElementById('editTitle').textContent='Edit '+c.label;
+  document.getElementById('editSub').textContent='Update your '+c.label.toLowerCase()+' card';
+  /* Fields */
+  var html='';
+  fields.forEach(function(f){
+    var val=localStorage.getItem(f.storage)||'';
+    html+='<div class="f-label"><i class="'+f.icon+'" style="margin-right:5px"></i>'+f.label+'</div>';
+    html+='<input class="f-input" id="ef-'+f.key+'" placeholder="'+f.label+'" value="'+esc(val)+'">';
+  });
+  document.getElementById('editFields').innerHTML=html;
+  /* Toggles */
+  var th='';
+  fields.filter(function(f){return f.toggle;}).forEach(function(f){
+    var hidden=localStorage.getItem('hide_'+f.toggle)==='1';
+    th+='<div class="field-toggle-row">';
+    th+='<div class="field-toggle-label"><i class="'+f.icon+'"></i>'+f.label+'</div>';
+    th+='<button class="ftoggle '+(hidden?'':'on')+'" id="ft-'+f.key+'" onclick="this.classList.toggle(\'on\')"></button>';
+    th+='</div>';
+  });
+  document.getElementById('editToggles').innerHTML=th;
+  document.getElementById('editModal').classList.add('open');
+}
+
+function saveEditModal(){
+  var i=curEditCard;var c=CARDS[i];var fields=CARD_FIELDS[c.id];
+  fields.forEach(function(f){
+    var el=document.getElementById('ef-'+f.key);
+    if(el){
+      var v=el.value.trim();
+      localStorage.setItem(f.storage,v);
+      /* Update DOM */
+      var de=document.getElementById(f.elem);if(de)de.textContent=v||f.label;
+      /* Update initials */
+      if(f.key==='name'){
+        var ii=document.getElementById('ini-'+c.id);if(ii&&v)ii.textContent=v[0].toUpperCase();
+      }
+    }
+  });
+  /* Save toggles */
+  fields.filter(function(f){return f.toggle;}).forEach(function(f){
+    var btn=document.getElementById('ft-'+f.key);
+    if(btn){
+      var hidden=!btn.classList.contains('on');
+      localStorage.setItem('hide_'+f.toggle,hidden?'1':'0');
+      var fEl=document.getElementById(f.toggle);
+      if(fEl)fEl.classList.toggle('hidden-field',hidden);
+    }
+  });
+  closeEditModal();showToast('✅ Card updated!');
+  loadData();/* Refresh with clickable links */
+}
+
+function closeEditModal(){document.getElementById('editModal').classList.remove('open');}
+
+/* ══ THEME PICKER ══ */
+function openThemePicker(){
+  var i=cur;
+  document.getElementById('themeCardLabel').textContent='Choose style for '+CARDS[i].label+' card';
+  var themes=CARD_THEMES[CARDS[i].id];
+  var html='';
+  themes.forEach(function(t,j){
+    var sel=selectedTheme[i]===j;
+    html+='<div class="theme-opt '+(sel?'sel':'')+'" style="background:'+t.imgGrad+'" onclick="pickTheme('+j+')">';
+    html+='<div class="theme-opt-check"><i class="fas fa-check"></i></div>';
+    html+='<div style="position:absolute;bottom:6px;left:8px;font-size:9px;font-weight:700;color:rgba(255,255,255,0.8)">'+t.name+'</div>';
+    html+='</div>';
+  });
+  document.getElementById('themePicker').innerHTML=html;
+  /* Layout */
+  var lay=localStorage.getItem('layout_'+CARDS[i].id)||'portrait';
+  document.getElementById('lay-portrait').classList.toggle('sel',lay==='portrait');
+  document.getElementById('lay-classic').classList.toggle('sel',lay==='classic');
+  /* Font */
+  var fnt=selectedFont[i]||'Inter';
+  ['inter','mono','serif'].forEach(function(f){
+    document.getElementById('font-'+f).classList.toggle('sel',
+      (f==='inter'&&fnt==='Inter')||(f==='mono'&&fnt==='monospace')||(f==='serif'&&fnt==='Georgia'));
+  });
+  document.getElementById('themeModal').classList.add('open');
+}
+
+var _pickedTheme=-1;
+function pickTheme(j){
+  _pickedTheme=j;
+  document.querySelectorAll('.theme-opt').forEach(function(o,k){o.classList.toggle('sel',k===j);});
+}
+function setLayout(l){
+  document.getElementById('lay-portrait').classList.toggle('sel',l==='portrait');
+  document.getElementById('lay-classic').classList.toggle('sel',l==='classic');
+  localStorage.setItem('layout_'+CARDS[cur].id,l);
+}
+function setFont(f){
+  selectedFont[cur]=f;
+  ['inter','mono','serif'].forEach(function(k){
+    document.getElementById('font-'+k).classList.toggle('sel',
+      (k==='inter'&&f==='Inter')||(k==='mono'&&f==='monospace')||(k==='serif'&&f==='Georgia'));
+  });
+}
+function applyTheme(){
+  if(_pickedTheme>=0){
+    selectedTheme[cur]=_pickedTheme;
+    var t=CARD_THEMES[CARDS[cur].id][_pickedTheme];
+    /* Apply to card image zone */
+    var iz=document.querySelector('#card-'+CARDS[cur].id+' .card-img-zone');
+    if(iz)iz.style.background=t.imgGrad;
+    /* Apply to content zone */
+    var cc=document.querySelector('#card-'+CARDS[cur].id+' .card-content');
+    if(cc)cc.style.background=t.cc;
+    /* Apply font */
+    var card=document.getElementById('card-'+CARDS[cur].id);
+    if(card)card.style.fontFamily=selectedFont[cur];
+    localStorage.setItem('theme_'+CARDS[cur].id,_pickedTheme);
+    localStorage.setItem('font_'+CARDS[cur].id,selectedFont[cur]);
   }
-  if(p){const el=document.getElementById('ph-personal');if(el)el.textContent=p;}
-  if(em){const el=document.getElementById('em-personal');if(el)el.textContent=em;}
-  /* Restore saved photos */
-  ['personal','work','business','earn','drift'].forEach(id=>{
-    const s=localStorage.getItem('avatar_'+id);
+  closeThemePicker();showToast('Theme applied!');
+}
+function closeThemePicker(){document.getElementById('themeModal').classList.remove('open');}
+
+/* ══ SHOP LINKS ══ */
+function openShopLinks(){document.getElementById('shopModal').classList.add('open');}
+function openLink(url){if(url&&url.startsWith('http'))window.open(url,'_blank');else showToast('Set URL in Edit first');}
+
+/* ══ CARE ══ */
+function openCareMember(id){showToast('Member profile — coming soon!');}
+function addCareMember(){showToast('Add family member — myQRID+ feature!');}
+function trigSOS(){
+  playCareSOS();
+  var ec=localStorage.getItem('care_ec1')||'';
+  if(ec){window.open('tel:'+ec.replace(/\D/g,''),'_blank');}
+  else{showToast('⚠️ Set emergency contact first');}
+}
+
+/* ══ LOAD DATA ══ */
+function loadData(){
+  var n=localStorage.getItem('name')||'';
+  /* Personal */
+  if(n){
+    ['personal','work','shop'].forEach(function(id){
+      var el=document.getElementById('nm-'+id);if(el)el.textContent=n;
+      var ii=document.getElementById('ini-'+id);if(ii&&!localStorage.getItem('avatar_'+id))ii.textContent=n[0]?n[0].toUpperCase():'P';
+    });
+  }
+  /* Load all fields */
+  Object.keys(CARD_FIELDS).forEach(function(cid){
+    CARD_FIELDS[cid].forEach(function(f){
+      var val=localStorage.getItem(f.storage)||'';
+      if(val){
+        var de=document.getElementById(f.elem);
+        if(de){
+          /* Make clickable if has href */
+          if(f.href!==undefined&&val){
+            var href=f.href;
+            if(href==='tel:'&&!val.startsWith('tel:'))href='tel:'+val.replace(/\D/g,'');
+            else if(href==='mailto:'&&!val.startsWith('mailto:'))href='mailto:'+val;
+            else if(href&&!val.startsWith('http'))href=href+val;
+            else href=val;
+            de.innerHTML='<a href="'+href+'" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none">'+esc(val)+'</a>';
+          }else{
+            de.textContent=val;
+          }
+        }
+      }
+      /* Apply hidden state */
+      if(f.toggle){
+        var hidden=localStorage.getItem('hide_'+f.toggle)==='1';
+        var fEl=document.getElementById(f.toggle);
+        if(fEl)fEl.classList.toggle('hidden-field',hidden);
+      }
+    });
+  });
+  /* Drift name */
+  var dn=localStorage.getItem('drift_name')||n;
+  var dne=document.getElementById('nm-drift');if(dne&&dn)dne.textContent=dn.toUpperCase();
+  /* Care name */
+  var cn=localStorage.getItem('care_name')||'Family Shield';
+  var cne=document.getElementById('nm-care');if(cne)cne.textContent=cn;
+  var cini=document.getElementById('care-ini-me');if(cini&&n)cini.textContent=n[0]?n[0].toUpperCase():'M';
+  /* Restore photos */
+  ['personal','work','shop','drift','care'].forEach(function(id){
+    var s=localStorage.getItem('avatar_'+id);
     if(s){
-      const bgEl=document.getElementById('img-'+id);
+      var bgEl=document.getElementById('img-'+id);
       if(bgEl){
         bgEl.style.cssText='position:absolute;inset:0;z-index:1';
-        bgEl.innerHTML=`<img src="${s}" style="width:100%;height:100%;object-fit:cover;display:block">`;
-        const ii=document.getElementById('ini-'+id);if(ii)ii.style.opacity='0';
+        bgEl.innerHTML='<img src="'+s+'" style="width:100%;height:100%;object-fit:cover;display:block">';
+        var ii=document.getElementById('ini-'+id);if(ii)ii.style.opacity='0';
       }
+    }
+  });
+  /* Restore custom themes */
+  CARDS.forEach(function(c,i){
+    var t=parseInt(localStorage.getItem('theme_'+c.id));
+    if(!isNaN(t)&&t>=0){
+      selectedTheme[i]=t;
+      var th=CARD_THEMES[c.id][t];
+      var iz=document.querySelector('#card-'+c.id+' .card-img-zone');
+      if(iz)iz.style.background=th.imgGrad;
+      var cc=document.querySelector('#card-'+c.id+' .card-content');
+      if(cc)cc.style.background=th.cc;
+    }
+    var fnt=localStorage.getItem('font_'+c.id);
+    if(fnt){
+      selectedFont[i]=fnt;
+      var card=document.getElementById('card-'+c.id);
+      if(card)card.style.fontFamily=fnt;
     }
   });
 }
 
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
 
 /* INIT */
-if(!soundOn){document.getElementById('soundIco').className='fas fa-volume-xmark';document.getElementById('soundSlash').style.display='block';}
+if(!soundOn)document.getElementById('soundIco').className='fas fa-volume-xmark';
 loadData();updateTheme(0);moveTo(0,false);
 </script>
 </body>
