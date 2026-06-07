@@ -74,7 +74,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .sec-lbl{font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.5px}
 .sec-cnt{font-size:11px;color:#bbb}
 .action-btns-row{display:flex;gap:8px;padding:0 16px;margin:0 0 10px;flex-wrap:wrap}
-.action-btn-sm{flex:1;min-width:80px;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px 6px;background:#fff;border:1px solid #e9e9eb;border-radius:12px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#555;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.04);transition:all 0.18s;white-space:nowrap}
+.action-btn-sm{flex:1;min-width:70px;display:flex;align-items:center;justify-content:center;gap:5px;padding:10px 6px;background:#fff;border:1px solid #e9e9eb;border-radius:12px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#555;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.04);transition:all 0.18s;white-space:nowrap}
 .action-btn-sm:active{background:#f3f0ff;border-color:rgba(124,58,237,0.3);color:#7c3aed;transform:scale(0.97)}
 .action-btn-sm i{font-size:13px;color:#aaa;flex-shrink:0}
 .strips-wrap{padding:0 16px}
@@ -118,15 +118,16 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .strip-save-btn{flex:1;padding:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer}
 .strip-save-btn:active{transform:scale(0.97)}
 .strip-clear-btn{padding:10px 14px;background:#fff5f5;border:1px solid #fecaca;border-radius:10px;color:#ef4444;font-family:'Inter',sans-serif;font-size:13px;cursor:pointer}
-.strip-btm{display:flex;align-items:center;padding:4px 8px 8px;border-top:1px solid #f0f0f0}
+.strip-btm{display:flex;align-items:center;padding:4px 8px 8px;border-top:1px solid #f0f0f0;flex-wrap:wrap;gap:2px}
 .sbtm-btn{display:flex;align-items:center;gap:3px;padding:5px 6px;border-radius:7px;background:transparent;border:none;cursor:pointer;color:#ccc;font-size:10px;font-family:'Inter',sans-serif;transition:all 0.18s}
 .sbtm-btn:active{background:#f0f0f0;transform:scale(0.93)}
 .sbtm-btn i{font-size:12px}
 .sbtm-btn.is-pinned{color:#f59e0b}
 .sbtm-btn.is-liked{color:#ef4444}
 .sbtm-btn.is-visible{color:#7c3aed}
+.sbtm-btn.is-stats{color:#7c3aed}
 .sbtm-sep{width:1px;height:14px;background:#efefef;flex-shrink:0;margin:0 2px}
-.sbtm-clicks{margin-left:auto;font-size:10px;color:#ccc;display:flex;align-items:center;gap:3px}
+.sbtm-clicks{margin-left:auto;font-size:10px;color:#ccc;display:flex;align-items:center;gap:4px}
 .upgrade-section{margin:10px 16px 8px;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:18px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,0.05)}
 .upgrade-hdr{padding:16px 16px 12px;background:linear-gradient(135deg,rgba(124,58,237,0.05),rgba(236,72,153,0.03))}
 .upgrade-title{font-size:14px;font-weight:800;color:#111;margin-bottom:4px}
@@ -172,6 +173,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 .prev-link{background:rgba(255,255,255,0.09);border-radius:10px;padding:9px 11px;margin-bottom:5px;display:flex;align-items:center;gap:8px}
 .prev-link-icon{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
 .prev-link-title{font-size:10px;font-weight:600;color:#fff;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prev-link-stats{font-size:8px;color:rgba(255,255,255,0.3);display:flex;align-items:center;gap:3px;flex-shrink:0}
 .prev-empty{text-align:center;font-size:9px;color:rgba(255,255,255,0.18);padding:14px 6px}
 .prev-controls{width:100%;margin-top:12px}
 .prev-url-row{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #e9e9eb;border-radius:10px;padding:8px 12px;margin-bottom:8px}
@@ -302,7 +304,11 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
           <div class="soc-chip" data-s="spotify" style="--sc:#1db954" onclick="openSocManage('spotify')"><i class="fab fa-spotify"></i><span>SP</span></div>
           <div class="soc-chip" data-s="tiktok" style="--sc:#111" onclick="openSocManage('tiktok')"><i class="fab fa-tiktok"></i><span>TT</span></div>
           <div class="soc-chip" data-s="website" style="--sc:#4338ca" onclick="openSocManage('website')"><i class="fas fa-globe"></i><span>WEB</span></div>
-          <!-- VCF always visible — download contact -->
+          <div class="soc-chip" data-s="pinterest" style="--sc:#e60023" onclick="openSocManage('pinterest')"><i class="fab fa-pinterest"></i><span>PT</span></div>
+          <div class="soc-chip" data-s="threads" style="--sc:#111" onclick="openSocManage('threads')"><i class="fab fa-threads"></i><span>TH</span></div>
+          <div class="soc-chip" data-s="discord" style="--sc:#5865f2" onclick="openSocManage('discord')"><i class="fab fa-discord"></i><span>DC</span></div>
+          <div class="soc-chip" data-s="twitch" style="--sc:#9146ff" onclick="openSocManage('twitch')"><i class="fab fa-twitch"></i><span>TV</span></div>
+          <!-- VCF always visible -->
           <div class="soc-chip always-show" data-s="vcard" style="--sc:#0d9488" onclick="downloadVCard()"><i class="fas fa-address-card"></i><span>VCF</span></div>
         </div>
         <div class="soc-add-btn" onclick="openSocManage(null)" title="Manage social links"><i class="fas fa-pen" style="font-size:10px"></i></div>
@@ -438,7 +444,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
   <a href="/settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
 </nav>
 
-<!-- SOC MANAGE MODAL -->
+<!-- MODALS -->
 <div class="modal-overlay" id="socManageModal" onclick="if(event.target===this)closeSocManage()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -447,7 +453,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <button class="f-cancel" onclick="closeSocManage()">Done</button>
   </div>
 </div>
-<!-- SOC EDIT MODAL -->
 <div class="modal-overlay" id="socModal" onclick="if(event.target===this)closeSocModal()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -458,7 +463,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <button class="f-cancel" onclick="closeSocModal()">Cancel</button>
   </div>
 </div>
-<!-- BIO MODAL -->
 <div class="modal-overlay" id="bioModal" onclick="if(event.target===this)closeBioModal()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -469,7 +473,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <button class="f-cancel" onclick="closeBioModal()">Cancel</button>
   </div>
 </div>
-<!-- AVATAR MODAL -->
 <div class="modal-overlay" id="avatarModal" onclick="if(event.target===this)closeAvatarModal()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -487,7 +490,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <button class="f-cancel" onclick="closeAvatarModal()">Cancel</button>
   </div>
 </div>
-<!-- COLLECTION MODAL -->
 <div class="modal-overlay" id="collectionModal" onclick="if(event.target===this)closeCollectionModal()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -507,7 +509,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <button class="f-cancel" onclick="closeCollectionModal()">Cancel</button>
   </div>
 </div>
-<!-- ARCHIVE MODAL -->
 <div class="modal-overlay" id="archiveModal" onclick="if(event.target===this)closeArchiveModal()">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -519,7 +520,6 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
     <button class="f-cancel" onclick="closeArchiveModal()">Close</button>
   </div>
 </div>
-<!-- ANALYTICS MODAL -->
 <div class="modal-overlay" id="analyticsModal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal-panel" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
@@ -538,7 +538,7 @@ html,body{min-height:100vh;font-family:'Inter',sans-serif;color:#111;background:
 <script>
 const API='https://myqrid-backend.myqrid.workers.dev';
 const TOTAL=18,INIT_COUNT=10;
-const SHARE_SVG=`<svg width="12" height="14" viewBox="0 0 12 14" fill="none"><rect x="1" y="5" width="10" height="8" rx="1.5" stroke="#bbb" stroke-width="1.3" fill="none"/><path d="M6 8V1" stroke="#bbb" stroke-width="1.3" stroke-linecap="round"/><path d="M4 3L6 1L8 3" stroke="#bbb" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const SHARE_SVG='<svg width="12" height="14" viewBox="0 0 12 14" fill="none"><rect x="1" y="5" width="10" height="8" rx="1.5" stroke="#bbb" stroke-width="1.3" fill="none"/><path d="M6 8V1" stroke="#bbb" stroke-width="1.3" stroke-linecap="round"/><path d="M4 3L6 1L8 3" stroke="#bbb" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 const PLATFORMS=[
   {id:'whatsapp',name:'WhatsApp',icon:'fab fa-whatsapp',color:'#25D366',bg:'rgba(37,211,102,0.12)'},
@@ -553,58 +553,64 @@ const PLATFORMS=[
   {id:'spotify',name:'Spotify',icon:'fab fa-spotify',color:'#1db954',bg:'rgba(29,185,84,0.12)'},
   {id:'tiktok',name:'TikTok',icon:'fab fa-tiktok',color:'#111',bg:'rgba(0,0,0,0.08)'},
   {id:'pinterest',name:'Pinterest',icon:'fab fa-pinterest',color:'#e60023',bg:'rgba(230,0,35,0.1)'},
+  {id:'threads',name:'Threads',icon:'fab fa-threads',color:'#111',bg:'rgba(0,0,0,0.08)'},
+  {id:'discord',name:'Discord',icon:'fab fa-discord',color:'#5865f2',bg:'rgba(88,101,242,0.12)'},
+  {id:'twitch',name:'Twitch',icon:'fab fa-twitch',color:'#9146ff',bg:'rgba(145,70,255,0.12)'},
   {id:'website',name:'Website',icon:'fas fa-globe',color:'#4338ca',bg:'rgba(67,56,202,0.1)'},
   {id:'portfolio',name:'Portfolio',icon:'fas fa-briefcase',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
   {id:'booking',name:'Book Me',icon:'fas fa-calendar-check',color:'#0d9488',bg:'rgba(13,148,136,0.1)'},
   {id:'payment',name:'Pay Me',icon:'fas fa-qrcode',color:'#059669',bg:'rgba(5,150,105,0.1)'},
   {id:'email',name:'Email',icon:'fas fa-envelope',color:'#2563eb',bg:'rgba(37,99,235,0.1)'},
   {id:'call',name:'Call',icon:'fas fa-phone',color:'#16a34a',bg:'rgba(22,163,74,0.1)'},
+  {id:'vcard_strip',name:'Contact Card',icon:'fas fa-address-card',color:'#0d9488',bg:'rgba(13,148,136,0.1)'},
   {id:'link',name:'Link',icon:'fas fa-link',color:'#7c3aed',bg:'rgba(124,58,237,0.1)'},
 ];
 
 const SOC_CFG={
-  whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210',color:'#25D366'},
-  instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername',color:'#e1306c'},
-  twitter:{label:'X/Twitter',lbl:'Username (no @)',ph:'yourusername',color:'#111'},
-  youtube:{label:'YouTube',lbl:'Channel URL',ph:'youtube.com/c/...',color:'#FF0000'},
-  linkedin:{label:'LinkedIn',lbl:'Profile URL',ph:'linkedin.com/in/...',color:'#0a66c2'},
-  facebook:{label:'Facebook',lbl:'Profile URL',ph:'facebook.com/...',color:'#1877f2'},
-  telegram:{label:'Telegram',lbl:'Username (no @)',ph:'yourusername',color:'#2aabee'},
-  snapchat:{label:'Snapchat',lbl:'Username',ph:'yourusername',color:'#f59e0b'},
-  github:{label:'GitHub',lbl:'Username',ph:'yourusername',color:'#212121'},
-  spotify:{label:'Spotify',lbl:'Profile URL',ph:'open.spotify.com/user/...',color:'#1db954'},
-  tiktok:{label:'TikTok',lbl:'Username (no @)',ph:'yourusername',color:'#111'},
-  website:{label:'Website',lbl:'Your website URL',ph:'https://yoursite.com',color:'#4338ca'},
+  whatsapp:{label:'WhatsApp',lbl:'Phone (+91...)',ph:'919876543210',color:'#25D366',icon:'fab fa-whatsapp'},
+  instagram:{label:'Instagram',lbl:'Username (no @)',ph:'yourusername',color:'#e1306c',icon:'fab fa-instagram'},
+  twitter:{label:'X/Twitter',lbl:'Username (no @)',ph:'yourusername',color:'#111',icon:'fab fa-x-twitter'},
+  youtube:{label:'YouTube',lbl:'Channel URL',ph:'youtube.com/c/...',color:'#FF0000',icon:'fab fa-youtube'},
+  linkedin:{label:'LinkedIn',lbl:'Profile URL',ph:'linkedin.com/in/...',color:'#0a66c2',icon:'fab fa-linkedin'},
+  facebook:{label:'Facebook',lbl:'Profile URL',ph:'facebook.com/...',color:'#1877f2',icon:'fab fa-facebook'},
+  telegram:{label:'Telegram',lbl:'Username (no @)',ph:'yourusername',color:'#2aabee',icon:'fab fa-telegram'},
+  snapchat:{label:'Snapchat',lbl:'Username',ph:'yourusername',color:'#f59e0b',icon:'fab fa-snapchat'},
+  github:{label:'GitHub',lbl:'Username',ph:'yourusername',color:'#212121',icon:'fab fa-github'},
+  spotify:{label:'Spotify',lbl:'Profile URL',ph:'open.spotify.com/user/...',color:'#1db954',icon:'fab fa-spotify'},
+  tiktok:{label:'TikTok',lbl:'Username (no @)',ph:'yourusername',color:'#111',icon:'fab fa-tiktok'},
+  website:{label:'Website',lbl:'Your website URL',ph:'https://yoursite.com',color:'#4338ca',icon:'fas fa-globe'},
+  pinterest:{label:'Pinterest',lbl:'Username',ph:'yourusername',color:'#e60023',icon:'fab fa-pinterest'},
+  threads:{label:'Threads',lbl:'Username (no @)',ph:'yourusername',color:'#111',icon:'fab fa-threads'},
+  discord:{label:'Discord',lbl:'Server invite URL',ph:'discord.gg/...',color:'#5865f2',icon:'fab fa-discord'},
+  twitch:{label:'Twitch',lbl:'Username',ph:'yourusername',color:'#9146ff',icon:'fab fa-twitch'},
+  reddit:{label:'Reddit',lbl:'Username (no @)',ph:'yourusername',color:'#ff4500',icon:'fab fa-reddit'},
+  medium:{label:'Medium',lbl:'Profile URL',ph:'medium.com/@...',color:'#000',icon:'fab fa-medium'},
 };
 
 function getPlatform(id){return PLATFORMS.find(p=>p.id===id)||PLATFORMS[PLATFORMS.length-1];}
 
 let strips=Array.from({length:INIT_COUNT},(_,i)=>({
-  sid:i,title:'',url:'',platform:'link',visible:false,pinned:false,liked:false,clicks:0,open:false,archived:false,
+  sid:i,title:'',url:'',platform:'link',visible:false,pinned:false,liked:false,
+  clicks:0,open:false,archived:false,showStats:false,shares:0,downloads:0,
 }));
 let socials={},curSoc=null,colLayout='stack',collections=[],sortableInst=null;
 
-/* ══ FREEZE HEADER via JS ══ */
+/* ══ FREEZE HEADER ══ */
 function initFreezeHeader(){
   const topbar=document.getElementById('topbar');
   const frozen=document.getElementById('frozenHeader');
   const scrollEl=document.getElementById('scrollContent');
   if(!topbar||!frozen||!scrollEl)return;
   function applyFreeze(){
-    const tbRect=topbar.getBoundingClientRect();
-    const topbarBottom=tbRect.bottom;
-    const leftCol=frozen.parentElement;
-    const leftRect=leftCol.getBoundingClientRect();
+    const tbBottom=topbar.getBoundingClientRect().bottom;
+    const leftRect=frozen.parentElement.getBoundingClientRect();
     frozen.style.position='fixed';
-    frozen.style.top=topbarBottom+'px';
+    frozen.style.top=tbBottom+'px';
     frozen.style.left=leftRect.left+'px';
-    frozen.style.width=leftCol.offsetWidth+'px';
+    frozen.style.width=frozen.parentElement.offsetWidth+'px';
     frozen.style.zIndex='30';
     frozen.style.background='#f7f7f8';
-    const frozenH=frozen.offsetHeight;
-    const topbarH=topbar.offsetHeight;
-    scrollEl.style.paddingTop=(frozenH)+'px';
-    scrollEl.style.marginTop='0';
+    scrollEl.style.paddingTop=frozen.offsetHeight+'px';
   }
   applyFreeze();
   window.addEventListener('resize',applyFreeze);
@@ -618,8 +624,8 @@ function initFreezeHeader(){
 function syncSocialChips(){
   const used=new Set(strips.filter(s=>(s.title||s.url)&&!s.archived).map(s=>s.platform));
   Object.keys(socials).forEach(k=>{if(socials[k])used.add(k);});
-  document.querySelectorAll('.soc-chip').forEach(c=>{
-    if(c.dataset.s==='vcard')return;/* VCF always visible */
+  document.querySelectorAll('.soc-chip').forEach(function(c){
+    if(c.dataset.s==='vcard')return;
     c.classList.toggle('linked',used.has(c.dataset.s));
   });
   localStorage.setItem('socials_data',JSON.stringify(socials));
@@ -629,127 +635,172 @@ function syncSocialChips(){
 /* ══ SOC MANAGE ══ */
 function openSocManage(preselect){
   const grid=document.getElementById('socManageGrid');
-  grid.innerHTML=Object.keys(SOC_CFG).map(k=>{
-    const c=SOC_CFG[k];const plat=getPlatform(k);const active=!!(socials[k]);
-    return `<div class="soc-manage-item ${active?'active':''}" style="--sc:${c.color}" onclick="editSoc('${k}')">
-      <div class="soc-check"><i class="fas fa-check"></i></div>
-      <i class="${plat.icon}"></i><span>${c.label}</span></div>`;
-  }).join('');
+  var html='';
+  Object.keys(SOC_CFG).forEach(function(k){
+    var c=SOC_CFG[k];
+    var active=!!(socials[k]);
+    html+='<div class="soc-manage-item '+(active?'active':'')+'" style="--sc:'+c.color+'" onclick="editSoc(\''+k+'\')">';
+    html+='<div class="soc-check"><i class="fas fa-check"></i></div>';
+    html+='<i class="'+c.icon+'"></i>';
+    html+='<span>'+c.label+'</span></div>';
+  });
+  grid.innerHTML=html;
   document.getElementById('socManageModal').classList.add('open');
-  if(preselect)setTimeout(()=>editSoc(preselect),300);
+  if(preselect)setTimeout(function(){editSoc(preselect);},300);
 }
 function closeSocManage(){document.getElementById('socManageModal').classList.remove('open');}
 
 /* ══ ADD STRIP ══ */
 function addOneStrip(){
-  if(strips.filter(s=>!s.archived).length>=TOTAL){showToast('Max 18 strips!');return;}
-  const ns={sid:0,title:'',url:'',platform:'link',visible:false,pinned:false,liked:false,clicks:0,open:true,archived:false};
-  strips=[ns,...strips];strips.forEach((s,i)=>s.sid=i);
+  if(strips.filter(function(s){return !s.archived;}).length>=TOTAL){showToast('Max 18 strips!');return;}
+  var ns={sid:0,title:'',url:'',platform:'link',visible:false,pinned:false,liked:false,clicks:0,open:true,archived:false,showStats:false,shares:0,downloads:0};
+  strips=[ns].concat(strips);
+  strips.forEach(function(s,i){s.sid=i;});
   renderStrips();updateAddBtn();
-  setTimeout(()=>{
-    const el=document.getElementById('strip-0');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
-    const ti=document.getElementById('t-0');if(ti)ti.focus();
+  setTimeout(function(){
+    var el=document.getElementById('strip-0');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    var ti=document.getElementById('t-0');if(ti)ti.focus();
   },150);
 }
 function updateAddBtn(){
-  const btn=document.getElementById('addLinkBtn');if(!btn)return;
-  const left=TOTAL-strips.filter(s=>!s.archived).length;
-  btn.innerHTML=left<=0?'<i class="fas fa-lock" style="color:#bbb"></i> Max 18':`<i class="fas fa-plus" style="color:#7c3aed"></i> Add Link (${left})`;
-  btn.style.opacity=left<=0?'0.5':'1';btn.style.cursor=left<=0?'not-allowed':'pointer';
+  var btn=document.getElementById('addLinkBtn');if(!btn)return;
+  var left=TOTAL-strips.filter(function(s){return !s.archived;}).length;
+  btn.innerHTML=left<=0?'<i class="fas fa-lock" style="color:#bbb"></i> Max 18':'<i class="fas fa-plus" style="color:#7c3aed"></i> Add Link ('+left+')';
+  btn.style.opacity=left<=0?'0.5':'1';
+  btn.style.cursor=left<=0?'not-allowed':'pointer';
+}
+
+/* ══ BUILD STRIP HTML ══ */
+function buildStripHTML(s){
+  var filled=!!(s.title||s.url);
+  var plat=getPlatform(s.platform);
+
+  /* Special VCF Contact Card strip */
+  if(s.platform==='vcard_strip'){
+    var vcfHtml='<div class="strip filled" id="strip-'+s.sid+'" style="--icon-color:#0d9488;--icon-bg:rgba(13,148,136,0.1);border:1.5px solid rgba(13,148,136,0.2)">';
+    vcfHtml+='<div class="strip-header" onclick="toggleOpen('+s.sid+')">';
+    vcfHtml+='<div class="strip-drag" onclick="event.stopPropagation()"><i class="fas fa-grip-vertical"></i></div>';
+    vcfHtml+='<div class="strip-icon-wrap" style="background:rgba(13,148,136,0.1)"><i class="fas fa-address-card" style="color:#0d9488;font-size:17px"></i></div>';
+    vcfHtml+='<div class="strip-info"><div class="strip-title" style="color:#111">'+(s.title?esc(s.title):'Contact Card')+'</div><div class="strip-url-disp" style="color:#aaa">Tap to save contact · VCF download</div></div>';
+    vcfHtml+='<div class="strip-right" onclick="event.stopPropagation()">';
+    vcfHtml+='<div class="strip-share" onclick="downloadVCard()" title="Download VCF" style="background:rgba(13,148,136,0.08);border-color:rgba(13,148,136,0.2)"><i class="fas fa-download" style="color:#0d9488;font-size:11px"></i></div>';
+    vcfHtml+='<button class="strip-toggle '+(s.visible?'on':'')+'" onclick="toggleVisible('+s.sid+')"></button>';
+    vcfHtml+='<div class="strip-arrows"><div class="strip-arrow-btn" onclick="moveStrip('+s.sid+',-1)"><i class="fas fa-chevron-up"></i></div><div class="strip-arrow-btn" onclick="moveStrip('+s.sid+',1)"><i class="fas fa-chevron-down"></i></div></div>';
+    vcfHtml+='</div></div>';
+    /* VCF fields for title edit */
+    vcfHtml+='<div class="strip-fields '+(s.open?'open':'')+'" id="fields-'+s.sid+'">';
+    vcfHtml+='<div class="field-row"><div class="field-label-icon"><i class="fas fa-pen" style="font-size:10px"></i></div>';
+    vcfHtml+='<input class="field-input" type="text" id="t-'+s.sid+'" placeholder="Contact Card" value="'+esc(s.title)+'" onclick="event.stopPropagation()" oninput="strips['+s.sid+'].title=this.value"></div>';
+    vcfHtml+='<div class="strip-action-row"><button class="strip-save-btn" onclick="saveStrip('+s.sid+')"><i class="fas fa-check"></i> Save</button>';
+    vcfHtml+='<button class="strip-clear-btn" onclick="archiveStrip('+s.sid+')"><i class="fas fa-archive"></i> Archive</button></div></div>';
+    vcfHtml+='<div class="strip-btm">';
+    vcfHtml+='<button class="sbtm-btn" onclick="showAnalytics('+s.sid+')"><i class="fas fa-chart-bar"></i><span>'+s.clicks+'</span></button>';
+    vcfHtml+='<div class="sbtm-sep"></div>';
+    vcfHtml+='<button class="sbtm-btn '+(s.pinned?'is-pinned':'')+'" onclick="togglePin('+s.sid+')"><i class="fas fa-thumbtack"></i></button>';
+    vcfHtml+='<div class="sbtm-sep"></div>';
+    vcfHtml+='<button class="sbtm-btn '+(s.showStats?'is-stats':'')+'" onclick="toggleStats('+s.sid+')" title="Show download count to visitors"><i class="fas fa-chart-bar"></i></button>';
+    vcfHtml+='<div class="sbtm-sep"></div>';
+    vcfHtml+='<button class="sbtm-btn '+(s.visible?'is-visible':'')+'" onclick="toggleVisible('+s.sid+')"><i class="fas '+(s.visible?'fa-eye':'fa-eye-slash')+'"></i></button>';
+    vcfHtml+='<div class="sbtm-clicks"><i class="fas fa-download" style="font-size:9px;color:#0d9488"></i>'+(s.downloads||0)+'</div>';
+    vcfHtml+='</div></div>';
+    return vcfHtml;
+  }
+
+  /* Regular strip */
+  var html='<div class="strip '+(filled?'filled':'')+'" id="strip-'+s.sid+'" style="--icon-color:'+(filled?plat.color:'#ccc')+';--icon-bg:'+(filled?plat.bg:'#efefef')+'">';
+  html+='<div class="strip-header" onclick="toggleOpen('+s.sid+')">';
+  html+='<div class="strip-drag" onclick="event.stopPropagation()"><i class="fas fa-grip-vertical"></i></div>';
+  html+='<div class="strip-icon-wrap"><i class="'+(filled?plat.icon:'fas fa-plus')+'" style="font-size:'+(filled?'17':'13')+'px"></i></div>';
+  html+='<div class="strip-info"><div class="strip-title" style="color:'+(filled?'#111':'#ccc')+'">'+(filled?esc(s.title):'')+'</div>';
+  html+='<div class="strip-url-disp">'+(s.url?esc(s.url):'')+'</div></div>';
+  html+='<div class="strip-right" onclick="event.stopPropagation()">';
+  html+='<div class="strip-share" onclick="shareStrip('+s.sid+')">'+SHARE_SVG+'</div>';
+  html+='<button class="strip-toggle '+(s.visible&&filled?'on':'')+'" onclick="toggleVisible('+s.sid+')"></button>';
+  html+='<div class="strip-arrows"><div class="strip-arrow-btn" onclick="moveStrip('+s.sid+',-1)"><i class="fas fa-chevron-up"></i></div><div class="strip-arrow-btn" onclick="moveStrip('+s.sid+',1)"><i class="fas fa-chevron-down"></i></div></div>';
+  html+='</div></div>';
+  /* Fields */
+  html+='<div class="strip-fields '+(s.open?'open':'')+'" id="fields-'+s.sid+'">';
+  html+='<div style="font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Platform</div>';
+  html+='<div class="platform-scroll">';
+  PLATFORMS.forEach(function(p){
+    html+='<div class="plat-chip '+(s.platform===p.id?'sel':'')+'" style="--pc:'+p.color+'" onclick="setPlatform('+s.sid+',\''+p.id+'\')">';
+    html+='<i class="'+p.icon+'" style="color:'+p.color+';font-size:13px"></i>'+p.name+'</div>';
+  });
+  html+='</div>';
+  html+='<div class="field-row"><div class="field-label-icon"><i class="fas fa-pen" style="font-size:10px"></i></div>';
+  html+='<input class="field-input" type="text" id="t-'+s.sid+'" placeholder="Title" value="'+esc(s.title)+'" onclick="event.stopPropagation()" oninput="strips['+s.sid+'].title=this.value"></div>';
+  html+='<div class="field-row"><div class="field-label-icon"><i class="fas fa-link" style="font-size:10px"></i></div>';
+  html+='<input class="field-input" type="text" id="u-'+s.sid+'" placeholder="URL" value="'+esc(s.url)+'" onclick="event.stopPropagation()" onkeydown="if(event.key===\'Enter\')saveStrip('+s.sid+')"></div>';
+  html+='<div class="strip-action-row"><button class="strip-save-btn" onclick="saveStrip('+s.sid+')"><i class="fas fa-check"></i> Save</button>';
+  html+=filled?'<button class="strip-clear-btn" onclick="archiveStrip('+s.sid+')"><i class="fas fa-archive"></i> Archive</button>':'<button class="strip-clear-btn" style="color:#ef4444;border-color:#fecaca" onclick="deleteStrip('+s.sid+')"><i class="fas fa-trash"></i> Delete</button>';
+  html+='</div></div>';
+  /* Bottom bar */
+  html+='<div class="strip-btm">';
+  html+='<button class="sbtm-btn" onclick="showAnalytics('+s.sid+')"><i class="fas fa-chart-bar"></i><span>'+s.clicks+'</span></button>';
+  html+='<div class="sbtm-sep"></div>';
+  html+='<button class="sbtm-btn '+(s.pinned?'is-pinned':'')+'" onclick="togglePin('+s.sid+')"><i class="fas fa-thumbtack"></i></button>';
+  html+='<div class="sbtm-sep"></div>';
+  html+='<button class="sbtm-btn '+(s.liked?'is-liked':'')+'" onclick="toggleLike('+s.sid+')"><i class="fas fa-heart"></i></button>';
+  html+='<div class="sbtm-sep"></div>';
+  html+='<button class="sbtm-btn" onclick="toggleOpen('+s.sid+')"><i class="fas fa-pen"></i></button>';
+  html+='<div class="sbtm-sep"></div>';
+  html+='<button class="sbtm-btn '+(s.showStats?'is-stats':'')+'" onclick="toggleStats('+s.sid+')" title="Show stats to visitors"><i class="fas fa-chart-bar"></i></button>';
+  html+='<div class="sbtm-sep"></div>';
+  html+='<button class="sbtm-btn '+(s.visible&&filled?'is-visible':'')+'" onclick="toggleVisible('+s.sid+')"><i class="fas '+(s.visible&&filled?'fa-eye':'fa-eye-slash')+'"></i></button>';
+  html+='<div class="sbtm-clicks"><i class="fas fa-mouse-pointer" style="font-size:9px"></i>'+s.clicks;
+  if(s.showStats&&s.shares){html+='<span style="color:#ec4899"><i class="fas fa-share-nodes" style="font-size:8px"></i>'+s.shares+'</span>';}
+  html+='</div></div></div>';
+  return html;
 }
 
 /* ══ RENDER ══ */
 function renderStrips(){
-  const wrap=document.getElementById('stripsWrap');
-  wrap.innerHTML=strips.filter(s=>!s.archived).map(s=>{
-    const filled=!!(s.title||s.url);const plat=getPlatform(s.platform);
-    return `<div class="strip ${filled?'filled':''}" id="strip-${s.sid}" style="--icon-color:${filled?plat.color:'#ccc'};--icon-bg:${filled?plat.bg:'#efefef'}">
-      <div class="strip-header" onclick="toggleOpen(${s.sid})">
-        <div class="strip-drag" onclick="event.stopPropagation()"><i class="fas fa-grip-vertical"></i></div>
-        <div class="strip-icon-wrap"><i class="${filled?plat.icon:'fas fa-plus'}" style="font-size:${filled?'17':'13'}px"></i></div>
-        <div class="strip-info">
-          <div class="strip-title" style="color:${filled?'#111':'#ccc'}">${filled?esc(s.title):''}</div>
-          <div class="strip-url-disp">${s.url?esc(s.url):''}</div>
-        </div>
-        <div class="strip-right" onclick="event.stopPropagation()">
-          <div class="strip-share" onclick="shareStrip(${s.sid})">${SHARE_SVG}</div>
-          <button class="strip-toggle ${s.visible&&filled?'on':''}" onclick="toggleVisible(${s.sid})"></button>
-          <div class="strip-arrows">
-            <div class="strip-arrow-btn" onclick="moveStrip(${s.sid},-1)"><i class="fas fa-chevron-up"></i></div>
-            <div class="strip-arrow-btn" onclick="moveStrip(${s.sid},1)"><i class="fas fa-chevron-down"></i></div>
-          </div>
-        </div>
-      </div>
-      <div class="strip-fields ${s.open?'open':''}" id="fields-${s.sid}">
-        <div style="font-size:11px;font-weight:600;color:#aaa;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Platform</div>
-        <div class="platform-scroll">${PLATFORMS.map(p=>`<div class="plat-chip ${s.platform===p.id?'sel':''}" style="--pc:${p.color}" onclick="setPlatform(${s.sid},'${p.id}')"><i class="${p.icon}" style="color:${p.color};font-size:13px"></i>${p.name}</div>`).join('')}</div>
-        <div class="field-row">
-          <div class="field-label-icon"><i class="fas fa-pen" style="font-size:10px"></i></div>
-          <input class="field-input" type="text" id="t-${s.sid}" placeholder="Title" value="${esc(s.title)}" onclick="event.stopPropagation()" oninput="strips[${s.sid}].title=this.value">
-        </div>
-        <div class="field-row">
-          <div class="field-label-icon"><i class="fas fa-link" style="font-size:10px"></i></div>
-          <input class="field-input" type="text" id="u-${s.sid}" placeholder="URL" value="${esc(s.url)}" onclick="event.stopPropagation()" onkeydown="if(event.key==='Enter')saveStrip(${s.sid})">
-        </div>
-        <div class="strip-action-row">
-          <button class="strip-save-btn" onclick="saveStrip(${s.sid})"><i class="fas fa-check"></i> Save</button>
-          ${filled?`<button class="strip-clear-btn" onclick="archiveStrip(${s.sid})"><i class="fas fa-archive"></i> Archive</button>`:`<button class="strip-clear-btn" style="color:#ef4444;border-color:#fecaca" onclick="deleteStrip(${s.sid})"><i class="fas fa-trash"></i> Delete</button>`}
-        </div>
-      </div>
-      <div class="strip-btm">
-        <button class="sbtm-btn" onclick="showAnalytics(${s.sid})"><i class="fas fa-chart-bar"></i><span>${s.clicks}</span></button>
-        <div class="sbtm-sep"></div>
-        <button class="sbtm-btn ${s.pinned?'is-pinned':''}" onclick="togglePin(${s.sid})"><i class="fas fa-thumbtack"></i></button>
-        <div class="sbtm-sep"></div>
-        <button class="sbtm-btn ${s.liked?'is-liked':''}" onclick="toggleLike(${s.sid})"><i class="fas fa-heart"></i></button>
-        <div class="sbtm-sep"></div>
-        <button class="sbtm-btn" onclick="toggleOpen(${s.sid})"><i class="fas fa-pen"></i></button>
-        <div class="sbtm-sep"></div>
-        <button class="sbtm-btn ${s.visible&&filled?'is-visible':''}" onclick="toggleVisible(${s.sid})"><i class="fas ${s.visible&&filled?'fa-eye':'fa-eye-slash'}"></i></button>
-        <div class="sbtm-clicks"><i class="fas fa-mouse-pointer" style="font-size:9px"></i>${s.clicks}</div>
-      </div>
-    </div>`;
-  }).join('');
+  var wrap=document.getElementById('stripsWrap');
+  wrap.innerHTML=strips.filter(function(s){return !s.archived;}).map(buildStripHTML).join('');
   updateSparkBar();updateAddBtn();initSortable();syncSocialChips();updatePreview();
 }
 
 function initSortable(){
   if(typeof Sortable==='undefined')return;
   if(sortableInst)sortableInst.destroy();
-  const el=document.getElementById('stripsWrap');if(!el)return;
+  var el=document.getElementById('stripsWrap');if(!el)return;
   sortableInst=Sortable.create(el,{
     animation:200,handle:'.strip-drag',ghostClass:'sortable-ghost',chosenClass:'sortable-chosen',
     onEnd:function(evt){
       if(evt.oldIndex===evt.newIndex)return;
-      const m=strips.splice(evt.oldIndex,1)[0];strips.splice(evt.newIndex,0,m);
-      strips.forEach((s,i)=>s.sid=i);autoSave();updatePreview();showToast('Reordered ✓');
+      var m=strips.splice(evt.oldIndex,1)[0];strips.splice(evt.newIndex,0,m);
+      strips.forEach(function(s,i){s.sid=i;});autoSave();updatePreview();showToast('Reordered ✓');
     }
   });
 }
 
 function moveStrip(sid,dir){
-  const idx=strips.findIndex(s=>s.sid===sid);if(idx<0)return;
-  const ni=idx+dir;if(ni<0||ni>=strips.length)return;
-  const tmp=strips[idx];strips[idx]=strips[ni];strips[ni]=tmp;
-  strips.forEach((s,i)=>s.sid=i);renderStrips();autoSave();
+  var idx=strips.findIndex(function(s){return s.sid===sid;});if(idx<0)return;
+  var ni=idx+dir;if(ni<0||ni>=strips.length)return;
+  var tmp=strips[idx];strips[idx]=strips[ni];strips[ni]=tmp;
+  strips.forEach(function(s,i){s.sid=i;});renderStrips();autoSave();
 }
 function toggleOpen(sid){
-  const s=strips.find(x=>x.sid===sid);if(!s)return;
-  const was=s.open;strips.forEach(x=>x.open=false);s.open=!was;renderStrips();
-  if(s.open)setTimeout(()=>{
-    const ti=document.getElementById('t-'+sid);if(ti)ti.focus();
-    const el=document.getElementById('strip-'+sid);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  var s=strips.find(function(x){return x.sid===sid;});if(!s)return;
+  var was=s.open;strips.forEach(function(x){x.open=false;});s.open=!was;renderStrips();
+  if(s.open)setTimeout(function(){
+    var ti=document.getElementById('t-'+sid);if(ti)ti.focus();
+    var el=document.getElementById('strip-'+sid);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
   },120);
 }
 function setPlatform(sid,pid){
-  const s=strips.find(x=>x.sid===sid);if(!s)return;
+  var s=strips.find(function(x){return x.sid===sid;});if(!s)return;
   s.platform=pid;renderStrips();s.open=true;
-  setTimeout(()=>{const el=document.getElementById('strip-'+sid);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});const ti=document.getElementById('t-'+sid);if(ti)ti.focus();},80);
+  setTimeout(function(){
+    var el=document.getElementById('strip-'+sid);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+    var ti=document.getElementById('t-'+sid);if(ti)ti.focus();
+  },80);
 }
 function saveStrip(sid){
-  const s=strips.find(x=>x.sid===sid);if(!s)return;
-  const ti=document.getElementById('t-'+sid);const ui=document.getElementById('u-'+sid);
-  const title=ti?ti.value.trim():'';let url=ui?ui.value.trim():'';
+  var s=strips.find(function(x){return x.sid===sid;});if(!s)return;
+  var ti=document.getElementById('t-'+sid);var ui=document.getElementById('u-'+sid);
+  var title=ti?ti.value.trim():'';var url=ui?ui.value.trim():'';
+  if(s.platform==='vcard_strip'){s.title=title||'Contact Card';s.open=false;renderStrips();autoSave();showToast('Contact Card saved!');return;}
   if(!title&&!url){showToast('Add a title or URL');return;}
   if(url){
     if(s.platform==='whatsapp'&&!url.startsWith('http'))url='https://wa.me/'+url.replace(/\D/g,'');
@@ -763,27 +814,31 @@ function saveStrip(sid){
   s.title=title;s.url=url;s.visible=true;s.open=false;
   renderStrips();autoSave();showToast('✅ '+(title||'Link')+' saved!');
 }
-function deleteStrip(sid){strips=strips.filter(s=>s.sid!==sid);strips.forEach((s,i)=>s.sid=i);renderStrips();autoSave();showToast('Deleted');}
-function archiveStrip(sid){const s=strips.find(x=>x.sid===sid);if(!s)return;s.archived=true;s.visible=false;s.open=false;renderStrips();autoSave();showToast('Archived');}
-function toggleVisible(sid){const s=strips.find(x=>x.sid===sid);if(!s)return;if(!s.title&&!s.url){showToast('Add a link first');return;}s.visible=!s.visible;renderStrips();autoSave();showToast(s.visible?'👁 Visible':'🙈 Hidden');}
+function deleteStrip(sid){strips=strips.filter(function(s){return s.sid!==sid;});strips.forEach(function(s,i){s.sid=i;});renderStrips();autoSave();showToast('Deleted');}
+function archiveStrip(sid){var s=strips.find(function(x){return x.sid===sid;});if(!s)return;s.archived=true;s.visible=false;s.open=false;renderStrips();autoSave();showToast('Archived');}
+function toggleVisible(sid){var s=strips.find(function(x){return x.sid===sid;});if(!s)return;if(s.platform!=='vcard_strip'&&!s.title&&!s.url){showToast('Add a link first');return;}s.visible=!s.visible;renderStrips();autoSave();showToast(s.visible?'👁 Visible':'🙈 Hidden');}
+function toggleStats(sid){var s=strips.find(function(x){return x.sid===sid;});if(!s)return;s.showStats=!s.showStats;renderStrips();autoSave();showToast(s.showStats?'📊 Stats visible to visitors':'Stats hidden');}
 function togglePin(sid){
-  const s=strips.find(x=>x.sid===sid);if(!s)return;s.pinned=!s.pinned;
-  if(s.pinned){const r=strips.splice(strips.findIndex(x=>x.sid===sid),1)[0];strips.unshift(r);}
-  else{const r=strips.splice(strips.findIndex(x=>x.sid===sid),1)[0];const fp=strips.findIndex(x=>!x.pinned);strips.splice(fp===-1?strips.length:fp,0,r);}
-  strips.forEach((x,i)=>x.sid=i);renderStrips();autoSave();showToast(s.pinned?'📌 Pinned':'Unpinned');
+  var s=strips.find(function(x){return x.sid===sid;});if(!s)return;s.pinned=!s.pinned;
+  if(s.pinned){var r=strips.splice(strips.findIndex(function(x){return x.sid===sid;}),1)[0];strips.unshift(r);}
+  else{var r2=strips.splice(strips.findIndex(function(x){return x.sid===sid;}),1)[0];var fp=strips.findIndex(function(x){return !x.pinned;});strips.splice(fp===-1?strips.length:fp,0,r2);}
+  strips.forEach(function(x,i){x.sid=i;});renderStrips();autoSave();showToast(s.pinned?'📌 Pinned':'Unpinned');
 }
-function toggleLike(sid){const s=strips.find(x=>x.sid===sid);if(!s)return;s.liked=!s.liked;renderStrips();showToast(s.liked?'❤️ Liked':'Unliked');}
-function shareStrip(sid){const s=strips.find(x=>x.sid===sid);if(!s||!s.url){showToast('Add a link first');return;}if(navigator.share)navigator.share({title:s.title||'',url:s.url});else{navigator.clipboard.writeText(s.url);showToast('URL copied!');}}
+function toggleLike(sid){var s=strips.find(function(x){return x.sid===sid;});if(!s)return;s.liked=!s.liked;renderStrips();showToast(s.liked?'❤️ Liked':'Unliked');}
+function shareStrip(sid){var s=strips.find(function(x){return x.sid===sid;});if(!s||!s.url){showToast('Add a link first');return;}if(navigator.share)navigator.share({title:s.title||'',url:s.url});else{navigator.clipboard.writeText(s.url);showToast('URL copied!');}}
 function showAnalytics(sid){
-  const s=strips.find(x=>x.sid===sid);if(!s)return;
+  var s=strips.find(function(x){return x.sid===sid;});if(!s)return;
   document.getElementById('anTitle').textContent=(s.title||'Strip '+(sid+1))+' Analytics';
-  document.getElementById('anUrl').textContent=s.url||'No URL yet';
-  document.getElementById('anStats').innerHTML=`<div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#111">${s.clicks}</div><div style="font-size:11px;color:#aaa;margin-top:3px">Total Clicks</div></div><div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#111">0</div><div style="font-size:11px;color:#aaa;margin-top:3px">This Week</div></div><div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center"><div style="font-size:20px;font-weight:800;color:${s.visible?'#7c3aed':'#bbb'}">${s.visible?'ON':'OFF'}</div><div style="font-size:11px;color:#aaa;margin-top:3px">Visible</div></div>`;
+  document.getElementById('anUrl').textContent=s.url||'Contact Card · VCF Download';
+  document.getElementById('anStats').innerHTML=
+    '<div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#111">'+s.clicks+'</div><div style="font-size:11px;color:#aaa;margin-top:3px">Total Clicks</div></div>'+
+    '<div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#111">'+(s.downloads||0)+'</div><div style="font-size:11px;color:#aaa;margin-top:3px">VCF Downloads</div></div>'+
+    '<div style="background:#f9f9fb;border:1px solid #e9e9eb;border-radius:12px;padding:14px;text-align:center"><div style="font-size:20px;font-weight:800;color:'+(s.visible?'#7c3aed':'#bbb')+'">'+(s.visible?'ON':'OFF')+'</div><div style="font-size:11px;color:#aaa;margin-top:3px">Visible</div></div>';
   document.getElementById('analyticsModal').classList.add('open');
 }
 function updateSparkBar(){
-  const filled=strips.filter(s=>!!(s.title||s.url)&&!s.archived).length;
-  const total=strips.filter(s=>!s.archived).length;
+  var filled=strips.filter(function(s){return !!(s.title||s.url)&&!s.archived;}).length;
+  var total=strips.filter(function(s){return !s.archived;}).length;
   document.getElementById('sparkBarFill').style.width=Math.min(total/TOTAL*100,100)+'%';
   document.getElementById('sparkCntSm').textContent=total+'/'+TOTAL;
   document.getElementById('secCnt').textContent=filled+' filled / '+total+' strips';
@@ -791,70 +846,90 @@ function updateSparkBar(){
 
 /* ══ LIVE PREVIEW ══ */
 function updatePreview(){
-  const av=localStorage.getItem('avatar_personal');
-  const pa=document.getElementById('prevAvatar');
-  if(pa){if(av){pa.style.background='none';pa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;}else{pa.style.background='';pa.textContent=(localStorage.getItem('name')||'P')[0].toUpperCase();}}
-  const pn=document.getElementById('prevName');if(pn)pn.textContent=localStorage.getItem('name')||'Your Name';
-  const pb=document.getElementById('prevBio');if(pb)pb.textContent=document.getElementById('pBio')?.textContent||'Add your bio';
-  const pu=document.getElementById('prevUrl');if(pu)pu.textContent='myqrid.in/'+(localStorage.getItem('username')||'—');
-  const socColors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b'};
-  const socIcons={whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',twitter:'fab fa-x-twitter',youtube:'fab fa-youtube',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',telegram:'fab fa-telegram',snapchat:'fab fa-snapchat'};
-  const sr=document.getElementById('prevSocRow');
-  if(sr){const linked=Object.keys(socials).filter(k=>socials[k]);sr.innerHTML=linked.map(k=>`<div class="prev-soc-icon"><i class="${socIcons[k]||'fas fa-link'}" style="color:${socColors[k]||'#fff'}"></i></div>`).join('');}
-  const pl=document.getElementById('prevLinks');
-  if(pl){
-    const vis=strips.filter(s=>(s.title||s.url)&&s.visible&&!s.archived);
-    pl.innerHTML=vis.length?vis.map(s=>{const plat=getPlatform(s.platform);return `<div class="prev-link"><div class="prev-link-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color}"></i></div><div class="prev-link-title">${esc(s.title||s.url)}</div></div>`;}).join(''):'<div class="prev-empty">Your visible links appear here</div>';
+  var av=localStorage.getItem('avatar_personal');
+  var pa=document.getElementById('prevAvatar');
+  if(pa){if(av){pa.style.background='none';pa.innerHTML='<img src="'+av+'" style="width:100%;height:100%;object-fit:cover">';}else{pa.style.background='';pa.textContent=(localStorage.getItem('name')||'P')[0].toUpperCase();}}
+  var pn=document.getElementById('prevName');if(pn)pn.textContent=localStorage.getItem('name')||'Your Name';
+  var pb=document.getElementById('prevBio');if(pb)pb.textContent=(document.getElementById('pBio')||{}).textContent||'Add your bio';
+  var pu=document.getElementById('prevUrl');if(pu)pu.textContent='myqrid.in/'+(localStorage.getItem('username')||'—');
+  var socColors={whatsapp:'#25D366',instagram:'#e1306c',twitter:'#111',youtube:'#FF0000',linkedin:'#0a66c2',facebook:'#1877f2',telegram:'#2aabee',snapchat:'#f59e0b',github:'#212121',spotify:'#1db954',tiktok:'#111',website:'#4338ca',pinterest:'#e60023',threads:'#111',discord:'#5865f2',twitch:'#9146ff'};
+  var socIconsMap={whatsapp:'fab fa-whatsapp',instagram:'fab fa-instagram',twitter:'fab fa-x-twitter',youtube:'fab fa-youtube',linkedin:'fab fa-linkedin',facebook:'fab fa-facebook',telegram:'fab fa-telegram',snapchat:'fab fa-snapchat',github:'fab fa-github',spotify:'fab fa-spotify',tiktok:'fab fa-tiktok',website:'fas fa-globe',pinterest:'fab fa-pinterest',threads:'fab fa-threads',discord:'fab fa-discord',twitch:'fab fa-twitch'};
+  var sr=document.getElementById('prevSocRow');
+  if(sr){
+    var linked=Object.keys(socials).filter(function(k){return socials[k];});
+    sr.innerHTML=linked.map(function(k){return '<div class="prev-soc-icon"><i class="'+(socIconsMap[k]||'fas fa-link')+'" style="color:'+(socColors[k]||'#fff')+'"></i></div>';}).join('');
   }
-  const username=localStorage.getItem('username')||'';
-  const pc=document.getElementById('prevCtaTitle');
+  var pl=document.getElementById('prevLinks');
+  if(pl){
+    var vis=strips.filter(function(s){return (s.title||s.url||s.platform==='vcard_strip')&&s.visible&&!s.archived;});
+    if(vis.length){
+      pl.innerHTML=vis.map(function(s){
+        var plat=getPlatform(s.platform);
+        var statsHtml='';
+        if(s.showStats&&(s.clicks||s.downloads)){
+          statsHtml='<div class="prev-link-stats">';
+          if(s.clicks)statsHtml+='<i class="fas fa-mouse-pointer"></i>'+s.clicks+' ';
+          if(s.platform==='vcard_strip'&&s.downloads)statsHtml+='<i class="fas fa-download"></i>'+s.downloads;
+          statsHtml+='</div>';
+        }
+        if(s.platform==='vcard_strip'){
+          return '<div class="prev-link" style="border:1px solid rgba(13,148,136,0.2)"><div class="prev-link-icon" style="background:rgba(13,148,136,0.15)"><i class="fas fa-address-card" style="color:#0d9488"></i></div><div class="prev-link-title">'+(s.title||'Save Contact')+'</div>'+statsHtml+'</div>';
+        }
+        return '<div class="prev-link"><div class="prev-link-icon" style="background:'+plat.bg+'"><i class="'+plat.icon+'" style="color:'+plat.color+'"></i></div><div class="prev-link-title">'+esc(s.title||s.url)+'</div>'+statsHtml+'</div>';
+      }).join('');
+    }else{
+      pl.innerHTML='<div class="prev-empty">Your visible links appear here</div>';
+    }
+  }
+  var username=localStorage.getItem('username')||'';
+  var pc=document.getElementById('prevCtaTitle');
   if(pc)pc.textContent='Join '+(username||'username')+' on myQRID';
 }
 
 /* ══ COLLECTION ══ */
 function openCollectionModal(){
-  const filled=strips.filter(s=>(s.title||s.url)&&!s.archived);
+  var filled=strips.filter(function(s){return (s.title||s.url)&&!s.archived;});
   document.getElementById('colTitle').value='';
-  document.getElementById('colLinksList').innerHTML=filled.length?filled.map(s=>`<div style="display:flex;align-items:center;gap:10px;padding:8px;background:#f9f9fb;border:1px solid #e9e9eb;border-radius:10px;margin-bottom:6px"><input type="checkbox" id="col-check-${s.sid}" style="width:16px;height:16px;accent-color:#7c3aed"><label for="col-check-${s.sid}" style="font-size:13px;font-weight:600;color:#111;cursor:pointer">${esc(s.title||s.url)}</label></div>`).join(''):'<div style="font-size:12px;color:#bbb;text-align:center;padding:12px">Add links first</div>';
+  document.getElementById('colLinksList').innerHTML=filled.length?filled.map(function(s){return '<div style="display:flex;align-items:center;gap:10px;padding:8px;background:#f9f9fb;border:1px solid #e9e9eb;border-radius:10px;margin-bottom:6px"><input type="checkbox" id="col-check-'+s.sid+'" style="width:16px;height:16px;accent-color:#7c3aed"><label for="col-check-'+s.sid+'" style="font-size:13px;font-weight:600;color:#111;cursor:pointer">'+esc(s.title||s.url)+'</label></div>';}).join(''):'<div style="font-size:12px;color:#bbb;text-align:center;padding:12px">Add links first</div>';
   document.getElementById('collectionModal').classList.add('open');
 }
 function closeCollectionModal(){document.getElementById('collectionModal').classList.remove('open');}
-function selectColLayout(l,el){colLayout=l;document.querySelectorAll('.col-layout-opt').forEach(o=>o.classList.remove('sel'));if(el)el.classList.add('sel');}
-function saveCollection(){const t=document.getElementById('colTitle').value.trim();if(!t){showToast('Enter a title');return;}collections.push({title:t,layout:colLayout});closeCollectionModal();showToast('✅ Collection "'+t+'" created!');}
+function selectColLayout(l,el){colLayout=l;document.querySelectorAll('.col-layout-opt').forEach(function(o){o.classList.remove('sel');});if(el)el.classList.add('sel');}
+function saveCollection(){var t=document.getElementById('colTitle').value.trim();if(!t){showToast('Enter a title');return;}collections.push({title:t,layout:colLayout});closeCollectionModal();showToast('✅ Collection "'+t+'" created!');}
 
 /* ══ ARCHIVE ══ */
 function openArchiveModal(){
-  const archived=strips.filter(s=>s.archived);
-  document.getElementById('archiveList').innerHTML=archived.length?archived.map(s=>{const plat=getPlatform(s.platform);return `<div class="archive-item"><div class="archive-icon" style="background:${plat.bg}"><i class="${plat.icon}" style="color:${plat.color}"></i></div><div class="archive-info"><div class="archive-title">${esc(s.title||'Untitled')}</div><div class="archive-url">${esc(s.url)}</div></div><button class="archive-restore" onclick="restoreStrip(${s.sid})">Restore</button></div>`;}).join(''):'<div style="text-align:center;padding:40px 20px;color:#bbb"><i class="fas fa-archive" style="font-size:32px;color:#e5e7eb;display:block;margin-bottom:10px"></i>No archived links yet</div>';
+  var archived=strips.filter(function(s){return s.archived;});
+  document.getElementById('archiveList').innerHTML=archived.length?archived.map(function(s){var plat=getPlatform(s.platform);return '<div class="archive-item"><div class="archive-icon" style="background:'+plat.bg+'"><i class="'+plat.icon+'" style="color:'+plat.color+'"></i></div><div class="archive-info"><div class="archive-title">'+esc(s.title||'Untitled')+'</div><div class="archive-url">'+esc(s.url)+'</div></div><button class="archive-restore" onclick="restoreStrip('+s.sid+')">Restore</button></div>';}).join(''):'<div style="text-align:center;padding:40px 20px;color:#bbb"><i class="fas fa-archive" style="font-size:32px;color:#e5e7eb;display:block;margin-bottom:10px"></i>No archived links yet</div>';
   document.getElementById('archiveModal').classList.add('open');
 }
 function closeArchiveModal(){document.getElementById('archiveModal').classList.remove('open');}
-function restoreStrip(sid){const s=strips.find(x=>x.sid===sid);if(!s)return;s.archived=false;openArchiveModal();renderStrips();autoSave();showToast('✅ Restored!');}
-function archiveAllHidden(){let n=0;strips.forEach(s=>{if(!s.visible&&(s.title||s.url)&&!s.archived){s.archived=true;n++;}});openArchiveModal();renderStrips();autoSave();showToast(n?`Archived ${n} links`:'No unpublished links');}
+function restoreStrip(sid){var s=strips.find(function(x){return x.sid===sid;});if(!s)return;s.archived=false;openArchiveModal();renderStrips();autoSave();showToast('✅ Restored!');}
+function archiveAllHidden(){var n=0;strips.forEach(function(s){if(!s.visible&&(s.title||s.url)&&!s.archived){s.archived=true;n++;}});openArchiveModal();renderStrips();autoSave();showToast(n?'Archived '+n+' links':'No unpublished links');}
 
 /* ══ AVATAR ══ */
 function openAvatarModal(){document.getElementById('avatarModal').classList.add('open');}
 function closeAvatarModal(){document.getElementById('avatarModal').classList.remove('open');}
-function handleAvatarImg(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>setAvatarSrc(ev.target.result,'img');r.readAsDataURL(f);}
-function handleAvatarVideo(e){const f=e.target.files[0];if(!f)return;if(f.size>20*1024*1024){showToast('Video must be under 20 MB');return;}setAvatarSrc(URL.createObjectURL(f),'video');}
+function handleAvatarImg(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){setAvatarSrc(ev.target.result,'img');};r.readAsDataURL(f);}
+function handleAvatarVideo(e){var f=e.target.files[0];if(!f)return;if(f.size>20*1024*1024){showToast('Video must be under 20 MB');return;}setAvatarSrc(URL.createObjectURL(f),'video');}
 function setAvatarSrc(src,type){
-  const el=document.getElementById('pAvatar');const sa=document.getElementById('sidebarAvatar');
-  if(type==='video'){el.innerHTML=`<video src="${src}" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;border-radius:50%"></video>`;}
-  else{el.style.background='none';el.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover">`;if(sa){sa.style.background='none';sa.innerHTML=`<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}}
+  var el=document.getElementById('pAvatar');var sa=document.getElementById('sidebarAvatar');
+  if(type==='video'){el.innerHTML='<video src="'+src+'" autoplay loop muted playsinline style="width:100%;height:100%;object-fit:cover;border-radius:50%"></video>';}
+  else{el.style.background='none';el.innerHTML='<img src="'+src+'" style="width:100%;height:100%;object-fit:cover">';if(sa){sa.style.background='none';sa.innerHTML='<img src="'+src+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">'; }}
   localStorage.setItem('avatar_personal',src);updatePreview();
 }
 
 /* ══ VCARD DOWNLOAD ══ */
 function downloadVCard(){
-  const name=localStorage.getItem('name')||'My Contact';
-  const username=localStorage.getItem('username')||'';
-  const bio=document.getElementById('pBio')?.textContent||'';
-  const wa=socials.whatsapp||'';const tel=wa?wa.replace(/\D/g,''):'';
-  const email=socials.email||'';
-  const website=socials.website||(username?'https://myqrid.in/'+username:'');
-  const ig=socials.instagram?'https://instagram.com/'+socials.instagram:'';
-  const li=socials.linkedin||'';
-  let v='BEGIN:VCARD\nVERSION:3.0\n';
+  var name=localStorage.getItem('name')||'My Contact';
+  var username=localStorage.getItem('username')||'';
+  var bio=(document.getElementById('pBio')||{}).textContent||'';
+  var wa=socials.whatsapp||'';var tel=wa?wa.replace(/\D/g,''):'';
+  var email=socials.email||'';
+  var website=socials.website||(username?'https://myqrid.in/'+username:'');
+  var ig=socials.instagram?'https://instagram.com/'+socials.instagram:'';
+  var li=socials.linkedin||'';
+  var v='BEGIN:VCARD\nVERSION:3.0\n';
   v+='FN:'+name+'\n';
   if(bio)v+='NOTE:'+bio+'\n';
   if(tel)v+='TEL;TYPE=CELL:+'+tel+'\n';
@@ -863,118 +938,123 @@ function downloadVCard(){
   if(ig)v+='X-SOCIALPROFILE;type=instagram:'+ig+'\n';
   if(li)v+='X-SOCIALPROFILE;type=linkedin:'+li+'\n';
   v+='END:VCARD';
-  const blob=new Blob([v],{type:'text/vcard'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=(name.replace(/\s+/g,'_')||'contact')+'.vcf';
+  var blob=new Blob([v],{type:'text/vcard'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download=(name.replace(/\s+/g,'_')||'contact')+'.vcf';
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  /* Increment download count on vcard strips */
+  strips.filter(function(s){return s.platform==='vcard_strip';}).forEach(function(s){s.downloads=(s.downloads||0)+1;});
+  autoSave();
   showToast('📇 Contact saved!');
 }
 
 /* ══ SOCIAL ══ */
 function editSoc(id){
-  curSoc=id;const c=SOC_CFG[id];if(!c)return;
+  curSoc=id;var c=SOC_CFG[id];if(!c)return;
   document.getElementById('socTitle').textContent='Link '+c.label;
   document.getElementById('socLbl').textContent=c.lbl;
   document.getElementById('socInput').placeholder=c.ph;
   document.getElementById('socInput').value=socials[id]||'';
   document.getElementById('socModal').classList.add('open');
-  setTimeout(()=>document.getElementById('socInput').focus(),300);
+  setTimeout(function(){document.getElementById('socInput').focus();},300);
 }
 function closeSocModal(){document.getElementById('socModal').classList.remove('open');}
 function saveSoc(){
-  const v=document.getElementById('socInput').value.trim();
+  var v=document.getElementById('socInput').value.trim();
   socials[curSoc]=v;localStorage.setItem('socials_data',JSON.stringify(socials));
   closeSocModal();syncSocialChips();showToast(v?'✅ Linked!':'Removed');
 }
 function editBio(){document.getElementById('bioInput').value=document.getElementById('pBio').textContent||'';document.getElementById('bioModal').classList.add('open');}
 function closeBioModal(){document.getElementById('bioModal').classList.remove('open');}
-function saveBio(){const v=document.getElementById('bioInput').value.trim();document.getElementById('pBio').textContent=v||'Add your bio';closeBioModal();updatePreview();showToast('Bio updated!');}
+function saveBio(){var v=document.getElementById('bioInput').value.trim();document.getElementById('pBio').textContent=v||'Add your bio';closeBioModal();updatePreview();showToast('Bio updated!');}
 function copyUrl(){navigator.clipboard.writeText('https://myqrid.in/'+(localStorage.getItem('username')||'—'));showToast('🔗 Link copied!');}
 function shareProfile(){
-  const u=localStorage.getItem('username')||'',url='https://myqrid.in/'+u;
-  if(navigator.share)navigator.share({title:(localStorage.getItem('name')||'myQRID')+' — myQRID',url});
+  var u=localStorage.getItem('username')||'';var url='https://myqrid.in/'+u;
+  if(navigator.share)navigator.share({title:(localStorage.getItem('name')||'myQRID')+' — myQRID',url:url});
   else{navigator.clipboard.writeText(url);showToast('Link copied!');}
 }
 
 /* ══ AUTO SAVE ══ */
-let saveTimer=null;
+var saveTimer=null;
 function autoSave(){
   clearTimeout(saveTimer);
-  saveTimer=setTimeout(()=>{
-    localStorage.setItem('strips_v5',JSON.stringify(strips.map(({sid,title,url,platform,visible,pinned,liked,clicks,archived})=>({sid,title,url,platform,visible,pinned,liked,clicks,archived}))));
-    const token=localStorage.getItem('token');if(!token)return;
+  saveTimer=setTimeout(function(){
+    localStorage.setItem('strips_v5',JSON.stringify(strips.map(function(s){return {sid:s.sid,title:s.title,url:s.url,platform:s.platform,visible:s.visible,pinned:s.pinned,liked:s.liked,clicks:s.clicks,archived:s.archived,showStats:s.showStats||false,shares:s.shares||0,downloads:s.downloads||0};})));
+    var token=localStorage.getItem('token');if(!token)return;
     fetch(API+'/links/reorder',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({links:strips.filter(s=>(s.title||s.url)&&!s.archived).map(s=>({id:'strip_'+s.sid,title:s.title,url:s.url,icon:s.platform,active:true,visible:s.visible,pinned:s.pinned,clicks:s.clicks,color:getPlatform(s.platform).color}))})
-    }).catch(()=>{});
+      body:JSON.stringify({links:strips.filter(function(s){return (s.title||s.url)&&!s.archived;}).map(function(s){return {id:'strip_'+s.sid,title:s.title,url:s.url,icon:s.platform,active:true,visible:s.visible,pinned:s.pinned,clicks:s.clicks,color:getPlatform(s.platform).color};})})
+    }).catch(function(){});
   },800);
 }
 
 async function saveAllLinks(){
-  const btn=document.getElementById('saveBtn');btn.disabled=true;btn.textContent='Saving...';
-  const token=localStorage.getItem('token');
+  var btn=document.getElementById('saveBtn');btn.disabled=true;btn.textContent='Saving...';
+  var token=localStorage.getItem('token');
   if(!token){showToast('Please login first');btn.disabled=false;btn.textContent='Save';return;}
   try{
-    const res=await fetch(API+'/links/reorder',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body:JSON.stringify({links:strips.filter(s=>(s.title||s.url)&&!s.archived).map(s=>({id:'strip_'+s.sid,title:s.title,url:s.url,icon:s.platform,active:true,visible:s.visible,pinned:s.pinned,clicks:s.clicks,color:getPlatform(s.platform).color}))})});
-    const d=await res.json();showToast(d.success?'✅ All saved!':'Error saving');
+    var res=await fetch(API+'/links/reorder',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({links:strips.filter(function(s){return (s.title||s.url)&&!s.archived;}).map(function(s){return {id:'strip_'+s.sid,title:s.title,url:s.url,icon:s.platform,active:true,visible:s.visible,pinned:s.pinned,clicks:s.clicks,color:getPlatform(s.platform).color};})})});
+    var d=await res.json();showToast(d.success?'✅ All saved!':'Error saving');
   }catch(e){showToast('Saved locally');}
   btn.disabled=false;btn.textContent='Save';
 }
 
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+function showToast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}
 
 /* ══ LOAD DATA ══ */
 async function loadData(){
-  const name=localStorage.getItem('name')||'';
-  const username=localStorage.getItem('username')||'';
+  var name=localStorage.getItem('name')||'';
+  var username=localStorage.getItem('username')||'';
   if(name){
-    const el=document.getElementById('pAvatar');if(el&&!el.querySelector('img,video'))el.textContent=name[0].toUpperCase();
+    var el=document.getElementById('pAvatar');if(el&&!el.querySelector('img,video'))el.textContent=name[0].toUpperCase();
     document.getElementById('pName').textContent=name;
-    const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
-    const sa=document.getElementById('sidebarAvatar');if(sa&&!sa.querySelector('img'))sa.textContent=name[0].toUpperCase();
+    var sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
+    var sa=document.getElementById('sidebarAvatar');if(sa&&!sa.querySelector('img'))sa.textContent=name[0].toUpperCase();
   }
   if(username){
     document.getElementById('pUser').textContent='myqrid.in/'+username;
-    const su=document.getElementById('sidebarUrl');if(su)su.textContent='myqrid.in/'+username;
-    const ct=document.getElementById('ctaMainText');if(ct)ct.textContent='Join '+username+' on myQRID';
-    const pc=document.getElementById('prevCtaTitle');if(pc)pc.textContent='Join '+username+' on myQRID';
-    const refUrl='/signup.html?ref='+username;
-    const jb=document.getElementById('ctaJoinBtn');if(jb)jb.href=refUrl;
+    var su=document.getElementById('sidebarUrl');if(su)su.textContent='myqrid.in/'+username;
+    var ct=document.getElementById('ctaMainText');if(ct)ct.textContent='Join '+username+' on myQRID';
+    var pc=document.getElementById('prevCtaTitle');if(pc)pc.textContent='Join '+username+' on myQRID';
+    var refUrl='/signup.html?ref='+username;
+    var jb=document.getElementById('ctaJoinBtn');if(jb)jb.href=refUrl;
   }
-  const av=localStorage.getItem('avatar_personal');
+  var av=localStorage.getItem('avatar_personal');
   if(av){
-    const el=document.getElementById('pAvatar');el.style.background='none';el.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover">`;
-    const sa=document.getElementById('sidebarAvatar');if(sa){sa.style.background='none';sa.innerHTML=`<img src="${av}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}
+    var el2=document.getElementById('pAvatar');el2.style.background='none';el2.innerHTML='<img src="'+av+'" style="width:100%;height:100%;object-fit:cover">';
+    var sa2=document.getElementById('sidebarAvatar');if(sa2){sa2.style.background='none';sa2.innerHTML='<img src="'+av+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';}
   }
-  const localSoc=localStorage.getItem('socials_data');
+  var localSoc=localStorage.getItem('socials_data');
   if(localSoc){try{socials=JSON.parse(localSoc);}catch(e){}}
-  const local=localStorage.getItem('strips_v5');
+  var local=localStorage.getItem('strips_v5');
   if(local){
     try{
-      const saved=JSON.parse(local);
-      if(saved.length>0)strips=saved.map(sv=>({sid:sv.sid,title:sv.title||'',url:sv.url||'',platform:sv.platform||'link',visible:sv.visible||false,pinned:sv.pinned||false,liked:sv.liked||false,clicks:sv.clicks||0,archived:sv.archived||false,open:false}));
+      var saved=JSON.parse(local);
+      if(saved.length>0){
+        strips=saved.map(function(sv){return {sid:sv.sid,title:sv.title||'',url:sv.url||'',platform:sv.platform||'link',visible:sv.visible||false,pinned:sv.pinned||false,liked:sv.liked||false,clicks:sv.clicks||0,archived:sv.archived||false,open:false,showStats:sv.showStats||false,shares:sv.shares||0,downloads:sv.downloads||0};});
+      }
     }catch(e){}
   }
   renderStrips();
   initFreezeHeader();
-  const token=localStorage.getItem('token');if(!token)return;
+  var token=localStorage.getItem('token');if(!token)return;
   try{
-    const res=await fetch(API+'/links',{headers:{'Authorization':'Bearer '+token}});
-    const d=await res.json();
+    var res=await fetch(API+'/links',{headers:{'Authorization':'Bearer '+token}});
+    var d=await res.json();
     if(d.success&&d.links&&d.links.length){
-      d.links.forEach((link,i)=>{const sid=parseInt((link.id||'').replace('strip_',''));const idx=(!isNaN(sid)&&sid<strips.length)?sid:i;if(idx<strips.length){strips[idx].title=link.title||'';strips[idx].url=link.url||'';strips[idx].platform=link.icon||'link';strips[idx].visible=link.visible!==false;strips[idx].clicks=link.clicks||0;}});
+      d.links.forEach(function(link,i){var sid=parseInt((link.id||'').replace('strip_',''));var idx=(!isNaN(sid)&&sid<strips.length)?sid:i;if(idx<strips.length){strips[idx].title=link.title||'';strips[idx].url=link.url||'';strips[idx].platform=link.icon||'link';strips[idx].visible=link.visible!==false;strips[idx].clicks=link.clicks||0;}});
       renderStrips();
     }
   }catch(e){}
   try{
-    const res=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
-    const d=await res.json();
-    if(d.success){
-      socials={...socials,...(d.profile.socials||{})};
+    var res2=await fetch(API+'/dashboard',{headers:{'Authorization':'Bearer '+token}});
+    var d2=await res2.json();
+    if(d2.success){
+      socials=Object.assign({},socials,d2.profile.socials||{});
       localStorage.setItem('socials_data',JSON.stringify(socials));
       syncSocialChips();
-      if(d.profile.bio)document.getElementById('pBio').textContent=d.profile.bio;
+      if(d2.profile.bio)document.getElementById('pBio').textContent=d2.profile.bio;
     }
   }catch(e){}
 }
