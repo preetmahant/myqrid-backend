@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>myQRID Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif}
+html,body{min-height:100vh;color:#111}
+/* THEME BACKGROUNDS */
+body.vt-personal{background:linear-gradient(160deg,#3b1a6b 0%,#5a2e9f 35%,#ede9ff 100%)}
+body.vt-work    {background:linear-gradient(160deg,#0d1e3e 0%,#18386a 35%,#dbeafe 100%)}
+body.vt-earn    {background:linear-gradient(160deg,#7a340e 0%,#93400d 35%,#fef3c7 100%)}
+body.vt-drift   {background:linear-gradient(160deg,#000 0%,#060d0b 35%,#001a12 100%)}
+body.vt-default {background:linear-gradient(160deg,#3b1a6b 0%,#5a2e9f 35%,#ede9ff 100%)}
+
+.page{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;position:relative}
+
+/* HERO / PROFILE TOP */
+.hero{padding:calc(20px + env(safe-area-inset-top)) 20px 0;display:flex;flex-direction:column;align-items:center;text-align:center;flex-shrink:0}
+.hero-av{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,.3),rgba(255,255,255,.1));border:3px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;color:#fff;overflow:hidden;cursor:pointer;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.hero-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.hero-name{font-size:22px;font-weight:900;color:#fff;letter-spacing:-.4px;margin-bottom:3px;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hero-handle{font-size:13px;color:rgba(255,255,255,.6);margin-bottom:6px;font-weight:500}
+.hero-bio{font-size:13px;color:rgba(255,255,255,.7);max-width:280px;line-height:1.5;margin-bottom:14px}
+/* Social icons row */
+.soc-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.soc-ico{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;cursor:pointer;transition:transform .15s}
+.soc-ico:active{transform:scale(.9)}
+
+/* CONNECT BUTTON */
+.connect-wrap{padding:0 20px 16px;flex-shrink:0}
+.connect-btn{width:100%;padding:16px;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border:none;border-radius:16px;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;color:#111;box-shadow:0 8px 24px rgba(0,0,0,.2);letter-spacing:.1px;transition:transform .15s}
+.connect-btn:active{transform:scale(.97)}
+.connect-btn i{color:#7c3aed;font-size:17px}
+
+/* CARD TYPE TABS (if multiple visible) */
+.card-type-tabs{display:flex;gap:6px;padding:0 20px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+.card-type-tabs::-webkit-scrollbar{display:none}
+.cvtab{flex-shrink:0;padding:5px 16px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.55);background:rgba(255,255,255,.1);backdrop-filter:blur(8px);transition:all .22s;white-space:nowrap}
+.cvtab.active{background:rgba(255,255,255,.95);color:#111;border-color:transparent}
+
+/* WHITE CARD SECTION */
+.white-section{background:#fff;border-radius:24px 24px 0 0;flex:1;padding:20px 20px 0;box-shadow:0 -4px 20px rgba(0,0,0,.1);margin-top:4px}
+
+/* LINK STRIPS */
+.links-section{margin-bottom:16px}
+.sec-label{font-size:10px;font-weight:700;color:#c0c0c8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.vlink-strip{display:flex;align-items:center;gap:12px;padding:13px 14px;background:#f8f8fb;border:1px solid rgba(0,0,0,.06);border-radius:14px;margin-bottom:7px;cursor:pointer;text-decoration:none;transition:transform .15s}
+.vlink-strip:active{transform:scale(.97);background:#f3f0ff}
+.vls-icon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.vls-title{font-size:14px;font-weight:700;color:#111;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vls-arrow{color:#ddd;font-size:12px;flex-shrink:0}
+
+/* CARD WIDGET STRIP (HiHello style horizontal card) */
+.card-widget-section{margin-bottom:20px}
+.card-widget-scroll{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.card-widget-scroll::-webkit-scrollbar{display:none}
+.card-widget{flex:0 0 260px;height:360px;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 12px 36px rgba(0,0,0,.15);cursor:pointer;transition:transform .2s;position:relative}
+.card-widget:active{transform:scale(.97)}
+/* Card photo 50% */
+.cw-photo{flex:0 0 50%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cw-photo-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.cw-photo-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%)}
+.cw-initial{font-size:72px;font-weight:900;opacity:.07;color:#fff;position:absolute;user-select:none}
+.cw-chip{position:absolute;top:10px;left:50%;transform:translateX(-50%);padding:3px 12px;border-radius:20px;font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;background:rgba(0,0,0,.3);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);color:#fff;white-space:nowrap;z-index:3}
+.cw-expand{position:absolute;bottom:10px;right:10px;width:26px;height:26px;border-radius:50%;background:rgba(0,0,0,.4);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;z-index:4}
+/* Card info 50% */
+.cw-info{flex:0 0 50%;display:flex;flex-direction:column;padding:12px 14px 10px;overflow:hidden}
+.cwi-name{font-size:17px;font-weight:800;letter-spacing:-.3px;line-height:1.1;color:#fff;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cwi-tag{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cwi-div{height:1px;background:rgba(255,255,255,.1);margin-bottom:7px}
+.cwi-fields{flex:1;display:flex;flex-direction:column;gap:4px;overflow:hidden}
+.cwi-field{display:flex;align-items:center;gap:7px}
+.cwi-field-icon{width:20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0}
+.cwi-field-text{flex:1;min-width:0}
+.cwi-field-lbl{font-size:7px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1px}
+.cwi-field-val{font-size:11px;font-weight:600;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* FULL CARD EXPAND OVERLAY */
+.card-expand-ov{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.65);display:none;align-items:flex-end;backdrop-filter:blur(4px)}
+.card-expand-ov.open{display:flex}
+.card-expand-panel{background:#fff;border-radius:26px 26px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.1,.64,1);max-height:92vh;overflow-y:auto}
+.card-expand-ov.open .card-expand-panel{transform:translateY(0)}
+.cep-handle{width:38px;height:4px;background:#eee;border-radius:2px;margin:16px auto 0}
+/* Big card in expand */
+.cep-card{margin:16px 20px;height:520px;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 16px 48px rgba(0,0,0,.2)}
+.cep-photo{flex:0 0 50%;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cep-info{flex:0 0 50%;display:flex;flex-direction:column;padding:16px 20px 14px;overflow:hidden}
+.cep-name{font-size:22px;font-weight:800;color:#fff;letter-spacing:-.4px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cep-tag{font-size:12px;color:rgba(255,255,255,.55);margin-bottom:10px}
+.cep-div{height:1px;background:rgba(255,255,255,.1);margin-bottom:10px}
+.cep-fields{flex:1;display:flex;flex-direction:column;gap:7px;overflow:hidden}
+.cep-field{display:flex;align-items:center;gap:10px}
+.cep-ficon{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.cep-ftext{flex:1;min-width:0}
+.cep-flabel{font-size:8px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:2px}
+.cep-fval{font-size:13px;font-weight:600;color:rgba(255,255,255,.88);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Expand actions */
+.cep-actions{padding:0 20px 20px}
+.cep-connect-btn{width:100%;padding:15px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+.cep-save-btn{width:100%;padding:13px;background:linear-gradient(135deg,#0d9488,#10b981);border:none;border-radius:14px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:10px}
+.cep-close{width:100%;padding:12px;background:transparent;border:1.5px solid #eee;border-radius:13px;color:#aaa;font-size:14px;cursor:pointer}
+
+/* CONNECT ACTION SHEET */
+.connect-sheet-ov{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.55);display:none;align-items:flex-end}
+.connect-sheet-ov.open{display:flex}
+.connect-sheet{background:#fff;border-radius:26px 26px 0 0;width:100%;max-width:480px;margin:0 auto;transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.1,.64,1);padding:20px 20px calc(20px + env(safe-area-inset-bottom))}
+.connect-sheet-ov.open .connect-sheet{transform:translateY(0)}
+.cs-handle{width:38px;height:4px;background:#eee;border-radius:2px;margin:0 auto 16px}
+.cs-title{font-size:17px;font-weight:800;color:#111;margin-bottom:4px}
+.cs-sub{font-size:12px;color:#bbb;margin-bottom:16px}
+.cs-wa-btn{width:100%;padding:15px;background:linear-gradient(135deg,#25d366,#128c7e);border:none;border-radius:14px;color:#fff;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:10px;letter-spacing:.1px}
+.cs-wa-btn:active{transform:scale(.97)}
+.cs-row{display:flex;align-items:center;gap:13px;padding:13px 16px;border-radius:14px;border:1px solid #f0f0f2;cursor:pointer;margin-bottom:8px;transition:all .18s;background:#f9f9fb}
+.cs-row:active{background:#f3f0ff;border-color:rgba(124,58,237,.2)}
+.cs-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.cs-lbl{font-size:14px;font-weight:700;color:#111}
+.cs-val{font-size:11px;color:#bbb;margin-top:1px}
+.cs-arrow{margin-left:auto;color:#ddd;font-size:12px}
+.cs-div{height:1px;background:#f0f0f2;margin:10px 0}
+.cs-save-btn{width:100%;padding:14px;background:linear-gradient(135deg,#0d9488,#10b981);border:none;border-radius:14px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:10px}
+.cs-save-btn:active{transform:scale(.97)}
+.cs-cancel{width:100%;padding:12px;background:transparent;border:1.5px solid #eee;border-radius:13px;color:#aaa;font-size:14px;cursor:pointer}
+
+/* FOOTER */
+.viewer-footer{padding:20px;text-align:center;background:#fff}
+.vf-join{font-size:13px;font-weight:800;color:#111;margin-bottom:3px}
+.vf-sub{font-size:11px;color:#bbb;margin-bottom:12px}
+.vf-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 22px;background:linear-gradient(135deg,#7c3aed,#ec4899);border-radius:22px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:14px}
+.vf-links{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+.vf-links a{font-size:11px;color:#bbb;text-decoration:none;font-weight:500}
+.vf-brand{font-size:14px;font-weight:900;color:#111}
+.vf-brand span{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.vf-tagline{font-size:10px;color:#ccc;margin-top:2px}
+
+/* TOAST */
+.vtost{position:fixed;top:calc(14px + env(safe-area-inset-top));left:50%;transform:translateX(-50%) translateY(-80px);background:rgba(15,15,15,.92);color:#fff;padding:9px 20px;border-radius:22px;font-size:13px;font-weight:600;z-index:999;transition:transform .3s cubic-bezier(.34,1.15,.64,1);white-space:nowrap;backdrop-filter:blur(16px)}
+.vtost.show{transform:translateX(-50%) translateY(0)}
+
+/* CARD PHOTO BACKGROUNDS */
+.cwbg-personal{background:linear-gradient(145deg,#3d1f6e,#5b2fa0 50%,#7c4dcc 75%,#ede0ff)}
+.cwbg-work    {background:linear-gradient(145deg,#0f2040,#1a3a6e 50%,#2a5da8 75%,#dbeafe)}
+.cwbg-earn    {background:linear-gradient(145deg,#78350f,#92400e 50%,#b45309 75%,#fef3c7)}
+.cwbg-drift   {background:linear-gradient(145deg,#000,#050a0a 50%,#0a1a15 75%,#001a12)}
+.ci-personal  {background:linear-gradient(160deg,#3b1a6b,#5a2e9f)}
+.ci-work      {background:linear-gradient(160deg,#0d1e3e,#18386a)}
+.ci-earn      {background:linear-gradient(160deg,#7a340e,#93400d)}
+.ci-drift     {background:linear-gradient(160deg,#000,#060d0b)}
+</style>
+</head>
+<body class="vt-default">
+
+<div class="page" id="mainPage">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-av" id="heroAv"><img id="heroAvImg" src="" style="display:none"><span id="heroAvTxt">?</span></div>
+    <div class="hero-name" id="heroName">Loading...</div>
+    <div class="hero-handle" id="heroHandle">@username</div>
+    <div class="hero-bio" id="heroBio"></div>
+    <div class="soc-row" id="socRow"></div>
+  </div>
+
+  <!-- CONNECT BUTTON -->
+  <div class="connect-wrap">
+    <button class="connect-btn" onclick="openConnectSheet()">
+      <i class="fas fa-user-plus"></i> Connect
+    </button>
+  </div>
+
+  <!-- CARD TYPE TABS (shown if multiple cards visible) -->
+  <div class="card-type-tabs" id="cardTypeTabs" style="display:none"></div>
+
+  <!-- WHITE SECTION -->
+  <div class="white-section">
+    <!-- LINKS -->
+    <div class="links-section" id="linksSection">
+      <div class="sec-label">Links</div>
+      <div id="linksList"></div>
+    </div>
+
+    <!-- CARD WIDGETS -->
+    <div class="card-widget-section" id="cardWidgetSection">
+      <div class="sec-label">Digital Card</div>
+      <div class="card-widget-scroll" id="cardWidgetScroll"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="viewer-footer">
+      <div class="vf-join" id="vfJoin">Join on myQRID</div>
+      <div class="vf-sub">Build your free digital identity</div>
+      <a href="/signup.html" class="vf-btn" id="vfBtn"><i class="fas fa-bolt"></i> Join Free</a>
+      <div class="vf-links">
+        <a href="/safety.html">Safety</a><span style="color:#ddd">·</span>
+        <a href="/privacy.html">Privacy</a><span style="color:#ddd">·</span>
+        <a href="https://myqrid.in">More from myQRID</a>
+      </div>
+      <div class="vf-brand">my<span>QRID</span></div>
+      <div class="vf-tagline">Your Digital Identity · One QR · Infinite Possibilities</div>
+    </div>
+  </div>
+</div>
+
+<!-- CARD EXPAND OVERLAY -->
+<div class="card-expand-ov" id="cardExpandOv" onclick="if(event.target===this)closeExpand()">
+  <div class="card-expand-panel" onclick="event.stopPropagation()">
+    <div class="cep-handle"></div>
+    <div class="cep-card" id="cepCard">
+      <div class="cep-photo" id="cepPhoto">
+        <div style="position:absolute;inset:0;background-size:cover;background-position:center" id="cepPhotoBg"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%)"></div>
+        <div style="font-size:80px;font-weight:900;opacity:.07;color:#fff;position:absolute;user-select:none" id="cepInitial">?</div>
+        <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);padding:4px 14px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;background:rgba(0,0,0,.3);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);color:#fff;white-space:nowrap;z-index:3" id="cepChip">Card</div>
+      </div>
+      <div class="cep-info" id="cepInfo">
+        <div class="cep-name" id="cepName">Name</div>
+        <div class="cep-tag" id="cepTag">Role</div>
+        <div class="cep-div"></div>
+        <div class="cep-fields" id="cepFields"></div>
+      </div>
+    </div>
+    <div class="cep-actions">
+      <button class="cep-connect-btn" onclick="closeExpand();openConnectSheet()"><i class="fas fa-user-plus"></i> Connect</button>
+      <button class="cep-save-btn" onclick="saveContact()"><i class="fas fa-address-card"></i> Save as Contact</button>
+      <button class="cep-close" onclick="closeExpand()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONNECT ACTION SHEET -->
+<div class="connect-sheet-ov" id="connectSheetOv" onclick="if(event.target===this)closeConnectSheet()">
+  <div class="connect-sheet" onclick="event.stopPropagation()">
+    <div class="cs-handle"></div>
+    <div class="cs-title" id="csTitle">Connect</div>
+    <div class="cs-sub" id="csSub">Choose how you'd like to connect</div>
+    <button class="cs-wa-btn" id="csWaBtn" onclick="csDoWA()"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+    <div class="cs-row" onclick="csDoCall()"><div class="cs-ico" style="background:#e8f5e9"><i class="fas fa-phone" style="color:#16a34a"></i></div><div><div class="cs-lbl">Call</div><div class="cs-val" id="csCallNum">—</div></div><i class="fas fa-chevron-right cs-arrow"></i></div>
+    <div class="cs-row" onclick="csDoEmail()"><div class="cs-ico" style="background:#eff6ff"><i class="fas fa-envelope" style="color:#3b82f6"></i></div><div><div class="cs-lbl">Email</div><div class="cs-val" id="csEmail">—</div></div><i class="fas fa-chevron-right cs-arrow"></i></div>
+    <div class="cs-row" onclick="csDoProfile()"><div class="cs-ico" style="background:#f5f3ff"><i class="fas fa-eye" style="color:#7c3aed"></i></div><div><div class="cs-lbl">Explore Profile</div><div class="cs-val" id="csProfile">myqrid.in/...</div></div><i class="fas fa-chevron-right cs-arrow"></i></div>
+    <div class="cs-row" id="csBookRow" onclick="csDoBooking()" style="display:none"><div class="cs-ico" style="background:#ecfdf5"><i class="fas fa-calendar-check" style="color:#059669"></i></div><div><div class="cs-lbl">Book a Call</div><div class="cs-val">Schedule time</div></div><i class="fas fa-chevron-right cs-arrow"></i></div>
+    <div class="cs-div"></div>
+    <button class="cs-save-btn" onclick="saveContact()"><i class="fas fa-address-card"></i> Save as Contact</button>
+    <button class="cs-cancel" onclick="closeConnectSheet()">Cancel</button>
+  </div>
+</div>
+
+<div class="vtost" id="vtost"></div>
+
+<script>
+'use strict';
+// ─── FIREBASE ────────────────────────────────────────────────────────────────
+const FB_CFG = {
+  apiKey: "AIzaSyD-placeholder-replace-with-yours",
+  authDomain: "myqrid-app.firebaseapp.com",
+  projectId: "myqrid-app",
+  storageBucket: "myqrid-app.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:placeholder"
+};
+let db = null;
+function initFB() {
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(FB_CFG);
+    db = firebase.firestore();
+  } catch(e) {}
+}
+
+// ─── URL PARAMS ──────────────────────────────────────────────────────────────
+const urlParams = new URLSearchParams(window.location.search);
+const USERNAME = (window.location.pathname.split('/u/')[1]||'').split('?')[0].replace('/','') || urlParams.get('u') || 'demo';
+const CARD_PARAM = urlParams.get('card') || null; // specific card requested
+
+// ─── FIELD TYPES ─────────────────────────────────────────────────────────────
+const FIELD_TYPES = {
+  phone:     {label:'Phone',     icon:'fas fa-phone',             color:'#16a34a'},
+  email:     {label:'Email',     icon:'fas fa-envelope',          color:'#3b82f6'},
+  whatsapp:  {label:'WhatsApp',  icon:'fab fa-whatsapp',          color:'#25d366'},
+  website:   {label:'Website',   icon:'fas fa-globe',             color:'#4338ca'},
+  instagram: {label:'Instagram', icon:'fab fa-instagram',         color:'#e1306c'},
+  linkedin:  {label:'LinkedIn',  icon:'fab fa-linkedin',          color:'#0a66c2'},
+  youtube:   {label:'YouTube',   icon:'fab fa-youtube',           color:'#ff0000'},
+  twitter:   {label:'X/Twitter', icon:'fab fa-x-twitter',         color:'#111'},
+  telegram:  {label:'Telegram',  icon:'fab fa-telegram',          color:'#2aabee'},
+  company:   {label:'Company',   icon:'fas fa-briefcase',         color:'#7c3aed'},
+  upi:       {label:'UPI Pay',   icon:'fas fa-indian-rupee-sign', color:'#6b21a8'},
+  github:    {label:'GitHub',    icon:'fab fa-github',            color:'#111'},
+  location:  {label:'Location',  icon:'fas fa-location-dot',      color:'#ef4444'},
+  bloodgroup:{label:'Blood Grp', icon:'fas fa-droplet',           color:'#f43f5e'},
+  vehicle:   {label:'Vehicle',   icon:'fas fa-motorcycle',        color:'#00c8b8'},
+  plate:     {label:'Plate No.', icon:'fas fa-hashtag',           color:'#00c8b8'},
+  emergency: {label:'Emergency', icon:'fas fa-phone-volume',      color:'#f43f5e'},
+  insurance: {label:'Insurance', icon:'fas fa-shield-halved',     color:'#7c3aed'},
+  rate:      {label:'Rate',      icon:'fas fa-tag',               color:'#f59e0b'},
+  booking:   {label:'Book Me',   icon:'fas fa-calendar-check',    color:'#059669'},
+  facebook:  {label:'Facebook',  icon:'fab fa-facebook',          color:'#1877f2'},
+  tiktok:    {label:'TikTok',    icon:'fab fa-tiktok',            color:'#111'},
+  spotify:   {label:'Spotify',   icon:'fab fa-spotify',           color:'#1db954'}
+};
+
+const CARD_THEMES = {
+  personal: {body:'vt-personal', bg:'cwbg-personal', info:'ci-personal', accent:'#a78bfa', chip:'✦ Personal Identity'},
+  work:     {body:'vt-work',     bg:'cwbg-work',     info:'ci-work',     accent:'#60a5fa', chip:'◈ Work Identity'},
+  earn:     {body:'vt-earn',     bg:'cwbg-earn',     info:'ci-earn',     accent:'#f59e0b', chip:'₹ Ea₹n'},
+  drift:    {body:'vt-drift',    bg:'cwbg-drift',    info:'ci-drift',    accent:'#00c8b8', chip:'🏁 Drift Rider ID'}
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let profileData = null;
+let visibleCards = [];
+let activeCardId = null;
+let currentCardForConnect = null;
+
+// ─── UTILS ───────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function showToast(m){var t=$('vtost');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},2200);}
+function openLink(u){if(u)window.open(u,'_blank');}
+
+// ─── LOAD PROFILE ─────────────────────────────────────────────────────────────
+async function loadProfile() {
+  // Try Firebase first
+  if (db) {
+    try {
+      var snap = await db.collection('profiles').doc(USERNAME).get();
+      if (snap.exists) {
+        profileData = snap.data();
+        renderProfile();
+        return;
+      }
+    } catch(e) {}
+  }
+  // Fallback: try API
+  try {
+    var res = await fetch('/api/profile/' + USERNAME);
+    if (res.ok) {
+      profileData = await res.json();
+      renderProfile();
+      return;
+    }
+  } catch(e) {}
+  // Demo fallback
+  profileData = {
+    name: USERNAME.charAt(0).toUpperCase() + USERNAME.slice(1),
+    username: USERNAME,
+    bio: 'myQRID Profile',
+    cards: {
+      personal: {
+        name: USERNAME.charAt(0).toUpperCase() + USERNAME.slice(1),
+        tagline: 'myQRID User',
+        fields: [{key:'phone',val:''},{key:'email',val:''},{key:'website',val:'myqrid.in/@'+USERNAME}],
+        photo: null
+      }
+    },
+    cardVisibility: {personal:'default',work:'show',earn:'show',drift:'show'},
+    links: [],
+    socials: {},
+    bookingUrl: ''
+  };
+  renderProfile();
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderProfile() {
+  var d = profileData;
+  if (!d) return;
+
+  document.title = (d.name || USERNAME) + ' — myQRID';
+
+  // Avatar
+  if (d.photo) {
+    $('heroAvImg').src = d.photo; $('heroAvImg').style.display = 'block'; $('heroAvTxt').style.display = 'none';
+  } else {
+    $('heroAvTxt').textContent = (d.name||USERNAME).charAt(0).toUpperCase();
+  }
+  $('heroName').textContent = d.name || USERNAME;
+  $('heroHandle').textContent = '@' + (d.username || USERNAME);
+  $('heroBio').textContent = d.bio || '';
+  if (!d.bio) $('heroBio').style.display = 'none';
+
+  // Footer
+  var un = d.username || USERNAME;
+  $('vfJoin').textContent = 'Join ' + un + ' on myQRID';
+  $('vfBtn').href = '/signup.html?ref=' + un;
+
+  // Social icons
+  renderSocials(d.socials || {});
+
+  // Determine which cards to show
+  determineVisibleCards(d);
+
+  // Body theme
+  if (activeCardId) {
+    document.body.className = CARD_THEMES[activeCardId] ? CARD_THEMES[activeCardId].body : 'vt-default';
+  }
+
+  // Card type tabs (if multiple visible)
+  renderCardTypeTabs();
+
+  // Links for active card
+  renderLinks(d, activeCardId);
+
+  // Card widgets
+  renderCardWidgets(d);
+
+  // Set connect sheet data
+  currentCardForConnect = activeCardId || visibleCards[0];
+  prepConnectSheet(d, currentCardForConnect);
+}
+
+function determineVisibleCards(d) {
+  var vis = d.cardVisibility || {};
+  var allCardIds = ['personal','work','earn','drift'];
+  visibleCards = [];
+
+  if (CARD_PARAM) {
+    // Specific card requested via URL param
+    if (d.cards && d.cards[CARD_PARAM] && vis[CARD_PARAM] !== 'hidden') {
+      visibleCards = [CARD_PARAM];
+      activeCardId = CARD_PARAM;
+      return;
+    }
+  }
+
+  // Find default card(s)
+  var defaultCards = allCardIds.filter(function(id) { return vis[id] === 'default'; });
+  var showCards = allCardIds.filter(function(id) { return vis[id] === 'default' || vis[id] === 'show'; });
+
+  // Filter to only cards that have data
+  visibleCards = showCards.filter(function(id) { return d.cards && d.cards[id]; });
+
+  if (visibleCards.length === 0) {
+    // Fallback: any card with data
+    visibleCards = allCardIds.filter(function(id) { return d.cards && d.cards[id]; });
+  }
+
+  // Active = first default card, or first visible
+  activeCardId = defaultCards.length > 0 ? defaultCards[0] : (visibleCards[0] || 'personal');
+}
+
+function renderCardTypeTabs() {
+  if (visibleCards.length <= 1) { $('cardTypeTabs').style.display = 'none'; return; }
+  $('cardTypeTabs').style.display = 'flex';
+  var CARD_LABELS = {personal:'Personal', work:'Work', earn:'Ea₹n', drift:'Drift'};
+  $('cardTypeTabs').innerHTML = visibleCards.map(function(id) {
+    return '<div class="cvtab'+(id===activeCardId?' active':'')+'" onclick="switchViewCard(\''+id+'\')">'+(CARD_LABELS[id]||id)+'</div>';
+  }).join('');
+}
+
+function switchViewCard(id) {
+  activeCardId = id;
+  currentCardForConnect = id;
+  document.body.className = CARD_THEMES[id] ? CARD_THEMES[id].body : 'vt-default';
+  // Update tabs
+  document.querySelectorAll('.cvtab').forEach(function(t) {
+    t.classList.toggle('active', t.textContent === ({personal:'Personal',work:'Work',earn:'Ea₹n',drift:'Drift'}[id]||id));
+  });
+  // Re-render links
+  renderLinks(profileData, id);
+  // Update connect sheet
+  prepConnectSheet(profileData, id);
+  // Scroll card widget into view
+  var widget = document.getElementById('cw-'+id);
+  if (widget) widget.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+}
+
+function renderSocials(socials) {
+  var SOC = {
+    whatsapp:{icon:'fab fa-whatsapp',color:'#25d366'},
+    instagram:{icon:'fab fa-instagram',color:'#e1306c'},
+    twitter:{icon:'fab fa-x-twitter',color:'#111'},
+    youtube:{icon:'fab fa-youtube',color:'#ff0000'},
+    linkedin:{icon:'fab fa-linkedin',color:'#0a66c2'},
+    facebook:{icon:'fab fa-facebook',color:'#1877f2'},
+    telegram:{icon:'fab fa-telegram',color:'#2aabee'},
+    tiktok:{icon:'fab fa-tiktok',color:'#111'},
+    github:{icon:'fab fa-github',color:'#fff'},
+    website:{icon:'fas fa-globe',color:'#fff'}
+  };
+  var html = Object.keys(socials).filter(function(k){return socials[k]&&SOC[k];}).map(function(k) {
+    var sc = SOC[k];
+    var url = getSocialUrl(k, socials[k]);
+    return '<div class="soc-ico" onclick="openLink(\''+esc(url)+'\')" title="'+k+'"><i class="'+sc.icon+'" style="color:'+sc.color+'"></i></div>';
+  }).join('');
+  $('socRow').innerHTML = html;
+  if (!html) $('socRow').style.display = 'none';
+}
+function getSocialUrl(k, v) {
+  if (!v) return '#';
+  if (v.startsWith('http')) return v;
+  var m = {whatsapp:'https://wa.me/',instagram:'https://instagram.com/',twitter:'https://x.com/',telegram:'https://t.me/',tiktok:'https://tiktok.com/@'};
+  return (m[k]||'https://')+v.replace('@','');
+}
+
+function renderLinks(d, cardId) {
+  var links = (d.links || []).filter(function(l) {
+    if (!l.visible) return false;
+    if (!l.cardId) return true; // unassigned links show on all
+    return l.cardId === cardId || l.cardId === 'all';
+  });
+  var el = $('linksList');
+  if (links.length === 0) { el.innerHTML = ''; $('linksSection').style.display = 'none'; return; }
+  $('linksSection').style.display = '';
+  var PLT = {
+    whatsapp:{icon:'fab fa-whatsapp',color:'#25d366',bg:'rgba(37,211,102,.12)'},
+    instagram:{icon:'fab fa-instagram',color:'#e1306c',bg:'rgba(225,48,108,.12)'},
+    youtube:{icon:'fab fa-youtube',color:'#ff0000',bg:'rgba(255,0,0,.1)'},
+    twitter:{icon:'fab fa-x-twitter',color:'#111',bg:'rgba(0,0,0,.08)'},
+    linkedin:{icon:'fab fa-linkedin',color:'#0a66c2',bg:'rgba(10,102,194,.12)'},
+    facebook:{icon:'fab fa-facebook',color:'#1877f2',bg:'rgba(24,119,242,.12)'},
+    telegram:{icon:'fab fa-telegram',color:'#2aabee',bg:'rgba(42,171,238,.12)'},
+    upi:{icon:'fas fa-indian-rupee-sign',color:'#6b21a8',bg:'rgba(107,33,168,.1)'},
+    website:{icon:'fas fa-globe',color:'#4338ca',bg:'rgba(67,56,202,.1)'},
+    link:{icon:'fas fa-link',color:'#7c3aed',bg:'rgba(124,58,237,.1)'},
+    payment:{icon:'fas fa-qrcode',color:'#059669',bg:'rgba(5,150,105,.1)'},
+    call:{icon:'fas fa-phone',color:'#16a34a',bg:'rgba(22,163,74,.1)'},
+    email:{icon:'fas fa-envelope',color:'#2563eb',bg:'rgba(37,99,235,.1)'}
+  };
+  el.innerHTML = links.map(function(l) {
+    var plt = PLT[l.icon] || PLT.link;
+    return '<a class="vlink-strip" href="'+esc(l.url||'#')+'" target="_blank" onclick="recLinkClick(\''+esc(l.id||'')+'\')"><div class="vls-icon" style="background:'+plt.bg+'"><i class="'+plt.icon+'" style="color:'+plt.color+'"></i></div><div class="vls-title">'+esc(l.title||l.url||'Link')+'</div><i class="fas fa-chevron-right vls-arrow"></i></a>';
+  }).join('');
+}
+
+function renderCardWidgets(d) {
+  var el = $('cardWidgetScroll');
+  if (!visibleCards.length || !d.cards) { $('cardWidgetSection').style.display = 'none'; return; }
+  $('cardWidgetSection').style.display = '';
+  el.innerHTML = visibleCards.filter(function(id){return d.cards[id];}).map(function(id) {
+    var card = d.cards[id];
+    var th = CARD_THEMES[id] || CARD_THEMES.personal;
+    var fields = (card.fields || []).slice(0, 4);
+    var fieldsHtml = fields.map(function(f) {
+      var ft = FIELD_TYPES[f.key] || {icon:'fas fa-link', color:'#7c3aed', label:f.key};
+      return '<div class="cwi-field"><div class="cwi-field-icon" style="background:'+ft.color+'18;color:'+ft.color+'"><i class="'+ft.icon+'"></i></div><div class="cwi-field-text"><div class="cwi-field-lbl">'+ft.label+'</div><div class="cwi-field-val">'+esc(f.val||'—')+'</div></div></div>';
+    }).join('');
+    var photoBg = card.photo ? 'background-image:url(\''+card.photo+'\');background-size:cover;background-position:center' : '';
+    return '<div class="card-widget" id="cw-'+id+'" onclick="expandCard(\''+id+'\')">'
+      +'<div class="cw-photo '+th.bg+'"><div class="cw-photo-bg" style="'+photoBg+'"></div>'+(card.photo?'':'<div class="cw-initial">'+esc((card.name||id).charAt(0).toUpperCase())+'</div>')
+      +'<div class="cw-photo-overlay"></div>'
+      +'<div class="cw-chip">'+th.chip+'</div>'
+      +'<div class="cw-expand"><i class="fas fa-expand-alt"></i></div></div>'
+      +'<div class="cw-info '+th.info+'">'
+      +'<div class="cwi-name">'+esc(card.name||'Name')+'</div>'
+      +'<div class="cwi-tag">'+esc(card.tagline||'')+'</div>'
+      +'<div class="cwi-div"></div>'
+      +'<div class="cwi-fields">'+fieldsHtml+'</div>'
+      +'</div></div>';
+  }).join('');
+}
+
+// ─── CARD EXPAND ──────────────────────────────────────────────────────────────
+function expandCard(id) {
+  var d = profileData, card = (d.cards||{})[id];
+  if (!card) return;
+  var th = CARD_THEMES[id] || CARD_THEMES.personal;
+  // Photo
+  $('cepPhotoBg').style.backgroundImage = card.photo ? 'url(\''+card.photo+'\')' : '';
+  $('cepPhotoBg').style.backgroundSize = 'cover';
+  $('cepPhoto').className = 'cep-photo ' + th.bg;
+  $('cepInitial').textContent = (card.name||id).charAt(0).toUpperCase();
+  $('cepInitial').style.display = card.photo ? 'none' : '';
+  $('cepChip').textContent = th.chip;
+  $('cepInfo').className = 'cep-info ' + th.info;
+  $('cepName').textContent = card.name || 'Name';
+  $('cepTag').textContent = card.tagline || '';
+  // Fields
+  var fields = card.fields || [];
+  $('cepFields').innerHTML = fields.map(function(f) {
+    var ft = FIELD_TYPES[f.key] || {icon:'fas fa-link', color:'#7c3aed', label:f.key};
+    return '<div class="cep-field"><div class="cep-ficon" style="background:'+ft.color+'18;color:'+ft.color+'"><i class="'+ft.icon+'"></i></div><div class="cep-ftext"><div class="cep-flabel">'+ft.label+'</div><div class="cep-fval">'+esc(f.val||'—')+'</div></div></div>';
+  }).join('');
+  currentCardForConnect = id;
+  $('cardExpandOv').classList.add('open');
+}
+function closeExpand() { $('cardExpandOv').classList.remove('open'); }
+
+// ─── CONNECT SHEET ────────────────────────────────────────────────────────────
+function prepConnectSheet(d, cardId) {
+  var card = (d.cards || {})[cardId] || {};
+  var fields = card.fields || [];
+  var phone = '', email = '';
+  fields.forEach(function(f) {
+    if ((f.key==='phone'||f.key==='whatsapp') && !phone) phone = f.val;
+    if (f.key==='email') email = f.val;
+  });
+  $('csTitle').textContent = 'Connect with ' + (card.name || d.name || USERNAME);
+  $('csSub').textContent = 'Choose how you\'d like to connect';
+  $('csCallNum').textContent = phone || 'Not set';
+  $('csEmail').textContent = email || 'Not set';
+  $('csProfile').textContent = 'myqrid.in/@' + (d.username || USERNAME);
+  $('csWaBtn').onclick = function() { closeConnectSheet(); if(phone)openLink('https://wa.me/'+phone.replace(/\D/g,'')); else showToast('No WhatsApp number'); };
+  $('csBookRow').style.display = (d.bookingUrl||'') ? 'flex' : 'none';
+}
+function openConnectSheet() {
+  if (profileData) prepConnectSheet(profileData, currentCardForConnect || activeCardId || 'personal');
+  $('connectSheetOv').classList.add('open');
+}
+function closeConnectSheet() { $('connectSheetOv').classList.remove('open'); }
+function csDoCall() { var d=profileData,card=(d.cards||{})[currentCardForConnect||activeCardId||'personal'],fields=card?.fields||[],f=fields.find(function(x){return x.key==='phone'||x.key==='whatsapp';}); closeConnectSheet(); if(f&&f.val)openLink('tel:'+f.val.replace(/\D/g,'')); else showToast('No phone number'); }
+function csDoEmail() { var d=profileData,card=(d.cards||{})[currentCardForConnect||activeCardId||'personal'],fields=card?.fields||[],f=fields.find(function(x){return x.key==='email';}); closeConnectSheet(); if(f&&f.val)openLink('mailto:'+f.val); else showToast('No email'); }
+function csDoProfile() { closeConnectSheet(); openLink('https://myqrid.in/u/'+(profileData?.username||USERNAME)); }
+function csDoBooking() { closeConnectSheet(); openLink(profileData?.bookingUrl||''); }
+
+// ─── SAVE CONTACT (VCF) ───────────────────────────────────────────────────────
+function saveContact() {
+  var d = profileData, id = currentCardForConnect || activeCardId || 'personal';
+  var card = (d.cards || {})[id] || {};
+  var fields = card.fields || [];
+  var phone='', email='', website='', company='';
+  fields.forEach(function(f) {
+    if ((f.key==='phone'||f.key==='whatsapp') && !phone) phone = f.val;
+    if (f.key==='email') email = f.val;
+    if (f.key==='website'||f.key==='linkedin') website = website||f.val;
+    if (f.key==='company') company = f.val;
+  });
+  var un = d.username || USERNAME;
+  var vcf = 'BEGIN:VCARD\nVERSION:3.0\n';
+  vcf += 'FN:' + (card.name || d.name || un) + '\n';
+  vcf += 'TITLE:' + (card.tagline || '') + '\n';
+  if (company) vcf += 'ORG:' + company + '\n';
+  if (phone) vcf += 'TEL;TYPE=CELL:' + phone + '\n';
+  if (email) vcf += 'EMAIL:' + email + '\n';
+  vcf += 'URL:https://myqrid.in/u/' + un + '\n';
+  if (website && website !== 'https://myqrid.in/u/'+un) vcf += 'X-SOCIALPROFILE:' + website + '\n';
+  vcf += 'NOTE:myQRID | @' + un + '\n';
+  if (card.photo && card.photo.startsWith('data:image')) {
+    var b64 = card.photo.split(',')[1];
+    var mt = card.photo.split(';')[0].split(':')[1];
+    vcf += 'PHOTO;ENCODING=b;TYPE=' + mt.split('/')[1].toUpperCase() + ':' + b64 + '\n';
+  }
+  vcf += 'END:VCARD';
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([vcf], {type:'text/vcard'}));
+  a.download = ((card.name||d.name||un).replace(/\s/g,'_')) + '.vcf';
+  a.click();
+  closeConnectSheet(); closeExpand();
+  showToast('💾 Saved as Contact ✓');
+  recAnalytic('vcf');
+}
+
+// ─── ANALYTICS ────────────────────────────────────────────────────────────────
+function recLinkClick(lid) {
+  if (!db || !lid) return;
+  try { db.collection('analytics').doc(USERNAME+'_link_'+lid).set({clicks:firebase.firestore.FieldValue.increment(1)},{merge:true}); } catch(e) {}
+}
+function recAnalytic(type) {
+  if (!db) return;
+  try { db.collection('analytics').doc(USERNAME+'_'+type).set({count:firebase.firestore.FieldValue.increment(1)},{merge:true}); } catch(e) {}
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+initFB();
+loadProfile();
+</script>
+</body>
+</html>
