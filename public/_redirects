@@ -1,3 +1,2 @@
 /u/* /viewer.html 200
 /profile/* /profile.html 200
-/:username /profile.html 200
