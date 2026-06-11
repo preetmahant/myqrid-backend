@@ -37,75 +37,8 @@ function getTokenUser(request) {
 
 async function handleProfile(username) {
   const user = USERS.get('u_' + username);
-  if (!user) return Response.json({ success: false, claimed: false, error: 'Not found' }, { status: 404 });
-
-  const profile = {
-    username: user.username,
-    display_name: user.name,
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    mode: 'active',
-    links: user.links || [],
-    bio: user.bio || ''
-  };
-
-  return Response.json({
-    success: true,
-    claimed: true,
-    ...profile,
-    profile
-  });
-}
-
-function getUsernameRoute(path) {
-  const cleanPath = path.replace(/^\/+|\/+$/g, '');
-  if (!cleanPath) return null;
-
-  const parts = cleanPath.split('/');
-  if (parts[0] === 'u' && parts[1] && !parts[2]) return parts[1];
-
-  const reserved = new Set([
-    'admin',
-    'analytics',
-    'api',
-    'assets',
-    'auth',
-    'cards',
-    'check-username',
-    'claim',
-    'css',
-    'dashboard',
-    'drift',
-    'emergency',
-    'forgot',
-    'health',
-    'index',
-    'js',
-    'links',
-    'login',
-    'lost',
-    'manifest.json',
-    'offline',
-    'onboard',
-    'profile',
-    'robots.txt',
-    'settings',
-    'share',
-    'signup',
-    'sounds',
-    'superadmin',
-    'sw.js',
-    'viewer',
-    'web-mvp'
-  ]);
-
-  if (parts.length !== 1) return null;
-  if (reserved.has(parts[0])) return null;
-  if (parts[0].includes('.')) return null;
-  if (!/^[a-z0-9_][a-z0-9_-]{1,31}$/i.test(parts[0])) return null;
-
-  return parts[0];
+  if (!user) return Response.json({ success: false, claimed: false, error: 'Not found' });
+  return Response.json({ success: true, claimed: true, username: user.username, display_name: user.name, phone: user.phone, mode: 'active' });
 }
 
 async function handleDashboard(request) {
@@ -143,7 +76,6 @@ export default {
     else if (path === '/dashboard' && method === 'GET') response = await handleDashboard(request);
     else if (path.startsWith('/check-username/')) response = await handleCheckUsername(path.split('/')[2]);
     else if (path.startsWith('/profile/') && method === 'GET') response = await handleProfile(path.split('/')[2]);
-    else if (method === 'GET' && getUsernameRoute(path)) response = await handleProfile(getUsernameRoute(path));
     else if (path === '/links' && method === 'GET') response = Response.json({ success: true, data: [] });
     else if (path === '/links' && method === 'POST') response = Response.json({ success: true, data: { id: Date.now(), ...await request.json() } });
     else if (path === '/analytics' && method === 'GET') response = Response.json({ success: true, stats: { total: 0, today: 0, week: 0, unique: 0 }, daily: [], devices: [], recent: [] });
