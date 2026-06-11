@@ -65,6 +65,40 @@ app.get('/profile/:username', async (c) => {
   }
 });
 
+
+// API profile route
+app.get('/api/profiles/:username', async (c) => {
+  try {
+    const username = c.req.param('username');
+    const env = c.env;
+    const user = await getDoc(env, 'users', username);
+
+    if (!user) {
+      return c.json({
+        success: false,
+        claimed: false,
+        error: 'Not found'
+      }, 404);
+    }
+
+    return c.json({
+      success: true,
+      claimed: true,
+      username: user.username,
+      display_name: user.name,
+      phone: user.phone,
+      mode: 'active',
+      links: user.links || [],
+      bio: user.bio || ''
+    });
+  } catch (e) {
+    return c.json({
+      success: false,
+      error: e.message
+    }, 500);
+  }
+});
+
 // Dashboard
 app.get('/dashboard', async (c) => {
   try {
