@@ -335,7 +335,7 @@ async function loadProfile() {
   }
   // Fallback: try API
   try {
-    var res = await fetch('/api/profile/' + USERNAME);
+    var res = await fetch('/profile/' + USERNAME);
     if (res.ok) {
       profileData = await res.json();
       renderProfile();
