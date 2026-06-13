@@ -1,1 +1,1 @@
-export default { async fetch() { return new Response('myQRID worker alive'); } };
+export default { async fetch() { return new Response("myQRID worker alive"); } };
