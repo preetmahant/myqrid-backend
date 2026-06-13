@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import { firestoreRequest, getDoc, setDoc, updateDoc, queryDocs, fromFirestore, toFirestore } from './src/utils/firebase.js';
-import adminRouter from './src/routes/admin.js';
+// import { firestoreRequest, getDoc, setDoc, updateDoc, queryDocs, fromFirestore, toFirestore } from './src/utils/firebase.js';
+// import adminRouter from './src/routes/admin.js';
 
 const app = new Hono();
 
@@ -117,7 +117,7 @@ app.get('/dashboard', async (c) => {
 });
 
 // Admin routes
-app.route('/api/admin', adminRouter);
+// app.route('/api/admin', adminRouter);
 
 app.all('*', (c) => c.json({ status: 'ok', message: 'myQRID API' }));
 
