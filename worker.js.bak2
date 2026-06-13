@@ -1,0 +1,124 @@
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+//import { firestoreRequest, getDoc, setDoc, updateDoc, queryDocs, fromFirestore, toFirestore } from './src/utils/firebase.js';
+// import adminRouter from './src/routes/admin.js';
+
+const app = new Hono();
+
+app.use('*', cors({
+  origin: ['https://myqrid.in', 'https://app.myqrid.in', 'http://localhost:3000'],
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization', 'x-admin-password'],
+}));
+
+// Health
+app.get('/health', (c) => c.json({ status: 'ok', project: 'myQRID' }));
+
+// Signup
+app.post('/auth/signup', async (c) => {
+  try {
+    const { name, email, username, password, phone } = await c.req.json();
+    if (!name || !email || !username || !password) {
+      return c.json({ success: false, error: 'Missing fields' }, 400);
+    }
+    const env = c.env;
+    const existing = await getDoc(env, 'users', username);
+    if (existing) return c.json({ success: false, error: 'Username taken' }, 400);
+    const emailCheck = await queryDocs(env, 'users', [{ field: 'email', op: '==', value: email }]);
+    if (emailCheck.length) return c.json({ success: false, error: 'Email already registered' }, 400);
+    const now = new Date().toISOString();
+    const user = { name, email, username, phone: phone || '', plan: 'free', status: 'active', createdAt: now, updatedAt: now };
+    await setDoc(env, 'users', username, user);
+    const token = btoa(JSON.stringify({ username, email, exp: Date.now() + 7 * 24 * 60 * 60 * 1000 }));
+    return c.json({ success: true, token, user: { username, name, email } });
+  } catch (e) {
+    return c.json({ success: false, error: e.message }, 500);
+  }
+});
+
+// Login
+app.post('/auth/login', async (c) => {
+  try {
+    const { email, password } = await c.req.json();
+    if (!email || !password) return c.json({ success: false, error: 'Missing fields' }, 400);
+    const env = c.env;
+    const users = await queryDocs(env, 'users', [{ field: 'email', op: '==', value: email }]);
+    if (!users.length) return c.json({ success: false, error: 'Invalid email or password' }, 401);
+    const user = users[0];
+    const token = btoa(JSON.stringify({ username: user.username, email, exp: Date.now() + 7 * 24 * 60 * 60 * 1000 }));
+    return c.json({ success: true, token, user: { username: user.username, name: user.name, email } });
+  } catch (e) {
+    return c.json({ success: false, error: e.message }, 500);
+  }
+});
+
+// Get profile
+app.get('/profile/:username', async (c) => {
+  try {
+    const username = c.req.param('username');
+    const env = c.env;
+    const user = await getDoc(env, 'users', username);
+    if (!user) return c.json({ success: false, claimed: false, error: 'Not found' }, 404);
+    return c.json({ success: true, claimed: true, username: user.username, display_name: user.name, phone: user.phone, mode: 'active', links: user.links || [], bio: user.bio || '' });
+  } catch (e) {
+    return c.json({ success: false, error: e.message }, 500);
+  }
+});
+
+
+// API profile route
+app.get('/api/profiles/:username', async (c) => {
+  try {
+    const username = c.req.param('username');
+    const env = c.env;
+    const user = await getDoc(env, 'users', username);
+
+    if (!user) {
+      return c.json({
+        success: false,
+        claimed: false,
+        error: 'Not found'
+      }, 404);
+    }
+
+    return c.json({
+      success: true,
+      claimed: true,
+      username: user.username,
+      display_name: user.name,
+      phone: user.phone,
+      mode: 'active',
+      links: user.links || [],
+      bio: user.bio || ''
+    });
+  } catch (e) {
+    return c.json({
+      success: false,
+      error: e.message
+    }, 500);
+  }
+});
+
+// Dashboard
+app.get('/dashboard', async (c) => {
+  try {
+    const auth = c.req.header('Authorization') || '';
+    const token = auth.replace('Bearer ', '');
+    if (!token) return c.json({ success: false, error: 'Unauthorized' }, 401);
+    const payload = JSON.parse(atob(token));
+    if (payload.exp < Date.now()) return c.json({ success: false, error: 'Token expired' }, 401);
+    const env = c.env;
+    const user = await getDoc(env, 'users', payload.username);
+    if (!user) return c.json({ success: false, error: 'User not found' }, 404);
+    return c.json({ success: true, profile: { username: user.username, display_name: user.name, email: user.email, phone: user.phone, plan: user.plan || 'free', score: 100, verified: false }, links: user.links || [], stats: { total: 0, today: 0, week: 0 } });
+  } catch (e) {
+    return c.json({ success: false, error: e.message }, 500);
+  }
+});
+
+// Admin routes
+// app.route('/api/admin', adminRouter);
+
+app.all('*', (c) => c.json({ status: 'ok', message: 'myQRID API' }));
+
+export default app;
